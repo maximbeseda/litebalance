@@ -63,7 +63,7 @@ class TransactionNotifier extends _$TransactionNotifier {
       }
     });
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final loadedHistory = await StorageService.loadHistory(db);
     loadedHistory.sort((a, b) => b.date.compareTo(a.date));
 
@@ -104,7 +104,7 @@ class TransactionNotifier extends _$TransactionNotifier {
   }
 
   Future<void> loadHistory() async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final loadedHistory = await StorageService.loadHistory(db);
     loadedHistory.sort((a, b) => b.date.compareTo(a.date));
 
@@ -176,7 +176,7 @@ class TransactionNotifier extends _$TransactionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final currentBase = ref.read(settingsProvider).baseCurrency;
 
     int baseAmt;
@@ -223,7 +223,7 @@ class TransactionNotifier extends _$TransactionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catNotifier = ref.read(categoryProvider.notifier);
 
     if (source.type == CategoryType.account) {
@@ -274,7 +274,7 @@ class TransactionNotifier extends _$TransactionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateAccountBalance(oldT.fromId, oldT.amount);
     _updateAccountBalance(oldT.toId, -(oldT.targetAmount ?? oldT.amount));
 
@@ -328,7 +328,7 @@ class TransactionNotifier extends _$TransactionNotifier {
   }
 
   Future<void> moveToTrash(Transaction t) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateAccountBalance(t.fromId, t.amount);
     _updateAccountBalance(t.toId, -(t.targetAmount ?? t.amount));
 
@@ -338,7 +338,7 @@ class TransactionNotifier extends _$TransactionNotifier {
   }
 
   Future<void> restoreFromTrash(Transaction t) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateAccountBalance(t.fromId, -t.amount);
     _updateAccountBalance(t.toId, (t.targetAmount ?? t.amount));
 
@@ -348,7 +348,7 @@ class TransactionNotifier extends _$TransactionNotifier {
   }
 
   Future<void> deletePermanently(Transaction t) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     await StorageService.removeTransaction(db, t.id);
     await loadHistory();
   }
@@ -357,7 +357,7 @@ class TransactionNotifier extends _$TransactionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final now = DateTime.now();
     final newHistory = List<Transaction>.from(currentState.history);
 
@@ -402,7 +402,7 @@ class TransactionNotifier extends _$TransactionNotifier {
   }
 
   Future<void> clearAllTransactions() async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateState((s) => s.copyWith(history: [], deletedHistory: []));
     await StorageService.deleteAllTransactions(db);
   }

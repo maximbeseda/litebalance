@@ -6,7 +6,6 @@ export 'subscription_provider.dart';
 export 'transaction_provider.dart';
 export 'category_provider.dart';
 export 'stats_provider.dart';
-export 'database_provider.dart';
 export 'filter_provider.dart';
 export 'home_screen_controller.dart';
 export 'core_providers.dart';

@@ -3,7 +3,6 @@ import 'package:drift/drift.dart' as drift; // 👇 ДОДАНО для drift.Va
 
 import '../database/app_database.dart';
 import '../services/storage_service.dart';
-import 'all_providers.dart';
 
 part 'category_provider.g.dart';
 
@@ -72,7 +71,7 @@ class CategoryNotifier extends _$CategoryNotifier {
   }
 
   Future<void> loadCategories() async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     // Асинхронний запит до БД
     final savedCats = await StorageService.loadCategories(db);
@@ -117,7 +116,7 @@ class CategoryNotifier extends _$CategoryNotifier {
   }
 
   void updateCategoryAmount(String id, int delta) {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final all = state.allCategoriesList;
     final index = all.indexWhere((c) => c.id == id);
     if (index == -1) return;
@@ -146,7 +145,7 @@ class CategoryNotifier extends _$CategoryNotifier {
   }
 
   Future<void> addOrUpdateCategory(Category cat) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     List<Category> targetList;
 
     if (cat.type == CategoryType.income) {
@@ -182,7 +181,7 @@ class CategoryNotifier extends _$CategoryNotifier {
 
   // 1. Перемістити в кошик (Soft Delete)
   Future<void> moveToTrash(Category cat) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     // Ставимо поточну дату як дату видалення. Використовуємо drift.Value
     final deletedCat = cat.copyWith(deletedAt: drift.Value(DateTime.now()));
@@ -194,7 +193,7 @@ class CategoryNotifier extends _$CategoryNotifier {
 
   // 2. Відновити з кошика
   Future<void> restoreFromTrash(Category cat) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     // Скидаємо deletedAt. Для Drift null передається як const drift.Value(null)
     final restoredCat = cat.copyWith(deletedAt: const drift.Value(null));
@@ -205,36 +204,37 @@ class CategoryNotifier extends _$CategoryNotifier {
 
   // 3. Остаточне видалення або Архівація (Твоя геніальна перевірка)
   Future<void> emptyTrashOrArchive(Category cat) async {
-    final db = ref.read(databaseProvider);
+    // 1. Використовуємо уніфікований провайдер
+    final db = ref.read(appDatabaseProvider);
 
-    // Шукаємо, чи є хоча б 1 транзакція, прив'язана до цієї категорії
-    final hasTransactions =
+    // 2. Більш легкий запит для SQLite: шукаємо один запис або null
+    final transaction =
         await (db.select(db.transactions)
               ..where((t) => t.fromId.equals(cat.id) | t.toId.equals(cat.id))
               ..limit(1))
-            .get()
-            .then((list) => list.isNotEmpty);
+            .getSingleOrNull();
 
-    if (hasTransactions) {
-      // 🔴 Є транзакції: Відновлюємо з кошика, але робимо АРХІВНОЮ
+    // Перевіряємо наявність через null-check
+    if (transaction != null) {
+      // 🔴 Є транзакції: Архівуємо (Soft Delete recovery)
       final archivedCat = cat.copyWith(
         deletedAt: const drift.Value(null),
         isArchived: true,
       );
       await StorageService.saveCategory(db, archivedCat);
     } else {
-      // 🟢 Немає транзакцій: Видаляємо фізично НАЗАВЖДИ (Hard Delete)
+      // 🟢 Транзакцій немає: Видаляємо фізично (Hard Delete)
       await (db.delete(db.categories)..where((c) => c.id.equals(cat.id))).go();
     }
 
-    // Оновлюємо UI
+    // 3. Оновлюємо UI
     await loadCategories();
   }
 
   // ==========================================
 
   void reorderCategories(Category dragged, Category target) {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     if (dragged.type != target.type) return;
 
     final List<Category> targetList = List<Category>.from(
@@ -272,7 +272,7 @@ class CategoryNotifier extends _$CategoryNotifier {
     String oldBase,
     String newBase,
   ) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     final newIncomes = state.incomes.map((c) {
       if (c.currency == oldBase) return c.copyWith(currency: newBase);
@@ -296,7 +296,7 @@ class CategoryNotifier extends _$CategoryNotifier {
   }
 
   Future<void> resetAllBalances() async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     final newIncomes = state.incomes.map((c) => c.copyWith(amount: 0)).toList();
     final newAccounts = state.accounts

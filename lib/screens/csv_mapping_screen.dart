@@ -189,7 +189,7 @@ class _CsvMappingScreenState extends ConsumerState<CsvMappingScreen> {
     });
 
     final catNotifier = ref.read(categoryProvider.notifier);
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final currentBase = ref.read(settingsProvider).baseCurrency;
 
     final Map<String, Category> sessionCategories = {};

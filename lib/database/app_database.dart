@@ -196,18 +196,16 @@ class AppDatabase extends _$AppDatabase {
             searchPredicate | amountFormatted.like('%$cleanSearch%');
 
         // 3. Пошук по назві категорії
-        final matchingCategories = selectOnly(categories)
-          ..addColumns([categories.id])
-          ..where(
-            FunctionCallExpression<String>('dart_lower', [
-              categories.name,
-            ]).like('%$queryLower%'),
-          );
-
-        searchPredicate =
-            searchPredicate |
-            t.fromId.isInQuery(matchingCategories) |
-            t.toId.isInQuery(matchingCategories);
+        final categoryExists = existsQuery(
+          select(categories)..where(
+            (c) =>
+                FunctionCallExpression<String>('dart_lower', [
+                  c.name,
+                ]).like('%$queryLower%') &
+                (c.id.equalsExp(t.fromId) | c.id.equalsExp(t.toId)),
+          ),
+        );
+        searchPredicate = searchPredicate | categoryExists;
 
         // ==============================================================
         // 4. Пошук по даті (Комбінований підхід: Dart Regex + SQLite)

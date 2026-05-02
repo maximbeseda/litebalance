@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../database/app_database.dart';
 import '../../screens/stats/stats_screen.dart';
 import '../../screens/subscriptions_screen.dart';
 import '../../screens/trash_screen.dart';
@@ -394,7 +395,7 @@ class _BackupBottomSheetState extends ConsumerState<_BackupBottomSheet> {
           _showSnackBar(rootContext, 'export_success'.tr(), true);
         }
       } else if (mode == _ExpandedMode.import) {
-        final db = ref.read(databaseProvider);
+        final db = ref.read(appDatabaseProvider);
         await BackupService.importData(pwd, db);
 
         if (!mounted) return;
