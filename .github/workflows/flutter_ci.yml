@@ -1,0 +1,38 @@
+name: Flutter CI
+
+# Коли запускати цей конвеєр?
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+# Що саме робити?
+jobs:
+  build_and_test:
+    name: Lint and Test
+    runs-on: ubuntu-latest # Використовуємо останню версію Linux для швидкості
+
+    steps:
+      # 1. Завантажити код твого проєкту на віртуальний сервер
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Встановити Flutter (використовуємо стабільну гілку)
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true # Кешування прискорить наступні запуски!
+
+      # 3. Завантажити залежності (пакети)
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Перевірити код на помилки (Linter)
+      - name: Analyze code
+        run: flutter analyze
+
+      # 5. Запустити всі твої зелені тести
+      - name: Run unit and widget tests
+        run: flutter test
