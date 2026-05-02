@@ -40,6 +40,8 @@ class MonthlyPieView extends ConsumerStatefulWidget {
 
 class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
   int _touchedPieIndex = -1;
+  bool _isBottomSheetOpen = false;
+  double _dragStartX = 0.0;
 
   List<Category> _getSortedActiveCategories() {
     final allCategories = widget.catState.allCategoriesList;
@@ -68,6 +70,8 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
   }
 
   void _showCategoryTransactions(Category category) async {
+    _isBottomSheetOpen = true;
+
     await showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -82,6 +86,8 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
       },
     );
 
+    _isBottomSheetOpen = false;
+
     if (mounted) {
       setState(() {
         _touchedPieIndex = -1;
@@ -91,6 +97,7 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final activeData = _getSortedActiveCategories();
     final int activeTotal = activeData.fold(
       0,
@@ -99,7 +106,12 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
+      onHorizontalDragStart: (details) {
+        _dragStartX = details.globalPosition.dx;
+      },
       onHorizontalDragEnd: (details) {
+        if (_dragStartX < 50.0 || _dragStartX > screenWidth - 50.0) return;
+
         const int sensitivity = 300;
         if (details.primaryVelocity != null) {
           if (details.primaryVelocity! < -sensitivity) {
@@ -179,26 +191,32 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
                           duration: const Duration(milliseconds: 150),
                           PieChartData(
                             pieTouchData: PieTouchData(
-                              touchCallback:
-                                  (FlTouchEvent event, pieTouchResponse) {
-                                    setState(() {
-                                      if (!event.isInterestedForInteractions ||
-                                          pieTouchResponse == null ||
-                                          pieTouchResponse.touchedSection ==
-                                              null) {
-                                        return;
-                                      }
-                                      _touchedPieIndex = pieTouchResponse
-                                          .touchedSection!
-                                          .touchedSectionIndex;
-                                    });
+                              touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                                // 👈 1. Якщо вікно відкрито — ігноруємо всі дотики до графіка
+                                if (_isBottomSheetOpen) return;
 
-                                    if (event is FlTapUpEvent &&
-                                        _touchedPieIndex != -1) {
-                                      final cat = activeData[_touchedPieIndex];
-                                      _showCategoryTransactions(cat);
-                                    }
-                                  },
+                                // 2. Ловимо клік і відкриваємо історію
+                                if (event is FlTapUpEvent &&
+                                    _touchedPieIndex != -1) {
+                                  final cat = activeData[_touchedPieIndex];
+                                  _showCategoryTransactions(cat);
+                                  return; // 👈 ВАЖЛИВО: виходимо, щоб не скинути індекс нижче
+                                }
+
+                                // 3. Звичайна поведінка при свайпі
+                                setState(() {
+                                  if (!event.isInterestedForInteractions ||
+                                      pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection == null) {
+                                    _touchedPieIndex = -1;
+                                    return;
+                                  }
+
+                                  _touchedPieIndex = pieTouchResponse
+                                      .touchedSection!
+                                      .touchedSectionIndex;
+                                });
+                              },
                             ),
                             sectionsSpace: 2,
                             centerSpaceRadius: 38,

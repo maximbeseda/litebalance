@@ -47,7 +47,6 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 150) {
       final filterState = ref.read(filterProvider);
-      if (filterState.searchQuery.isNotEmpty) return;
 
       if (filterState.hasMore && !_isFetchingMore) {
         _isFetchingMore = true;
@@ -232,7 +231,9 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
 
     // Розрахунок сум
     final int mainAmount = isOut ? t.amount : (t.targetAmount ?? t.amount);
-    final String mainCurrency = isOut ? t.currency : (t.targetCurrency ?? t.currency);
+    final String mainCurrency = isOut
+        ? t.currency
+        : (t.targetCurrency ?? t.currency);
     final int secondaryAmount = isOut ? (t.targetAmount ?? t.amount) : t.amount;
     final String secondaryCurrency = isOut
         ? (t.targetCurrency ?? t.currency)
@@ -242,7 +243,9 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
         mainCurrency != secondaryCurrency && t.targetCurrency != null;
 
     final String mainSymbol = AppCurrency.fromCode(mainCurrency).symbol;
-    final String secondarySymbol = AppCurrency.fromCode(secondaryCurrency).symbol;
+    final String secondarySymbol = AppCurrency.fromCode(
+      secondaryCurrency,
+    ).symbol;
 
     // Колір та префікс
     String prefix = '';
