@@ -1,18 +1,18 @@
-## 📝 Опис змін
-<!-- Коротко опиши, що саме робить цей PR. Яку проблему він вирішує? -->
+## 📝 Description of Changes
+<!-- Briefly describe what this PR does. What problem does it solve? -->
 
-## 🛠 Тип змін
-<!-- Залиш тільки те, що підходить -->
-- [ ] 🐛 Bugfix (виправлення багу)
-- [ ] ✨ Feature (новий функціонал)
-- [ ] ♻️ Refactoring (рефакторинг коду)
-- [ ] 🧪 Tests (додавання або оновлення тестів)
+## 🛠 Type of Changes
+<!-- Keep only what applies -->
+- [ ] 🐛 Bugfix
+- [ ] ✨ Feature
+- [ ] ♻️ Refactoring
+- [ ] 🧪 Tests (adding or updating tests)
 
-## ✅ Чек-лист розробника:
-- [ ] Мій код відповідає стандартам проєкту (Clean Code)
-- [ ] Я додав/оновив тести для свого коду
-- [ ] Всі тести проходять успішно локально
-- [ ] Немає нових попереджень від лінтера (Warnings)
+## ✅ Developer Checklist:
+- [ ] My code follows the project's standards (Clean Code)
+- [ ] I have added/updated tests for my code
+- [ ] All tests pass successfully locally
+- [ ] There are no new linter warnings
 
-## 📸 Скріншоти / Відео (якщо змінено UI)
-<!-- Додай сюди скріншоти екранів до і після, якщо робив візуальні зміни -->
+## 📸 Screenshots / Video (if UI was changed)
+<!-- Add before and after screenshots here if you made visual changes -->
