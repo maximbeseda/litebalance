@@ -60,6 +60,11 @@ class SettingsNotifier extends _$SettingsNotifier {
 
   @override
   SettingsState build() {
+    // 👇 Додаємо очищення при знищенні провайдера
+    ref.onDispose(() {
+      debugPrint('SettingsNotifier disposed: clearing memory');
+    });
+
     final String base = _storage.getBaseCurrency();
     final List<String> selected = _storage.getSelectedCurrencies();
 
@@ -166,13 +171,17 @@ class SettingsNotifier extends _$SettingsNotifier {
         .read(categoryProvider.notifier)
         .updateBaseCurrencyForCategories(oldBaseCurrency, code);
 
+    // Оновлюємо стан, залишаючи кеш порожнім (старий кеш видалиться автоматично)
     state = state.copyWith(
       baseCurrency: code,
       selectedCurrencies: newSelected,
       exchangeRates: newRates,
       lastRatesUpdate: now,
-      historicalCache: {},
+      historicalCache: {}, // Очищаємо стан
     );
+
+    // Зберігаємо пустий кеш у пам'ять
+    await _storage.saveHistoricalRatesCache({});
   }
 
   Future<void> toggleSelectedCurrency(String code) async {

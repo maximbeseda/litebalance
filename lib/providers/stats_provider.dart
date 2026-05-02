@@ -12,11 +12,17 @@ class Stats extends _$Stats {
 
   @override
   void build() {
-    // 👇 Отримуємо стан з AsyncValue
+    // 👇 Очищаємо кеш, коли провайдер знищується (наприклад, при Logout або Reset)
+    ref.onDispose(() {
+      _cachedTrends = null;
+      _lastHistoryHash = 0;
+    });
+
+    // Отримуємо стан з AsyncValue
     final txAsync = ref.watch(transactionProvider);
     ref.watch(categoryProvider);
 
-    // Беремо історію, якщо вона завантажена, інакше пустий список
+    // Беремо історію, якщо вона завантажена
     final history = txAsync.value?.history ?? [];
 
     final int currentHash = Object.hashAll(history);
