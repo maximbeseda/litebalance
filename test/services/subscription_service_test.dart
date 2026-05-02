@@ -41,9 +41,11 @@ void main() {
     );
 
     test('shiftSubscriptionDate наздоганяє пропущені періоди', () async {
-      // Підписка була 1 січня 2026, а сьогодні вже кінець квітня 2026
+      final now = DateTime.now();
+
+      // Беремо гарантовано стару дату
       final overdueSub = baseSub.copyWith(
-        nextPaymentDate: DateTime(2026, 1, 1),
+        nextPaymentDate: DateTime(2020, 1, 1),
         periodicity: 'monthly',
       );
 
@@ -52,10 +54,24 @@ void main() {
       final subs = await StorageService.getSubscriptions(db);
       final nextDate = subs.first.nextPaymentDate;
 
-      // Дата має бути в майбутньому відносно "сьогодні" (25.04.2026)
-      // Отже, наступна оплата має бути 01.05.2026
-      expect(nextDate.isAfter(DateTime.now()), true);
-      expect(nextDate, DateTime(2026, 5, 1));
+      // 1. Перевіряємо, що дата дійсно в майбутньому
+      expect(nextDate.isAfter(now), true);
+
+      // 2. Вираховуємо правильну наступну дату динамічно.
+      // Оскільки підписка була на 1-ше число, а 'сьогодні' точно дорівнює
+      // або більше 1-го числа поточного місяця, наступна оплата має бути
+      // 1-го числа НАСТУПНОГО місяця.
+      int expectedMonth = now.month + 1;
+      int expectedYear = now.year;
+
+      // Обробка переходу на новий рік (якщо зараз грудень)
+      if (expectedMonth > 12) {
+        expectedMonth = 1;
+        expectedYear++;
+      }
+
+      // Перевіряємо, чи логіка збігається з реальним календарем
+      expect(nextDate, DateTime(expectedYear, expectedMonth, 1));
     });
 
     test('Логіка щотижневої підписки (weekly) додає рівно 7 днів', () async {
