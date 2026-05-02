@@ -164,7 +164,7 @@ class FilterNotifier extends _$FilterNotifier {
       );
     }
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
 
     // 1. ГОТУЄМО СУВОРІ ФІЛЬТРИ ДЛЯ SQL

@@ -40,6 +40,8 @@ class MonthlyPieView extends ConsumerStatefulWidget {
 
 class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
   int _touchedPieIndex = -1;
+  bool _isBottomSheetOpen = false;
+  double _dragStartX = 0.0;
 
   List<Category> _getSortedActiveCategories() {
     final allCategories = widget.catState.allCategoriesList;
@@ -68,6 +70,8 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
   }
 
   void _showCategoryTransactions(Category category) async {
+    _isBottomSheetOpen = true;
+
     await showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -82,6 +86,8 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
       },
     );
 
+    _isBottomSheetOpen = false;
+
     if (mounted) {
       setState(() {
         _touchedPieIndex = -1;
@@ -91,6 +97,7 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final activeData = _getSortedActiveCategories();
     final int activeTotal = activeData.fold(
       0,
@@ -99,7 +106,12 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
+      onHorizontalDragStart: (details) {
+        _dragStartX = details.globalPosition.dx;
+      },
       onHorizontalDragEnd: (details) {
+        if (_dragStartX < 50.0 || _dragStartX > screenWidth - 50.0) return;
+
         const int sensitivity = 300;
         if (details.primaryVelocity != null) {
           if (details.primaryVelocity! < -sensitivity) {
@@ -114,7 +126,8 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
         }
       },
       child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 400),
+        // 👇 Зменшили тривалість, щоб уникнути накопичення контролерів при швидкому свайпі
+        duration: const Duration(milliseconds: 250),
         switchInCurve: Curves.easeOutCubic,
         switchOutCurve: Curves.easeInCubic,
         transitionBuilder: (Widget child, Animation<double> animation) {
@@ -124,25 +137,21 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
           final outTo = widget.animatingForward
               ? const Offset(-1.0, 0.0)
               : const Offset(1.0, 0.0);
-          if (child.key == ValueKey(widget.statsMonth.toIso8601String())) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: inFrom,
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          } else {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: outTo,
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          }
+
+          // Оптимізація: використовуємо ключі для визначення напрямку
+          final isEntering =
+              child.key == ValueKey(widget.statsMonth.toIso8601String());
+
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: isEntering ? inFrom : outTo,
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          );
         },
         child: Container(
+          // 👇 Цей ключ критично важливий для роботи AnimatedSwitcher
           key: ValueKey(widget.statsMonth.toIso8601String()),
           width: double.infinity,
           margin: const EdgeInsets.fromLTRB(24, 4, 24, 16),
@@ -175,58 +184,69 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
                   children: [
                     Expanded(
                       flex: 5,
-                      child: PieChart(
-                        PieChartData(
-                          pieTouchData: PieTouchData(
-                            touchCallback:
-                                (FlTouchEvent event, pieTouchResponse) {
-                                  setState(() {
-                                    if (!event.isInterestedForInteractions ||
-                                        pieTouchResponse == null ||
-                                        pieTouchResponse.touchedSection ==
-                                            null) {
-                                      return;
-                                    }
-                                    _touchedPieIndex = pieTouchResponse
-                                        .touchedSection!
-                                        .touchedSectionIndex;
-                                  });
+                      // 👇 Додано RepaintBoundary. Графік малюється окремо від списку. Це дуже економить пам'ять!
+                      child: RepaintBoundary(
+                        child: PieChart(
+                          // 👇 Duration оптимізує внутрішні анімації fl_chart
+                          duration: const Duration(milliseconds: 150),
+                          PieChartData(
+                            pieTouchData: PieTouchData(
+                              touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                                // 👈 1. Якщо вікно відкрито — ігноруємо всі дотики до графіка
+                                if (_isBottomSheetOpen) return;
 
-                                  if (event is FlTapUpEvent &&
-                                      _touchedPieIndex != -1) {
-                                    final cat = activeData[_touchedPieIndex];
-                                    _showCategoryTransactions(cat);
+                                // 2. Ловимо клік і відкриваємо історію
+                                if (event is FlTapUpEvent &&
+                                    _touchedPieIndex != -1) {
+                                  final cat = activeData[_touchedPieIndex];
+                                  _showCategoryTransactions(cat);
+                                  return; // 👈 ВАЖЛИВО: виходимо, щоб не скинути індекс нижче
+                                }
+
+                                // 3. Звичайна поведінка при свайпі
+                                setState(() {
+                                  if (!event.isInterestedForInteractions ||
+                                      pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection == null) {
+                                    _touchedPieIndex = -1;
+                                    return;
                                   }
-                                },
+
+                                  _touchedPieIndex = pieTouchResponse
+                                      .touchedSection!
+                                      .touchedSectionIndex;
+                                });
+                              },
+                            ),
+                            sectionsSpace: 2,
+                            centerSpaceRadius: 38,
+                            sections: activeData.asMap().entries.map((entry) {
+                              final index = entry.key;
+                              final cat = entry.value;
+
+                              final isTouched = index == _touchedPieIndex;
+                              final value = cat.amount.abs() / 100.0;
+                              final percentage =
+                                  (value / (activeTotal / 100.0)) * 100;
+
+                              final radius = isTouched ? 48.0 : 42.0;
+
+                              return PieChartSectionData(
+                                color: widget.getUniqueColor(cat.id),
+                                value: value,
+                                title: percentage >= 5.0
+                                    ? '${percentage.toStringAsFixed(0)}%'
+                                    : '',
+                                radius: radius,
+                                titlePositionPercentageOffset: 0.5,
+                                titleStyle: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                ),
+                              );
+                            }).toList(),
                           ),
-                          sectionsSpace: 2,
-                          centerSpaceRadius: 38,
-                          sections: activeData.asMap().entries.map((entry) {
-                            final index = entry.key;
-                            final cat = entry.value;
-
-                            final isTouched = index == _touchedPieIndex;
-                            final value = cat.amount.abs() / 100.0;
-                            final percentage =
-                                (value / (activeTotal / 100.0)) * 100;
-
-                            final radius = isTouched ? 48.0 : 42.0;
-
-                            return PieChartSectionData(
-                              color: widget.getUniqueColor(cat.id),
-                              value: value,
-                              title: percentage >= 5.0
-                                  ? '${percentage.toStringAsFixed(0)}%'
-                                  : '',
-                              radius: radius,
-                              titlePositionPercentageOffset: 0.5,
-                              titleStyle: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
-                              ),
-                            );
-                          }).toList(),
                         ),
                       ),
                     ),
@@ -234,6 +254,7 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
                     Expanded(
                       flex: 7,
                       child: ListView.builder(
+                        // 👇 Додаємо ключі до елементів списку для оптимізації
                         itemCount: activeData.length,
                         itemBuilder: (context, index) {
                           final cat = activeData[index];
@@ -243,13 +264,16 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
                           final isTouched = index == _touchedPieIndex;
 
                           return InkWell(
+                            // 👇 Ключ допомагає Flutter не перестворювати віджети списку
+                            key: ValueKey(cat.id),
                             onTap: () {
                               setState(() => _touchedPieIndex = index);
                               _showCategoryTransactions(cat);
                             },
                             borderRadius: BorderRadius.circular(12),
                             child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
+                              // 👇 Зменшено час анімації підсвітки
+                              duration: const Duration(milliseconds: 150),
                               padding: const EdgeInsets.symmetric(
                                 vertical: 8,
                                 horizontal: 8,

@@ -62,7 +62,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
 
   @override
   Future<SubscriptionState> build() async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
     // 👇 Оновлено: дістаємо ігноровані через екземпляр
@@ -102,7 +102,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> loadSubscriptions() async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
     // 👇 Оновлено: дістаємо ігноровані через екземпляр
@@ -156,7 +156,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> addSubscription(Subscription sub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateState(
       (s) => s.copyWith(
         subscriptions: List<Subscription>.from(s.subscriptions)..add(sub),
@@ -169,7 +169,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> updateSubscription(Subscription updatedSub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateState((s) {
       final newSubs = List<Subscription>.from(s.subscriptions);
       final int index = newSubs.indexWhere((item) => item.id == updatedSub.id);
@@ -185,21 +185,21 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> moveToTrash(Subscription sub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final deletedSub = sub.copyWith(deletedAt: drift.Value(DateTime.now()));
     await StorageService.saveSubscription(db, deletedSub);
     await loadSubscriptions();
   }
 
   Future<void> restoreFromTrash(Subscription sub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final restoredSub = sub.copyWith(deletedAt: const drift.Value(null));
     await StorageService.saveSubscription(db, restoredSub);
     await loadSubscriptions();
   }
 
   Future<void> deletePermanently(String id) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     await StorageService.deleteSubscription(db, id);
     await loadSubscriptions();
   }
@@ -211,7 +211,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     if (state is! AsyncData) return (false, 'loading'.tr());
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
     final txNotifier = ref.read(transactionProvider.notifier);
     final settingsState = ref.read(settingsProvider);
@@ -311,7 +311,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
     final txNotifier = ref.read(transactionProvider.notifier);
     final settingsState = ref.read(settingsProvider);
@@ -448,7 +448,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
       ),
     );
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     await SubscriptionService.advanceOnePeriod(db, sub);
     await loadSubscriptions();
   }
@@ -465,7 +465,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     for (var sub in [
       ...currentState.subscriptions,

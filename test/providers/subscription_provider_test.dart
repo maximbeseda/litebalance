@@ -92,7 +92,7 @@ void main() {
 
     final container = ProviderContainer(
       overrides: [
-        databaseProvider.overrideWithValue(db),
+        appDatabaseProvider.overrideWithValue(db),
         sharedPreferencesProvider.overrideWithValue(prefs),
         transactionProvider.overrideWith(() => SpyTransactionNotifier()),
         categoryProvider.overrideWith(() => TestCategoryNotifier()),

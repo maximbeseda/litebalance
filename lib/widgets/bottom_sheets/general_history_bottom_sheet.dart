@@ -57,8 +57,7 @@ class _GeneralHistoryBottomSheetState
         _scrollController.position.maxScrollExtent - 150) {
       final filterState = ref.read(filterProvider);
 
-      if (filterState.searchQuery.isNotEmpty) return;
-
+      // Видалили блокування по searchQuery. Пагінація працюватиме завжди!
       if (filterState.hasMore && !_isFetchingMore) {
         _isFetchingMore = true;
         await ref.read(filterProvider.notifier).loadNextPage();
@@ -196,7 +195,8 @@ class _GeneralHistoryBottomSheetState
                       final String fromName = fromCat?.name ?? trUnknown;
                       final String toName = toCat?.name ?? trUnknown;
 
-                      final bool isIncome = fromCat?.type == CategoryType.income;
+                      final bool isIncome =
+                          fromCat?.type == CategoryType.income;
                       final bool isTransfer =
                           fromCat?.type == CategoryType.account &&
                           toCat?.type == CategoryType.account;
@@ -220,7 +220,8 @@ class _GeneralHistoryBottomSheetState
 
                       // Додатковою є цільова сума (targetAmount / targetCurrency)
                       final int secondaryAmount = t.targetAmount ?? t.amount;
-                      final String secondaryCurrency = t.targetCurrency ?? t.currency;
+                      final String secondaryCurrency =
+                          t.targetCurrency ?? t.currency;
 
                       final bool isMultiCurrency =
                           mainCurrency != secondaryCurrency &&
