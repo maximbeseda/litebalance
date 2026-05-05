@@ -5,12 +5,16 @@ import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sig
 import 'package:http/http.dart' as http;
 
 class GoogleAuthService {
-  // 👇 Web Client ID з Google Cloud Console
   static const String _serverClientId =
       '711001679852-cmf3msj3a8re2c9cq4pefvbntr8vcomp.apps.googleusercontent.com';
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
+  final GoogleSignIn _googleSignIn;
   final List<String> _scopes = [drive.DriveApi.driveAppdataScope];
+
+  // 👇 ДОДАНО: Конструктор, який дозволяє передати свій екземпляр GoogleSignIn.
+  // Якщо нічого не передано, використовується стандартний GoogleSignIn.instance
+  GoogleAuthService({GoogleSignIn? googleSignIn})
+    : _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
 
   Future<void> init() async {
     await _googleSignIn.initialize(serverClientId: _serverClientId);
