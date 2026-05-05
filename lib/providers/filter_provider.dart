@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../database/app_database.dart';
 import 'all_providers.dart';
 
 part 'filter_provider.g.dart';

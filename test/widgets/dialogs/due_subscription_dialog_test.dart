@@ -7,8 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:coin_flow/widgets/dialogs/due_subscription_dialog.dart';
 import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/database/app_database.dart';
-import '../../helpers/test_wrapper.dart'; // ВАЖЛИВО: Використовуємо ваш перевірений враппер
+import '../../helpers/test_wrapper.dart';
 
 // --- МОКИ ТА ФЕЙКИ ---
 

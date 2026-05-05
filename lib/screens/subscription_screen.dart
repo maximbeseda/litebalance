@@ -9,7 +9,6 @@ import 'package:uuid/uuid.dart';
 
 import '../providers/all_providers.dart';
 
-import '../database/app_database.dart';
 import '../models/app_currency.dart';
 import '../utils/app_constants.dart';
 import '../utils/date_formatter.dart';

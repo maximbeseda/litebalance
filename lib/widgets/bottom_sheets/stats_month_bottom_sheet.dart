@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
 import '../../providers/all_providers.dart';
 import '../../theme/app_colors_extension.dart';
@@ -349,7 +348,8 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
                             final int mainAmount = tx.amount;
                             final String mainCurrency = tx.currency;
 
-                            final int secondaryAmount = tx.targetAmount ?? tx.amount;
+                            final int secondaryAmount =
+                                tx.targetAmount ?? tx.amount;
                             final String secondaryCurrency =
                                 tx.targetCurrency ?? tx.currency;
 
@@ -361,12 +361,13 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
                               mainCurrency,
                               () => AppCurrency.fromCode(mainCurrency).symbol,
                             );
-                            final String secondarySymbol = currencyCache.putIfAbsent(
-                              secondaryCurrency,
-                              () => AppCurrency.fromCode(
-                                secondaryCurrency,
-                              ).symbol,
-                            );
+                            final String secondarySymbol = currencyCache
+                                .putIfAbsent(
+                                  secondaryCurrency,
+                                  () => AppCurrency.fromCode(
+                                    secondaryCurrency,
+                                  ).symbol,
+                                );
 
                             final String prefix = isIncome
                                 ? '+'

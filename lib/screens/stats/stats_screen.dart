@@ -7,7 +7,6 @@ import '../../models/app_currency.dart';
 import '../../utils/currency_formatter.dart';
 import '../../utils/date_formatter.dart';
 import '../../widgets/dialogs/month_picker_dialog.dart';
-import '../../database/app_database.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../widgets/common/animated_dots.dart';
 import '../../widgets/common/pulsing_icon.dart';

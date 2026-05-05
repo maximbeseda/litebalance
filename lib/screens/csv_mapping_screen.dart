@@ -6,7 +6,6 @@ import 'dart:ui';
 import '../theme/app_colors_extension.dart';
 import '../theme/category_defaults.dart';
 import '../providers/all_providers.dart';
-import '../database/app_database.dart';
 import '../services/storage_service.dart';
 import '../utils/import_recognizer.dart';
 

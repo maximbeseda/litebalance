@@ -4,7 +4,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../providers/all_providers.dart';
-import '../../../database/app_database.dart';
 import '../../../theme/app_colors_extension.dart';
 import '../../../utils/currency_formatter.dart';
 import '../../../widgets/common/animated_dots.dart';

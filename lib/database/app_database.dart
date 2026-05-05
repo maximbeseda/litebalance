@@ -322,6 +322,16 @@ class AppDatabase extends _$AppDatabase {
 
     return query.get();
   }
+
+  Future<void> forceCheckpoint() async {
+    // Ця команда змушує SQLite записати всі WAL-логи в основний файл бази
+    await customStatement('PRAGMA wal_checkpoint(FULL);');
+  }
+
+  Future<void> closeConnection() async {
+    await close();
+    _instance = null;
+  }
 }
 
 // --- ПОКРАЩЕНЕ ПІДКЛЮЧЕННЯ (WAL + SETUP) ---

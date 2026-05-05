@@ -58,13 +58,9 @@ class BackupService {
 
       await SharePlus.instance.share(params);
 
-      try {
-        if (await file.exists()) {
-          await file.delete();
-          debugPrint('✅ Тимчасовий файл бекапу успішно видалено');
-        }
-      } catch (e) {
-        debugPrint('❌ Не вдалося видалити тимчасовий файл бекапу: $e');
+      if (await file.exists()) {
+        await file.delete();
+        debugPrint('✅ Тимчасовий файл бекапу успішно видалено');
       }
     } catch (e) {
       debugPrint('❌ Помилка експорту: $e');
@@ -72,24 +68,34 @@ class BackupService {
     }
   }
 
-  static Future<void> importData(String password, AppDatabase db) async {
+  // 👇 НОВИЙ МЕТОД: Крок 1 — Вибір файлу
+  static Future<File?> pickBackupFile() async {
     try {
       debugPrint('📂 Відкриття вибору файлу...');
       final result = await FilePicker.platform.pickFiles(type: FileType.any);
 
       if (result == null || result.files.isEmpty) {
-        debugPrint('ℹ️ Імпорт скасовано користувачем');
-        return;
+        debugPrint('ℹ️ Вибір файлу скасовано');
+        return null;
       }
 
       final path = result.files.single.path;
-      if (path == null) {
-        throw Exception('file_path_error'.tr());
-      }
+      return path != null ? File(path) : null;
+    } catch (e) {
+      debugPrint('❌ Помилка при виборі файлу: $e');
+      return null;
+    }
+  }
 
-      final file = File(path);
+  // 👇 НОВИЙ МЕТОД: Крок 2 — Імпорт з уже обраного файлу
+  static Future<void> importDataFromFile(
+    File file,
+    String password,
+    AppDatabase db,
+  ) async {
+    try {
       final String fileContent = await file.readAsString();
-      final fileName = result.files.single.name.toLowerCase();
+      final String fileName = file.path.toLowerCase();
       String jsonString;
 
       if (fileName.endsWith('.cfbak')) {
@@ -109,92 +115,70 @@ class BackupService {
             jsonString = encrypter.decrypt64(trimmedContent, iv: legacyIv);
           }
         } catch (e) {
-          debugPrint('❌ Помилка пароля або формату: $e');
           throw Exception('wrong_password_or_corrupted'.tr());
         }
       } else if (fileName.endsWith('.json')) {
-        debugPrint('📄 Читання файлу .json...');
         jsonString = fileContent;
       } else {
         throw Exception('invalid_backup_format'.tr());
       }
 
-      final data = jsonDecode(jsonString);
-      if (data is! Map<String, dynamic>) {
+      final dynamic decoded = jsonDecode(jsonString);
+      if (decoded is! Map<String, dynamic>) {
         throw Exception('corrupted_backup'.tr());
       }
 
-      if (!data.containsKey('categories') ||
-          !data.containsKey('transactions')) {
-        throw Exception('corrupted_backup'.tr());
-      }
+      debugPrint('🛠 Мапінг об\'єктів...');
 
-      debugPrint('🛠 Початок мапінгу об\'єктів...');
+      final List<Category> importedCategories =
+          (decoded['categories'] as List? ?? [])
+              .map(
+                (e) => Category.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList();
 
-      // Мапінг категорій
-      final rawCategories = data['categories'] as List<dynamic>;
-      final List<Category> importedCategories = rawCategories.map((e) {
-        try {
-          return Category.fromJson(Map<String, dynamic>.from(e as Map));
-        } catch (err) {
-          debugPrint('❌ Помилка в категорії: $err Data: $e'); // ВИПРАВЛЕНО
-          rethrow;
-        }
-      }).toList();
+      final List<Transaction> importedTransactions =
+          (decoded['transactions'] as List? ?? [])
+              .map(
+                (e) =>
+                    Transaction.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList();
 
-      // Мапінг транзакцій
-      final rawTransactions = data['transactions'] as List<dynamic>;
-      final List<Transaction> importedTransactions = rawTransactions.map((e) {
-        try {
-          return Transaction.fromJson(Map<String, dynamic>.from(e as Map));
-        } catch (err) {
-          debugPrint('❌ Помилка в транзакції: $err Data: $e'); // ВИПРАВЛЕНО
-          rethrow;
-        }
-      }).toList();
-
-      // Мапінг підписок
-      List<Subscription> importedSubscriptions = [];
-      if (data.containsKey('subscriptions')) {
-        final rawSubs = data['subscriptions'] as List<dynamic>;
-        importedSubscriptions = rawSubs.map((e) {
-          try {
-            return Subscription.fromJson(Map<String, dynamic>.from(e as Map));
-          } catch (err) {
-            debugPrint('❌ Помилка в підписці: $err Data: $e'); // ВИПРАВЛЕНО
-            rethrow;
-          }
-        }).toList();
-      }
+      final List<Subscription> importedSubscriptions =
+          (decoded['subscriptions'] as List? ?? [])
+              .map(
+                (e) =>
+                    Subscription.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList();
 
       debugPrint('💾 Запис у базу даних...');
       await db.transaction(() async {
         await StorageService.wipeEntireDatabase(db);
         await StorageService.saveCategories(db, importedCategories);
         await StorageService.saveHistory(db, importedTransactions);
-        for (var sub in importedSubscriptions) {
+        for (final sub in importedSubscriptions) {
           await StorageService.saveSubscription(db, sub);
         }
       });
 
-      debugPrint('✅ Імпорт завершено успішно');
+      debugPrint('✅ Імпорт завершено');
     } catch (e) {
-      debugPrint('❌ Критична помилка імпорту: $e');
-
-      // Якщо це помилка Null Check, ми тепер побачимо в консолі вище,
-      // який саме об'єкт її викликав завдяки новим debugPrint у map()
-
-      if (e is Exception && e.toString().contains('Exception:')) {
-        rethrow;
-      }
+      debugPrint('❌ Помилка імпорту: $e');
+      if (e.toString().contains('Exception:')) rethrow;
       throw Exception('import_error'.tr());
     } finally {
-      try {
-        await FilePicker.platform.clearTemporaryFiles();
-        debugPrint('🧹 Тимчасові файли очищено');
-      } catch (e) {
-        debugPrint('⚠️ Не вдалося очистити кеш FilePicker: $e');
-      }
+      await FilePicker.platform.clearTemporaryFiles();
+    }
+  }
+
+  // Залишаємо старий метод для зворотної сумісності (якщо десь використовується)
+  // або можеш його видалити, якщо перейшов на нову логіку всюди
+  static Future<void> importData(String password, AppDatabase db) async {
+    final file = await pickBackupFile();
+    if (file != null) {
+      await importDataFromFile(file, password, db);
     }
   }
 
@@ -205,14 +189,11 @@ class BackupService {
     List<Transaction> transactions,
     List<Subscription> subscriptions,
   ) {
-    // Явно кажемо компілятору, що викликаємо .toJson() у конкретних класів
     final data = <String, dynamic>{
       'version': 1,
-      'categories': categories.map((Category c) => c.toJson()).toList(),
-      'transactions': transactions.map((Transaction t) => t.toJson()).toList(),
-      'subscriptions': subscriptions
-          .map((Subscription s) => s.toJson())
-          .toList(),
+      'categories': categories.map((c) => c.toJson()).toList(),
+      'transactions': transactions.map((t) => t.toJson()).toList(),
+      'subscriptions': subscriptions.map((s) => s.toJson()).toList(),
     };
 
     final String jsonString = jsonEncode(data);
@@ -244,7 +225,6 @@ class BackupService {
       jsonString = encrypter.decrypt64(trimmedContent, iv: legacyIv);
     }
 
-    // 👇 ФІКС: Безпечне приведення типу з dynamic до Map
     final dynamic decoded = jsonDecode(jsonString);
     return Map<String, dynamic>.from(decoded as Map);
   }

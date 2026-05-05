@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../database/app_database.dart';
 import '../../providers/all_providers.dart';
 import '../../theme/app_colors_extension.dart';
 import '../common/coin_widget.dart';

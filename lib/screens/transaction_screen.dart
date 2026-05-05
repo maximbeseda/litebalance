@@ -5,7 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/all_providers.dart';
-import '../database/app_database.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/custom_numpad.dart';
@@ -181,7 +180,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           _currentExchangeRate = double.parse(rawRate.toStringAsFixed(4));
         } else {
           final double inverted = sourceRate / targetRate;
-          final double invertedRounded = double.parse(inverted.toStringAsFixed(4));
+          final double invertedRounded = double.parse(
+            inverted.toStringAsFixed(4),
+          );
           _currentExchangeRate = 1.0 / invertedRounded;
         }
       }
@@ -273,7 +274,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
       _lastEdited = _isEditingTarget ? 'target' : 'source';
 
       if (_clearOnNextDigit) {
-        final bool isNumberOrDot = RegExp(r'^[0-9.]$').hasMatch(key) || key == '00';
+        final bool isNumberOrDot =
+            RegExp(r'^[0-9.]$').hasMatch(key) || key == '00';
         if (isNumberOrDot) {
           _activeExpression = '';
         }
@@ -298,7 +300,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           return;
         }
 
-        final String currentNumber = _activeExpression.split(RegExp(r'[+\-×÷]')).last;
+        final String currentNumber = _activeExpression
+            .split(RegExp(r'[+\-×÷]'))
+            .last;
         if (currentNumber.isEmpty) return;
 
         final double percentValue = double.tryParse(currentNumber) ?? 0.0;
@@ -308,7 +312,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
         );
 
         if (baseExpression.isNotEmpty) {
-          final String operator = baseExpression.substring(baseExpression.length - 1);
+          final String operator = baseExpression.substring(
+            baseExpression.length - 1,
+          );
           if (operator == '+' || operator == '-') {
             final String exprWithoutOp = baseExpression.substring(
               0,
@@ -349,7 +355,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           _activeExpression += key;
         }
       } else {
-        final String currentNumber = _activeExpression.split(RegExp(r'[+\-×÷]')).last;
+        final String currentNumber = _activeExpression
+            .split(RegExp(r'[+\-×÷]'))
+            .last;
 
         if (key == '.') {
           if (currentNumber.contains('.')) return;

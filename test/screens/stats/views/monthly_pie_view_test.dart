@@ -1,4 +1,3 @@
-import 'package:coin_flow/database/app_database.dart';
 import 'package:coin_flow/providers/all_providers.dart';
 import 'package:coin_flow/screens/stats/views/monthly_pie_view.dart';
 import 'package:coin_flow/theme/app_colors_extension.dart';

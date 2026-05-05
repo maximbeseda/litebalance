@@ -5,7 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 // 👇 1. Замінили provider на flutter_riverpod
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../database/app_database.dart';
 import '../utils/app_constants.dart';
 import '../theme/app_colors_extension.dart';
 import '../theme/category_defaults.dart';

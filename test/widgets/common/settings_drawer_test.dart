@@ -1,17 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Обов'язково для ProviderScope
-import 'package:coin_flow/widgets/common/settings_drawer.dart'; // Вкажіть правильний шлях до файлу
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import 'package:coin_flow/widgets/common/settings_drawer.dart';
+import 'package:coin_flow/providers/all_providers.dart';
 import '../../helpers/test_wrapper.dart';
 
+// ==========================================
+// МОКИ ДЛЯ RIVERPOD
+// ==========================================
+class MockSettingsNotifier extends SettingsNotifier {
+  @override
+  SettingsState build() {
+    return SettingsState(
+      baseCurrency: 'UAH',
+      selectedCurrencies: ['UAH', 'USD'],
+      exchangeRates: {},
+      historicalCache: {},
+    );
+  }
+}
+
 void main() {
-  // Створюємо ключ, щоб програмно відкривати Scaffold у тесті
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Зручна функція для створення середовища з Drawer та Riverpod
-  Widget buildDrawerApp() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues({});
+    await EasyLocalization.ensureInitialized();
+  });
+
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
+
+  Future<Widget> buildDrawerApp() async {
+    final prefs = await SharedPreferences.getInstance();
+
     return ProviderScope(
-      // 💡 МАГІЯ RIVERPOD: Огортаємо все в ProviderScope
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+        // 👇 ДОДАЄМО МОК: блокуємо завантаження курсів валют
+        settingsProvider.overrideWith(() => MockSettingsNotifier()),
+      ],
       child: makeTestableWidget(
         child: Scaffold(
           key: scaffoldKey,
@@ -26,69 +59,43 @@ void main() {
     testWidgets('1. Відкриває Drawer та рендерить всі пункти меню', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(buildDrawerApp());
+      await tester.pumpWidget(await buildDrawerApp());
 
-      // Програмно відкриваємо Drawer
       scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
-      // Перевіряємо наявність усіх ключових іконок меню
-      expect(find.byIcon(Icons.person_outline), findsOneWidget); // Профіль
-      expect(
-        find.byIcon(Icons.pie_chart_outline),
-        findsOneWidget,
-      ); // Статистика
-      expect(find.byIcon(Icons.currency_exchange), findsOneWidget); // Курси
-      expect(
-        find.byIcon(Icons.import_export),
-        findsOneWidget,
-      ); // Імпорт/Експорт
-      expect(find.byIcon(Icons.save_alt_rounded), findsOneWidget); // Бекап
-      expect(find.byIcon(Icons.autorenew), findsOneWidget); // Підписки
-      expect(find.byIcon(Icons.delete_outline), findsOneWidget); // Кошик
+      expect(find.byIcon(Icons.person_outline), findsOneWidget);
+      expect(find.byIcon(Icons.pie_chart_outline), findsOneWidget);
+      expect(find.byIcon(Icons.currency_exchange), findsOneWidget);
+      expect(find.byIcon(Icons.import_export), findsOneWidget);
+      expect(find.byIcon(Icons.save_alt_rounded), findsOneWidget);
+      expect(find.byIcon(Icons.autorenew), findsOneWidget);
+      expect(find.byIcon(Icons.delete_outline), findsOneWidget);
     });
 
-    testWidgets('2. Відкриває BottomSheet бекапу та взаємодіє з полем пароля', (
+    testWidgets('2. Відкриває екран бекапу та перевіряє нові елементи', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(buildDrawerApp());
+      await tester.pumpWidget(await buildDrawerApp());
 
-      // Відкриваємо Drawer
       scaffoldKey.currentState?.openDrawer();
       await tester.pumpAndSettle();
 
-      // Натискаємо на пункт "Бекап"
+      // Клікаємо на пункт бекапу в Drawer
       await tester.tap(find.byIcon(Icons.save_alt_rounded));
 
-      // Чекаємо, поки Drawer закриється (Navigator.pop) і виїде BottomSheet
+      // Чекаємо на push нового екрану (BackupManagementScreen)
       await tester.pumpAndSettle();
 
-      // Перевіряємо, чи з'явились кнопки "Експорт" та "Імпорт" з BottomSheet
-      expect(find.byIcon(Icons.upload_file), findsOneWidget); // Експорт
-      expect(find.byIcon(Icons.download), findsOneWidget); // Імпорт
+      // Перевіряємо НОВІ іконки нашого оновленого екрану,
+      // щоб впевнитися, що перехід відбувся успішно
+      expect(find.byIcon(Icons.cloud_upload_outlined), findsOneWidget);
+      expect(find.byIcon(Icons.cloud_download_outlined), findsOneWidget);
+      expect(find.byIcon(Icons.upload_file_outlined), findsOneWidget);
+      expect(find.byIcon(Icons.download_outlined), findsOneWidget);
 
-      // Поле пароля (TextField) спочатку має бути сховане (AnimatedSize)
-      expect(find.byType(TextField), findsNothing);
-
-      // Натискаємо на "Експорт", щоб розгорнути поле пароля
-      await tester.tap(find.byIcon(Icons.upload_file));
-      await tester.pumpAndSettle(); // Чекаємо на анімацію AnimatedSize
-
-      // Перевіряємо, чи з'явилося поле TextField
-      final textFieldFinder = find.byType(TextField);
-      expect(textFieldFinder, findsOneWidget);
-
-      // Перевіряємо, що пароль за замовчуванням прихований (obscureText = true)
-      TextField textField = tester.widget(textFieldFinder);
-      expect(textField.obscureText, isTrue);
-
-      // Натискаємо на іконку "ока" (visibility_off), щоб показати пароль
-      await tester.tap(find.byIcon(Icons.visibility_off));
-      await tester.pumpAndSettle();
-
-      // Перевіряємо, що пароль став видимим
-      textField = tester.widget(textFieldFinder);
-      expect(textField.obscureText, isFalse);
+      // 💡 Перевірку TextField звідси видалено, бо вона тепер живе
+      // у файлі backup_management_screen_test.dart
     });
   });
 }

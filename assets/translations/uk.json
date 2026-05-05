@@ -267,5 +267,27 @@
   "category": "Категорія",
   "transaction": "Транзакція",
   "subscription": "Підписка",
-  "deleted_category": "Видалена категорія"
+  "deleted_category": "Видалена категорія",
+
+  "sync_subtitle": "Автоматичне збереження бази даних",
+  "last_backup": "Останній бекап",
+  "no_backups_yet": "Бекапів ще немає",
+  "file_backup": "Локальні файли",
+  "export_to_file": "Експортувати у файл",
+  "import_from_file": "Імпортувати з файлу",
+  "last_export": "Останній експорт",
+  "no_exports_yet": "Експортів ще немає",
+  "enter_password_error": "Будь ласка, введіть пароль",
+  "please_wait_loading": "Будь ласка, дочекайтесь завершення процесу",
+  "google_drive_backup": "Google Диск",
+  "sync_with_cloud": "Експортувати на Google Диск",
+  "import_from_cloud": "Імпортувати з Google Диска",
+  "cloud_restore_confirm": "Поточні дані будуть замінені даними з Google Диска. Продовжити?",
+  "cloud_backup_success": "Успішно збережено на Google Диск",
+  "cloud_backup_error": "Помилка синхронізації з Google Диском",
+  "confirm": "Підтвердити",
+  "backup_protection_title": "Захист копії",
+  "export_password_hint": "Встановіть пароль для шифрування ваших даних. Використовуйте його для відновлення файлу в майбутньому.",
+  "unlock_backup_title": "Розблокування файлу",
+  "import_password_hint": "Цей файл захищено паролем. Введіть ключ, який ви створили під час експорту цього бекапу."
 }

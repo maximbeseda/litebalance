@@ -4,7 +4,6 @@ import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 
 import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/database/app_database.dart';
 import 'package:coin_flow/services/storage_service.dart';
 
 // ==========================================

@@ -267,5 +267,27 @@
   "category": "Kategorie",
   "transaction": "Transaktion",
   "subscription": "Abo",
-  "deleted_category": "Gelöschte Kategorie"
+  "deleted_category": "Gelöschte Kategorie",
+
+  "sync_subtitle": "Automatische Datenbanksicherung",
+  "last_backup": "Letzte Sicherung",
+  "no_backups_yet": "Noch keine Sicherungen",
+  "file_backup": "Lokale Dateien",
+  "export_to_file": "In Datei exportieren",
+  "import_from_file": "Aus Datei importieren",
+  "last_export": "Letzter Export",
+  "no_exports_yet": "Noch keine Exporte",
+  "enter_password_error": "Bitte Passwort eingeben",
+  "please_wait_loading": "Bitte warten Sie, bis der Vorgang abgeschlossen ist",
+  "google_drive_backup": "Google Drive",
+  "sync_with_cloud": "Auf Google Drive exportieren",
+  "import_from_cloud": "Von Google Drive importieren",
+  "cloud_restore_confirm": "Aktuelle Daten werden durch Daten von Google Drive ersetzt. Möchten Sie fortfahren?",
+  "cloud_backup_success": "Erfolgreich auf Google Drive gesichert",
+  "cloud_backup_error": "Google Drive-Synchronisierung fehlgeschlagen",
+  "confirm": "Bestätigen",
+  "backup_protection_title": "Backup-Schutz",
+  "export_password_hint": "Legen Sie ein Passwort fest, um Ihre Daten zu verschlüsseln. Sie benötigen es, um die Datei später wiederherzustellen.",
+  "unlock_backup_title": "Backup entsperren",
+  "import_password_hint": "Diese Datei ist passwortgeschützt. Geben Sie den Schlüssel ein, den Sie beim Exportieren erstellt haben."
 }
