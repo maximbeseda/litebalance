@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../database/app_database.dart';
 import '../../screens/stats/stats_screen.dart';
 import '../../screens/subscriptions_screen.dart';
 import '../../screens/trash_screen.dart';
-import '../../services/backup_service.dart';
 import '../../screens/profile_screen.dart';
 import '../../screens/currencies_screen.dart';
 import '../../screens/import_export_screen.dart';
+import '../../screens/backup_management_screen.dart';
 import '../../theme/app_colors_extension.dart';
 
 // 👇 Імпортуємо наш хаб провайдерів
@@ -176,14 +175,15 @@ class SettingsDrawer extends ConsumerWidget {
                 ),
               ),
               onTap: () {
-                final navContext = Navigator.of(context).context;
+                // Спочатку закриваємо сам Drawer
                 Navigator.pop(context);
 
-                showModalBottomSheet(
-                  context: navContext,
-                  backgroundColor: cardBgColor,
-                  isScrollControlled: true,
-                  builder: (ctx) => const _BackupBottomSheet(),
+                // Переходимо на новий повноцінний екран
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BackupManagementScreen(),
+                  ),
                 );
               },
             ),
@@ -272,308 +272,6 @@ class SettingsDrawer extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// ==========================================
-// INLINE BOTTOM SHEET ДЛЯ БЕКАПУ
-// ==========================================
-enum _ExpandedMode { none, export, import }
-
-class _BackupBottomSheet extends ConsumerStatefulWidget {
-  const _BackupBottomSheet();
-
-  @override
-  ConsumerState<_BackupBottomSheet> createState() => _BackupBottomSheetState();
-}
-
-class _BackupBottomSheetState extends ConsumerState<_BackupBottomSheet> {
-  _ExpandedMode _expandedMode = _ExpandedMode.none;
-  bool _isObscured = true;
-  bool _isLoading = false; // 👇 НОВА змінна для лоадера
-  final TextEditingController _passwordCtrl = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-
-  @override
-  void dispose() {
-    _passwordCtrl.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  void _toggleExpand(_ExpandedMode mode) {
-    if (_isLoading) return; // Блокуємо перемикання під час завантаження
-    setState(() {
-      if (_expandedMode == mode) {
-        _expandedMode = _ExpandedMode.none;
-        _focusNode.unfocus();
-      } else {
-        _expandedMode = mode;
-        _passwordCtrl.clear();
-        _isObscured = true;
-        Future.delayed(const Duration(milliseconds: 150), () {
-          if (mounted) _focusNode.requestFocus();
-        });
-      }
-    });
-  }
-
-  void _showSnackBar(BuildContext ctx, String message, bool isSuccess) {
-    if (!ctx.mounted) return;
-    final colors = Theme.of(ctx).extension<AppColorsExtension>()!;
-    final accentColor = isSuccess ? colors.income : colors.expense;
-
-    ScaffoldMessenger.of(ctx).clearSnackBars();
-    ScaffoldMessenger.of(ctx).showSnackBar(
-      SnackBar(
-        backgroundColor: colors.cardBg,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 30, left: 20, right: 20),
-        elevation: 10,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: accentColor.withValues(alpha: 0.3), width: 1),
-        ),
-        content: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: accentColor.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                isSuccess ? Icons.check_circle_outline : Icons.error_outline,
-                color: accentColor,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: colors.textMain,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _submit() async {
-    final pwd = _passwordCtrl.text;
-    if (pwd.isEmpty || _isLoading) return;
-
-    setState(() => _isLoading = true); // 👇 Вмикаємо лоадер
-
-    final mode = _expandedMode;
-    final rootContext = Navigator.of(context).context;
-
-    try {
-      if (mode == _ExpandedMode.export) {
-        final categories = ref.read(categoryProvider).allCategoriesList;
-        final transactions = ref.read(transactionProvider).value?.history ?? [];
-        final subscriptions =
-            ref.read(subscriptionProvider).value?.subscriptions ?? [];
-
-        await BackupService.exportData(
-          pwd,
-          categories,
-          transactions,
-          subscriptions,
-        );
-
-        if (mounted) Navigator.pop(context); // Закриваємо тільки після успіху
-        if (rootContext.mounted) {
-          _showSnackBar(rootContext, 'export_success'.tr(), true);
-        }
-      } else if (mode == _ExpandedMode.import) {
-        final db = ref.read(appDatabaseProvider);
-        await BackupService.importData(pwd, db);
-
-        if (!mounted) return;
-        ref.invalidate(categoryProvider);
-        ref.invalidate(transactionProvider);
-        ref.invalidate(subscriptionProvider);
-        ref.invalidate(statsProvider);
-
-        Navigator.pop(context); // Закриваємо тільки після успіху
-        if (rootContext.mounted) {
-          _showSnackBar(rootContext, 'backup_success'.tr(), true);
-        }
-      }
-    } catch (e) {
-      // Якщо помилка — вимикаємо лоадер, щоб користувач міг спробувати ще раз
-      setState(() => _isLoading = false);
-      if (rootContext.mounted) {
-        _showSnackBar(
-          rootContext,
-          e.toString().replaceAll('Exception: ', ''),
-          false,
-        );
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colors.textSecondary.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            ListTile(
-              leading: Icon(Icons.upload_file, color: colors.textMain),
-              title: Text(
-                'export'.tr(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              subtitle: Text(
-                'export_subtitle'.tr(),
-                style: TextStyle(color: colors.textSecondary),
-              ),
-              onTap: _isLoading
-                  ? null
-                  : () => _toggleExpand(_ExpandedMode.export),
-            ),
-            AnimatedSize(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              child: _expandedMode == _ExpandedMode.export
-                  ? _buildInlinePasswordField(colors)
-                  : const SizedBox.shrink(),
-            ),
-
-            ListTile(
-              leading: Icon(Icons.download, color: colors.expense),
-              title: Text(
-                'import'.tr(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              subtitle: Text(
-                'warning_overwrite'.tr(),
-                style: TextStyle(color: colors.expense),
-              ),
-              onTap: _isLoading
-                  ? null
-                  : () => _toggleExpand(_ExpandedMode.import),
-            ),
-            AnimatedSize(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              child: _expandedMode == _ExpandedMode.import
-                  ? _buildInlinePasswordField(colors)
-                  : const SizedBox.shrink(),
-            ),
-
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInlinePasswordField(AppColorsExtension colors) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4, bottom: 8),
-            child: Text(
-              _expandedMode == _ExpandedMode.export
-                  ? 'enter_password_export'.tr()
-                  : 'enter_password_import'.tr(),
-              style: TextStyle(
-                color: colors.textSecondary,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          TextField(
-            controller: _passwordCtrl,
-            focusNode: _focusNode,
-            obscureText: _isObscured,
-            enabled: !_isLoading, // 👇 Блокуємо поле під час завантаження
-            textInputAction: TextInputAction.done,
-            onSubmitted: (_) => _submit(),
-            style: TextStyle(color: colors.textMain, fontSize: 16),
-            decoration: InputDecoration(
-              hintText: 'password'.tr(),
-              hintStyle: TextStyle(
-                color: colors.textSecondary.withValues(alpha: 0.5),
-              ),
-              suffixIcon: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      _isObscured ? Icons.visibility_off : Icons.visibility,
-                      color: colors.textSecondary,
-                      size: 22,
-                    ),
-                    onPressed: _isLoading
-                        ? null
-                        : () => setState(() => _isObscured = !_isObscured),
-                  ),
-                  // 👇 ТУТ МАГІЯ ЛОАДЕРА
-                  _isLoading
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: colors.textMain,
-                            ),
-                          ),
-                        )
-                      : IconButton(
-                          icon: Icon(
-                            Icons.check_circle,
-                            color: colors.textMain,
-                            size: 28,
-                          ),
-                          onPressed: _submit,
-                        ),
-                  const SizedBox(width: 4),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

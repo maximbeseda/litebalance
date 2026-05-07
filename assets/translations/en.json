@@ -267,5 +267,27 @@
   "category": "Category",
   "transaction": "Transaction",
   "subscription": "Subscription",
-  "deleted_category": "Deleted category"
+  "deleted_category": "Deleted category",
+
+  "sync_subtitle": "Automatic database backup",
+  "last_backup": "Last backup",
+  "no_backups_yet": "No backups yet",
+  "file_backup": "Local Files",
+  "export_to_file": "Export to File",
+  "import_from_file": "Import from File",
+  "last_export": "Last export",
+  "no_exports_yet": "No exports yet",
+  "enter_password_error": "Please enter password",
+  "please_wait_loading": "Please wait until the process is complete",
+  "google_drive_backup": "Google Drive",
+  "sync_with_cloud": "Export to Google Drive",
+  "import_from_cloud": "Import from Google Drive",
+  "cloud_restore_confirm": "Current data will be replaced with data from Google Drive. Do you want to continue?",
+  "cloud_backup_success": "Successfully backed up to Google Drive",
+  "cloud_backup_error": "Google Drive sync failed",
+  "confirm": "Confirm",
+  "backup_protection_title": "Protect Backup",
+  "export_password_hint": "Set a password to encrypt your data. You will need it to restore this file later.",
+  "unlock_backup_title": "Unlock Backup",
+  "import_password_hint": "This file is password protected. Enter the key you created when exporting this backup."
 }

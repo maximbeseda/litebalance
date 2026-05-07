@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:uuid/uuid.dart';
 
-import '../database/app_database.dart';
 import '../services/storage_service.dart';
 import '../services/subscription_service.dart';
 import 'all_providers.dart';

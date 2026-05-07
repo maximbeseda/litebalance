@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:collection/collection.dart';
 
-import '../database/app_database.dart';
 import '../widgets/bottom_sheets/history_bottom_sheet.dart';
 import '../widgets/common/summary_header.dart';
 import '../widgets/bottom_sheets/general_history_bottom_sheet.dart';
@@ -129,7 +128,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ? comment.trim()
           : '${'transfer'.tr()} ${source.name} ➡️ ${target.name}';
 
-      final int baseAmt = settingsNotifier.convertToBase(amount, source.currency);
+      final int baseAmt = settingsNotifier.convertToBase(
+        amount,
+        source.currency,
+      );
 
       final newTx = Transaction(
         id: const Uuid().v4(),
@@ -158,7 +160,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final Category? sourceCat = allCategories.firstWhereOrNull(
       (c) => c.id == t.fromId,
     );
-    final Category? targetCat = allCategories.firstWhereOrNull((c) => c.id == t.toId);
+    final Category? targetCat = allCategories.firstWhereOrNull(
+      (c) => c.id == t.toId,
+    );
 
     if (sourceCat == null || targetCat == null) return;
 

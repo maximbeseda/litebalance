@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
-import '../database/app_database.dart';
 import '../theme/app_colors_extension.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';

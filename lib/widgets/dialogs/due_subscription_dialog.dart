@@ -6,7 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 // 👇 2. Імпортуємо наш хаб провайдерів
 import '../../providers/all_providers.dart';
 
-import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../utils/currency_formatter.dart';

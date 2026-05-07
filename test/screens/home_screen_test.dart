@@ -1,4 +1,3 @@
-import 'package:coin_flow/database/app_database.dart';
 import 'package:coin_flow/providers/all_providers.dart';
 import 'package:coin_flow/screens/home_screen.dart';
 import 'package:coin_flow/widgets/bottom_sheets/general_history_bottom_sheet.dart';

@@ -25,12 +25,18 @@ class SettingsState {
   final DateTime? lastRatesUpdate;
   final Map<String, dynamic> historicalCache;
 
+  // 👇 НОВІ ПОЛЯ ДЛЯ ВІДСТЕЖЕННЯ БЕКАПІВ
+  final DateTime? lastCloudBackup;
+  final DateTime? lastFileBackup;
+
   SettingsState({
     required this.baseCurrency,
     required this.selectedCurrencies,
     required this.exchangeRates,
     this.lastRatesUpdate,
     required this.historicalCache,
+    this.lastCloudBackup,
+    this.lastFileBackup,
   });
 
   SettingsState copyWith({
@@ -39,6 +45,8 @@ class SettingsState {
     Map<String, double>? exchangeRates,
     DateTime? lastRatesUpdate,
     Map<String, dynamic>? historicalCache,
+    DateTime? lastCloudBackup,
+    DateTime? lastFileBackup,
   }) {
     return SettingsState(
       baseCurrency: baseCurrency ?? this.baseCurrency,
@@ -46,6 +54,8 @@ class SettingsState {
       exchangeRates: exchangeRates ?? this.exchangeRates,
       lastRatesUpdate: lastRatesUpdate ?? this.lastRatesUpdate,
       historicalCache: historicalCache ?? this.historicalCache,
+      lastCloudBackup: lastCloudBackup ?? this.lastCloudBackup,
+      lastFileBackup: lastFileBackup ?? this.lastFileBackup,
     );
   }
 }
@@ -60,13 +70,20 @@ class SettingsNotifier extends _$SettingsNotifier {
 
   @override
   SettingsState build() {
-    // 👇 Додаємо очищення при знищенні провайдера
     ref.onDispose(() {
       debugPrint('SettingsNotifier disposed: clearing memory');
     });
 
     final String base = _storage.getBaseCurrency();
     final List<String> selected = _storage.getSelectedCurrencies();
+
+    // 👇 ДОДАЄМО ЗЧИТУВАННЯ ДАТ
+    final String? lastCloud = ref
+        .read(sharedPreferencesProvider)
+        .getString('last_cloud_backup');
+    final String? lastFile = ref
+        .read(sharedPreferencesProvider)
+        .getString('last_file_backup');
 
     if (!selected.contains(base)) {
       selected.insert(0, base);
@@ -85,6 +102,9 @@ class SettingsNotifier extends _$SettingsNotifier {
       exchangeRates: rates,
       lastRatesUpdate: lastUpdate,
       historicalCache: cache,
+      // 👇 ІНІЦІАЛІЗУЄМО НОВІ ПОЛЯ
+      lastCloudBackup: lastCloud != null ? DateTime.tryParse(lastCloud) : null,
+      lastFileBackup: lastFile != null ? DateTime.tryParse(lastFile) : null,
     );
 
     unawaited(Future.microtask(() => _checkRatesUpdate(initialState)));
@@ -244,5 +264,24 @@ class SettingsNotifier extends _$SettingsNotifier {
         : inBase * (state.exchangeRates[toCurrency] ?? 1.0);
 
     return result.round();
+  }
+
+  // Оновлює дату успішного хмарного бекапу
+  Future<void> updateCloudBackupTime() async {
+    final now = DateTime.now();
+    // Використовуємо sharedPreferencesProvider для прямого запису
+    await ref
+        .read(sharedPreferencesProvider)
+        .setString('last_cloud_backup', now.toIso8601String());
+    state = state.copyWith(lastCloudBackup: now);
+  }
+
+  // Оновлює дату успішного експорту у файл
+  Future<void> updateFileBackupTime() async {
+    final now = DateTime.now();
+    await ref
+        .read(sharedPreferencesProvider)
+        .setString('last_file_backup', now.toIso8601String());
+    state = state.copyWith(lastFileBackup: now);
   }
 }
