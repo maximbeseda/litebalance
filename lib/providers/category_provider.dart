@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:drift/drift.dart' as drift; // 👇 ДОДАНО для drift.Value()
+import 'package:drift/drift.dart' as drift;
 
-import '../database/app_database.dart';
 import '../services/storage_service.dart';
+import 'all_providers.dart';
 
 part 'category_provider.g.dart';
 
@@ -12,7 +12,7 @@ class CategoryState {
   final List<Category> accounts;
   final List<Category> expenses;
   final List<Category> archivedCategories;
-  final List<Category> deletedCategories; // 👇 НОВЕ: Кошик
+  final List<Category> deletedCategories;
   final bool isLoading;
 
   CategoryState({
@@ -142,6 +142,9 @@ class CategoryNotifier extends _$CategoryNotifier {
     }
 
     StorageService.saveCategory(db, updatedCategory);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 
   Future<void> addOrUpdateCategory(Category cat) async {
@@ -166,6 +169,9 @@ class CategoryNotifier extends _$CategoryNotifier {
       await StorageService.saveCategory(db, cat);
     }
 
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     if (cat.type == CategoryType.income) {
       state = state.copyWith(incomes: targetList);
     } else if (cat.type == CategoryType.account) {
@@ -187,6 +193,9 @@ class CategoryNotifier extends _$CategoryNotifier {
     final deletedCat = cat.copyWith(deletedAt: drift.Value(DateTime.now()));
     await StorageService.saveCategory(db, deletedCat);
 
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     // Просто перезавантажуємо стан, щоб списки правильно розклалися
     await loadCategories();
   }
@@ -199,10 +208,13 @@ class CategoryNotifier extends _$CategoryNotifier {
     final restoredCat = cat.copyWith(deletedAt: const drift.Value(null));
     await StorageService.saveCategory(db, restoredCat);
 
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadCategories();
   }
 
-  // 3. Остаточне видалення або Архівація (Твоя геніальна перевірка)
+  // 3. Остаточне видалення або Архівація
   Future<void> emptyTrashOrArchive(Category cat) async {
     // 1. Використовуємо уніфікований провайдер
     final db = ref.read(appDatabaseProvider);
@@ -226,6 +238,9 @@ class CategoryNotifier extends _$CategoryNotifier {
       // 🟢 Транзакцій немає: Видаляємо фізично (Hard Delete)
       await (db.delete(db.categories)..where((c) => c.id.equals(cat.id))).go();
     }
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
 
     // 3. Оновлюємо UI
     await loadCategories();
@@ -257,6 +272,9 @@ class CategoryNotifier extends _$CategoryNotifier {
       }
 
       StorageService.saveCategories(db, targetList);
+
+      // 👇 ДОДАНО: Ставимо прапорець бекапу
+      ref.read(dbDirtyProvider.notifier).setDirty(true);
 
       if (dragged.type == CategoryType.income) {
         state = state.copyWith(incomes: targetList);
@@ -292,6 +310,9 @@ class CategoryNotifier extends _$CategoryNotifier {
       ...state.deletedCategories, // Захоплюємо і кошик теж!
     ]);
 
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     state = state.copyWith(incomes: newIncomes, expenses: newExpenses);
   }
 
@@ -321,5 +342,8 @@ class CategoryNotifier extends _$CategoryNotifier {
     );
 
     await StorageService.saveCategories(db, state.allCategoriesList);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 }

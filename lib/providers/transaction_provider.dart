@@ -205,6 +205,9 @@ class TransactionNotifier extends _$TransactionNotifier {
     _updateState((s) => s.copyWith(history: newHistory));
     await StorageService.saveTransaction(db, updatedTx);
 
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     _updateAccountBalance(updatedTx.fromId, -updatedTx.amount);
     _updateAccountBalance(
       updatedTx.toId,
@@ -262,6 +265,9 @@ class TransactionNotifier extends _$TransactionNotifier {
 
     _updateState((s) => s.copyWith(history: newHistory));
     await StorageService.saveTransaction(db, newTx);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 
   Future<void> editTransaction(
@@ -324,6 +330,9 @@ class TransactionNotifier extends _$TransactionNotifier {
 
     _updateState((s) => s.copyWith(history: newHistory));
     await StorageService.saveTransaction(db, updatedT);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 
   Future<void> moveToTrash(Transaction t) async {
@@ -333,6 +342,10 @@ class TransactionNotifier extends _$TransactionNotifier {
 
     final trashedT = t.copyWith(deletedAt: drift.Value(DateTime.now()));
     await StorageService.saveTransaction(db, trashedT);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadHistory();
   }
 
@@ -343,12 +356,20 @@ class TransactionNotifier extends _$TransactionNotifier {
 
     final restoredT = t.copyWith(deletedAt: const drift.Value(null));
     await StorageService.saveTransaction(db, restoredT);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadHistory();
   }
 
   Future<void> deletePermanently(Transaction t) async {
     final db = ref.read(appDatabaseProvider);
     await StorageService.removeTransaction(db, t.id);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadHistory();
   }
 
@@ -373,6 +394,8 @@ class TransactionNotifier extends _$TransactionNotifier {
       (s) => s.copyWith(isMigrating: true, lastKnownBaseCurrency: newBase),
     );
 
+    bool wasChanged = false;
+
     for (int i = 0; i < currentMonthTxs.length; i++) {
       var tx = currentMonthTxs[i];
 
@@ -395,6 +418,12 @@ class TransactionNotifier extends _$TransactionNotifier {
       if (mainIndex != -1) newHistory[mainIndex] = tx;
 
       await StorageService.saveTransaction(db, tx);
+      wasChanged = true;
+    }
+
+    // 👇 ДОДАНО: Якщо хоча б одна транзакція змінилась — ставимо прапорець
+    if (wasChanged) {
+      ref.read(dbDirtyProvider.notifier).setDirty(true);
     }
 
     _updateState((s) => s.copyWith(history: newHistory, isMigrating: false));
@@ -404,5 +433,8 @@ class TransactionNotifier extends _$TransactionNotifier {
     final db = ref.read(appDatabaseProvider);
     _updateState((s) => s.copyWith(history: [], deletedHistory: []));
     await StorageService.deleteAllTransactions(db);
+
+    // 👇 ДОДАНО: Ставимо прапорець бекапу (бо база очистилась)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 }

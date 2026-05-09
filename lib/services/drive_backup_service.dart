@@ -5,7 +5,9 @@ import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'google_auth_service.dart';
-import '../database/app_database.dart'; // Додай імпорт бази
+import '../database/app_database.dart';
+
+enum SyncStatus { backedUp, restored, upToDate, error, noAuth }
 
 class DriveBackupService {
   final GoogleAuthService _authService;
@@ -117,6 +119,68 @@ class DriveBackupService {
     } catch (e) {
       log('Drive Restore Error: $e', name: 'DriveBackup');
       return false;
+    }
+  }
+
+  // 👇 НОВИЙ МЕТОД: Розумна синхронізація (Last Write Wins)
+  Future<SyncStatus> performSmartSync(AppDatabase db, bool isLocalDirty) async {
+    try {
+      final client = await _authService.getAuthenticatedClient();
+      if (client == null) return SyncStatus.noAuth;
+
+      final driveApi = drive.DriveApi(client);
+
+      // Обов'язково просимо повернути modifiedTime (за замовчуванням Google його не віддає)
+      final fileList = await driveApi.files.list(
+        spaces: 'appDataFolder',
+        q: "name = '$_backupFileName' and trashed = false",
+        $fields: 'files(id, modifiedTime)',
+      );
+
+      final cloudFile = fileList.files?.firstOrNull;
+      final localFile = await _getLocalDatabaseFile();
+
+      // 1. Хмарного бекапу ще немає -> створюємо його
+      if (cloudFile == null) {
+        debugPrint('☁️ Хмарний бекап не знайдено. Створюємо новий...');
+        final success = await backupDatabase(db);
+        return success ? SyncStatus.backedUp : SyncStatus.error;
+      }
+
+      // 2. Локальної бази немає (наприклад, щойно встановили додаток) -> відновлюємо
+      if (!await localFile.exists()) {
+        debugPrint('📱 Локальної бази немає. Відновлюємо з хмари...');
+        final success = await restoreDatabase(db);
+        return success ? SyncStatus.restored : SyncStatus.error;
+      }
+
+      // 3. Порівнюємо дати (Обидва в UTC для точності)
+      final cloudTime = cloudFile.modifiedTime?.toUtc();
+
+      // Робимо чекпоїнт, щоб SQLite скинув дані з кешу (WAL) у файл, інакше час буде неточним
+      await db.forceCheckpoint();
+      final localTime = localFile.lastModifiedSync().toUtc();
+
+      debugPrint('🕒 Час локальної бази: $localTime');
+      debugPrint('🕒 Час хмарної бази: $cloudTime');
+      debugPrint('🚩 isLocalDirty: $isLocalDirty');
+
+      // Логіка "Last Write Wins"
+      if (isLocalDirty || (cloudTime != null && localTime.isAfter(cloudTime))) {
+        debugPrint('⬆️ Локальна база новіша. Перезаписуємо хмару...');
+        final success = await backupDatabase(db);
+        return success ? SyncStatus.backedUp : SyncStatus.error;
+      } else if (cloudTime != null && cloudTime.isAfter(localTime)) {
+        debugPrint('⬇️ Хмарна база новіша. Перезаписуємо локальну...');
+        final success = await restoreDatabase(db);
+        return success ? SyncStatus.restored : SyncStatus.error;
+      }
+
+      debugPrint('✅ Бази синхронізовані (однаковий час).');
+      return SyncStatus.upToDate;
+    } catch (e) {
+      log('Smart Sync Error: $e', name: 'DriveBackup');
+      return SyncStatus.error;
     }
   }
 }

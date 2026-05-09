@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../providers/all_providers.dart';
 
@@ -12,6 +15,7 @@ import '../utils/app_constants.dart';
 import '../services/security_service.dart';
 import '../services/storage_service.dart';
 import 'lock_screen.dart';
+import 'backup_management_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -110,10 +114,13 @@ class ProfileScreen extends ConsumerWidget {
 
       await StorageService.wipeEntireDatabase(db);
 
+      ref.invalidate(appDatabaseProvider);
       ref.invalidate(transactionProvider);
       ref.invalidate(categoryProvider);
       ref.invalidate(subscriptionProvider);
       ref.invalidate(statsProvider);
+
+      ref.read(dbDirtyProvider.notifier).setDirty(true);
 
       scaffoldMessenger.clearSnackBars();
       scaffoldMessenger.showSnackBar(
@@ -151,6 +158,14 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
+
+    final authState = ref.watch(authControllerProvider);
+    final account = authState.value;
+    final isAuthLoading = authState.isLoading;
+
+    // 👇 ДОДАНО: Перевіряємо кеш для миттєвого відображення
+    final prefs = ref.watch(sharedPreferencesProvider);
+    final isLoggedIn = prefs.getBool('has_logged_in_with_google') ?? false;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -203,6 +218,30 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                       child: Column(
                         children: [
+                          // 👇 ОНОВЛЕНА ЛОГІКА: Перевіряємо і account, і кеш
+                          if (account == null && !isLoggedIn)
+                            _buildUnauthenticatedView(
+                              ref,
+                              colors,
+                              isAuthLoading,
+                            )
+                          else
+                            _buildAuthenticatedView(
+                              context,
+                              account,
+                              prefs,
+                              ref,
+                              colors,
+                            ),
+
+                          Divider(
+                            height: 1,
+                            indent: 20,
+                            endIndent: 20,
+                            color: colors.textSecondary.withValues(alpha: 0.1),
+                          ),
+
+                          // Тема
                           _buildSettingsRow(
                             colors: colors,
                             icon: Icons.palette_outlined,
@@ -354,7 +393,7 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
 
-              // 👇 ДОДАНО: Версія прибита до нижнього краю екрана
+              // Версія прибита до нижнього краю екрана
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
                 child: Text(
@@ -370,6 +409,247 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildUnauthenticatedView(
+    WidgetRef ref,
+    AppColorsExtension colors,
+    bool isLoading,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Text(
+            'sync_promo_text'.tr(),
+            textAlign: TextAlign.center,
+            style: TextStyle(color: colors.textSecondary, fontSize: 14),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 48,
+            child: ElevatedButton(
+              // 👇 ОНОВЛЕНА ЛОГІКА: Тільки вхід. Ніякої примусової синхронізації
+              onPressed: isLoading
+                  ? null
+                  : () async {
+                      final authNotifier = ref.read(
+                        authControllerProvider.notifier,
+                      );
+                      await authNotifier.signIn();
+                    },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colors.cardBg,
+                foregroundColor: colors.textMain,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(
+                    color: colors.textSecondary.withValues(alpha: 0.3),
+                  ),
+                ),
+              ),
+              child: isLoading
+                  ? SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: colors.textMain,
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/google.png',
+                          height: 20,
+                          width: 20,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'sign_in_with_google'.tr(),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAuthenticatedView(
+    BuildContext context,
+    GoogleSignInAccount? account, // 👇 Тепер може бути null
+    SharedPreferences prefs, // 👇 Для читання з кешу
+    WidgetRef ref,
+    AppColorsExtension colors,
+  ) {
+    final settings = ref.watch(settingsProvider);
+
+    final lastSyncDate = settings.lastCloudBackup;
+    final lastSyncStr = lastSyncDate != null
+        ? DateFormat('dd.MM.yyyy HH:mm').format(lastSyncDate)
+        : 'never'.tr();
+
+    // 👇 Беремо дані: пріоритет - реальний акаунт, якщо він ще вантажиться - беремо з кешу
+    final String displayName =
+        account?.displayName ??
+        prefs.getString('google_user_name') ??
+        'Google User';
+    final String email =
+        account?.email ?? prefs.getString('google_user_email') ?? '';
+    final String? photoUrl =
+        account?.photoUrl ?? prefs.getString('google_user_photo');
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: colors.accent.withValues(alpha: 0.2),
+                  shape: BoxShape.circle,
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: photoUrl != null
+                    ? CachedNetworkImage(
+                        imageUrl: photoUrl,
+                        fit: BoxFit.cover,
+                        fadeInDuration: const Duration(
+                          milliseconds: 300,
+                        ), // Плавна поява
+                        placeholder: (context, url) => Center(
+                          child: Text(
+                            displayName.isNotEmpty
+                                ? displayName[0].toUpperCase()
+                                : 'G',
+                            style: TextStyle(
+                              color: colors.accent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )
+                    : Center(
+                        child: Text(
+                          displayName.isNotEmpty
+                              ? displayName[0].toUpperCase()
+                              : 'G',
+                          style: TextStyle(
+                            color: colors.accent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      displayName,
+                      style: TextStyle(
+                        color: colors.textMain,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    if (email.isNotEmpty)
+                      Text(
+                        email,
+                        style: TextStyle(
+                          color: colors.textSecondary,
+                          fontSize: 13,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () =>
+                    ref.read(authControllerProvider.notifier).signOut(),
+                icon: const Icon(Icons.logout_rounded),
+                color: colors.expense,
+                tooltip: 'logout'.tr(),
+              ),
+            ],
+          ),
+        ),
+
+        Divider(height: 1, color: colors.textSecondary.withValues(alpha: 0.1)),
+
+        SwitchListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 0,
+          ),
+          title: Text(
+            'sync_only_wifi'.tr(),
+            style: TextStyle(
+              color: colors.textMain,
+              fontWeight: FontWeight.w500,
+              fontSize: 15,
+            ),
+          ),
+          secondary: Icon(Icons.wifi_rounded, color: colors.textMain),
+          value: settings.syncOnlyViaWifi,
+          activeThumbColor: colors.income,
+          onChanged: (val) {
+            ref.read(settingsProvider.notifier).toggleSyncOnlyViaWifi(val);
+          },
+        ),
+
+        Divider(height: 1, color: colors.textSecondary.withValues(alpha: 0.1)),
+
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 4,
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const BackupManagementScreen()),
+            );
+          },
+          leading: Icon(Icons.cloud_done_rounded, color: colors.income),
+          title: Text(
+            'manage_backups'.tr(),
+            style: TextStyle(
+              color: colors.textMain,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          subtitle: Text(
+            '${'last_sync'.tr()}: $lastSyncStr',
+            style: TextStyle(color: colors.textSecondary, fontSize: 12),
+          ),
+          trailing: Icon(
+            Icons.chevron_right_rounded,
+            color: colors.textSecondary,
+          ),
+        ),
+      ],
     );
   }
 

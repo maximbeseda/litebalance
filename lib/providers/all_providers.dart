@@ -10,3 +10,4 @@ export 'filter_provider.dart';
 export 'home_screen_controller.dart';
 export 'core_providers.dart';
 export 'backup_providers.dart';
+export 'auth_provider.dart';

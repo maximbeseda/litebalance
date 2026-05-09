@@ -118,14 +118,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     super.dispose();
   }
 
+  // Завершення онбордингу та перехід на головний екран
   void _finishOnboarding() async {
     setState(() => _isSaving = true);
 
     final settingsNotifier = ref.read(settingsProvider.notifier);
-
     await settingsNotifier.setBaseCurrency(_selectedCurrencyCode);
 
-    // 👇 ОНОВЛЕНО: Викликаємо completeOnboarding через екземпляр StorageService
     final storage = StorageService(ref.read(sharedPreferencesProvider));
     await storage.completeOnboarding();
 
@@ -137,6 +136,155 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         MaterialPageRoute(builder: (_) => const HomeScreen()),
       ),
     );
+  }
+
+  // 👇 ОНОВЛЕНО: Точно викликаємо правильний метод з передачею бази
+  Future<void> _signInWithGoogle() async {
+    setState(() => _isSaving = true);
+    try {
+      final authService = ref.read(googleAuthServiceProvider);
+      final account = await authService.signIn();
+
+      if (account != null) {
+        if (!mounted) return;
+
+        final wantToRestore = await _showRestorePromptDialog();
+
+        if (wantToRestore) {
+          setState(() => _isSaving = true);
+
+          try {
+            final driveService = ref.read(driveBackupServiceProvider);
+            final db = ref.read(appDatabaseProvider); // Отримуємо базу даних
+
+            // ✅ Викликаємо метод з параметром db
+            final restoreSuccess = await driveService.restoreDatabase(db);
+
+            if (restoreSuccess) {
+              // Очищаємо кеш провайдерів
+              ref.invalidate(transactionProvider);
+              ref.invalidate(categoryProvider);
+              ref.invalidate(subscriptionProvider);
+              ref.invalidate(statsProvider);
+
+              // Йдемо на Головний екран
+              _finishOnboarding();
+            } else {
+              // Якщо метод повернув false (бекапу немає)
+              if (mounted) {
+                setState(() => _isSaving = false);
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('restore_error'.tr())));
+              }
+            }
+          } catch (e) {
+            if (mounted) {
+              setState(() => _isSaving = false);
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('restore_error'.tr())));
+            }
+          }
+        } else {
+          _finishOnboarding();
+        }
+      } else {
+        if (mounted) setState(() => _isSaving = false);
+      }
+    } catch (e) {
+      if (mounted) setState(() => _isSaving = false);
+    }
+  }
+
+  Future<bool> _showRestorePromptDialog() async {
+    final colors = Theme.of(context).extension<AppColorsExtension>()!;
+
+    return await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) => Dialog(
+            backgroundColor: colors.cardBg,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: colors.income.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.cloud_download_rounded,
+                      color: colors.income,
+                      size: 36,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'account_connected'.tr(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: colors.textMain,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'restore_prompt_message'.tr(),
+                    style: TextStyle(fontSize: 14, color: colors.textSecondary),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () => Navigator.pop(ctx, false),
+                          child: Text(
+                            'skip'.tr(),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: colors.textSecondary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colors.income,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () => Navigator.pop(ctx, true),
+                          child: Text(
+                            'restore'.tr(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ) ??
+        false;
   }
 
   void _openLanguagePicker(AppColorsExtension colors) {
@@ -186,10 +334,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     return ListTile(
                       onTap: () async {
                         await context.setLocale(Locale(lang['code']!));
-
                         if (!ctx.mounted) return;
                         Navigator.pop(ctx);
-
                         if (!mounted) return;
                         setState(() {
                           _languageCtrl.text = lang['name']!;
@@ -422,6 +568,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final currentLocaleCode = context.locale.languageCode;
 
+    final authState = ref.watch(authControllerProvider);
+    final isGoogleLoading = authState.isLoading;
+    final isAnyLoading = _isSaving || isGoogleLoading;
+
     final currentLang = _supportedLanguages.firstWhere(
       (lang) => lang['code'] == currentLocaleCode,
       orElse: () => _supportedLanguages.first,
@@ -553,8 +703,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
                 const Spacer(),
 
-                // КНОПКА СТАРТУ
-                _buildStartButton(colors),
+                // Кнопка Google
+                _buildGoogleButton(colors, isGoogleLoading, isAnyLoading),
+
+                const SizedBox(height: 12),
+
+                // Кнопка Продовжити локально
+                _buildLocalStartButton(colors, isAnyLoading),
               ],
             ),
           ),
@@ -563,17 +718,71 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Widget _buildStartButton(AppColorsExtension colors) {
+  Widget _buildGoogleButton(
+    AppColorsExtension colors,
+    bool isGoogleLoading,
+    bool isAnyLoading,
+  ) {
+    final globalShape = Theme.of(
+      context,
+    ).elevatedButtonTheme.style?.shape?.resolve({});
+
     return ElevatedButton(
-      onPressed: _isSaving ? null : _finishOnboarding,
+      onPressed: isAnyLoading ? null : _signInWithGoogle,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: colors.cardBg,
+        foregroundColor: colors.textMain,
+        minimumSize: const Size(double.infinity, 56),
+        elevation: 2,
+        shape:
+            globalShape?.copyWith(
+              side: BorderSide(
+                color: colors.textSecondary.withValues(alpha: 0.2),
+              ),
+            ) ??
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(
+                color: colors.textSecondary.withValues(alpha: 0.2),
+              ),
+            ),
+      ),
+      child: isGoogleLoading || _isSaving
+          ? SizedBox(
+              height: 24,
+              width: 24,
+              child: CircularProgressIndicator(
+                color: colors.textMain,
+                strokeWidth: 2,
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/icons/google.png', height: 24, width: 24),
+                const SizedBox(width: 12),
+                Text(
+                  'sign_in_with_google'.tr(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildLocalStartButton(AppColorsExtension colors, bool isAnyLoading) {
+    return ElevatedButton(
+      onPressed: isAnyLoading ? null : _finishOnboarding,
       style: ElevatedButton.styleFrom(
         backgroundColor: colors.textMain,
         foregroundColor: colors.cardBg,
         minimumSize: const Size(double.infinity, 56),
-        elevation: 4,
-        shadowColor: Colors.black.withValues(alpha: 0.2),
+        elevation: 0,
       ),
-      child: _isSaving
+      child: _isSaving && !ref.watch(authControllerProvider).isLoading
           ? SizedBox(
               height: 24,
               width: 24,
@@ -585,8 +794,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           : Text(
               'get_started'.tr(),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
     );
   }
