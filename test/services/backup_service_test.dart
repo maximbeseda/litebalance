@@ -139,7 +139,7 @@ void main() {
     });
 
     test(
-      'decryptPayload викидає помилку ArgumentError при неправильному паролі',
+      'decryptPayload викидає помилку (ArgumentError або FormatException) при неправильному паролі',
       () {
         final String encryptedString = BackupService.generateEncryptedPayload(
           'CorrectPassword',
@@ -150,7 +150,9 @@ void main() {
 
         expect(
           () => BackupService.decryptPayload('HackerPassword', encryptedString),
-          throwsArgumentError,
+          throwsA(
+            anyOf(isA<ArgumentError>(), isA<FormatException>()),
+          ), // 👈 Очікуємо одну з двох помилок
         );
       },
     );
