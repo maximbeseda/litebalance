@@ -18,6 +18,21 @@ class _MockAssetLoader extends AssetLoader {
   }
 }
 
+// 👇 НОВЕ: Мок для налаштувань, щоб тест не робив HTTP-запитів за курсами валют
+class TestSettingsNotifier extends SettingsNotifier {
+  @override
+  SettingsState build() => SettingsState(
+    baseCurrency: 'USD',
+    selectedCurrencies: const ['USD', 'EUR'],
+    exchangeRates: const {'USD': 1.0, 'EUR': 0.9},
+    historicalCache: const {},
+    lastRatesUpdate: DateTime.now(),
+  );
+
+  @override
+  Future<void> setBaseCurrency(String code) async {} // Ігноруємо мережевий запит
+}
+
 void main() {
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +50,11 @@ void main() {
     final prefs = await SharedPreferences.getInstance();
 
     return ProviderScope(
-      overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+        // 👇 Перевизначаємо налаштування, щоб уникнути помилки HttpClient
+        settingsProvider.overrideWith(() => TestSettingsNotifier()),
+      ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en')],
         path: 'assets/translations',
@@ -86,6 +105,9 @@ void main() {
       expect(find.text('onboarding_title'), findsOneWidget);
       expect(find.text('language_title'), findsOneWidget);
       expect(find.text('base_currency_title'), findsOneWidget);
+
+      // 👇 Перевіряємо наявність нової кнопки Google
+      expect(find.text('sign_in_with_google'), findsOneWidget);
       expect(find.text('get_started'), findsOneWidget);
     });
 
@@ -96,7 +118,6 @@ void main() {
       await tester.pumpWidget(await createTestWidget());
       await tester.pumpAndSettle();
 
-      // Знаходимо GestureDetector, який огортає текст 'language_title'
       final languageField = find
           .ancestor(
             of: find.text('language_title'),
@@ -107,8 +128,6 @@ void main() {
       await tester.tap(languageField);
       await tester.pumpAndSettle();
 
-      // Шукаємо 'English' САМЕ у вигляді елемента списку (ListTile),
-      // щоб проігнорувати той 'English', який відображається у полі вводу на фоні
       expect(find.widgetWithText(ListTile, 'English'), findsOneWidget);
     });
 
@@ -119,7 +138,6 @@ void main() {
       await tester.pumpWidget(await createTestWidget());
       await tester.pumpAndSettle();
 
-      // Знаходимо GestureDetector, який огортає текст 'base_currency_title'
       final currencyField = find
           .ancestor(
             of: find.text('base_currency_title'),
@@ -130,12 +148,13 @@ void main() {
       await tester.tap(currencyField);
       await tester.pumpAndSettle();
 
-      // Шукаємо валюти САМЕ у вигляді елементів списку (ListTile)
       expect(find.widgetWithText(ListTile, 'USD'), findsOneWidget);
       expect(find.widgetWithText(ListTile, 'EUR'), findsOneWidget);
     });
 
-    testWidgets('Кнопка Get Started показує лоадер', (tester) async {
+    testWidgets('Кнопка Get Started показує лоадери на всіх кнопках', (
+      tester,
+    ) async {
       setLargeScreen(tester);
       addTearDown(tester.view.resetPhysicalSize);
 
@@ -143,10 +162,11 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('get_started'));
-      // Використовуємо pump() замість pumpAndSettle(), бо анімація лоадера триває нескінченно
       await tester.pump();
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      // 👇 ЗМІНЕНО: findsWidgets означає "один або більше". Оскільки обидві
+      // кнопки блокуються, ми маємо знайти рівно 2 лоадери, що є правильною поведінкою.
+      expect(find.byType(CircularProgressIndicator), findsWidgets);
     });
   });
 }

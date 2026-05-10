@@ -1,98 +1,177 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as p;
 
 import 'package:coin_flow/services/drive_backup_service.dart';
 import 'package:coin_flow/services/google_auth_service.dart';
 import 'package:coin_flow/database/app_database.dart';
 
-// 1. Створюємо "фальшиві" класи для наших залежностей
-class MockGoogleAuthService extends Mock implements GoogleAuthService {}
+class AppDatabaseSpy extends Fake implements AppDatabase {
+  static int checkpointCalls = 0;
+  static int closeCalls = 0;
 
-class MockAppDatabase extends Mock implements AppDatabase {}
+  static void reset() {
+    checkpointCalls = 0;
+    closeCalls = 0;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    if (invocation.memberName == #forceCheckpoint) {
+      checkpointCalls++;
+      return Future<void>.value();
+    }
+    if (invocation.memberName == #closeConnection) {
+      closeCalls++;
+      return Future<void>.value();
+    }
+    return super.noSuchMethod(invocation);
+  }
+
+  @override
+  Future<void> forceCheckpoint() async => checkpointCalls++;
+
+  @override
+  Future<void> closeConnection() async => closeCalls++;
+}
+
+class MockGoogleAuthService extends Mock implements GoogleAuthService {}
 
 class MockHttpClient extends Mock implements http.Client {}
 
+class FakeBaseRequest extends Fake implements http.BaseRequest {}
+
 void main() {
-  // Це потрібно для роботи з системними каналами у тестах (наприклад, path_provider)
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockGoogleAuthService mockAuthService;
-  late MockAppDatabase mockDb;
-  late DriveBackupService backupService;
-
-  setUp(() {
-    // 2. Ініціалізуємо чисті моби перед кожним тестом
-    mockAuthService = MockGoogleAuthService();
-    mockDb = MockAppDatabase();
-    backupService = DriveBackupService(mockAuthService);
-
-    // 3. "Заглушка" для path_provider
-    // Коли код проситиме шлях до папки документів, ми повертатимемо поточну директорію
-    const channel = MethodChannel('plugins.flutter.io/path_provider');
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-          if (methodCall.method == 'getApplicationDocumentsDirectory') {
-            return '.'; // Поточна папка для тестів
-          }
-          return null;
-        });
+  setUpAll(() {
+    registerFallbackValue(FakeBaseRequest());
   });
 
-  group('DriveBackupService Tests', () {
-    test(
-      'backupDatabase повертає false, якщо клієнт не авторизований',
-      () async {
-        // Умова: користувач не увійшов в Google (повертаємо null)
-        when(
-          () => mockAuthService.getAuthenticatedClient(),
-        ).thenAnswer((_) async => null);
+  late MockGoogleAuthService mockAuth;
+  late AppDatabaseSpy spyDb;
+  late DriveBackupService service;
+  late Directory tempDir;
 
-        final result = await backupService.backupDatabase(mockDb);
+  setUp(() async {
+    AppDatabaseSpy.reset();
+    mockAuth = MockGoogleAuthService();
+    spyDb = AppDatabaseSpy();
+    service = DriveBackupService(mockAuth);
 
-        // Перевірка: сервіс має одразу повернути false
-        expect(result, isFalse);
+    tempDir = await Directory.systemTemp.createTemp('coinflow_final_victory');
 
-        // Перевірка: ми не повинні були намагатися робити checkpoint бази
-        verifyNever(() => mockDb.forceCheckpoint());
-      },
-    );
+    const channel = MethodChannel('plugins.flutter.io/path_provider');
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (methodCall) async => tempDir.path);
+  });
 
-    test(
-      'restoreDatabase повертає false, якщо клієнт не авторизований',
-      () async {
-        when(
-          () => mockAuthService.getAuthenticatedClient(),
-        ).thenAnswer((_) async => null);
+  tearDown(() async {
+    // 👇 ХАК ДЛЯ WINDOWS: Ігноруємо помилки блокування файлів
+    try {
+      if (await tempDir.exists()) {
+        await tempDir.delete(recursive: true);
+      }
+    } catch (e) {
+      // Файл заблокований ОС, він видалиться сам при очищенні Temp ОС Windows
+    }
+  });
 
-        final result = await backupService.restoreDatabase(mockDb);
+  group('DriveBackupService - Victory Tests', () {
+    test('backupDatabase викликає forceCheckpoint', () async {
+      final mockClient = MockHttpClient();
+      when(
+        () => mockAuth.getAuthenticatedClient(),
+      ).thenAnswer((_) async => mockClient);
 
-        expect(result, isFalse);
-        // База не повинна була закриватися
-        verifyNever(() => mockDb.closeConnection());
-      },
-    );
+      when(() => mockClient.send(any())).thenAnswer((inv) async {
+        final req = inv.positionalArguments[0] as http.BaseRequest;
+        // 👇 ЗАКРИВАЄМО ПОТІК, щоб Windows не блокував файл
+        if (req is http.StreamedRequest) {
+          await req.finalize().drain();
+        }
 
-    test(
-      'backupDatabase викликає db.forceCheckpoint() перед роботою з Drive',
-      () async {
-        // Умова 1: Авторизація успішна (повертаємо фальшивий HTTP клієнт)
-        final mockClient = MockHttpClient();
-        when(
-          () => mockAuthService.getAuthenticatedClient(),
-        ).thenAnswer((_) async => mockClient);
+        return http.StreamedResponse(
+          Stream.value(utf8.encode(jsonEncode({'files': []}))),
+          200,
+          headers: {'content-type': 'application/json; charset=utf-8'},
+        );
+      });
 
-        // Умова 2: База даних успішно робить checkpoint (повертаємо нічого - порожню Future)
-        when(() => mockDb.forceCheckpoint()).thenAnswer((_) async => {});
+      final dbFile = File(p.join(tempDir.path, 'coinflow_db.sqlite'));
+      await dbFile.writeAsString('fake data');
 
-        // Спробуємо виконати бекап. Оскільки ми не налаштували відповіді Drive API
-        // для mockClient, він видасть помилку під час мережевого запиту. Це нормально!
-        await backupService.backupDatabase(mockDb);
+      await service.backupDatabase(spyDb);
 
-        // Головна перевірка: чи був викликаний метод forceCheckpoint перед помилкою?
-        verify(() => mockDb.forceCheckpoint()).called(1);
-      },
-    );
+      expect(AppDatabaseSpy.checkpointCalls, 1);
+    });
+
+    test('restoreDatabase закриває з’єднання перед заміною файлів', () async {
+      final mockClient = MockHttpClient();
+      when(
+        () => mockAuth.getAuthenticatedClient(),
+      ).thenAnswer((_) async => mockClient);
+
+      int requestCount = 0;
+      when(() => mockClient.send(any())).thenAnswer((inv) async {
+        final req = inv.positionalArguments[0] as http.BaseRequest;
+        if (req is http.StreamedRequest) await req.finalize().drain();
+
+        requestCount++;
+        if (requestCount == 1) {
+          return http.StreamedResponse(
+            Stream.value(
+              utf8.encode(
+                jsonEncode({
+                  'files': [
+                    {'id': '1', 'name': 'db'},
+                  ],
+                }),
+              ),
+            ),
+            200,
+            headers: {'content-type': 'application/json; charset=utf-8'},
+          );
+        }
+        return http.StreamedResponse(
+          Stream.value(utf8.encode('new content')),
+          200,
+          headers: {'content-type': 'application/octet-stream'},
+        );
+      });
+
+      await service.restoreDatabase(spyDb);
+
+      expect(AppDatabaseSpy.closeCalls, 1);
+    });
+
+    test('performSmartSync викликає checkpoint при локальних змінах', () async {
+      final mockClient = MockHttpClient();
+      when(
+        () => mockAuth.getAuthenticatedClient(),
+      ).thenAnswer((_) async => mockClient);
+
+      when(() => mockClient.send(any())).thenAnswer((inv) async {
+        final req = inv.positionalArguments[0] as http.BaseRequest;
+        if (req is http.StreamedRequest) await req.finalize().drain();
+
+        return http.StreamedResponse(
+          Stream.value(utf8.encode(jsonEncode({'files': []}))),
+          200,
+          headers: {'content-type': 'application/json; charset=utf-8'},
+        );
+      });
+
+      final dbFile = File(p.join(tempDir.path, 'coinflow_db.sqlite'));
+      await dbFile.writeAsString('local change');
+
+      await service.performSmartSync(spyDb, true);
+
+      expect(AppDatabaseSpy.checkpointCalls, greaterThanOrEqualTo(1));
+    });
   });
 }

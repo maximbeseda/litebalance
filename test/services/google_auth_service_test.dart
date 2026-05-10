@@ -3,72 +3,97 @@ import 'package:mocktail/mocktail.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:coin_flow/services/google_auth_service.dart';
 
-// 1. Створюємо "фальшиві" класи для інструментів Google
-class MockGoogleSignIn extends Mock implements GoogleSignIn {}
+// 👇 FAKE з точними сигнатурами версії 7.2.0
+class FakeGoogleSignIn extends Fake implements GoogleSignIn {
+  GoogleSignInAccount? mockAccount;
+  bool shouldThrow = false;
 
-class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {}
+  @override
+  Future<void> initialize({
+    String? clientId,
+    String? hostedDomain,
+    String? nonce,
+    String? serverClientId,
+  }) async {
+    // Метод ініціалізації у 7.2.0 змінив параметри
+  }
+
+  @override
+  Future<GoogleSignInAccount?> attemptLightweightAuthentication({
+    bool reportAllExceptions = false,
+  }) async {
+    if (shouldThrow) throw Exception('Auth Error');
+    return mockAccount;
+  }
+
+  @override
+  Future<GoogleSignInAccount> authenticate({
+    List<String> scopeHint = const <String>[],
+  }) async {
+    if (shouldThrow || mockAccount == null) {
+      throw Exception('Authentication failed or cancelled');
+    }
+    return mockAccount!;
+  }
+
+  @override
+  Future<GoogleSignInAccount?> signOut() async {
+    return null;
+  }
+}
+
+class MockAccount extends Mock implements GoogleSignInAccount {}
 
 void main() {
-  late MockGoogleSignIn mockGoogleSignIn;
+  late FakeGoogleSignIn fakeGoogleSignIn;
   late GoogleAuthService authService;
 
   setUp(() {
-    // 2. Перед кожним тестом створюємо чисті об'єкти
-    mockGoogleSignIn = MockGoogleSignIn();
-
-    // 3. Передаємо фальшивий об'єкт у наш сервіс завдяки оновленому конструктору!
-    authService = GoogleAuthService(googleSignIn: mockGoogleSignIn);
+    fakeGoogleSignIn = FakeGoogleSignIn();
+    authService = GoogleAuthService(googleSignIn: fakeGoogleSignIn);
   });
 
-  group('GoogleAuthService Tests', () {
-    test('signIn повертає обліковий запис при успішній авторизації', () async {
-      // Готуємо фальшивий акаунт, який ми "отримаємо" від Google
-      final mockAccount = MockGoogleSignInAccount();
+  group('GoogleAuthService - Fixed Fake 7.2.0', () {
+    test('signIn повертає акаунт при успішній авторизації', () async {
+      final account = MockAccount();
+      fakeGoogleSignIn.mockAccount = account;
 
-      // Вчимо наш мок-об'єкт, як відповідати на виклики методів
-      when(
-        () => mockGoogleSignIn.initialize(
-          serverClientId: any(named: 'serverClientId'),
-        ),
-      ).thenAnswer((_) async {});
-
-      when(
-        () => mockGoogleSignIn.attemptLightweightAuthentication(),
-      ).thenAnswer((_) async => mockAccount); // Успішний вхід
-
-      // Виконуємо метод
       final result = await authService.signIn();
 
-      // Перевіряємо, чи повернувся наш акаунт
-      expect(result, isNotNull);
-      expect(result, equals(mockAccount));
+      expect(result, equals(account));
+      expect(authService.currentUser, equals(account));
     });
 
-    test('signIn повертає null, якщо виникає помилка', () async {
-      // Вчимо мок-об'єкт викидати помилку (наприклад, немає інтернету)
-      when(
-        () => mockGoogleSignIn.initialize(
-          serverClientId: any(named: 'serverClientId'),
-        ),
-      ).thenAnswer((_) async {});
-
-      when(
-        () => mockGoogleSignIn.attemptLightweightAuthentication(),
-      ).thenThrow(Exception('No internet'));
+    test('signIn повертає null, якщо виникає помилка або скасування', () async {
+      // Оскільки authenticate тепер non-nullable, ми імітуємо скасування через помилку,
+      // яку твій сервіс ловить у блоці catch і повертає null.
+      fakeGoogleSignIn.shouldThrow = true;
 
       final result = await authService.signIn();
 
-      // Сервіс має зловити помилку в блоці catch і повернути null
       expect(result, isNull);
     });
 
-    test('signOut коректно викликає метод виходу', () async {
-      when(() => mockGoogleSignIn.signOut()).thenAnswer((_) async {});
+    test(
+      'signInSilently повертає акаунт через attemptLightweightAuthentication',
+      () async {
+        final account = MockAccount();
+        fakeGoogleSignIn.mockAccount = account;
+
+        final result = await authService.signInSilently();
+
+        expect(result, equals(account));
+      },
+    );
+
+    test('signOut очищує стан currentUser', () async {
+      fakeGoogleSignIn.mockAccount = MockAccount();
+      // Спочатку "логінимо" юзера в сервіс
+      await authService.signIn();
 
       await authService.signOut();
 
-      // Перевіряємо, чи наш сервіс дійсно дав команду Google вийти з акаунту
-      verify(() => mockGoogleSignIn.signOut()).called(1);
+      expect(authService.currentUser, isNull);
     });
   });
 }

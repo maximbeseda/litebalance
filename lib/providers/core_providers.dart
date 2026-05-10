@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-export '../database/app_database.dart';
+export 'package:coin_flow/database/app_database.dart';
 
 // 👇 ПРОКАЧАНИЙ клас-нотіфаєр для прапорця бекапів (Безсмертний)
 class DbDirtyNotifier extends Notifier<bool> {

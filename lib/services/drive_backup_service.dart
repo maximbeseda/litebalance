@@ -5,7 +5,7 @@ import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'google_auth_service.dart';
-import '../database/app_database.dart';
+import 'package:coin_flow/database/app_database.dart';
 
 enum SyncStatus { backedUp, restored, upToDate, error, noAuth }
 
