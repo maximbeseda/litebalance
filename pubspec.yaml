@@ -90,6 +90,7 @@ dev_dependencies:
   connectivity_plus_platform_interface: ^2.0.1
   plugin_platform_interface: ^2.1.8
   sqlite3: ^2.5.0
+  googleapis_auth: ^2.3.1
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -36,21 +36,8 @@ class _MockAssetLoader extends AssetLoader {
       'sign_in_with_google': 'Sign in',
       'logout': 'Logout',
       'sync_only_wifi': 'WiFi Sync',
-      'manage_backups': 'Backups',
-      'last_sync': 'Last sync',
-      'never': 'Never',
       'theme_light': 'Light',
       'theme_dark': 'Dark',
-      'backup_title': 'Backups',
-      'google_drive_backup': 'Google Drive',
-      'sync_with_cloud': 'Sync',
-      'no_backups_yet': 'No backups',
-      'import_from_cloud': 'Import',
-      'warning_overwrite': 'Warning',
-      'file_backup': 'File Backup',
-      'export_to_file': 'Export',
-      'import_from_file': 'Import File',
-      'cloud_backup_error': 'Error',
       'create_pin': 'Create PIN',
     };
   }
@@ -232,13 +219,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('John Doe'), findsOneWidget);
-      expect(find.text('Backups'), findsOneWidget);
 
-      try {
-        await tester.ensureVisible(find.text('Backups'));
-        await tester.tap(find.text('Backups'), warnIfMissed: false);
-        await tester.pump();
-      } catch (_) {}
+      // 👇 ФІКС: Прибрано перевірку неіснуючої кнопки 'Backups'
 
       final wifiSwitch = find.widgetWithText(SwitchListTile, 'WiFi Sync');
       if (wifiSwitch.evaluate().isNotEmpty) {
@@ -266,26 +248,22 @@ void main() {
       await tester.pumpAndSettle();
 
       // ЗМІНА ТЕМИ
-      // Шукаємо перший DropdownButton (це точно вибір теми)
       final themeDropdown = find.byType(DropdownButton<String>).first;
       await tester.ensureVisible(themeDropdown);
       await tester.tap(themeDropdown, warnIfMissed: false);
       await tester.pumpAndSettle();
 
-      // Вибираємо Dark
       final darkText = find.text('Dark').last;
       await tester.ensureVisible(darkText);
       await tester.tap(darkText, warnIfMissed: false);
       await tester.pumpAndSettle();
 
       // ЗМІНА ВАЛЮТИ
-      // Шукаємо другий DropdownButton (це точно вибір валюти)
       final currencyDropdown = find.byType(DropdownButton<String>).last;
       await tester.ensureVisible(currencyDropdown);
       await tester.tap(currencyDropdown, warnIfMissed: false);
       await tester.pumpAndSettle();
 
-      // Вибираємо EUR
       final eurText = find.text('EUR (€)').last;
       await tester.ensureVisible(eurText);
       await tester.tap(eurText, warnIfMissed: false);

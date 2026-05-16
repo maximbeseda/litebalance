@@ -85,7 +85,9 @@ void main() {
     test('backupDatabase викликає forceCheckpoint', () async {
       final mockClient = MockHttpClient();
       when(
-        () => mockAuth.getAuthenticatedClient(),
+        () => mockAuth.getAuthenticatedClient(
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
       ).thenAnswer((_) async => mockClient);
 
       when(() => mockClient.send(any())).thenAnswer((inv) async {
@@ -113,7 +115,9 @@ void main() {
     test('restoreDatabase закриває з’єднання перед заміною файлів', () async {
       final mockClient = MockHttpClient();
       when(
-        () => mockAuth.getAuthenticatedClient(),
+        () => mockAuth.getAuthenticatedClient(
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
       ).thenAnswer((_) async => mockClient);
 
       int requestCount = 0;
@@ -128,7 +132,7 @@ void main() {
               utf8.encode(
                 jsonEncode({
                   'files': [
-                    {'id': '1', 'name': 'db'},
+                    {'id': '1', 'name': 'coinflow_db.sqlite.gz'},
                   ],
                 }),
               ),
@@ -137,12 +141,19 @@ void main() {
             headers: {'content-type': 'application/json; charset=utf-8'},
           );
         }
+
+        // 👇 ФІКС: Віддаємо реальний стиснутий GZip потік, щоб розпакування не впало!
+        final compressedContent = gzip.encode(utf8.encode('new content'));
         return http.StreamedResponse(
-          Stream.value(utf8.encode('new content')),
+          Stream.value(compressedContent),
           200,
           headers: {'content-type': 'application/octet-stream'},
         );
       });
+
+      // Переконуємося, що локальний файл існує, щоб логіка заміни відпрацювала
+      final dbFile = File(p.join(tempDir.path, 'coinflow_db.sqlite'));
+      await dbFile.writeAsString('old local data');
 
       await service.restoreDatabase(spyDb);
 
@@ -152,7 +163,9 @@ void main() {
     test('performSmartSync викликає checkpoint при локальних змінах', () async {
       final mockClient = MockHttpClient();
       when(
-        () => mockAuth.getAuthenticatedClient(),
+        () => mockAuth.getAuthenticatedClient(
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
       ).thenAnswer((_) async => mockClient);
 
       when(() => mockClient.send(any())).thenAnswer((inv) async {
@@ -171,6 +184,7 @@ void main() {
 
       await service.performSmartSync(spyDb, true);
 
+      // Викличеться backupDatabase (а він містить forceCheckpoint)
       expect(AppDatabaseSpy.checkpointCalls, greaterThanOrEqualTo(1));
     });
   });

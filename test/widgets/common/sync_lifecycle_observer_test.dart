@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,13 +10,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-// 👇 Заміни на свої реальні імпорти
 import 'package:coin_flow/widgets/common/sync_lifecycle_observer.dart';
 import 'package:coin_flow/providers/all_providers.dart';
 import 'package:coin_flow/services/drive_backup_service.dart';
 import 'package:coin_flow/services/google_auth_service.dart';
 
-// --- МОКИ ---
+// --- МОКИ СЕРВІСІВ ---
 class MockDriveBackupService extends Mock implements DriveBackupService {}
 
 class MockGoogleAuthService extends Mock implements GoogleAuthService {}
@@ -26,12 +26,70 @@ class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {}
 
 class MockAppDatabase extends Mock implements AppDatabase {}
 
-// Спеціальний мок для імітації Wi-Fi / Мобільного інтернету
 class MockConnectivityPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements ConnectivityPlatform {}
 
 class AppDatabaseFake extends Fake implements AppDatabase {}
+
+// ============================================================================
+// Фейкові провайдери
+// ============================================================================
+class TestSettingsNotifier extends SettingsNotifier {
+  // 👇 ФІКС: Додали змінну, щоб прокидати налаштування з тесту!
+  final bool syncOnlyViaWifi;
+
+  TestSettingsNotifier({this.syncOnlyViaWifi = false});
+
+  @override
+  SettingsState build() => SettingsState(
+    baseCurrency: 'USD',
+    selectedCurrencies: const ['USD'],
+    exchangeRates: const {'USD': 1.0},
+    historicalCache: const {},
+    syncOnlyViaWifi: syncOnlyViaWifi, // Використовуємо передане значення
+  );
+  @override
+  Future<void> updateCloudBackupTime() async {}
+}
+
+class TestTransactionNotifier extends TransactionNotifier {
+  @override
+  Future<TransactionState> build() async => TransactionState(
+    history: const [],
+    deletedHistory: const [],
+    selectedMonth: DateTime.now(),
+    isMigrating: false,
+  );
+  @override
+  Future<void> loadHistory({bool showLoading = true}) async {}
+}
+
+class TestCategoryNotifier extends CategoryNotifier {
+  @override
+  CategoryState build() => CategoryState(
+    incomes: const [],
+    accounts: const [],
+    expenses: const [],
+    archivedCategories: const [],
+    deletedCategories: const [],
+    isLoading: false,
+  );
+  @override
+  Future<void> loadCategories({bool showLoading = true}) async {}
+}
+
+class TestSubscriptionNotifier extends SubscriptionNotifier {
+  @override
+  Future<SubscriptionState> build() async => SubscriptionState(
+    subscriptions: const [],
+    dueSubscriptions: const [],
+    deletedSubscriptions: const [],
+    ignoredSubIds: const {},
+  );
+  @override
+  Future<void> loadSubscriptions() async {}
+}
 
 void main() {
   setUpAll(() {
@@ -44,6 +102,7 @@ void main() {
   late MockGoogleSignInAccount mockAccount;
   late MockAppDatabase mockDb;
   late MockConnectivityPlatform mockConnectivity;
+  late StreamController<GoogleSignInAccount?> authStreamController;
 
   setUp(() {
     mockDriveService = MockDriveBackupService();
@@ -52,36 +111,62 @@ void main() {
     mockAccount = MockGoogleSignInAccount();
     mockDb = MockAppDatabase();
     mockConnectivity = MockConnectivityPlatform();
+    authStreamController = StreamController<GoogleSignInAccount?>.broadcast();
 
     // Підміняємо реальний плагін мережі на наш фейковий
     ConnectivityPlatform.instance = mockConnectivity;
 
-    // Базові налаштування
-    when(() => mockPrefs.getBool(any())).thenReturn(true); // Ніби база "брудна"
+    // Базові налаштування (за замовчуванням база брудна, юзер увійшов і пройшов онбординг)
+    when(() => mockPrefs.getBool(any())).thenReturn(true);
     when(() => mockPrefs.setBool(any(), any())).thenAnswer((_) async => true);
-    when(() => mockPrefs.getString(any())).thenReturn(null); // Для settings
+    when(() => mockPrefs.getString(any())).thenReturn(null);
+    when(() => mockPrefs.setString(any(), any())).thenAnswer((_) async => true);
     when(() => mockPrefs.setInt(any(), any())).thenAnswer((_) async => true);
+    when(() => mockPrefs.remove(any())).thenAnswer((_) async => true);
 
     // Імітуємо авторизованого юзера
     when(() => mockAuthService.currentUser).thenReturn(mockAccount);
     when(
       () => mockAuthService.authStateChanges,
-    ).thenAnswer((_) => Stream.value(mockAccount));
+    ).thenAnswer((_) => authStreamController.stream);
+
+    // Дані акаунта
+    when(() => mockAccount.displayName).thenReturn('Максим');
+    when(() => mockAccount.email).thenReturn('max@test.com');
+    when(() => mockAccount.photoUrl).thenReturn('https://photo.url');
 
     // Імітуємо успішний бекап
     when(
-      () => mockDriveService.backupDatabase(any()),
-    ).thenAnswer((_) async => true);
+      () => mockDriveService.performSmartSync(
+        any(),
+        any(),
+        allowInteractive: any(named: 'allowInteractive'),
+      ),
+    ).thenAnswer((_) async => SyncStatus.backedUp);
   });
 
-  // Хелпер для запуску віджета
-  Future<ProviderContainer> pumpObserver(WidgetTester tester) async {
+  tearDown(() {
+    authStreamController.close();
+  });
+
+  // Хелпер для запуску віджета (додали параметр syncOnlyViaWifi)
+  Future<ProviderContainer> pumpObserver(
+    WidgetTester tester, {
+    bool syncOnlyViaWifi = false,
+  }) async {
     final container = ProviderContainer(
       overrides: [
         driveBackupServiceProvider.overrideWithValue(mockDriveService),
         googleAuthServiceProvider.overrideWithValue(mockAuthService),
         sharedPreferencesProvider.overrideWithValue(mockPrefs),
         appDatabaseProvider.overrideWithValue(mockDb),
+        // Передаємо параметр безпосередньо у фейковий Settings-провайдер
+        settingsProvider.overrideWith(
+          () => TestSettingsNotifier(syncOnlyViaWifi: syncOnlyViaWifi),
+        ),
+        transactionProvider.overrideWith(() => TestTransactionNotifier()),
+        categoryProvider.overrideWith(() => TestCategoryNotifier()),
+        subscriptionProvider.overrideWith(() => TestSubscriptionNotifier()),
       ],
     );
 
@@ -102,34 +187,61 @@ void main() {
 
   group('SyncLifecycleObserver Tests -', () {
     testWidgets('НЕ робить бекап, якщо база не брудна', (tester) async {
-      // База чиста
       when(() => mockPrefs.getBool('is_db_dirty_persistent')).thenReturn(false);
 
       await pumpObserver(tester);
 
-      // Симулюємо згортання додатку
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
       await tester.pumpAndSettle();
 
-      // Перевіряємо, що запит до Google Drive НЕ викликався
-      verifyNever(() => mockDriveService.backupDatabase(any()));
+      verifyNever(
+        () => mockDriveService.performSmartSync(
+          any(),
+          any(),
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
+      );
     });
 
     testWidgets('НЕ робить бекап, якщо користувач не увійшов у Google', (
       tester,
     ) async {
-      // Юзер розлогінений
-      when(() => mockAuthService.currentUser).thenReturn(null);
       when(
-        () => mockAuthService.authStateChanges,
-      ).thenAnswer((_) => Stream.value(null));
+        () => mockPrefs.getBool('has_logged_in_with_google'),
+      ).thenReturn(false);
+      when(() => mockAuthService.currentUser).thenReturn(null);
 
       await pumpObserver(tester);
 
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
       await tester.pumpAndSettle();
 
-      verifyNever(() => mockDriveService.backupDatabase(any()));
+      verifyNever(
+        () => mockDriveService.performSmartSync(
+          any(),
+          any(),
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
+      );
+    });
+
+    testWidgets('НЕ робить бекап, якщо онбординг не завершено', (tester) async {
+      when(
+        () => mockPrefs.getBool('has_completed_onboarding'),
+      ).thenReturn(false);
+
+      await pumpObserver(tester);
+
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      await tester.pumpAndSettle();
+
+      verifyNever(
+        () => mockDriveService.performSmartSync(
+          any(),
+          any(),
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
+      );
     });
 
     testWidgets('Робить бекап при згортанні (paused), якщо є Wi-Fi', (
@@ -141,45 +253,42 @@ void main() {
 
       final container = await pumpObserver(tester);
 
-      // 1. КРИТИЧНО: Чекаємо, поки AuthController ініціалізується,
-      // щоб .value не був null під час виклику бекапу
+      authStreamController.add(mockAccount);
+      await tester.pump();
       await container.read(authControllerProvider.future);
 
-      // 2. Використовуємо runAsync для виконання реальних асинхронних викликів всередині тесту
-      await tester.runAsync(() async {
-        tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
-
-        // Даємо час асинхронним методам всередині _attemptAutoBackup відпрацювати
-        await Future.delayed(const Duration(milliseconds: 100));
-      });
-
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
       await tester.pumpAndSettle();
 
-      // Тепер verify точно знайде виклик
-      verify(() => mockDriveService.backupDatabase(mockDb)).called(1);
       verify(
-        () => mockPrefs.setBool('is_db_dirty_persistent', false),
+        () => mockDriveService.performSmartSync(
+          mockDb,
+          true,
+          allowInteractive: false,
+        ),
       ).called(1);
     });
 
     testWidgets('НЕ робить бекап, якщо увімкнено "Лише Wi-Fi", а ми на 4G', (
       tester,
     ) async {
-      // Імітуємо мобільний інтернет
       when(
         () => mockConnectivity.checkConnectivity(),
       ).thenAnswer((_) async => [ConnectivityResult.mobile]);
 
-      // Імітуємо, що в налаштуваннях увімкнено "Лише Wi-Fi"
-      when(() => mockPrefs.getBool('sync_only_wifi')).thenReturn(true);
-
-      await pumpObserver(tester);
+      // 👇 ФІКС: Тепер ми передаємо syncOnlyViaWifi = true напряму в хелпер!
+      await pumpObserver(tester, syncOnlyViaWifi: true);
 
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
       await tester.pumpAndSettle();
 
-      // Бекап не повинен відбутися
-      verifyNever(() => mockDriveService.backupDatabase(any()));
+      verifyNever(
+        () => mockDriveService.performSmartSync(
+          any(),
+          any(),
+          allowInteractive: any(named: 'allowInteractive'),
+        ),
+      );
     });
 
     testWidgets('Робить бекап при розгортанні (resumed) як страховка', (
@@ -191,19 +300,20 @@ void main() {
 
       final container = await pumpObserver(tester);
 
-      // Чекаємо ініціалізацію акаунта
+      authStreamController.add(mockAccount);
+      await tester.pump();
       await container.read(authControllerProvider.future);
 
-      await tester.runAsync(() async {
-        tester.binding.handleAppLifecycleStateChanged(
-          AppLifecycleState.resumed,
-        );
-        await Future.delayed(const Duration(milliseconds: 100));
-      });
-
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
       await tester.pumpAndSettle();
 
-      verify(() => mockDriveService.backupDatabase(mockDb)).called(1);
+      verify(
+        () => mockDriveService.performSmartSync(
+          mockDb,
+          true,
+          allowInteractive: false,
+        ),
+      ).called(1);
     });
   });
 }
