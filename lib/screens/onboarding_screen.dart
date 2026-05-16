@@ -138,12 +138,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  // 👇 ОНОВЛЕНО: Точно викликаємо правильний метод з передачею бази
+  // 👇 ОНОВЛЕНО: Використовуємо AuthController замість прямого сервісу
   Future<void> _signInWithGoogle() async {
     setState(() => _isSaving = true);
     try {
-      final authService = ref.read(googleAuthServiceProvider);
-      final account = await authService.signIn();
+      // Викликаємо правильний провайдер, який збереже все в кеш
+      final authNotifier = ref.read(authControllerProvider.notifier);
+      await authNotifier.signIn();
+
+      // Отримуємо результат з його стану
+      final account = ref.read(authControllerProvider).value;
 
       if (account != null) {
         if (!mounted) return;

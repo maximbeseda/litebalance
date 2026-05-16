@@ -103,3 +103,56 @@ final class DriveBackupServiceProvider
 
 String _$driveBackupServiceHash() =>
     r'5c688f9715692b0162dc2c0a5cab026b05dadab1';
+
+@ProviderFor(SyncController)
+const syncControllerProvider = SyncControllerProvider._();
+
+final class SyncControllerProvider
+    extends $NotifierProvider<SyncController, SyncState> {
+  const SyncControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncControllerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncControllerHash();
+
+  @$internal
+  @override
+  SyncController create() => SyncController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncState>(value),
+    );
+  }
+}
+
+String _$syncControllerHash() => r'0dda76c19f0e0018a246673e2939cf15c816a945';
+
+abstract class _$SyncController extends $Notifier<SyncState> {
+  SyncState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<SyncState, SyncState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<SyncState, SyncState>,
+              SyncState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

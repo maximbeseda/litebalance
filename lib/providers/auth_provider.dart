@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'all_providers.dart'; // Для доступу до SharedPreferences
+import 'all_providers.dart';
 
 part 'auth_provider.g.dart';
 
@@ -14,11 +14,16 @@ class AuthController extends _$AuthController {
   FutureOr<GoogleSignInAccount?> build() async {
     final authService = ref.watch(googleAuthServiceProvider);
 
+    // Підписуємося на події зміни акаунту
     final subscription = authService.authStateChanges.listen((account) {
       state = AsyncData(account);
     });
 
     ref.onDispose(() => subscription.cancel());
+
+    // 👇 ГОЛОВНИЙ ФІКС: Більше ніяких викликів авторизації при старті!
+    // Ми покладаємось на SharedPreferences для показу аватарки в UI,
+    // а коли почнеться фоновий бекап, GoogleAuthService тихо дістане токен сам.
 
     return authService.currentUser;
   }
@@ -31,7 +36,6 @@ class AuthController extends _$AuthController {
     try {
       final account = await authService.signIn();
 
-      // ✅ ЗБЕРІГАЄМО дані в кеш, щоб показувати їх при наступному старті
       if (account != null) {
         await prefs.setBool(_authFlagKey, true);
         await prefs.setString(
@@ -56,7 +60,6 @@ class AuthController extends _$AuthController {
     try {
       await authService.signOut();
 
-      // Очищаємо кеш
       await prefs.setBool(_authFlagKey, false);
       await prefs.remove('google_user_name');
       await prefs.remove('google_user_email');

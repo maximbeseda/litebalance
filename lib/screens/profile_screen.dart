@@ -15,7 +15,6 @@ import '../utils/app_constants.dart';
 import '../services/security_service.dart';
 import '../services/storage_service.dart';
 import 'lock_screen.dart';
-import 'backup_management_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -486,17 +485,12 @@ class ProfileScreen extends ConsumerWidget {
 
   Widget _buildAuthenticatedView(
     BuildContext context,
-    GoogleSignInAccount? account, // 👇 Тепер може бути null
-    SharedPreferences prefs, // 👇 Для читання з кешу
+    GoogleSignInAccount? account,
+    SharedPreferences prefs,
     WidgetRef ref,
     AppColorsExtension colors,
   ) {
     final settings = ref.watch(settingsProvider);
-
-    final lastSyncDate = settings.lastCloudBackup;
-    final lastSyncStr = lastSyncDate != null
-        ? DateFormat('dd.MM.yyyy HH:mm').format(lastSyncDate)
-        : 'never'.tr();
 
     // 👇 Беремо дані: пріоритет - реальний акаунт, якщо він ще вантажиться - беремо з кешу
     final String displayName =
@@ -617,37 +611,6 @@ class ProfileScreen extends ConsumerWidget {
           onChanged: (val) {
             ref.read(settingsProvider.notifier).toggleSyncOnlyViaWifi(val);
           },
-        ),
-
-        Divider(height: 1, color: colors.textSecondary.withValues(alpha: 0.1)),
-
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 4,
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const BackupManagementScreen()),
-            );
-          },
-          leading: Icon(Icons.cloud_done_rounded, color: colors.income),
-          title: Text(
-            'manage_backups'.tr(),
-            style: TextStyle(
-              color: colors.textMain,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          subtitle: Text(
-            '${'last_sync'.tr()}: $lastSyncStr',
-            style: TextStyle(color: colors.textSecondary, fontSize: 12),
-          ),
-          trailing: Icon(
-            Icons.chevron_right_rounded,
-            color: colors.textSecondary,
-          ),
         ),
       ],
     );

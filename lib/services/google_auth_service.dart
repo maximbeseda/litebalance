@@ -12,7 +12,6 @@ class GoogleAuthService {
   final GoogleSignIn _googleSignIn;
   final List<String> _scopes = [drive.DriveApi.driveAppdataScope];
 
-  // 👇 НОВЕ: Ручне кешування стану для версії пакета 7.0+
   GoogleSignInAccount? _currentUser;
   final StreamController<GoogleSignInAccount?> _authStateController =
       StreamController<GoogleSignInAccount?>.broadcast();
@@ -20,30 +19,79 @@ class GoogleAuthService {
   GoogleAuthService({GoogleSignIn? googleSignIn})
     : _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
 
-  // Віддаємо інформацію назовні
   GoogleSignInAccount? get currentUser => _currentUser;
   Stream<GoogleSignInAccount?> get authStateChanges =>
       _authStateController.stream;
 
   Future<void> init() async {
     await _googleSignIn.initialize(serverClientId: _serverClientId);
+
+    // 👇 ФІКС 1: Використовуємо новий потік подій для 7-ї версії
+    _googleSignIn.authenticationEvents.listen((event) {
+      if (event is GoogleSignInAuthenticationEventSignIn) {
+        _updateUser(event.user);
+      } else if (event is GoogleSignInAuthenticationEventSignOut) {
+        _updateUser(null);
+      }
+    });
   }
 
-  // Допоміжний метод для оновлення стану
   void _updateUser(GoogleSignInAccount? user) {
     _currentUser = user;
     _authStateController.add(user);
   }
 
-  // Тиха авторизація (v7.0+ використовує attemptLightweightAuthentication)
-  Future<GoogleSignInAccount?> signInSilently() async {
+  Future<http.Client?> getAuthenticatedClient({
+    bool allowInteractive = true,
+  }) async {
     try {
       await init();
-      final account = await _googleSignIn.attemptLightweightAuthentication();
-      _updateUser(account);
-      return account;
+
+      // 1. Спочатку спроба АБСОЛЮТНО ТИХО (без пробудження UI)
+      final globalAuthClient = _googleSignIn.authorizationClient;
+      final silentAuthz = await globalAuthClient.authorizationForScopes(
+        _scopes,
+      );
+
+      if (silentAuthz != null) {
+        log('✅ Токени отримано тихо', name: 'GoogleAuthService');
+        return silentAuthz.authClient(scopes: _scopes);
+      }
+
+      // 2. Якщо тихо не вийшло і ми в АВТО-режимі -> виходимо (засвітиться червона крапка)
+      if (!allowInteractive) {
+        log(
+          '⚠️ Авто-режим: токени відсутні. UI заблоковано.',
+          name: 'GoogleAuthService',
+        );
+        return null;
+      }
+
+      // 3. ІНТЕРАКТИВНИЙ РЕЖИМ (Користувач натиснув кнопку)
+      log(
+        '🔄 Спроба інтерактивного відновлення сесії...',
+        name: 'GoogleAuthService',
+      );
+
+      // 👇 ФІКС 1: Беремо поточного юзера. Якщо його немає (стерли через помилку 401) - викликаємо signIn()
+      final account = _currentUser ?? await signIn();
+
+      if (account == null) {
+        log(
+          '❌ Користувач скасував вхід або сталася помилка',
+          name: 'GoogleAuthService',
+        );
+        return null;
+      }
+
+      // 👇 ФІКС 2: Використовуємо authorizeScopes (ІНТЕРАКТИВНИЙ), а не authorizationForScopes (ТИХИЙ)
+      // Це гарантує, що якщо дозволів на Диск немає, користувач побачить вікно із запитом!
+      final interactiveAuthz = await account.authorizationClient
+          .authorizeScopes(_scopes);
+
+      return interactiveAuthz.authClient(scopes: _scopes);
     } catch (e) {
-      log('Google Auth Silent Sign In Error: $e', name: 'GoogleAuthService');
+      log('❌ Критична помилка авторизації: $e', name: 'GoogleAuthService');
       return null;
     }
   }
@@ -51,13 +99,16 @@ class GoogleAuthService {
   Future<GoogleSignInAccount?> signIn() async {
     try {
       await init();
+
       var account = await _googleSignIn.attemptLightweightAuthentication();
-      // v7.0+ використовує authenticate
+
       account ??= await _googleSignIn.authenticate();
-      _updateUser(account);
+
+      await account.authorizationClient.authorizeScopes(_scopes);
+
       return account;
     } catch (e) {
-      log('Google Auth Error: $e', name: 'GoogleAuthService');
+      log('❌ Помилка входу: $e', name: 'GoogleAuthService');
       return null;
     }
   }
@@ -65,28 +116,21 @@ class GoogleAuthService {
   Future<void> signOut() async {
     try {
       await _googleSignIn.signOut();
-      _updateUser(null); // Очищаємо кеш при виході
+      _updateUser(null);
     } catch (e) {
-      log('Google Auth Sign Out Error: $e', name: 'GoogleAuthService');
+      log('❌ Помилка виходу: $e', name: 'GoogleAuthService');
     }
   }
 
-  Future<http.Client?> getAuthenticatedClient() async {
+  // 👇 Метод для примусового очищення зламаних токенів
+  Future<void> clearTokenAndSignOut() async {
+    log('⚠️ Примусове очищення токенів та вихід...', name: 'GoogleAuthService');
     try {
-      // Використовуємо наш локальний кеш
-      var account = currentUser ?? await signInSilently();
-      account ??= await signIn();
-
-      if (account == null) return null;
-
-      final authClient = account.authorizationClient;
-      var authz = await authClient.authorizationForScopes(_scopes);
-      authz ??= await authClient.authorizeScopes(_scopes);
-
-      return authz.authClient(scopes: _scopes);
+      await _googleSignIn.signOut();
+      await _googleSignIn.disconnect(); // Повністю відв'язує акаунт
+      _updateUser(null);
     } catch (e) {
-      log('Authenticated Client Error: $e', name: 'GoogleAuthService');
-      return null;
+      log('❌ Помилка очищення: $e', name: 'GoogleAuthService');
     }
   }
 }

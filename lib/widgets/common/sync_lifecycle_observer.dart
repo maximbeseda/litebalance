@@ -14,6 +14,9 @@ class SyncLifecycleObserver extends ConsumerStatefulWidget {
 
 class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
     with WidgetsBindingObserver {
+  // 👇 Запобіжник: блокує подвійний запуск
+  bool _isAutoSyncing = false;
+
   @override
   void initState() {
     super.initState();
@@ -29,52 +32,76 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.hidden) {
-      // Спроба бекапу при згортанні (може бути перервана системою)
-      _attemptAutoBackup();
-    } else if (state == AppLifecycleState.resumed) {
-      // 👇 СТРАХОВКА: Якщо бекап не вдався, робимо його при поверненні в додаток!
-      _attemptAutoBackup();
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.resumed) {
+      _attemptAutoSync(state);
     }
   }
 
-  // 👇 ХЕЛПЕР ДЛЯ ПЕРЕВІРКИ МЕРЕЖІ
   Future<bool> _canSyncNow() async {
-    final settings = ref.read(settingsProvider);
-    if (!settings.syncOnlyViaWifi) {
-      return true; // Якщо дозволено будь-який інтернет - пускаємо
-    }
-
     try {
       final connectivityResult = await Connectivity().checkConnectivity();
-      // Перевіряємо, чи є серед підключень Wi-Fi
-      return connectivityResult.contains(ConnectivityResult.wifi);
+
+      // Якщо немає мережі взагалі (новий API ConnectivityPlus повертає список)
+      if (connectivityResult.contains(ConnectivityResult.none)) {
+        return false;
+      }
+
+      final settings = ref.read(settingsProvider);
+
+      // Якщо вимагається тільки Wi-Fi
+      if (settings.syncOnlyViaWifi) {
+        return connectivityResult.contains(ConnectivityResult.wifi) ||
+            connectivityResult.contains(ConnectivityResult.ethernet);
+      }
+
+      return true;
     } catch (e) {
-      return false; // Якщо помилка - краще не синхронізувати, щоб не спалити трафік
+      return false;
     }
   }
 
-  Future<void> _attemptAutoBackup() async {
+  Future<void> _attemptAutoSync(AppLifecycleState state) async {
+    if (_isAutoSyncing) return;
+
     final isDirty = ref.read(dbDirtyProvider);
-    if (!isDirty) return;
+    final settings = ref.read(settingsProvider);
+    final prefs = ref.read(sharedPreferencesProvider);
 
-    final account = ref.read(authControllerProvider).value;
-    if (account == null) return;
+    // 👇 Перевіряємо, чи юзер ВЗАГАЛІ логінився. Якщо ні - ігноруємо.
+    final hasLoggedIn = prefs.getBool('has_logged_in_with_google') ?? false;
+    if (!hasLoggedIn) return;
 
-    if (!await _canSyncNow()) return; // Скасовуємо, якщо немає Wi-Fi
-
-    try {
-      final db = ref.read(appDatabaseProvider);
-      final driveService = ref.read(driveBackupServiceProvider);
-
-      final success = await driveService.backupDatabase(db);
-      if (success) {
-        ref.read(dbDirtyProvider.notifier).setDirty(false);
-        // Фіксуємо час успішної синхронізації
-        await ref.read(settingsProvider.notifier).updateCloudBackupTime();
+    // 👇 ТОП-ПРАКТИКА: Оптимізація запитів до сервера
+    if (state == AppLifecycleState.resumed) {
+      if (!isDirty && settings.lastCloudBackup != null) {
+        final difference = DateTime.now().difference(settings.lastCloudBackup!);
+        if (difference.inMinutes < 10) {
+          debugPrint(
+            '⏳ Пропуск авто-синхронізації: з останньої пройшло менше 10 хв',
+          );
+          return;
+        }
       }
+    } else {
+      if (!isDirty) return;
+    }
+
+    if (!await _canSyncNow()) {
+      debugPrint('📶 Пропуск авто-синхронізації: відсутня потрібна мережа');
+      return;
+    }
+
+    _isAutoSyncing = true;
+    try {
+      debugPrint('🔄 Запуск фонової синхронізації (State: $state)...');
+
+      // 👇 Вказуємо, що це АВТОМАТИЧНИЙ виклик!
+      await ref.read(syncControllerProvider.notifier).syncNow(isAuto: true);
     } catch (e) {
-      debugPrint('❌ Помилка авто-бекапу: $e');
+      debugPrint('❌ Критична помилка фонової синхронізації: $e');
+    } finally {
+      _isAutoSyncing = false;
     }
   }
 
