@@ -71,6 +71,10 @@ class CategoryNotifier extends _$CategoryNotifier {
   }
 
   Future<void> loadCategories() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Якщо зараз іде підміна файлу бази з хмари — не ліземо туди!
+    // Провайдер просто зачекає, поки backup_service сам його викличе після розпакування.
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
     final db = ref.read(appDatabaseProvider);
 
     // Асинхронний запит до БД

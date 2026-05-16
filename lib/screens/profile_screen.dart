@@ -16,10 +16,19 @@ import '../services/security_service.dart';
 import '../services/storage_service.dart';
 import 'lock_screen.dart';
 
-class ProfileScreen extends ConsumerWidget {
+// 👇 1. Змінили на ConsumerStatefulWidget для локального стану завантаження
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
-  Future<void> _showClearDataDialog(BuildContext context, WidgetRef ref) async {
+  @override
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  // 👇 2. Стан для кнопки логауту
+  bool _isLoggingOut = false;
+
+  Future<void> _showClearDataDialog(BuildContext context) async {
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
@@ -155,14 +164,13 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
     final authState = ref.watch(authControllerProvider);
     final account = authState.value;
     final isAuthLoading = authState.isLoading;
 
-    // 👇 ДОДАНО: Перевіряємо кеш для миттєвого відображення
     final prefs = ref.watch(sharedPreferencesProvider);
     final isLoggedIn = prefs.getBool('has_logged_in_with_google') ?? false;
 
@@ -217,21 +225,10 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                       child: Column(
                         children: [
-                          // 👇 ОНОВЛЕНА ЛОГІКА: Перевіряємо і account, і кеш
                           if (account == null && !isLoggedIn)
-                            _buildUnauthenticatedView(
-                              ref,
-                              colors,
-                              isAuthLoading,
-                            )
+                            _buildUnauthenticatedView(colors, isAuthLoading)
                           else
-                            _buildAuthenticatedView(
-                              context,
-                              account,
-                              prefs,
-                              ref,
-                              colors,
-                            ),
+                            _buildAuthenticatedView(account, prefs, colors),
 
                           Divider(
                             height: 1,
@@ -382,7 +379,7 @@ class ProfileScreen extends ConsumerWidget {
 
                               if (!context.mounted) return;
 
-                              await _showClearDataDialog(context, ref);
+                              await _showClearDataDialog(context);
                             },
                           ),
                         ],
@@ -412,7 +409,6 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _buildUnauthenticatedView(
-    WidgetRef ref,
     AppColorsExtension colors,
     bool isLoading,
   ) {
@@ -429,7 +425,6 @@ class ProfileScreen extends ConsumerWidget {
           SizedBox(
             height: 48,
             child: ElevatedButton(
-              // 👇 ОНОВЛЕНА ЛОГІКА: Тільки вхід. Ніякої примусової синхронізації
               onPressed: isLoading
                   ? null
                   : () async {
@@ -484,15 +479,12 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _buildAuthenticatedView(
-    BuildContext context,
     GoogleSignInAccount? account,
     SharedPreferences prefs,
-    WidgetRef ref,
     AppColorsExtension colors,
   ) {
     final settings = ref.watch(settingsProvider);
 
-    // 👇 Беремо дані: пріоритет - реальний акаунт, якщо він ще вантажиться - беремо з кешу
     final String displayName =
         account?.displayName ??
         prefs.getString('google_user_name') ??
@@ -579,10 +571,40 @@ class ProfileScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+              // 👇 3. Оновлена кнопка логауту з індикатором та швидким очищенням кешу
               IconButton(
-                onPressed: () =>
-                    ref.read(authControllerProvider.notifier).signOut(),
-                icon: const Icon(Icons.logout_rounded),
+                onPressed: _isLoggingOut
+                    ? null
+                    : () async {
+                        setState(() {
+                          _isLoggingOut = true;
+                        });
+
+                        // Миттєво стираємо кеш ДО логауту, 
+                        // щоб екран відразу перебудувався правильно після завершення запиту.
+                        await prefs.setBool('has_logged_in_with_google', false);
+                        await prefs.remove('google_user_name');
+                        await prefs.remove('google_user_email');
+                        await prefs.remove('google_user_photo');
+
+                        await ref.read(authControllerProvider.notifier).signOut();
+
+                        if (mounted) {
+                          setState(() {
+                            _isLoggingOut = false;
+                          });
+                        }
+                      },
+                icon: _isLoggingOut
+                    ? SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: colors.expense,
+                        ),
+                      )
+                    : const Icon(Icons.logout_rounded),
                 color: colors.expense,
                 tooltip: 'logout'.tr(),
               ),

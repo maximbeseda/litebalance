@@ -51,7 +51,6 @@ class SyncController extends _$SyncController {
       final backupService = ref.read(driveBackupServiceProvider);
       final isLocalDirty = ref.read(dbDirtyProvider);
 
-      // 👇 Якщо це АВТО (isAuto = true), то інтерактив ЗАБОРОНЕНО (allowInteractive = false)
       final result = await backupService.performSmartSync(
         db,
         isLocalDirty,
@@ -61,27 +60,28 @@ class SyncController extends _$SyncController {
       if (result == SyncStatus.error || result == SyncStatus.noAuth) {
         state = state.copyWith(isSyncing: false, hasError: true);
       } else {
-        // 👇 ДОДАНО: Якщо ми завантажили базу з хмари, треба її "перезавантажити"
         if (result == SyncStatus.restored) {
-          debugPrint(
-            '🔄 База була відновлена! Перевідкриваємо з\'єднання та оновлюємо UI...',
-          );
-
-          // Змушуємо Riverpod створити нове підключення до бази
+          debugPrint('🔄 База була відновлена! Перевідкриваємо з\'єднання...');
           ref.invalidate(appDatabaseProvider);
-
-          // Очищаємо кеші екранів, щоб вони завантажили нові дані
-          ref.invalidate(transactionProvider);
-          ref.invalidate(categoryProvider);
-          ref.invalidate(subscriptionProvider);
-          ref.invalidate(statsProvider);
         }
 
-        // Оновлюємо дату та скидаємо "брудні" дані
+        // 👇 ГРАНД-ФІКС 2: Спочатку залізобетонно оновлюємо всі метадані в системі,
+        // поки прапорець isSyncing ще дорівнює true!
         await ref.read(settingsProvider.notifier).updateCloudBackupTime();
         ref.read(dbDirtyProvider.notifier).setDirty(false);
 
+        // 👇 ТЕПЕР БЕЗПЕЧНО ЗНІМАЄМО ПРАПОРЕЦЬ.
+        // Будь-який наступний випадковий запит побачить, що бази синхронні, і нічого не закриє.
         state = state.copyWith(isSyncing: false, hasError: false);
+
+        // 👇 НАПРИКІНЦІ робимо тихе оновлення інтерфейсу
+        try {
+          await ref.read(transactionProvider.notifier).loadHistory();
+          await ref.read(categoryProvider.notifier).loadCategories();
+          await ref.read(subscriptionProvider.notifier).loadSubscriptions();
+        } catch (e) {
+          debugPrint('Помилка тихого оновлення провайдерів: $e');
+        }
       }
     } catch (e) {
       debugPrint('SyncError: $e');

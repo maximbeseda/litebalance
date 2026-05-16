@@ -33,7 +33,7 @@ final class AuthControllerProvider
   AuthController create() => AuthController();
 }
 
-String _$authControllerHash() => r'ac039e59cfb81bc3c07c9957aa7e81f2dba1ca7c';
+String _$authControllerHash() => r'e1a06dba28fcf51e60e88f0e0931167735d8c609';
 
 abstract class _$AuthController extends $AsyncNotifier<GoogleSignInAccount?> {
   FutureOr<GoogleSignInAccount?> build();

@@ -142,12 +142,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Future<void> _signInWithGoogle() async {
     setState(() => _isSaving = true);
     try {
-      // Викликаємо правильний провайдер, який збереже все в кеш
       final authNotifier = ref.read(authControllerProvider.notifier);
-      await authNotifier.signIn();
 
-      // Отримуємо результат з його стану
-      final account = ref.read(authControllerProvider).value;
+      // 👇 ФІКС 1: Отримуємо акаунт напряму і миттєво, без очікування стріму
+      final account = await authNotifier.signIn();
 
       if (account != null) {
         if (!mounted) return;
@@ -159,22 +157,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
           try {
             final driveService = ref.read(driveBackupServiceProvider);
-            final db = ref.read(appDatabaseProvider); // Отримуємо базу даних
+            final db = ref.read(appDatabaseProvider);
 
-            // ✅ Викликаємо метод з параметром db
             final restoreSuccess = await driveService.restoreDatabase(db);
 
             if (restoreSuccess) {
-              // Очищаємо кеш провайдерів
+              // 👇 ФІКС 2: КРИТИЧНО! База була закрита сервісом. Її треба інвалідувати,
+              // щоб HomeScreen створив абсолютно нове підключення до нового файлу!
+              ref.invalidate(appDatabaseProvider);
+
               ref.invalidate(transactionProvider);
               ref.invalidate(categoryProvider);
               ref.invalidate(subscriptionProvider);
               ref.invalidate(statsProvider);
 
-              // Йдемо на Головний екран
               _finishOnboarding();
             } else {
-              // Якщо метод повернув false (бекапу немає)
               if (mounted) {
                 setState(() => _isSaving = false);
                 ScaffoldMessenger.of(

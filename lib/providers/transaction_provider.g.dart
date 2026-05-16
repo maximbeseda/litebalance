@@ -34,7 +34,7 @@ final class TransactionNotifierProvider
 }
 
 String _$transactionNotifierHash() =>
-    r'24dcad71df7a1af2617b91449846ec160d97704c';
+    r'f201d23aa3868591c6cb291ca3018d2a7cb6f751';
 
 abstract class _$TransactionNotifier extends $AsyncNotifier<TransactionState> {
   FutureOr<TransactionState> build();

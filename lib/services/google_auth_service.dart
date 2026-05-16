@@ -16,6 +16,9 @@ class GoogleAuthService {
   final StreamController<GoogleSignInAccount?> _authStateController =
       StreamController<GoogleSignInAccount?>.broadcast();
 
+  // 👇 ЗАХИСТ: Прапорець, щоб не викликати ініціалізацію та listen() двічі
+  bool _isInitialized = false;
+
   GoogleAuthService({GoogleSignIn? googleSignIn})
     : _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
 
@@ -24,16 +27,30 @@ class GoogleAuthService {
       _authStateController.stream;
 
   Future<void> init() async {
+    if (_isInitialized) return;
+
     await _googleSignIn.initialize(serverClientId: _serverClientId);
 
-    // 👇 ФІКС 1: Використовуємо новий потік подій для 7-ї версії
-    _googleSignIn.authenticationEvents.listen((event) {
-      if (event is GoogleSignInAuthenticationEventSignIn) {
-        _updateUser(event.user);
-      } else if (event is GoogleSignInAuthenticationEventSignOut) {
-        _updateUser(null);
-      }
-    });
+    _googleSignIn.authenticationEvents.listen(
+      (event) {
+        if (event is GoogleSignInAuthenticationEventSignIn) {
+          _updateUser(event.user);
+        } else if (event is GoogleSignInAuthenticationEventSignOut) {
+          _updateUser(null);
+        }
+      },
+      // 👇 ГОЛОВНИЙ АРХІТЕКТУРНИЙ ФІКС ДЛЯ ЗНИЩЕННЯ КРАШІВ (Signal 3)
+      // Обов'язково глушимо помилки скасування на рівні глобального стріму плагіна.
+      // Тепер при скасуванні помилка не буде «вішати» платформений канал.
+      onError: (error) {
+        log(
+          '⚠️ Оброблено помилку у стрімі подій Google: $error',
+          name: 'GoogleAuthService',
+        );
+      },
+    );
+
+    _isInitialized = true;
   }
 
   void _updateUser(GoogleSignInAccount? user) {
@@ -49,19 +66,26 @@ class GoogleAuthService {
 
       // 1. Спочатку спроба АБСОЛЮТНО ТИХО (без пробудження UI)
       final globalAuthClient = _googleSignIn.authorizationClient;
-      final silentAuthz = await globalAuthClient.authorizationForScopes(
-        _scopes,
-      );
 
-      if (silentAuthz != null) {
-        log('✅ Токени отримано тихо', name: 'GoogleAuthService');
-        return silentAuthz.authClient(scopes: _scopes);
+      try {
+        final silentAuthz = await globalAuthClient.authorizationForScopes(
+          _scopes,
+        );
+        if (silentAuthz != null) {
+          log('✅ Токени отримано тихо (global)', name: 'GoogleAuthService');
+          return silentAuthz.authClient(scopes: _scopes);
+        }
+      } catch (e) {
+        log(
+          '⚠️ Тихий глобальний запит повернув помилку: $e',
+          name: 'GoogleAuthService',
+        );
       }
 
-      // 2. Якщо тихо не вийшло і ми в АВТО-режимі -> виходимо (засвітиться червона крапка)
+      // 2. Якщо тихо не вийшло і ми в АВТО-режимі -> виходимо
       if (!allowInteractive) {
         log(
-          '⚠️ Авто-режим: токени відсутні. UI заблоковано.',
+          '⚠️ Авто-режим: токени відсутні. Фоновий запит скасовано.',
           name: 'GoogleAuthService',
         );
         return null;
@@ -69,29 +93,67 @@ class GoogleAuthService {
 
       // 3. ІНТЕРАКТИВНИЙ РЕЖИМ (Користувач натиснув кнопку)
       log(
-        '🔄 Спроба інтерактивного відновлення сесії...',
+        '🔄 Спроба викликати швидкий вхід One Tap для синхронізації...',
         name: 'GoogleAuthService',
       );
 
-      // 👇 ФІКС 1: Беремо поточного юзера. Якщо його немає (стерли через помилку 401) - викликаємо signIn()
-      final account = _currentUser ?? await signIn();
+      GoogleSignInAccount? account = _currentUser;
 
       if (account == null) {
-        log(
-          '❌ Користувач скасував вхід або сталася помилка',
-          name: 'GoogleAuthService',
-        );
-        return null;
+        try {
+          final lightweightAccount = await _googleSignIn
+              .attemptLightweightAuthentication(reportAllExceptions: true);
+
+          // 👇 ФІКС 1: Використовуємо нуль-важливе надання значень (??=), як просив лінтер.
+          // Оскільки authenticate() non-nullable, змінна `account` гарантовано заповниться.
+          account = lightweightAccount ?? await _googleSignIn.authenticate();
+
+          // 👇 ФІКС 2: Прибрали if (account != null), бо Dart і так знає, що він тут НЕ null.
+          _updateUser(account);
+        } catch (e) {
+          log(
+            '⚠️ Користувач скасував вікно One Tap для синхронізації або сталася помилка: $e',
+            name: 'GoogleAuthService',
+          );
+          return null;
+        }
       }
 
-      // 👇 ФІКС 2: Використовуємо authorizeScopes (ІНТЕРАКТИВНИЙ), а не authorizationForScopes (ТИХИЙ)
-      // Це гарантує, що якщо дозволів на Диск немає, користувач побачить вікно із запитом!
+      // 👇 ФІКС 3: Прибрали if (account == null) return null;, який викликав Dead Code.
+      // Якщо ми дожили до цього рядка, Dart на 200% впевнений, що account має значення.
+
+      // 4. Спочатку робимо ТИХУ перевірку прав на Диск для КОНКРЕТНОГО акаунта
+      try {
+        final accountSilentAuthz = await account.authorizationClient
+            .authorizationForScopes(_scopes);
+        if (accountSilentAuthz != null) {
+          log(
+            '✅ Дозволи на Диск вже були надані раніше.',
+            name: 'GoogleAuthService',
+          );
+          return accountSilentAuthz.authClient(scopes: _scopes);
+        }
+      } catch (e) {
+        log(
+          '⚠️ Тиха перевірка дозволів не вдалася: $e',
+          name: 'GoogleAuthService',
+        );
+      }
+
+      // 5. Тільки якщо попередній тихий крок сказав, що прав немає — ЗАПИТУЄМО ІНТЕРАКТИВНО.
+      log(
+        '🛡️ Запит прав доступу до Google Drive...',
+        name: 'GoogleAuthService',
+      );
       final interactiveAuthz = await account.authorizationClient
           .authorizeScopes(_scopes);
 
       return interactiveAuthz.authClient(scopes: _scopes);
     } catch (e) {
-      log('❌ Критична помилка авторизації: $e', name: 'GoogleAuthService');
+      log(
+        '❌ Критична помилка або скасування прав на Диск: $e',
+        name: 'GoogleAuthService',
+      );
       return null;
     }
   }
@@ -100,15 +162,17 @@ class GoogleAuthService {
     try {
       await init();
 
-      var account = await _googleSignIn.attemptLightweightAuthentication();
-
-      account ??= await _googleSignIn.authenticate();
-
-      await account.authorizationClient.authorizeScopes(_scopes);
+      // 👇 Згідно з практиками Google: для кнопок використовується тільки authenticate().
+      // Це дає користувачу повний вибір усіх його Google-акаунтів на пристрої.
+      // Якщо він натисне "Скасувати", метод просто викине помилку, ми її зловимо і повернемо null.
+      final account = await _googleSignIn.authenticate();
 
       return account;
     } catch (e) {
-      log('❌ Помилка входу: $e', name: 'GoogleAuthService');
+      log(
+        '❌ Користувач скасував вхід на екрані: $e',
+        name: 'GoogleAuthService',
+      );
       return null;
     }
   }

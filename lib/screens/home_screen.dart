@@ -363,7 +363,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       }
     });
 
-    if (catState.isLoading || txAsync.isLoading || txState == null) {
+    // Показуємо скелетон тільки якщо даних ВЗАГАЛІ немає.
+    // Якщо дані вже є (наприклад, під час фонової синхронізації), ми ігноруємо isLoading.
+    final hasCategories =
+        catState.incomes.isNotEmpty ||
+        catState.accounts.isNotEmpty ||
+        catState.expenses.isNotEmpty;
+
+    if ((catState.isLoading && !hasCategories) ||
+        (txAsync.isLoading && !txAsync.hasValue) ||
+        txState == null) {
       return Scaffold(
         backgroundColor: colors.bgGradientStart,
         body: const HomeScreenSkeleton(),

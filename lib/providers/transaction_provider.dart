@@ -53,6 +53,16 @@ class TransactionState {
 class TransactionNotifier extends _$TransactionNotifier {
   @override
   Future<TransactionState> build() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Якщо база підміняється прямо зараз — повертаємо дефолтний стан і не чіпаємо файл
+    if (ref.read(syncControllerProvider).isSyncing) {
+      return TransactionState(
+        history: [],
+        deletedHistory: [],
+        selectedMonth: DateTime(DateTime.now().year, DateTime.now().month, 1),
+        isMigrating: false,
+      );
+    }
+
     ref.listen<String>(settingsProvider.select((s) => s.baseCurrency), (
       previous,
       next,
@@ -103,6 +113,9 @@ class TransactionNotifier extends _$TransactionNotifier {
   }
 
   Future<void> loadHistory() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Не ліземо в базу, якщо файл SQLite у цей момент закривається/копіюється
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
     final db = ref.read(appDatabaseProvider);
     final loadedHistory = await StorageService.loadHistory(db);
     loadedHistory.sort((a, b) => b.date.compareTo(a.date));

@@ -61,6 +61,16 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
 
   @override
   Future<SubscriptionState> build() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Якщо база у цей момент перезаписується — не чіпаємо її файл
+    if (ref.read(syncControllerProvider).isSyncing) {
+      return SubscriptionState(
+        subscriptions: [],
+        dueSubscriptions: [],
+        deletedSubscriptions: [],
+        ignoredSubIds: {},
+      );
+    }
+
     final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
@@ -100,6 +110,9 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> loadSubscriptions() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Не ліземо в базу, якщо файл SQLite зараз закривається/копіюється
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
     final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
