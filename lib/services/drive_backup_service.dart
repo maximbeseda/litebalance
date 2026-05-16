@@ -12,30 +12,30 @@ enum SyncStatus { backedUp, restored, upToDate, error, noAuth }
 
 class DriveBackupService {
   final GoogleAuthService _authService;
-  final String _backupFileName = 'coinflow_db.sqlite';
+
+  // 👇 НОВЕ: Змінюємо розширення файлу в хмарі, щоб показати, що це GZip архів
+  final String _backupFileName = 'coinflow_db.sqlite.gz';
 
   DriveBackupService(this._authService);
 
   Future<File> _getLocalDatabaseFile() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    return File(p.join(dbFolder.path, _backupFileName));
+    // Локальний файл залишається звичайним файлом SQLite (.sqlite)
+    return File(p.join(dbFolder.path, 'coinflow_db.sqlite'));
   }
 
-  // 👇 НОВА ЧАРІВНА ОБГОРТКА
-  // Вона приймає функцію, виконує її, і якщо ловить 401 - стирає токен і повторює знову
+  // ОБГОРТКА З АВТО-ПОВТОРОМ
   Future<T> _executeWithRetry<T>(
     Future<T> Function(http.Client client) action, {
     required bool allowInteractive,
     required T fallbackValue,
   }) async {
     try {
-      // ФІКС 1: Робимо змінну final
       final client = await _authService.getAuthenticatedClient(
         allowInteractive: allowInteractive,
       );
       if (client == null) return fallbackValue;
 
-      // Виконуємо основну дію
       return await action(client);
     } catch (e) {
       final errorString = e.toString();
@@ -51,14 +51,12 @@ class DriveBackupService {
         if (allowInteractive) {
           debugPrint('[DriveBackup] 🔄 Повторна спроба (з UI)...');
 
-          // 👇 ФІКС 2: Створюємо НОВУ змінну retryClient, бо старий client тут недоступний
           final retryClient = await _authService.getAuthenticatedClient(
             allowInteractive: true,
           );
           if (retryClient == null) return fallbackValue;
 
           try {
-            // Повторюємо дію з новим клієнтом
             return await action(retryClient);
           } catch (retryError) {
             log('Retry Error: $retryError', name: 'DriveBackup');
@@ -70,7 +68,6 @@ class DriveBackupService {
         }
       }
 
-      // Якщо це дійсно якась інша помилка
       log('Unexpected Error: $e', name: 'DriveBackup');
       return fallbackValue;
     }
@@ -90,6 +87,15 @@ class DriveBackupService {
 
         if (!await localFile.exists()) return false;
 
+        // 👇 КРОК 1: Стискаємо локальну базу даних за допомогою GZip
+        debugPrint('📦 Стиснення бази даних (GZip)...');
+        final originalBytes = await localFile.readAsBytes();
+        final compressedBytes = gzip.encode(originalBytes);
+
+        // Створюємо тимчасовий файл для завантаження
+        final tempGzFile = File('${localFile.path}_upload.gz');
+        await tempGzFile.writeAsBytes(compressedBytes);
+
         final fileList = await driveApi.files.list(
           spaces: 'appDataFolder',
           q: "name = '$_backupFileName' and trashed = false",
@@ -99,10 +105,14 @@ class DriveBackupService {
             ? fileList.files!.first.id
             : null;
 
-        final media = drive.Media(localFile.openRead(), localFile.lengthSync());
+        // Передаємо в стрим тимчасовий стиснутий файл
+        final media = drive.Media(
+          tempGzFile.openRead(),
+          tempGzFile.lengthSync(),
+        );
 
         if (existingFileId != null) {
-          debugPrint('🔄 Оновлення файлу в хмарі (ID: $existingFileId)');
+          debugPrint('🔄 Оновлення архіву в хмарі (ID: $existingFileId)');
           await driveApi.files.update(
             drive.File(),
             existingFileId,
@@ -114,6 +124,13 @@ class DriveBackupService {
             ..parents = ['appDataFolder'];
           await driveApi.files.create(driveFile, uploadMedia: media);
         }
+
+        // 👇 КРОК 2: Прибираємо за собою тимчасовий архів
+        if (await tempGzFile.exists()) {
+          await tempGzFile.delete();
+        }
+
+        debugPrint('✅ Стиснуту базу успішно завантажено в хмару');
         return true;
       },
       allowInteractive: allowInteractive,
@@ -148,12 +165,28 @@ class DriveBackupService {
         final localFile = await _getLocalDatabaseFile();
         final dbPath = localFile.path;
 
-        final tempFile = File('${dbPath}_temp');
-        final fileStream = tempFile.openWrite();
+        // 👇 КРОК 1: Завантажуємо спочатку у ТИМЧАСОВИЙ стиснутий архів
+        debugPrint('📥 Завантаження стиснутого архіву з хмари...');
+        final tempGzFile = File('${dbPath}_temp.gz');
+        final fileStream = tempGzFile.openWrite();
         await fileMedia.stream.pipe(fileStream);
         await fileStream.flush();
         await fileStream.close();
 
+        // 👇 КРОК 2: Розпаковуємо завантажений GZip архів
+        debugPrint('📦 Розпакування бази даних...');
+        final compressedBytes = await tempGzFile.readAsBytes();
+        final decompressedBytes = gzip.decode(compressedBytes);
+
+        final tempDbFile = File('${dbPath}_temp');
+        await tempDbFile.writeAsBytes(decompressedBytes);
+
+        // Видаляємо тимчасовий .gz файл, він більше не потрібен
+        if (await tempGzFile.exists()) {
+          await tempGzFile.delete();
+        }
+
+        // КРОК 3: Безпечно закриваємо з'єднання
         debugPrint('🔌 Закриття з\'єднання з базою...');
         await db.closeConnection();
 
@@ -162,11 +195,12 @@ class DriveBackupService {
         if (await walFile.exists()) await walFile.delete();
         if (await shmFile.exists()) await shmFile.delete();
 
+        // КРОК 4: Блискавична підміна основного файлу розпакованими даними
         if (await localFile.exists()) await localFile.delete();
-        await tempFile.copy(dbPath);
-        await tempFile.delete();
+        await tempDbFile.copy(dbPath);
+        await tempDbFile.delete();
 
-        debugPrint('✅ Файл бази безпечно замінено');
+        debugPrint('✅ Файл бази безпечно розпаковано та замінено');
         return true;
       },
       allowInteractive: allowInteractive,
@@ -194,7 +228,6 @@ class DriveBackupService {
 
         if (cloudFile == null) {
           debugPrint('☁️ Хмарний бекап не знайдено. Створюємо новий...');
-          // Викликаємо backupDatabase і передаємо false, бо ми вже в обгортці і самі обробимо помилку, якщо що.
           final success = await backupDatabase(db, allowInteractive: false);
           return success ? SyncStatus.backedUp : SyncStatus.error;
         }
