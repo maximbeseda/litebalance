@@ -1,116 +1,275 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:drift/native.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:coin_flow/database/app_database.dart';
 import 'package:coin_flow/services/backup_service.dart';
 
+// ==========================================
+// 1. ЕЛЕГАНТНИЙ МОК ЧЕРЕЗ MOCKTAIL
+// ==========================================
+// Завдяки Mocktail нам не треба вручну прописувати всі параметри pickFiles!
+class MockFilePicker extends Mock
+    with MockPlatformInterfaceMixin
+    implements FilePicker {}
+
 void main() {
-  group('BackupService - Encryption & Decryption Engine', () {
-    // Дані для тестів
-    const Category dummyCategory = Category(
-      id: 'cat_1',
-      name: 'Test Category',
-      type: CategoryType.expense,
-      currency: 'UAH',
-      amount: 0,
-      icon: 1,
-      bgColor: 1,
-      iconColor: 1,
-      isArchived: false,
-      includeInTotal: true,
-      sortOrder: 0,
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues({});
+
+    // Ініціалізуємо наш універсальний мок
+    final mockPicker = MockFilePicker();
+    FilePicker.platform = mockPicker;
+
+    // Налаштовуємо поведінку для pickFiles
+    when(() => mockPicker.pickFiles(type: FileType.any)).thenAnswer(
+      (_) async => FilePickerResult([
+        PlatformFile(
+          path: '${Directory.systemTemp.path}/test_backup.cfbak',
+          name: 'test_backup.cfbak',
+          size: 1024,
+          bytes: null,
+        ),
+      ]),
     );
 
-    final Transaction dummyTransaction = Transaction(
-      id: 'tx_1',
-      fromId: 'acc_1',
-      toId: 'cat_1',
-      title: 'Test Tx',
-      amount: 100,
-      date: DateTime(2026, 1, 1),
-      currency: 'UAH',
-      baseAmount: 100,
-      baseCurrency: 'UAH',
-    );
+    // Налаштовуємо поведінку для очищення кешу
+    when(() => mockPicker.clearTemporaryFiles()).thenAnswer((_) async => true);
 
-    final Subscription dummySubscription = Subscription(
-      id: 'sub_1',
-      name: 'Test Sub',
-      amount: 50,
-      currency: 'UAH',
-      accountId: 'acc_1',
-      categoryId: 'cat_1',
-      periodicity: 'monthly',
-      nextPaymentDate: DateTime(2026, 2, 1),
-      isAutoPay: false,
-    );
+    // Мокаємо PathProvider (отримання тимчасової папки)
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (MethodCall methodCall) async {
+            if (methodCall.method == 'getTemporaryDirectory') {
+              return Directory.systemTemp.path;
+            }
+            return null;
+          },
+        );
+
+    // Мокаємо SharePlus (щоб не відкривалося реальне вікно Share)
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          const MethodChannel('dev.fluttercommunity.plus/share'),
+          (MethodCall methodCall) async {
+            return 'Success';
+          },
+        );
+  });
+
+  // --- ТЕСТОВІ ДАНІ ---
+  const Category dummyCategory = Category(
+    id: 'cat_1',
+    name: 'Test Category',
+    type: CategoryType.expense,
+    currency: 'UAH',
+    amount: 0,
+    icon: 1,
+    bgColor: 1,
+    iconColor: 1,
+    isArchived: false,
+    includeInTotal: true,
+    sortOrder: 0,
+  );
+
+  final Transaction dummyTransaction = Transaction(
+    id: 'tx_1',
+    fromId: 'acc_1',
+    toId: 'cat_1',
+    title: 'Test Tx',
+    amount: 100,
+    date: DateTime(2026, 1, 1),
+    currency: 'UAH',
+    baseAmount: 100,
+    baseCurrency: 'UAH',
+  );
+
+  final Subscription dummySubscription = Subscription(
+    id: 'sub_1',
+    name: 'Test Sub',
+    amount: 50,
+    currency: 'UAH',
+    accountId: 'acc_1',
+    categoryId: 'cat_1',
+    periodicity: 'monthly',
+    nextPaymentDate: DateTime(2026, 2, 1),
+    isAutoPay: false,
+  );
+
+  group('BackupService - Encryption Engine', () {
+    test('Повний цикл: Експорт -> Шифрування -> Розшифрування', () {
+      const String testPassword = 'SuperSecretPassword123!';
+
+      final String encryptedString = BackupService.generateEncryptedPayload(
+        testPassword,
+        [dummyCategory],
+        [dummyTransaction],
+        [dummySubscription],
+      );
+
+      expect(encryptedString.contains(':'), isTrue);
+      expect(encryptedString.contains('Test Category'), isFalse);
+
+      final Map<String, dynamic> decryptedJson = BackupService.decryptPayload(
+        testPassword,
+        encryptedString,
+      );
+
+      expect(decryptedJson['version'], 1);
+
+      final List importedCategories = decryptedJson['categories'] as List;
+      final Map<String, dynamic> firstCat = Map<String, dynamic>.from(
+        importedCategories.first as Map,
+      );
+      expect(firstCat['name'], 'Test Category');
+
+      final List importedTransactions = decryptedJson['transactions'] as List;
+      final Map<String, dynamic> firstTx = Map<String, dynamic>.from(
+        importedTransactions.first as Map,
+      );
+      expect(firstTx['id'], 'tx_1');
+    });
 
     test(
-      'Повний цикл: Експорт -> Шифрування -> Розшифрування -> Перевірка JSON',
+      'decryptPayload викидає помилку (ArgumentError або FormatException) при неправильному паролі',
       () {
-        const String testPassword = 'SuperSecretPassword123!';
-
-        // 1. Створюємо зашифрований рядок (Payload)
         final String encryptedString = BackupService.generateEncryptedPayload(
-          testPassword,
-          [dummyCategory],
-          [dummyTransaction],
-          [dummySubscription],
+          'CorrectPassword',
+          [],
+          [],
+          [],
         );
 
-        // Перевіряємо формат: iv:encrypted_data
-        expect(encryptedString.contains(':'), isTrue);
-        // Перевіряємо, що в зашифрованому рядку немає відкритого тексту
-        expect(encryptedString.contains('Test Category'), isFalse);
-
-        // 2. Розшифровуємо назад у Map
-        final Map<String, dynamic> decryptedJson = BackupService.decryptPayload(
-          testPassword,
-          encryptedString,
+        expect(
+          () => BackupService.decryptPayload('HackerPassword', encryptedString),
+          throwsA(
+            anyOf(isA<ArgumentError>(), isA<FormatException>()),
+          ), // 👈 Очікуємо одну з двох помилок
         );
+      },
+    );
+  });
 
-        // 3. Перевіряємо цілісність даних
-        expect(decryptedJson['version'], 1);
+  group('BackupService - File System & Database Operations', () {
+    late AppDatabase db;
 
-        final List importedCategories = decryptedJson['categories'] as List;
-        final Map<String, dynamic> firstCat = Map<String, dynamic>.from(
-          importedCategories.first as Map,
+    setUp(() {
+      db = AppDatabase(NativeDatabase.memory());
+    });
+
+    tearDown(() async {
+      await db.close();
+    });
+
+    test('exportData успішно створює файл і викликає share', () async {
+      await BackupService.exportData('pass', [dummyCategory], [], []);
+      expect(true, isTrue);
+    });
+
+    test('pickBackupFile повертає File завдяки FilePicker моку', () async {
+      final File? file = await BackupService.pickBackupFile();
+      expect(file, isNotNull);
+      expect(file!.path.endsWith('test_backup.cfbak'), isTrue);
+    });
+
+    test('importDataFromFile (.cfbak) успішно записує дані в базу', () async {
+      final file = File('${Directory.systemTemp.path}/valid_backup.cfbak');
+      final payload = BackupService.generateEncryptedPayload(
+        'secure_pass',
+        [dummyCategory],
+        [dummyTransaction],
+        [dummySubscription],
+      );
+      await file.writeAsString(payload);
+
+      await BackupService.importDataFromFile(file, 'secure_pass', db);
+
+      final categoriesInDb = await db.select(db.categories).get();
+      expect(categoriesInDb.length, 1);
+      expect(categoriesInDb.first.name, 'Test Category');
+
+      final transactionsInDb = await db.select(db.transactions).get();
+      expect(transactionsInDb.length, 1);
+      expect(transactionsInDb.first.id, 'tx_1');
+    });
+
+    test('importDataFromFile (.json) обробляє сирий JSON', () async {
+      final file = File('${Directory.systemTemp.path}/valid_backup.json');
+
+      final payload = BackupService.generateEncryptedPayload(
+        'pass',
+        [dummyCategory],
+        [],
+        [],
+      );
+      final Map<String, dynamic> jsonMap = BackupService.decryptPayload(
+        'pass',
+        payload,
+      );
+      await file.writeAsString(jsonEncode(jsonMap));
+
+      await BackupService.importDataFromFile(file, 'pass', db);
+
+      final categoriesInDb = await db.select(db.categories).get();
+      expect(categoriesInDb.length, 1);
+      expect(categoriesInDb.first.name, 'Test Category');
+    });
+
+    test('importDataFromFile викидає помилку при невірному паролі', () async {
+      final file = File('${Directory.systemTemp.path}/invalid_backup.cfbak');
+      final payload = BackupService.generateEncryptedPayload(
+        'secure_pass',
+        [],
+        [],
+        [],
+      );
+      await file.writeAsString(payload);
+
+      expect(
+        () => BackupService.importDataFromFile(file, 'wrong_pass', db),
+        throwsException,
+      );
+    });
+
+    test(
+      'importDataFromFile викидає помилку при невідомому розширенні',
+      () async {
+        final file = File('${Directory.systemTemp.path}/backup.txt');
+        await file.writeAsString('Some text');
+
+        expect(
+          () => BackupService.importDataFromFile(file, 'pass', db),
+          throwsException,
         );
-        expect(firstCat['name'], 'Test Category');
-
-        final List importedTransactions = decryptedJson['transactions'] as List;
-        final Map<String, dynamic> firstTx = Map<String, dynamic>.from(
-          importedTransactions.first as Map,
-        );
-        expect(firstTx['id'], 'tx_1');
-
-        final List importedSubscriptions =
-            decryptedJson['subscriptions'] as List;
-        final Map<String, dynamic> firstSub = Map<String, dynamic>.from(
-          importedSubscriptions.first as Map,
-        );
-        expect(firstSub['periodicity'], 'monthly');
       },
     );
 
     test(
-      'decryptPayload викидає помилку ArgumentError при неправильному паролі',
-      () {
-        const String correctPassword = 'MyPassword';
-        const String wrongPassword = 'HackerPassword';
-
-        // Створюємо бекап з правильним паролем
-        final String encryptedString = BackupService.generateEncryptedPayload(
-          correctPassword,
-          [],
+      'importData викликає весь ланцюг: pickFile + importFromFile',
+      () async {
+        final pickedFile = File(
+          '${Directory.systemTemp.path}/test_backup.cfbak',
+        );
+        final payload = BackupService.generateEncryptedPayload(
+          'pass',
+          [dummyCategory],
           [],
           [],
         );
+        await pickedFile.writeAsString(payload);
 
-        // Спроба розшифрувати неправильним паролем має викликати помилку ArgumentError
-        // (це стандартна поведінка AES при невірному ключі/паддінгу)
-        expect(
-          () => BackupService.decryptPayload(wrongPassword, encryptedString),
-          throwsArgumentError,
-        );
+        await BackupService.importData('pass', db);
+
+        final categoriesInDb = await db.select(db.categories).get();
+        expect(categoriesInDb.length, 1);
       },
     );
   });

@@ -270,6 +270,7 @@ class _BackupManagementScreenState
     ref.invalidate(subscriptionProvider);
     ref.invalidate(statsProvider);
     ref.invalidate(settingsProvider);
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 
   Future<void> _runCloudBackup() async {

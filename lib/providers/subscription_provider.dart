@@ -55,16 +55,25 @@ class SubscriptionState {
 
 @Riverpod(keepAlive: true)
 class SubscriptionNotifier extends _$SubscriptionNotifier {
-  // 👇 Зручний геттер для доступу до нестатичного StorageService
+  // Зручний геттер для доступу до нестатичного StorageService
   StorageService get _storage =>
       StorageService(ref.read(sharedPreferencesProvider));
 
   @override
   Future<SubscriptionState> build() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Якщо база у цей момент перезаписується — не чіпаємо її файл
+    if (ref.read(syncControllerProvider).isSyncing) {
+      return SubscriptionState(
+        subscriptions: [],
+        dueSubscriptions: [],
+        deletedSubscriptions: [],
+        ignoredSubIds: {},
+      );
+    }
+
     final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
-    // 👇 Оновлено: дістаємо ігноровані через екземпляр
     final ignored = _storage.getIgnoredSubscriptions().toSet();
 
     final activeSubs = allSubs.where((s) => s.deletedAt == null).toList();
@@ -101,10 +110,12 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> loadSubscriptions() async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Не ліземо в базу, якщо файл SQLite зараз закривається/копіюється
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
     final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
-    // 👇 Оновлено: дістаємо ігноровані через екземпляр
     final ignored = _storage.getIgnoredSubscriptions().toSet();
 
     final activeSubs = allSubs.where((s) => s.deletedAt == null).toList();
@@ -163,6 +174,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     );
 
     await StorageService.saveSubscription(db, sub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await processAutoPayments();
     _checkDueSubscriptions();
   }
@@ -179,6 +194,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     });
 
     await StorageService.saveSubscription(db, updatedSub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await processAutoPayments();
     _checkDueSubscriptions();
   }
@@ -187,6 +206,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     final db = ref.read(appDatabaseProvider);
     final deletedSub = sub.copyWith(deletedAt: drift.Value(DateTime.now()));
     await StorageService.saveSubscription(db, deletedSub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
@@ -194,12 +217,20 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     final db = ref.read(appDatabaseProvider);
     final restoredSub = sub.copyWith(deletedAt: const drift.Value(null));
     await StorageService.saveSubscription(db, restoredSub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
   Future<void> deletePermanently(String id) async {
     final db = ref.read(appDatabaseProvider);
     await StorageService.deleteSubscription(db, id);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
@@ -276,11 +307,13 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     await txNotifier.addTransactionDirectly(newTx);
     await SubscriptionService.advanceOnePeriod(db, sub);
 
+    // 👇 ДОДАНО: Прапорець бекапу (хоча транзакція його вже ставить, це для надійності)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     final newIgnored = Set<String>.from(currentState.ignoredSubIds)
       ..remove(sub.id);
     _updateState((s) => s.copyWith(ignoredSubIds: newIgnored));
 
-    // 👇 Оновлено: зберігаємо через екземпляр
     await _storage.saveIgnoredSubscriptions(newIgnored.toList());
 
     await loadSubscriptions();
@@ -295,7 +328,6 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     });
 
     if (nextIgnored != null) {
-      // 👇 Оновлено: зберігаємо через екземпляр
       await _storage.saveIgnoredSubscriptions(nextIgnored!.toList());
     }
     _checkDueSubscriptions();
@@ -433,8 +465,9 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
         return s.copyWith(subscriptions: newSubs);
       });
 
-      // 👇 ДОДАНО: Перераховуємо прострочені платежі, щоб прибрати звідти ті,
-      // що щойно були успішно оплачені автоматично
+      // 👇 ДОДАНО: Якщо пройшли автосписання, ставимо прапорець бекапу
+      ref.read(dbDirtyProvider.notifier).setDirty(true);
+
       _checkDueSubscriptions();
     }
   }
@@ -449,6 +482,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
 
     final db = ref.read(appDatabaseProvider);
     await SubscriptionService.advanceOnePeriod(db, sub);
+
+    // 👇 ДОДАНО: Прапорець бекапу (бо дата підписки оновилася в базі)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
@@ -473,8 +510,11 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
       await StorageService.deleteSubscription(db, sub.id);
     }
 
-    // 👇 Оновлено: зберігаємо через екземпляр
     await _storage.saveIgnoredSubscriptions([]);
+
+    // 👇 ДОДАНО: Прапорець бекапу (видалили все)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     _updateState(
       (s) => s.copyWith(
         subscriptions: [],

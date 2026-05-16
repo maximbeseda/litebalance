@@ -154,6 +154,11 @@ class FilterNotifier extends _$FilterNotifier {
   }
 
   Future<void> _applyFilters({bool loadMore = false}) async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ (ConnectionClosedException):
+    // Якщо прямо зараз іде процес фонової підміни файлу бази даних — негайно зупиняємось.
+    // Коли підміна завершиться, головні провайдери оновляться і пнуть цей фільтр автоматично.
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
     if (!loadMore) {
       state = state.copyWith(
         isLoading: true,

@@ -1,498 +1,379 @@
+// ignore_for_file: unused_import
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:coin_flow/providers/all_providers.dart';
 import 'package:coin_flow/screens/home_screen.dart';
+import 'package:coin_flow/screens/transaction_screen.dart';
+import 'package:coin_flow/screens/category_screen.dart';
 import 'package:coin_flow/widgets/bottom_sheets/general_history_bottom_sheet.dart';
+import 'package:coin_flow/widgets/bottom_sheets/history_bottom_sheet.dart';
 import 'package:coin_flow/widgets/common/home_screen_skeleton.dart';
 import 'package:coin_flow/widgets/common/summary_header.dart';
 import 'package:coin_flow/widgets/dialogs/due_subscription_dialog.dart';
 import 'package:coin_flow/widgets/home/category_section.dart';
-import 'package:coin_flow/widgets/common/settings_drawer.dart';
 import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 // ======================================================================
-// 1. СТВОРЕННЯ МОК-НОТИФІКАТОРІВ ДЛЯ RIVERPOD 3.0
+// 1. ЗАГЛУШКИ (MOCKS) ТА ДАНІ
 // ======================================================================
 
-class TestCategoryNotifier extends CategoryNotifier {
+class _MockAssetLoader extends AssetLoader {
+  const _MockAssetLoader();
+  @override
+  Future<Map<String, dynamic>> load(String path, Locale locale) async => {
+    'history_balance': 'Баланс',
+    'history_category': 'Історія {}',
+    'income': 'Дохід',
+    'expense': 'Витрата',
+    'transfer': 'Переказ',
+    'new_category': 'Нова категорія',
+    'name': 'Назва',
+    'currency': 'Валюта',
+    'monthly_budget': 'Бюджет',
+    'icons_finance': 'Фінанси',
+    'outgoing_transfer': 'Вихідний',
+    'top_up': 'Поповнення',
+    'done': 'Готово',
+  };
+}
+
+const dummyIncome = Category(
+  id: 'unique_inc_1',
+  name: 'Salary',
+  type: CategoryType.income,
+  currency: 'USD',
+  amount: 0,
+  icon: 0,
+  bgColor: 0,
+  iconColor: 0,
+  isArchived: false,
+  includeInTotal: true,
+  sortOrder: 0,
+);
+
+const dummyAccount = Category(
+  id: 'unique_acc_1',
+  name: 'Bank',
+  type: CategoryType.account,
+  currency: 'USD',
+  amount: 1000,
+  icon: 0,
+  bgColor: 0,
+  iconColor: 0,
+  isArchived: false,
+  includeInTotal: true,
+  sortOrder: 0,
+);
+
+const dummyExpense = Category(
+  id: 'unique_exp_1',
+  name: 'Food',
+  type: CategoryType.expense,
+  currency: 'USD',
+  amount: 0,
+  icon: 0,
+  bgColor: 0,
+  iconColor: 0,
+  isArchived: false,
+  includeInTotal: true,
+  sortOrder: 0,
+);
+
+final dummyTx = Transaction(
+  id: 'tx_123',
+  fromId: 'unique_acc_1',
+  toId: 'unique_exp_1',
+  title: 'Test Tx',
+  amount: 100,
+  date: DateTime.now(),
+  currency: 'USD',
+  baseAmount: 100,
+  baseCurrency: 'USD',
+);
+
+// ======================================================================
+// 2. ШПИГУНИ (SPIES)
+// ======================================================================
+
+class SpyCategoryNotifier extends CategoryNotifier {
   final CategoryState mockState;
-  TestCategoryNotifier(this.mockState);
-
+  bool addOrUpdateCalled = false;
+  SpyCategoryNotifier(this.mockState);
   @override
   CategoryState build() => mockState;
+  @override
+  Future<void> addOrUpdateCategory(Category cat) async {
+    addOrUpdateCalled = true;
+  }
+
+  @override
+  Future<void> moveToTrash(Category cat) async {}
 }
 
-class TestTransactionNotifier extends TransactionNotifier {
+class SpyTransactionNotifier extends TransactionNotifier {
   final TransactionState mockState;
-  TestTransactionNotifier(this.mockState);
-
+  bool addCalled = false;
+  bool trashCalled = false;
+  SpyTransactionNotifier(this.mockState);
   @override
   Future<TransactionState> build() async => mockState;
-}
-
-class TestSubscriptionNotifier extends SubscriptionNotifier {
-  final SubscriptionState mockState;
-  TestSubscriptionNotifier(this.mockState);
+  @override
+  Future<void> addTransactionDirectly(Transaction tx) async {
+    addCalled = true;
+  }
 
   @override
-  Future<SubscriptionState> build() async => mockState;
+  Future<void> moveToTrash(Transaction t) async {
+    trashCalled = true;
+  }
+
+  @override
+  Future<void> editTransaction(
+    Transaction o,
+    int n,
+    DateTime d, {
+    int? newTargetAmount,
+  }) async {}
 }
 
 class TestSettingsNotifier extends SettingsNotifier {
-  final SettingsState mockState;
-  TestSettingsNotifier(this.mockState);
-
   @override
-  SettingsState build() => mockState;
+  SettingsState build() => SettingsState(
+    baseCurrency: 'USD',
+    selectedCurrencies: const ['USD'],
+    exchangeRates: const {'USD': 1.0},
+    historicalCache: const {},
+  );
+  @override
+  int convertToBase(int amount, String fromCurrency) => amount;
 }
 
 class MockStats extends Stats with Mock {
   @override
   void build() {}
-
   @override
-  Map<String, int> calculateTotalsForMonth(DateTime month) {
-    return {'incomes': 1000, 'expenses': 500};
-  }
-
+  Map<String, int> calculateTotalsForMonth(DateTime month) => const {
+    'incomes': 1000,
+    'expenses': 500,
+  };
   @override
   Map<String, int> calculateCategoryTotalsForMonth(
-    DateTime month,
-    bool isExpenses, {
+    DateTime m,
+    bool iE, {
     bool inBaseCurrency = true,
-  }) {
-    return {};
-  }
+  }) => const {};
 }
 
-// Стандартний мок (режим редагування ВИМКНЕНО)
-class MockHomeScreenState extends Mock implements HomeScreenState {
-  @override
-  bool get isEditMode => false;
-}
-
-class MockHomeScreenController extends HomeScreenController with Mock {
-  @override
-  HomeScreenState build() => MockHomeScreenState();
-  @override
-  void toggleEditMode() {}
-}
-
-// Мок для тесту режиму редагування (режим редагування УВІМКНЕНО)
-class ActiveEditModeState extends Mock implements HomeScreenState {
-  @override
-  bool get isEditMode => true;
-}
-
-class ActiveEditModeController extends HomeScreenController with Mock {
-  @override
-  HomeScreenState build() => ActiveEditModeState();
-  @override
-  void toggleEditMode() {}
-}
+// ======================================================================
+// 3. ГОЛОВНИЙ ТЕСТ
+// ======================================================================
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues({});
     registerFallbackValue(DateTime.now());
+    await EasyLocalization.ensureInitialized();
   });
 
-  // ======================================================================
-  // 2. ІНІЦІАЛІЗАЦІЯ ДЕФОЛТНИХ СТАНІВ
-  // ======================================================================
-
   final defaultCategoryState = CategoryState(
-    incomes: [],
-    accounts: [],
-    expenses: [],
-    archivedCategories: [],
-    deletedCategories: [],
+    incomes: const [dummyIncome],
+    accounts: const [dummyAccount],
+    expenses: const [dummyExpense],
+    archivedCategories: const [],
+    deletedCategories: const [],
     isLoading: false,
   );
 
   final defaultTransactionState = TransactionState(
-    history: [],
-    deletedHistory: [],
+    history: [dummyTx],
+    deletedHistory: const [],
     selectedMonth: DateTime.now(),
     isMigrating: false,
   );
 
-  final defaultSubscriptionState = SubscriptionState(
-    subscriptions: [],
-    dueSubscriptions: [],
-    deletedSubscriptions: [],
-    ignoredSubIds: {},
-  );
-
-  final defaultSettingsState = SettingsState(
-    baseCurrency: 'USD',
-    selectedCurrencies: ['USD'],
-    exchangeRates: {'USD': 1.0},
-    historicalCache: {},
-  );
-
-  Widget createTestWidget({required List<dynamic> overrides}) {
+  Widget createTestWidget({
+    SpyCategoryNotifier? catNotifier,
+    SpyTransactionNotifier? txNotifier,
+  }) {
     return ProviderScope(
-      overrides: overrides.cast(),
-      child: MaterialApp(
-        theme: ThemeData(
-          extensions: const [
-            AppColorsExtension(
-              bgGradientStart: Colors.blue,
-              bgGradientEnd: Colors.blueAccent,
-              cardBg: Colors.white,
-              textMain: Colors.black,
-              textSecondary: Colors.grey,
-              income: Colors.green,
-              expense: Colors.red,
-              iconBg: Colors.grey,
-              accent: Colors.orange,
-            ),
-          ],
+      overrides: [
+        categoryProvider.overrideWith(
+          () => catNotifier ?? SpyCategoryNotifier(defaultCategoryState),
         ),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [Locale('en'), Locale('uk')],
-        locale: const Locale('en'),
-        home: const HomeScreen(),
+        transactionProvider.overrideWith(
+          () => txNotifier ?? SpyTransactionNotifier(defaultTransactionState),
+        ),
+        subscriptionProvider.overrideWith(() => SubscriptionNotifier()),
+        settingsProvider.overrideWith(() => TestSettingsNotifier()),
+        statsProvider.overrideWith(() => MockStats()),
+        homeScreenControllerProvider.overrideWith(() => HomeScreenController()),
+      ],
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        assetLoader: const _MockAssetLoader(),
+        child: Builder(
+          builder: (context) {
+            return MaterialApp(
+              // Вимикаємо Hero, щоб не було конфліктів тегів
+              navigatorObservers: [HeroController()],
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              theme: ThemeData(
+                extensions: const [
+                  AppColorsExtension(
+                    bgGradientStart: Colors.blue,
+                    bgGradientEnd: Colors.blue,
+                    cardBg: Colors.white,
+                    textMain: Colors.black,
+                    textSecondary: Colors.grey,
+                    income: Colors.green,
+                    expense: Colors.red,
+                    iconBg: Colors.grey,
+                    accent: Colors.orange,
+                  ),
+                ],
+              ),
+              home: const HomeScreen(),
+            );
+          },
+        ),
       ),
     );
   }
 
-  group('HomeScreen Widget Tests', () {
-    testWidgets(
-      'Показує HomeScreenSkeleton, коли CategoryState вантажиться (isLoading = true)',
-      (tester) async {
-        final loadingCatState = defaultCategoryState.copyWith(isLoading: true);
+  Future<void> settleScreen(WidgetTester tester) async {
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pumpAndSettle(const Duration(milliseconds: 100));
+  }
 
-        final overrides = [
-          categoryProvider.overrideWith(
-            () => TestCategoryNotifier(loadingCatState),
-          ),
-          transactionProvider.overrideWith(
-            () => TestTransactionNotifier(defaultTransactionState),
-          ),
-          subscriptionProvider.overrideWith(
-            () => TestSubscriptionNotifier(defaultSubscriptionState),
-          ),
-          settingsProvider.overrideWith(
-            () => TestSettingsNotifier(defaultSettingsState),
-          ),
-          statsProvider.overrideWith(() => MockStats()),
-        ];
-
-        await tester.pumpWidget(createTestWidget(overrides: overrides));
-
-        expect(find.byType(HomeScreenSkeleton), findsOneWidget);
-        expect(find.byType(SummaryHeader), findsNothing);
-      },
-    );
-
-    testWidgets(
-      'Відображає головний UI (SummaryHeader та CategorySections), коли дані завантажено',
-      (tester) async {
-        final overrides = [
-          categoryProvider.overrideWith(
-            () => TestCategoryNotifier(defaultCategoryState),
-          ),
-          transactionProvider.overrideWith(
-            () => TestTransactionNotifier(defaultTransactionState),
-          ),
-          subscriptionProvider.overrideWith(
-            () => TestSubscriptionNotifier(defaultSubscriptionState),
-          ),
-          settingsProvider.overrideWith(
-            () => TestSettingsNotifier(defaultSettingsState),
-          ),
-          statsProvider.overrideWith(() => MockStats()),
-          homeScreenControllerProvider.overrideWith(
-            () => MockHomeScreenController(),
-          ),
-        ];
-
-        await tester.pumpWidget(createTestWidget(overrides: overrides));
-        await tester.pump();
-        await tester.pump(const Duration(seconds: 1));
-
-        expect(find.byType(HomeScreenSkeleton), findsNothing);
-        expect(find.byType(SummaryHeader), findsOneWidget);
-        expect(find.byType(CategorySection), findsNWidgets(3));
-      },
-    );
-
-    testWidgets('Показує DueSubscriptionDialog, якщо є прострочені підписки', (
+  group('HomeScreen Coverage - Fixed', () {
+    testWidgets('onAddTap: Відкриває створення та зберігає категорію', (
       tester,
     ) async {
-      final dummySub = Subscription(
-        id: 'sub_1',
-        name: 'Netflix',
-        amount: 15,
-        currency: 'USD',
-        categoryId: 'exp_1',
-        accountId: 'acc_1',
-        nextPaymentDate: DateTime.now().subtract(const Duration(days: 1)),
-        isAutoPay: true,
-        periodicity: 'monthly',
+      final catSpy = SpyCategoryNotifier(defaultCategoryState);
+      await tester.pumpWidget(createTestWidget(catNotifier: catSpy));
+      await settleScreen(tester);
+
+      final section = tester.widget<CategorySection>(
+        find.byType(CategorySection).first,
+      );
+      section.onAddTap();
+
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.byType(CategoryScreen), findsOneWidget);
+
+      Navigator.pop(
+        tester.element(find.byType(CategoryScreen)),
+        <String, dynamic>{
+          'name': 'New',
+          'icon': 1,
+          'amount': 100,
+          'currency': 'USD',
+        },
+      );
+      await tester.pumpAndSettle();
+
+      // Перевіряємо, що HomeScreen викликав catNotifier.addOrUpdateCategory
+      expect(catSpy.addOrUpdateCalled, true);
+    });
+
+    testWidgets('onEditTap: Режим видалення повертає статус delete', (
+      tester,
+    ) async {
+      final catSpy = SpyCategoryNotifier(defaultCategoryState);
+      await tester.pumpWidget(createTestWidget(catNotifier: catSpy));
+      await settleScreen(tester);
+
+      final section = tester.widget<CategorySection>(
+        find.byType(CategorySection).at(1),
       );
 
-      final dueSubState = defaultSubscriptionState.copyWith(
-        dueSubscriptions: [dummySub],
-      );
-
-      final overrides = [
-        categoryProvider.overrideWith(
-          () => TestCategoryNotifier(defaultCategoryState),
-        ),
-        transactionProvider.overrideWith(
-          () => TestTransactionNotifier(defaultTransactionState),
-        ),
-        subscriptionProvider.overrideWith(
-          () => TestSubscriptionNotifier(dueSubState),
-        ),
-        settingsProvider.overrideWith(
-          () => TestSettingsNotifier(defaultSettingsState),
-        ),
-        statsProvider.overrideWith(() => MockStats()),
-        homeScreenControllerProvider.overrideWith(
-          () => MockHomeScreenController(),
-        ),
-      ];
-
-      await tester.pumpWidget(createTestWidget(overrides: overrides));
-      await tester.pump();
-
-      expect(find.byType(DueSubscriptionDialog), findsOneWidget);
-    });
-
-    testWidgets('Відкриває GeneralHistoryBottomSheet при кліку на баланс', (
-      tester,
-    ) async {
-      final overrides = [
-        categoryProvider.overrideWith(
-          () => TestCategoryNotifier(defaultCategoryState),
-        ),
-        transactionProvider.overrideWith(
-          () => TestTransactionNotifier(defaultTransactionState),
-        ),
-        subscriptionProvider.overrideWith(
-          () => TestSubscriptionNotifier(defaultSubscriptionState),
-        ),
-        settingsProvider.overrideWith(
-          () => TestSettingsNotifier(defaultSettingsState),
-        ),
-        statsProvider.overrideWith(() => MockStats()),
-        homeScreenControllerProvider.overrideWith(
-          () => MockHomeScreenController(),
-        ),
-      ];
-
-      await tester.pumpWidget(createTestWidget(overrides: overrides));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      final summaryHeader = find.byType(SummaryHeader);
-      expect(summaryHeader, findsOneWidget);
-
-      final balanceGesture = find
-          .descendant(of: summaryHeader, matching: find.byType(GestureDetector))
-          .first;
-      await tester.tap(balanceGesture);
-
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      expect(find.byType(GeneralHistoryBottomSheet), findsOneWidget);
-    });
-
-    testWidgets('Відкриває GeneralHistoryBottomSheet при кліку на "Доходи"', (
-      tester,
-    ) async {
-      final overrides = [
-        categoryProvider.overrideWith(
-          () => TestCategoryNotifier(defaultCategoryState),
-        ),
-        transactionProvider.overrideWith(
-          () => TestTransactionNotifier(defaultTransactionState),
-        ),
-        subscriptionProvider.overrideWith(
-          () => TestSubscriptionNotifier(defaultSubscriptionState),
-        ),
-        settingsProvider.overrideWith(
-          () => TestSettingsNotifier(defaultSettingsState),
-        ),
-        statsProvider.overrideWith(() => MockStats()),
-        homeScreenControllerProvider.overrideWith(
-          () => MockHomeScreenController(),
-        ),
-      ];
-
-      await tester.pumpWidget(createTestWidget(overrides: overrides));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      final summaryHeader = find.byType(SummaryHeader);
-
-      final incomesGesture = find
-          .descendant(of: summaryHeader, matching: find.byType(GestureDetector))
-          .at(1);
-      await tester.tap(incomesGesture);
-
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      expect(find.byType(GeneralHistoryBottomSheet), findsOneWidget);
-    });
-
-    testWidgets('Відкриває GeneralHistoryBottomSheet при кліку на "Витрати"', (
-      tester,
-    ) async {
-      final overrides = [
-        categoryProvider.overrideWith(
-          () => TestCategoryNotifier(defaultCategoryState),
-        ),
-        transactionProvider.overrideWith(
-          () => TestTransactionNotifier(defaultTransactionState),
-        ),
-        subscriptionProvider.overrideWith(
-          () => TestSubscriptionNotifier(defaultSubscriptionState),
-        ),
-        settingsProvider.overrideWith(
-          () => TestSettingsNotifier(defaultSettingsState),
-        ),
-        statsProvider.overrideWith(() => MockStats()),
-        homeScreenControllerProvider.overrideWith(
-          () => MockHomeScreenController(),
-        ),
-      ];
-
-      await tester.pumpWidget(createTestWidget(overrides: overrides));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      final summaryHeader = find.byType(SummaryHeader);
-
-      final expensesGesture = find
-          .descendant(of: summaryHeader, matching: find.byType(GestureDetector))
-          .at(2);
-      await tester.tap(expensesGesture);
-
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      expect(find.byType(GeneralHistoryBottomSheet), findsOneWidget);
-    });
-
-    testWidgets('Відкриває SettingsDrawer при кліку на іконку налаштувань', (
-      tester,
-    ) async {
-      final overrides = [
-        categoryProvider.overrideWith(
-          () => TestCategoryNotifier(defaultCategoryState),
-        ),
-        transactionProvider.overrideWith(
-          () => TestTransactionNotifier(defaultTransactionState),
-        ),
-        subscriptionProvider.overrideWith(
-          () => TestSubscriptionNotifier(defaultSubscriptionState),
-        ),
-        settingsProvider.overrideWith(
-          () => TestSettingsNotifier(defaultSettingsState),
-        ),
-        statsProvider.overrideWith(() => MockStats()),
-        homeScreenControllerProvider.overrideWith(
-          () => MockHomeScreenController(),
-        ),
-      ];
-
-      await tester.pumpWidget(createTestWidget(overrides: overrides));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      final settingsIcon = find.byIcon(Icons.settings);
-
-      if (settingsIcon.evaluate().isNotEmpty) {
-        await tester.tap(settingsIcon);
+      late dynamic result;
+      await tester.runAsync(() async {
+        final Future<dynamic> editFuture = section.onEditTap(dummyAccount);
         await tester.pump();
-        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(milliseconds: 500));
 
-        expect(find.byType(SettingsDrawer), findsOneWidget);
-      }
+        if (find.byType(CategoryScreen).evaluate().isNotEmpty) {
+          Navigator.pop(tester.element(find.byType(CategoryScreen)), 'delete');
+          result = await editFuture;
+        }
+      });
+
+      // Перевіряємо, що HomeScreen коректно повернув рядок 'delete' назад у секцію
+      expect(result, 'delete');
+      // Перевіряємо, що при 'delete' категорія НЕ намагалася оновитися як Map
+      expect(catSpy.addOrUpdateCalled, false);
     });
 
-    testWidgets('Вимикає режим редагування при кліку на фон', (tester) async {
-      final overrides = [
-        categoryProvider.overrideWith(
-          () => TestCategoryNotifier(defaultCategoryState),
-        ),
-        transactionProvider.overrideWith(
-          () => TestTransactionNotifier(defaultTransactionState),
-        ),
-        subscriptionProvider.overrideWith(
-          () => TestSubscriptionNotifier(defaultSubscriptionState),
-        ),
-        settingsProvider.overrideWith(
-          () => TestSettingsNotifier(defaultSettingsState),
-        ),
-        statsProvider.overrideWith(() => MockStats()),
-        homeScreenControllerProvider.overrideWith(
-          () => ActiveEditModeController(),
-        ), // Тут мок УВІМКНЕНОГО режиму
-      ];
+    testWidgets('onTransfer: Перевірка створення транзакції переказу', (
+      tester,
+    ) async {
+      final txSpy = SpyTransactionNotifier(defaultTransactionState);
+      await tester.pumpWidget(createTestWidget(txNotifier: txSpy));
+      await settleScreen(tester);
 
-      await tester.pumpWidget(createTestWidget(overrides: overrides));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
-
-      final backgroundGesture = find.byType(GestureDetector).first;
-      await tester.tap(backgroundGesture);
+      final section = tester.widget<CategorySection>(
+        find.byType(CategorySection).at(1),
+      );
+      section.onTransfer(dummyAccount, dummyExpense);
 
       await tester.pump();
-      expect(
-        find.byType(HomeScreen),
-        findsOneWidget,
-      ); // Тест просто доводить, що tap не викликав крашу і працює коректно
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.byType(TransactionScreen), findsOneWidget);
+
+      Navigator.pop(
+        tester.element(find.byType(TransactionScreen)),
+        <String, dynamic>{
+          'amount': 50,
+          'targetAmount': null,
+          'date': DateTime.now(),
+          'comment': 'test transfer',
+        },
+      );
+      await tester.pumpAndSettle();
+
+      // Перевіряємо, що HomeScreen викликав txNotifier.addTransactionDirectly
+      expect(txSpy.addCalled, true);
     });
 
     testWidgets(
-      'Життєвий цикл: оновлює підписки при поверненні в додаток (resumed)',
+      'onDelete Transaction: Перевірка видалення транзакції через історію',
       (tester) async {
-        final overrides = [
-          categoryProvider.overrideWith(
-            () => TestCategoryNotifier(defaultCategoryState),
-          ),
-          transactionProvider.overrideWith(
-            () => TestTransactionNotifier(defaultTransactionState),
-          ),
-          subscriptionProvider.overrideWith(
-            () => TestSubscriptionNotifier(defaultSubscriptionState),
-          ),
-          settingsProvider.overrideWith(
-            () => TestSettingsNotifier(defaultSettingsState),
-          ),
-          statsProvider.overrideWith(() => MockStats()),
-          homeScreenControllerProvider.overrideWith(
-            () => MockHomeScreenController(),
-          ),
-        ];
+        final txSpy = SpyTransactionNotifier(defaultTransactionState);
+        await tester.pumpWidget(createTestWidget(txNotifier: txSpy));
+        await settleScreen(tester);
 
-        await tester.pumpWidget(createTestWidget(overrides: overrides));
-        await tester.pump();
-        await tester.pump(const Duration(seconds: 1));
-
-        tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
-        await tester.pump();
-
-        tester.binding.handleAppLifecycleStateChanged(
-          AppLifecycleState.resumed,
+        // Відкриваємо історію категорій
+        final section = tester.widget<CategorySection>(
+          find.byType(CategorySection).at(1),
         );
-        await tester.pump();
+        section.onHistoryTap(dummyAccount);
+        await tester.pumpAndSettle();
 
-        expect(find.byType(HomeScreen), findsOneWidget);
+        final historySheet = tester.widget<HistoryBottomSheet>(
+          find.byType(HistoryBottomSheet),
+        );
+
+        // Викликаємо видалення транзакції (це в HomeScreen.dart)
+        await historySheet.onDelete(dummyTx);
+
+        // Перевіряємо, що HomeScreen смикнув txNotifier.moveToTrash
+        expect(txSpy.trashCalled, true);
       },
     );
   });

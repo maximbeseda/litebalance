@@ -4,8 +4,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../services/storage_service.dart';
 import '../services/currency_repository.dart';
-
-// 👇 Імпортуємо файл, де лежить sharedPreferencesProvider
 import 'all_providers.dart';
 
 part 'settings_provider.g.dart';
@@ -25,9 +23,12 @@ class SettingsState {
   final DateTime? lastRatesUpdate;
   final Map<String, dynamic> historicalCache;
 
-  // 👇 НОВІ ПОЛЯ ДЛЯ ВІДСТЕЖЕННЯ БЕКАПІВ
+  // Поля для відстеження бекапів
   final DateTime? lastCloudBackup;
   final DateTime? lastFileBackup;
+
+  // Поле: Синхронізація лише по Wi-Fi
+  final bool syncOnlyViaWifi;
 
   SettingsState({
     required this.baseCurrency,
@@ -37,6 +38,7 @@ class SettingsState {
     required this.historicalCache,
     this.lastCloudBackup,
     this.lastFileBackup,
+    this.syncOnlyViaWifi = false,
   });
 
   SettingsState copyWith({
@@ -47,6 +49,7 @@ class SettingsState {
     Map<String, dynamic>? historicalCache,
     DateTime? lastCloudBackup,
     DateTime? lastFileBackup,
+    bool? syncOnlyViaWifi,
   }) {
     return SettingsState(
       baseCurrency: baseCurrency ?? this.baseCurrency,
@@ -56,6 +59,7 @@ class SettingsState {
       historicalCache: historicalCache ?? this.historicalCache,
       lastCloudBackup: lastCloudBackup ?? this.lastCloudBackup,
       lastFileBackup: lastFileBackup ?? this.lastFileBackup,
+      syncOnlyViaWifi: syncOnlyViaWifi ?? this.syncOnlyViaWifi,
     );
   }
 }
@@ -64,7 +68,7 @@ class SettingsState {
 class SettingsNotifier extends _$SettingsNotifier {
   CurrencyRepository get _api => ref.read(currencyRepoProvider);
 
-  // 👇 Зручний геттер для доступу до StorageService
+  // Зручний геттер для доступу до StorageService
   StorageService get _storage =>
       StorageService(ref.read(sharedPreferencesProvider));
 
@@ -74,16 +78,16 @@ class SettingsNotifier extends _$SettingsNotifier {
       debugPrint('SettingsNotifier disposed: clearing memory');
     });
 
+    // Отримуємо доступ до SharedPreferences
+    final prefs = ref.read(sharedPreferencesProvider);
+
     final String base = _storage.getBaseCurrency();
     final List<String> selected = _storage.getSelectedCurrencies();
 
-    // 👇 ДОДАЄМО ЗЧИТУВАННЯ ДАТ
-    final String? lastCloud = ref
-        .read(sharedPreferencesProvider)
-        .getString('last_cloud_backup');
-    final String? lastFile = ref
-        .read(sharedPreferencesProvider)
-        .getString('last_file_backup');
+    // Зчитуємо дати та налаштування Wi-Fi
+    final String? lastCloud = prefs.getString('last_cloud_backup');
+    final String? lastFile = prefs.getString('last_file_backup');
+    final bool wifiOnly = prefs.getBool('sync_only_wifi') ?? false;
 
     if (!selected.contains(base)) {
       selected.insert(0, base);
@@ -102,14 +106,20 @@ class SettingsNotifier extends _$SettingsNotifier {
       exchangeRates: rates,
       lastRatesUpdate: lastUpdate,
       historicalCache: cache,
-      // 👇 ІНІЦІАЛІЗУЄМО НОВІ ПОЛЯ
       lastCloudBackup: lastCloud != null ? DateTime.tryParse(lastCloud) : null,
       lastFileBackup: lastFile != null ? DateTime.tryParse(lastFile) : null,
+      syncOnlyViaWifi: wifiOnly,
     );
 
     unawaited(Future.microtask(() => _checkRatesUpdate(initialState)));
 
     return initialState;
+  }
+
+  // Зміна налаштування Wi-Fi
+  Future<void> toggleSyncOnlyViaWifi(bool value) async {
+    await ref.read(sharedPreferencesProvider).setBool('sync_only_wifi', value);
+    state = state.copyWith(syncOnlyViaWifi: value);
   }
 
   Future<void> _checkRatesUpdate(SettingsState currentState) async {
@@ -152,7 +162,7 @@ class SettingsNotifier extends _$SettingsNotifier {
       newCache[dateKey] = historicalRates;
 
       state = state.copyWith(historicalCache: newCache);
-      await _storage.saveHistoricalRatesCache(newCache); // 👇 Оновлено
+      await _storage.saveHistoricalRatesCache(newCache);
 
       if (historicalRates.containsKey(currencyCode)) {
         return historicalRates[currencyCode]!;
@@ -176,7 +186,6 @@ class SettingsNotifier extends _$SettingsNotifier {
 
     final now = DateTime.now();
 
-    // 👇 Оновлено: використовуємо екземпляр _storage
     await _storage.saveBaseCurrency(code);
     await _storage.saveExchangeRates(newRates);
     await _storage.setLastRatesUpdateTime(now);
@@ -191,16 +200,14 @@ class SettingsNotifier extends _$SettingsNotifier {
         .read(categoryProvider.notifier)
         .updateBaseCurrencyForCategories(oldBaseCurrency, code);
 
-    // Оновлюємо стан, залишаючи кеш порожнім (старий кеш видалиться автоматично)
     state = state.copyWith(
       baseCurrency: code,
       selectedCurrencies: newSelected,
       exchangeRates: newRates,
       lastRatesUpdate: now,
-      historicalCache: {}, // Очищаємо стан
+      historicalCache: {},
     );
 
-    // Зберігаємо пустий кеш у пам'ять
     await _storage.saveHistoricalRatesCache({});
   }
 
@@ -214,7 +221,7 @@ class SettingsNotifier extends _$SettingsNotifier {
       newSelected.add(code);
     }
 
-    await _storage.setSelectedCurrencies(newSelected); // 👇 Оновлено
+    await _storage.setSelectedCurrencies(newSelected);
     state = state.copyWith(selectedCurrencies: newSelected);
   }
 
@@ -226,11 +233,11 @@ class SettingsNotifier extends _$SettingsNotifier {
 
     if (newRates != null) {
       final now = DateTime.now();
-      await _storage.saveExchangeRates(newRates); // 👇 Оновлено
+      await _storage.saveExchangeRates(newRates);
 
       if (!ref.mounted) return true;
 
-      await _storage.setLastRatesUpdateTime(now); // 👇 Оновлено
+      await _storage.setLastRatesUpdateTime(now);
 
       if (!ref.mounted) return true;
 
@@ -269,7 +276,6 @@ class SettingsNotifier extends _$SettingsNotifier {
   // Оновлює дату успішного хмарного бекапу
   Future<void> updateCloudBackupTime() async {
     final now = DateTime.now();
-    // Використовуємо sharedPreferencesProvider для прямого запису
     await ref
         .read(sharedPreferencesProvider)
         .setString('last_cloud_backup', now.toIso8601String());

@@ -9,7 +9,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:ui';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// 👇 ДОДАНО: імпорт SharedPreferences
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
@@ -18,6 +17,7 @@ import 'screens/onboarding_screen.dart';
 import 'screens/lock_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
+import 'widgets/common/sync_lifecycle_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,17 +28,16 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  // 👇 1. Ініціалізуємо SharedPreferences ДО запуску UI
+  // 1. Ініціалізуємо SharedPreferences ДО запуску UI
   final prefs = await SharedPreferences.getInstance();
 
-  // 👇 ДОДАНО: Отримуємо інформацію про версію
+  // Отримуємо інформацію про версію
   final packageInfo = await PackageInfo.fromPlatform();
 
-  // 👇 2. Створюємо контейнер Riverpod і ПЕРЕДАЄМО туди prefs
+  // 2. Створюємо контейнер Riverpod і ПЕРЕДАЄМО туди prefs
   final container = ProviderContainer(
     overrides: [
       sharedPreferencesProvider.overrideWithValue(prefs),
-      // 👇 ДОДАНО: Передаємо версію в провайдер
       packageInfoProvider.overrideWithValue(packageInfo),
     ],
   );
@@ -46,7 +45,7 @@ void main() async {
   await initializeDateFormatting('uk_UA', null);
   const bool showPreview = false;
 
-  // 👇 3. Отримуємо статус онбордингу напряму з SharedPreferences
+  // 3. Отримуємо статус онбордингу напряму з SharedPreferences
   final bool hasCompletedOnboarding =
       prefs.getBool('has_completed_onboarding') ?? false;
   final bool isPinSet = await SecurityService.isPinSet();
@@ -96,6 +95,7 @@ class MyApp extends ConsumerWidget {
       ),
     );
 
+    // 👇 ТУТ МИ ПРИБРАЛИ обгортку ззовні
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CoinFlow',
@@ -106,17 +106,21 @@ class MyApp extends ConsumerWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: currentTheme,
+
+      // 👇 ТУТ МИ ЇЇ ДОДАЛИ: builder обгортає всі екрани, маючи доступ до ScaffoldMessenger
       builder: (context, child) {
         final Widget currentChild = DevicePreview.appBuilder(context, child);
         final mediaQueryData = MediaQuery.of(context);
         final double baseScale = mediaQueryData.textScaler.scale(10) / 10;
         final double safeScale = baseScale.clamp(1.0, 1.15);
 
-        return MediaQuery(
-          data: mediaQueryData.copyWith(
-            textScaler: TextScaler.linear(safeScale),
+        return SyncLifecycleObserver(
+          child: MediaQuery(
+            data: mediaQueryData.copyWith(
+              textScaler: TextScaler.linear(safeScale),
+            ),
+            child: currentChild,
           ),
-          child: currentChild,
         );
       },
       scrollBehavior: const MaterialScrollBehavior().copyWith(
