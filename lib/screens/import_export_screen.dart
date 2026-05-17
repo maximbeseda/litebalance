@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 
-import 'csv_mapping_screen.dart';
+import 'import_wizard/import_header_selection_screen.dart';
 import '../providers/all_providers.dart';
 import '../services/export_import_service.dart';
 import '../theme/app_colors_extension.dart';
@@ -132,7 +132,9 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CsvMappingScreen(rawRows: rawRows),
+                  // ЗМІНЕНО: Відкриваємо Крок 1 замість старого CsvMappingScreen
+                  builder: (context) =>
+                      ImportHeaderSelectionScreen(rawRows: rawRows),
                 ),
               ),
             );
