@@ -10,6 +10,7 @@ import '../providers/all_providers.dart';
 import '../services/export_import_service.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/dialogs/custom_date_range_picker.dart';
+import '../utils/icon_helper.dart';
 
 class ImportExportScreen extends ConsumerStatefulWidget {
   const ImportExportScreen({super.key});
@@ -265,7 +266,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                IconData(cat.icon, fontFamily: 'MaterialIcons'),
+                IconHelper.getIcon(cat.icon),
                 size: 20,
                 color: Color(cat.iconColor),
               ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/app_currency.dart';
 import '../../utils/currency_formatter.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
+import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
 
 class GeneralHistoryBottomSheet extends ConsumerStatefulWidget {
@@ -158,9 +160,9 @@ class _GeneralHistoryBottomSheetState
                     ),
                   )
                 : ListView.builder(
+                    scrollCacheExtent: const ScrollCacheExtent.pixels(1000),
                     controller: _scrollController,
                     physics: const BouncingScrollPhysics(),
-                    cacheExtent: 1000,
                     itemCount: filteredHistory.length + (showLoader ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index == filteredHistory.length) {
@@ -284,10 +286,7 @@ class _GeneralHistoryBottomSheetState
                                 : colors.iconBg,
                             child: Icon(
                               toCat != null
-                                  ? IconData(
-                                      toCat.icon,
-                                      fontFamily: 'MaterialIcons',
-                                    )
+                                  ? IconHelper.getIcon(toCat.icon)
                                   : Icons.help_outline,
                               color: toCat != null
                                   ? Color(toCat.iconColor)

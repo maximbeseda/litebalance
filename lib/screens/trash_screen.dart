@@ -6,6 +6,7 @@ import '../providers/all_providers.dart';
 import '../theme/app_colors_extension.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';
+import '../utils/icon_helper.dart';
 
 enum TrashItemType { category, transaction, subscription }
 
@@ -270,7 +271,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              IconData(cat.icon, fontFamily: 'MaterialIcons'),
+              IconHelper.getIcon(cat.icon),
               color: Color(cat.iconColor),
               size: 20,
             ),

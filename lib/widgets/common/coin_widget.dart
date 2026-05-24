@@ -3,6 +3,7 @@ import '../../utils/currency_formatter.dart';
 import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/icon_helper.dart';
 
 class CoinWidget extends StatefulWidget {
   final Category category;
@@ -33,12 +34,11 @@ class _CoinWidgetState extends State<CoinWidget> {
 
     final Color catBgColor = Color(widget.category.bgColor);
     final Color catIconColor = Color(widget.category.iconColor);
-    final IconData catIconData = IconData(
-      widget.category.icon,
-      fontFamily: 'MaterialIcons',
-    );
+    final IconData catIconData = IconHelper.getIcon(widget.category.icon);
 
-    final String displayAmount = CurrencyFormatter.format(widget.category.amount);
+    final String displayAmount = CurrencyFormatter.format(
+      widget.category.amount,
+    );
     final String currencySymbol = AppCurrency.fromCode(
       widget.category.currency,
     ).symbol;

@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../utils/app_constants.dart';
+import '../utils/icon_helper.dart';
 import '../theme/app_colors_extension.dart';
 import '../theme/category_defaults.dart';
 import '../models/app_currency.dart';
@@ -66,7 +67,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     );
 
     final IconData? iconFromDb = widget.category != null
-        ? IconData(widget.category!.icon, fontFamily: 'MaterialIcons')
+        ? IconHelper.getIcon(widget.category!.icon)
         : null;
 
     _selectedIcon = (iconFromDb != null)

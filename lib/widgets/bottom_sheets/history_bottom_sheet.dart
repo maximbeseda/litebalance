@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/app_currency.dart';
 import '../../utils/currency_formatter.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
+import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
 
 class HistoryBottomSheet extends ConsumerStatefulWidget {
@@ -139,9 +141,9 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
                 : categoryHistory.isEmpty
                 ? _buildEmptyState(colors, filterState.searchQuery.isNotEmpty)
                 : ListView.builder(
+                    scrollCacheExtent: const ScrollCacheExtent.pixels(1000),
                     controller: _scrollController,
                     physics: const BouncingScrollPhysics(),
-                    cacheExtent: 1000,
                     itemCount: categoryHistory.length + (showLoader ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index == categoryHistory.length) {
@@ -285,7 +287,7 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
             ? CircleAvatar(
                 backgroundColor: Color(otherCat.bgColor),
                 child: Icon(
-                  IconData(otherCat.icon, fontFamily: 'MaterialIcons'),
+                  IconHelper.getIcon(otherCat.icon),
                   color: Color(otherCat.iconColor),
                   size: 20,
                 ),

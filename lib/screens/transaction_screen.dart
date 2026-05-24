@@ -9,6 +9,7 @@ import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/custom_numpad.dart';
 import '../utils/calculator_helper.dart';
+import '../utils/icon_helper.dart';
 import '../widgets/common/date_strip_selector.dart';
 import '../widgets/dialogs/premium_date_picker.dart';
 
@@ -575,7 +576,7 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
   Widget _buildMiniCategory(Category cat, AppColorsExtension colors) {
     final Color catColor = Color(cat.bgColor);
     final Color iconColor = Color(cat.iconColor);
-    final IconData iconData = IconData(cat.icon, fontFamily: 'MaterialIcons');
+    final IconData iconData = IconHelper.getIcon(cat.icon);
 
     return Hero(
       tag: 'category_coin_${cat.id}',
