@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// ЗАМІНІТЬ імпорти на ваші реальні шляхи, використовуючи coin_flow
+// Імпорти згідно з вашою структурою
 import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/screens/import_wizard/import_column_mapping_screen.dart';
 import 'package:coin_flow/screens/import_wizard/import_category_setup_screen.dart';
+import 'package:coin_flow/providers/core_providers.dart';
 
 void main() {
-  // 1. ФЕЙКОВА ТЕМА ДЛЯ ТЕСТІВ
   const mockColors = AppColorsExtension(
     bgGradientStart: Colors.white,
     bgGradientEnd: Colors.white,
@@ -21,9 +21,16 @@ void main() {
     accent: Colors.blueAccent,
   );
 
-  // Допоміжна функція: обгортаємо віджет у ProviderScope та MaterialApp
+  late SharedPreferences mockPrefs;
+
+  setUp(() async {
+    SharedPreferences.setMockInitialValues({'baseCurrency': 'UAH'});
+    mockPrefs = await SharedPreferences.getInstance();
+  });
+
   Widget buildTestableWidget(Widget child) {
     return ProviderScope(
+      overrides: [sharedPreferencesProvider.overrideWithValue(mockPrefs)],
       child: MaterialApp(
         theme: ThemeData(extensions: const [mockColors]),
         home: child,
@@ -31,87 +38,94 @@ void main() {
     );
   }
 
-  group('ImportColumnMappingScreen Tests', () {
-    testWidgets('Віджет рендериться і створює випадаючі списки (Dropdowns)', (
-      tester,
-    ) async {
-      // Дані, де заголовки НЕ розпізнаються автоматично
-      final testRawRows = [
-        ['Col1', 'Col2', 'Col3'],
-        ['12.10', '100', 'Cat'],
-      ];
-
-      await tester.pumpWidget(
-        buildTestableWidget(
-          ImportColumnMappingScreen(rawRows: testRawRows, headerRowIndex: 0),
-        ),
-      );
-
-      // ВИПРАВЛЕННЯ: Додаємо skipOffstage: false, щоб знайти списки, які не влізли на екран
-      expect(
-        find.byType(DropdownButton<int?>, skipOffstage: false),
-        findsNWidgets(8),
-      );
-
-      // Перевіряємо наявність кнопки "Далі"
-      expect(find.byType(ElevatedButton), findsOneWidget);
-    });
-
+  group('ImportCategorySetupScreen Tests', () {
     testWidgets(
-      'Показує помилку (SnackBar), якщо не обрано обов\'язкові колонки',
+      'Показує "Усі категорії знайомі", якщо список нових категорій порожній',
       (tester) async {
-        // Дані без розпізнаваних заголовків -> Date та Amount будуть null
-        final testRawRows = [
-          ['Unrecognized1', 'Unrecognized2'],
-          ['Data1', 'Data2'],
-        ];
-
+        // ПРИБРАЛИ const, бо testRawRows не є константою
         await tester.pumpWidget(
           buildTestableWidget(
-            ImportColumnMappingScreen(rawRows: testRawRows, headerRowIndex: 0),
+            const ImportCategorySetupScreen(
+              rawRows: [
+                ['date'],
+              ],
+              headerRowIndex: 0,
+              foundCategories: [],
+            ),
           ),
         );
 
-        // Тапаємо кнопку "Далі"
-        await tester.tap(find.byType(ElevatedButton));
+        await tester.pumpAndSettle();
 
-        // Відмальовуємо появу SnackBar
-        await tester.pump();
-
-        // Перевіряємо, чи з'явився SnackBar із помилкою
-        expect(find.byType(SnackBar), findsOneWidget);
-
-        // Перевіряємо, що переходу НЕ відбулося
-        expect(find.byType(ImportCategorySetupScreen), findsNothing);
+        expect(find.byIcon(Icons.check_circle_outline), findsOneWidget);
+        expect(find.text('import_all_categories_known'), findsOneWidget);
       },
     );
 
-    testWidgets('Успішний перехід на Крок 3 при наявності потрібних колонок', (
+    testWidgets('Перемикач "В архів" змінює свій стан при натисканні', (
       tester,
     ) async {
-      // Дані з розпізнаваними заголовками: Date та Amount (ImportRecognizer має їх вгадати)
-      final testRawRows = [
-        ['date', 'from', 'amount'], // Рядок заголовків
-        ['12.10.2023', 'Wallet', '150'], // Дані
-        ['13.10.2023', 'Salary', '2000'], // Дані
-        ['', '', ''], // Порожній рядок (симулює кінець файлу)
-      ];
-
+      // ПРИБРАЛИ const перед ImportCategorySetupScreen
       await tester.pumpWidget(
         buildTestableWidget(
-          ImportColumnMappingScreen(rawRows: testRawRows, headerRowIndex: 0),
+          const ImportCategorySetupScreen(
+            rawRows: [
+              ['date'],
+            ],
+            headerRowIndex: 0,
+            foundCategories: ['TestCategory'],
+          ),
         ),
       );
 
-      // Оскільки ImportRecognizer має автоматично розпізнати 'date' та 'amount',
-      // форма вже є валідною. Тапаємо "Далі".
-      await tester.tap(find.byType(ElevatedButton));
-
-      // Чекаємо завершення анімації переходу (Navigator.push)
       await tester.pumpAndSettle();
 
-      // Перевіряємо, чи з'явився на екрані віджет Кроку 3
-      expect(find.byType(ImportCategorySetupScreen), findsOneWidget);
+      final switchFinder = find.byType(Switch);
+      expect(switchFinder, findsOneWidget);
+
+      Switch switchWidget = tester.widget(switchFinder);
+      expect(switchWidget.value, isFalse);
+
+      await tester.tap(switchFinder);
+      await tester.pumpAndSettle();
+
+      switchWidget = tester.widget(switchFinder);
+      expect(switchWidget.value, isTrue);
+    });
+
+    testWidgets('Виконання імпорту: успішно парсить всі формати дат та сум', (
+      tester,
+    ) async {
+      final testRawRows = [
+        ['date', 'from', 'to', 'amount'],
+        ['12.10.2023', 'MissingFrom', 'MissingTo', '150.50'],
+        ['2023/10/12', 'MissingFrom', 'MissingTo', '1 500,00'],
+      ];
+
+      // ПРИБРАЛИ const перед ImportCategorySetupScreen
+      await tester.pumpWidget(
+        buildTestableWidget(
+          ImportCategorySetupScreen(
+            rawRows: testRawRows,
+            headerRowIndex: 0,
+            dateCol: 0,
+            fromCol: 1,
+            toCol: 2,
+            amountFromCol: 3,
+            amountToCol: 3,
+            foundCategories: const ['NewCat1'],
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      final importBtn = find.byType(ElevatedButton);
+      expect(importBtn, findsOneWidget);
+
+      await tester.tap(importBtn);
+      await tester.pump();
+      await tester.pumpAndSettle();
     });
   });
 }

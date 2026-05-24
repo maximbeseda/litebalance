@@ -79,73 +79,10 @@ class _ImportCategorySetupScreenState
     });
   }
 
-  DateTime? _parseDate(String v) {
-    try {
-      final clean = v.replaceAll('"', '').trim();
-      final datePart = clean.split('T')[0].split(' ')[0];
-      final parsedIso = DateTime.tryParse(clean);
-      if (parsedIso != null) return parsedIso;
-
-      final parts = datePart.split(RegExp(r'[\./-]'));
-      if (parts.length == 3) {
-        final p0 = int.parse(parts[0]);
-        final p1 = int.parse(parts[1]);
-        final p2 = int.parse(parts[2]);
-
-        final int year;
-        final int month;
-        final int day;
-
-        if (p0 > 1000) {
-          year = p0;
-          month = p1;
-          day = p2;
-        } else {
-          year = p2 < 100 ? (p2 > 50 ? 1900 + p2 : 2000 + p2) : p2;
-          if (p0 > 12) {
-            day = p0;
-            month = p1;
-          } else if (p1 > 12) {
-            month = p0;
-            day = p1;
-          } else {
-            if (datePart.contains('/')) {
-              month = p0;
-              day = p1;
-            } else {
-              day = p0;
-              month = p1;
-            }
-          }
-        }
-
-        if (month > 0 && month <= 12 && day > 0 && day <= 31) {
-          return DateTime(year, month, day);
-        }
-      }
-      return DateTime.tryParse(datePart);
-    } catch (_) {
-      return null;
-    }
-  }
-
-  int _parseAmount(String v) {
-    try {
-      final clean = v
-          .replaceAll('"', '')
-          .replaceAll(RegExp(r'\s+'), '')
-          .replaceAll(',', '.');
-      return (double.parse(clean).abs() * 100).round();
-    } catch (_) {
-      return 0;
-    }
-  }
-
   Future<void> _executeImport() async {
     setState(() {
       _isProcessing = true;
       _progress = 0.1;
-      // ВИПРАВЛЕНО: Локалізація
       _loadingSubtitle = 'import_creating_categories'.tr();
     });
 
@@ -213,7 +150,6 @@ class _ImportCategorySetupScreenState
 
     setState(() {
       _progress = 0.4;
-      // ВИПРАВЛЕНО: Локалізація
       _loadingSubtitle = 'import_processing_transactions'.tr();
     });
 
@@ -242,7 +178,8 @@ class _ImportCategorySetupScreenState
       }
 
       final dateStr = row[widget.dateCol!].toString();
-      final date = _parseDate(dateStr);
+      // ВИКОРИСТОВУЄМО НОВИЙ ПАРСЕР ДЛЯ ДАТ
+      final date = ImportRecognizer.parseDate(dateStr);
       if (date == null) {
         invalidConsecutiveRows++;
         if (invalidConsecutiveRows >= 3) break;
@@ -263,9 +200,10 @@ class _ImportCategorySetupScreenState
         continue;
       }
 
+      // ВИКОРИСТОВУЄМО НОВИЙ ПАРСЕР ДЛЯ СУМ
       final int amountTo =
           (widget.amountToCol != null && widget.amountToCol! < row.length)
-          ? _parseAmount(row[widget.amountToCol!].toString())
+          ? ImportRecognizer.parseAmount(row[widget.amountToCol!].toString())
           : 0;
 
       if (amountTo == 0) {
@@ -273,24 +211,30 @@ class _ImportCategorySetupScreenState
         continue;
       }
 
+      // ВИКОРИСТОВУЄМО НОВИЙ ПАРСЕР ДЛЯ ВАЛЮТ
       final String currencyTo;
       if (widget.currencyToCol != null && widget.currencyToCol! < row.length) {
-        final parsedCur = row[widget.currencyToCol!].toString().trim();
-        currencyTo = parsedCur.isNotEmpty ? parsedCur : currentBase;
+        final parsedCur = row[widget.currencyToCol!].toString();
+        currencyTo = ImportRecognizer.normalizeCurrency(parsedCur, currentBase);
       } else {
         currencyTo = currentBase;
       }
 
+      // ВИКОРИСТОВУЄМО НОВИЙ ПАРСЕР ДЛЯ СУМ
       final int amountFrom =
           (widget.amountFromCol != null && widget.amountFromCol! < row.length)
-          ? _parseAmount(row[widget.amountFromCol!].toString())
+          ? ImportRecognizer.parseAmount(row[widget.amountFromCol!].toString())
           : amountTo;
 
+      // ВИКОРИСТОВУЄМО НОВИЙ ПАРСЕР ДЛЯ ВАЛЮТ
       final String currencyFrom;
       if (widget.currencyFromCol != null &&
           widget.currencyFromCol! < row.length) {
-        final parsedCurFrom = row[widget.currencyFromCol!].toString().trim();
-        currencyFrom = parsedCurFrom.isNotEmpty ? parsedCurFrom : currencyTo;
+        final parsedCurFrom = row[widget.currencyFromCol!].toString();
+        currencyFrom = ImportRecognizer.normalizeCurrency(
+          parsedCurFrom,
+          currencyTo,
+        );
       } else {
         currencyFrom = currencyTo;
       }
@@ -316,8 +260,9 @@ class _ImportCategorySetupScreenState
         id: 'ck_import_${date.millisecondsSinceEpoch}_$i',
         fromId: fromCat.id,
         toId: toCat.id,
+        // ВИКОРИСТОВУЄМО НОВИЙ ПАРСЕР ДЛЯ НОТАТОК
         title: widget.noteCol != null && widget.noteCol! < row.length
-            ? row[widget.noteCol!].toString().trim()
+            ? ImportRecognizer.cleanNote(row[widget.noteCol!].toString())
             : toName,
         amount: amountFrom,
         date: date,
@@ -352,7 +297,6 @@ class _ImportCategorySetupScreenState
 
     setState(() {
       _progress = 0.9;
-      // ВИПРАВЛЕНО: Локалізація
       _loadingSubtitle = 'import_saving_data'.tr();
     });
 
