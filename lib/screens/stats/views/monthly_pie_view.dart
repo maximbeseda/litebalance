@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../providers/all_providers.dart';
 import '../../../theme/app_colors_extension.dart';
 import '../../../utils/currency_formatter.dart';
+import '../../../utils/icon_helper.dart';
 import '../../../widgets/common/animated_dots.dart';
 import '../../../widgets/bottom_sheets/stats_category_bottom_sheet.dart';
 
@@ -292,10 +293,7 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
                                       alpha: 0.2,
                                     ),
                                     child: Icon(
-                                      IconData(
-                                        cat.icon,
-                                        fontFamily: 'MaterialIcons',
-                                      ),
+                                      IconHelper.getIcon(cat.icon),
                                       size: 16,
                                       color: rowColor,
                                     ),

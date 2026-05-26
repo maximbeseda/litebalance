@@ -12,6 +12,7 @@ import '../providers/all_providers.dart';
 import '../models/app_currency.dart';
 import '../utils/app_constants.dart';
 import '../utils/date_formatter.dart';
+import '../utils/icon_helper.dart';
 import '../widgets/dialogs/premium_date_picker.dart';
 import '../theme/app_colors_extension.dart';
 
@@ -433,7 +434,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
-                          IconData(cat.icon, fontFamily: 'MaterialIcons'),
+                          IconHelper.getIcon(cat.icon),
                           size: 18,
                           color: Color(cat.iconColor),
                         ),
@@ -1078,10 +1079,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     Color displayIconColor = colors.textSecondary;
 
     if (_customIconCodePoint != null) {
-      displayIcon = IconData(
-        _customIconCodePoint!,
-        fontFamily: 'MaterialIcons',
-      );
+      displayIcon = IconHelper.getIcon(_customIconCodePoint!);
       if (_selectedExpenseId != null) {
         final cat = catState.expenses.firstWhereOrNull(
           (c) => c.id == _selectedExpenseId,
@@ -1096,7 +1094,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         (c) => c.id == _selectedExpenseId,
       );
       if (cat != null) {
-        displayIcon = IconData(cat.icon, fontFamily: 'MaterialIcons');
+        displayIcon = IconHelper.getIcon(cat.icon);
         displayColor = Color(cat.bgColor);
         displayIconColor = Color(cat.iconColor);
       }

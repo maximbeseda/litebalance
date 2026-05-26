@@ -6,6 +6,7 @@ import '../providers/all_providers.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/date_formatter.dart';
+import '../utils/icon_helper.dart';
 import '../screens/subscription_screen.dart';
 import '../theme/app_colors_extension.dart';
 
@@ -156,15 +157,8 @@ class SubscriptionsScreen extends ConsumerWidget {
 
                         final IconData displayIcon =
                             sub.customIconCodePoint != null
-                            ? IconData(
-                                sub.customIconCodePoint!,
-                                fontFamily: 'MaterialIcons',
-                              )
-                            : IconData(
-                                category.icon,
-                                fontFamily: 'MaterialIcons',
-                              );
-
+                            ? IconHelper.getIcon(sub.customIconCodePoint!)
+                            : IconHelper.getIcon(category.icon);
                         final now = DateTime.now();
                         final today = DateTime(now.year, now.month, now.day);
                         final paymentDate = DateTime(

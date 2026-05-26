@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/rendering.dart';
 import '../../theme/app_colors_extension.dart';
 
 // Сигнальний об'єкт для скидання фільтра
@@ -278,11 +279,11 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
 
           Expanded(
             child: ListView.builder(
+              scrollCacheExtent: const ScrollCacheExtent.pixels(1000),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: _flatItems.length,
               reverse: true,
               physics: const BouncingScrollPhysics(),
-              cacheExtent: 1000,
               itemBuilder: (context, index) {
                 final item = _flatItems[index];
                 if (item is String) {

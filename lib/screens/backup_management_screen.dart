@@ -550,7 +550,8 @@ class _BackupManagementScreenState
           ),
         ],
       ),
-      child: child,
+      // 👇 ДОДАНО: ClipRRect жорстко обрізає всі квадратні тіні від кнопок всередині
+      child: ClipRRect(borderRadius: BorderRadius.circular(12), child: child),
     );
   }
 
@@ -562,27 +563,31 @@ class _BackupManagementScreenState
     required VoidCallback onTap,
     Color? iconColor,
   }) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      leading: Icon(icon, color: iconColor ?? colors.textMain),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: colors.textMain,
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
+    return Material(
+      color:
+          Colors.transparent, // 👈 Додаємо прозоре полотно для анімацій кліку
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        leading: Icon(icon, color: iconColor ?? colors.textMain),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: colors.textMain,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
         ),
+        subtitle: Text(
+          subtitle,
+          style: TextStyle(color: colors.textSecondary, fontSize: 12),
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          color: colors.textSecondary.withValues(alpha: 0.3),
+          size: 16,
+        ),
+        onTap: _isLoading ? null : onTap,
       ),
-      subtitle: Text(
-        subtitle,
-        style: TextStyle(color: colors.textSecondary, fontSize: 12),
-      ),
-      trailing: Icon(
-        Icons.arrow_forward_ios,
-        color: colors.textSecondary.withValues(alpha: 0.3),
-        size: 16,
-      ),
-      onTap: _isLoading ? null : onTap,
     );
   }
 }

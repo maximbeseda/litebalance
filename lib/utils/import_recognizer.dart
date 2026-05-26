@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../database/app_database.dart';
 
 class ImportRecognizer {
@@ -6,162 +7,50 @@ class ImportRecognizer {
   // 1. СЛОВНИКИ ДЛЯ РОЗПІЗНАВАННЯ ІКОНОК
   // ==========================================
   static const Map<int, List<String>> _iconKeywords = {
-    // 🍔 Icons.restaurant (Їжа / Food)
     0xe532: [
-      'кафе',
-      'ресторан',
-      'їжа',
-      'харчування',
-      'food',
-      'cafe',
-      'dining',
-      'meal',
-      'lunch',
-      'dinner',
-      'restaurant',
-      'essen',
-      'kaffee',
-      'nourriture',
-      'repas',
-      'comida',
-      'cena',
-      'pranzo',
+      // Icons.restaurant
+      'кафе', 'ресторан', 'їжа', 'харчування', 'food', 'cafe', 'dining',
+      'meal', 'lunch', 'dinner', 'restaurant', 'essen', 'kaffee',
+      'nourriture', 'repas', 'comida', 'cena', 'pranzo',
     ],
-    // 🚗 Icons.directions_car (Транспорт / Transport)
     0xe1d7: [
-      'авто',
-      'таксі',
-      'транспорт',
-      'пальне',
-      'бензин',
-      'car',
-      'taxi',
-      'uber',
-      'lyft',
-      'gas',
-      'fuel',
-      'transit',
-      'transport',
-      'benzin',
-      'tanken',
-      'auto',
-      'voiture',
-      'essence',
-      'coche',
-      'gasolina',
+      // Icons.directions_car
+      'авто', 'таксі', 'транспорт', 'пальне', 'бензин', 'car', 'taxi',
+      'uber', 'lyft', 'gas', 'fuel', 'transit', 'transport', 'benzin',
+      'tanken', 'auto', 'voiture', 'essence', 'coche', 'gasolina',
     ],
-    // 💰 Icons.payments (Доходи / Income)
     0xe4a1: [
-      'зарплата',
-      'премія',
-      'аванс',
-      'бонус',
-      'salary',
-      'income',
-      'wage',
-      'bonus',
-      'paycheck',
-      'gehalt',
-      'lohn',
-      'einkommen',
-      'salaire',
-      'paie',
-      'salario',
-      'sueldo',
-      'ingreso',
+      // Icons.payments
+      'зарплата', 'премія', 'аванс', 'бонус', 'salary', 'income', 'wage',
+      'bonus', 'paycheck', 'gehalt', 'lohn', 'einkommen', 'salaire',
+      'paie', 'salario', 'sueldo', 'ingreso',
     ],
-    // 🛒 Icons.shopping_basket (Продукти / Шопінг)
     0xe5c3: [
-      'продукти',
-      'маркет',
-      'сільпо',
-      'атб',
-      'ашан',
-      'магазин',
-      'покупки',
-      'groceries',
-      'shop',
-      'store',
-      'market',
-      'supermarket',
-      'lebensmittel',
-      'supermarkt',
-      'einkaufen',
-      'courses',
-      'supermarché',
-      'compras',
+      // Icons.shopping_basket
+      'продукти', 'маркет', 'сільпо', 'атб', 'ашан', 'магазин', 'покупки',
+      'groceries', 'shop', 'store', 'market', 'supermarket', 'lebensmittel',
+      'supermarkt', 'einkaufen', 'courses', 'supermarché', 'compras',
       'supermercado',
     ],
-    // 💊 Icons.medical_services (Здоров'я / Health)
     0xe3ed: [
-      'здоров',
-      'аптека',
-      'лікар',
-      'медицина',
-      'health',
-      'doctor',
-      'pharmacy',
-      'medicine',
-      'hospital',
-      'gesundheit',
-      'arzt',
-      'apotheke',
-      'medizin',
-      'santé',
-      'médecin',
-      'pharmacie',
-      'salud',
-      'médico',
-      'farmacia',
+      // Icons.medical_services
+      'здоров', 'аптека', 'лікар', 'медицина', 'health', 'doctor',
+      'pharmacy', 'medicine', 'hospital', 'gesundheit', 'arzt',
+      'apotheke', 'medizin', 'santé', 'médecin', 'pharmacie',
+      'salud', 'médico', 'farmacia',
     ],
-    // 💳 Icons.account_balance_wallet (Рахунки / Accounts)
     0xe041: [
-      'картка',
-      'банк',
-      'приват',
-      'моно',
-      'ощад',
-      'готівка',
-      'гаманець',
-      'wallet',
-      'cash',
-      'card',
-      'bank',
-      'account',
-      'atm',
-      'bargeld',
-      'karte',
-      'konto',
-      'brieftasche',
-      'espèces',
-      'carte',
-      'banque',
-      'efectivo',
-      'tarjeta',
-      'banco',
+      // Icons.account_balance_wallet
+      'картка', 'банк', 'приват', 'моно', 'ощад', 'готівка', 'гаманець',
+      'wallet', 'cash', 'card', 'bank', 'account', 'atm', 'bargeld',
+      'karte', 'konto', 'brieftasche', 'espèces', 'carte', 'banque',
+      'efectivo', 'tarjeta', 'banco',
     ],
-    // 🏠 Icons.home (Дім / Комуналка)
     0xe314: [
-      'комунал',
-      'дім',
-      'квартира',
-      'оренда',
-      'ремонт',
-      'home',
-      'rent',
-      'house',
-      'utilities',
-      'bills',
-      'miete',
-      'haus',
-      'wohnung',
-      'strom',
-      'maison',
-      'loyer',
-      'casa',
-      'alquiler',
-      'luz',
-      'agua',
+      // Icons.home
+      'комунал', 'дім', 'квартира', 'оренда', 'ремонт', 'home', 'rent',
+      'house', 'utilities', 'bills', 'miete', 'haus', 'wohnung',
+      'strom', 'maison', 'loyer', 'casa', 'alquiler', 'luz', 'agua',
     ],
   };
 
@@ -169,12 +58,10 @@ class ImportRecognizer {
     final n = name.toLowerCase();
     for (var entry in _iconKeywords.entries) {
       if (entry.value.any((keyword) => n.contains(keyword))) {
-        return entry.key; // Повертаємо код знайденої іконки
+        return entry.key;
       }
     }
-    return Icons
-        .category
-        .codePoint; // Дефолтна іконка (якщо нічого не знайдено)
+    return Icons.category.codePoint;
   }
 
   // ==========================================
@@ -283,19 +170,28 @@ class ImportRecognizer {
   static CategoryType guessType(String name, {required bool isFrom}) {
     final n = name.toLowerCase();
 
-    if (_incomeKeywords.any((k) => n.contains(k))) return CategoryType.income;
-    if (_accountKeywords.any((k) => n.contains(k))) return CategoryType.account;
-    if (_expenseKeywords.any((k) => n.contains(k))) return CategoryType.expense;
+    if (_incomeKeywords.any((k) => n.contains(k))) {
+      return CategoryType.income;
+    }
+    if (_accountKeywords.any((k) => n.contains(k))) {
+      return CategoryType.account;
+    }
+    if (_expenseKeywords.any((k) => n.contains(k))) {
+      return CategoryType.expense;
+    }
 
-    // Якщо не вгадали за назвою, дивимось на контекст (звідки чи куди йшли гроші)
     return isFrom ? CategoryType.account : CategoryType.expense;
   }
 
   // ==========================================
   // 3. РОЗПІЗНАВАННЯ НАЗВ КОЛОНОК З РІЗНИХ БАНКІВ
   // ==========================================
-  static bool isDate(String h) => [
-    'данные',
+  static bool _containsAny(String header, List<String> keywords) {
+    final h = header.toLowerCase();
+    return keywords.any((k) => h.contains(k));
+  }
+
+  static bool isDate(String h) => _containsAny(h, [
     'дата',
     'date',
     'time',
@@ -305,29 +201,35 @@ class ImportRecognizer {
     'temps',
     'fecha',
     'hora',
-  ].contains(h);
+    'created',
+  ]);
 
-  static bool isFrom(String h) => [
-    'из',
-    'from',
+  static bool isFrom(String h) => _containsAny(h, [
+    'звідки',
     'счет списания',
     'джерело',
     'від',
+    'from',
     'source',
     'account',
+    'wallet',
+    'гаманець',
     'von',
     'quelle',
     'de',
     'desde',
     'origen',
-  ].contains(h);
+    'счет',
+    'рахунок',
+    'sender',
+  ]);
 
-  static bool isTo(String h) => [
-    'в',
-    'to',
+  static bool isTo(String h) => _containsAny(h, [
+    'куди',
+    'категорія',
     'счет зачисления',
     'категория',
-    'куди',
+    'to',
     'target',
     'category',
     'payee',
@@ -340,42 +242,87 @@ class ImportRecognizer {
     'a',
     'hacia',
     'categoría',
-  ].contains(h);
+    'destination',
+    'beneficiary',
+    'одержувач',
+  ]);
 
-  static bool isAmountFrom(String h) => [
-    'сумма',
-    'amount',
-    'сума',
-    'выход',
-    'витрачено',
-    'value',
-    'sum',
-    'withdrawal',
-    'betrag',
-    'summe',
-    'ausgabe',
-    'montant',
-    'somme',
-    'dépense',
-    'importe',
-    'cantidad',
-    'suma',
-    'gasto',
-  ].contains(h);
+  static bool isAmountFrom(String h) =>
+      _containsAny(h, [
+        'сума (звідки)',
+        'amount (from)',
+        'сумма списания',
+        'сумма',
+        'amount',
+        'сума',
+        'выход',
+        'витрачено',
+        'value',
+        'sum',
+        'withdrawal',
+        'betrag',
+        'summe',
+        'ausgabe',
+        'montant',
+        'somme',
+        'dépense',
+        'importe',
+        'cantidad',
+        'suma',
+        'gasto',
+        'outflow',
+      ]) &&
+      !isAmountTo(h);
 
-  static bool isCurrencyFrom(String h) => [
-    'валюта',
-    'currency',
-    'валюта списания',
-    'währung',
-    'devise',
-    'moneda',
-  ].contains(h);
+  static bool isCurrencyFrom(String h) =>
+      _containsAny(h, [
+        'валюта (звідки)',
+        'валюта списания',
+        'currency (from)',
+        'валюта',
+        'currency',
+        'währung',
+        'devise',
+        'moneda',
+      ]) &&
+      !isCurrencyTo(h);
 
-  static bool isNote(String h) => [
+  static bool isAmountTo(String h) => _containsAny(h, [
+    'сума (куди)',
+    'amount (to)',
+    'сумма (в валюте',
+    'сумма в др',
+    'сумма зачисления',
+    'приход',
+    'отримано',
+    'deposit',
+    'inflow',
+    'target amount',
+    'einnahme',
+    'einzahlung',
+    'dépôt',
+    'revenu',
+    'depósito',
+    'ingreso',
+    'credit',
+  ]);
+
+  static bool isCurrencyTo(String h) => _containsAny(h, [
+    'валюта (куди)',
+    'currency (to)',
+    'валюта операции',
+    'др.валюта',
+    'валюта зачисления',
+    'target currency',
+    'zielwährung',
+    'devise cible',
+    'moneda de destino',
+  ]);
+
+  static bool isNote(String h) => _containsAny(h, [
+    'коментар',
     'заметка',
     'comment',
-    'коментар',
     'описание',
     'note',
     'desc',
@@ -388,30 +335,249 @@ class ImportRecognizer {
     'nota',
     'comentario',
     'descripción',
-  ].contains(h);
+    'примітка',
+    'labels',
+    'tags',
+    'теги',
+  ]);
 
-  // Для цих колонок банки зазвичай використовують довгі фрази, тому залишаємо .contains()
-  static bool isAmountTo(String h) =>
-      h.contains('сумма (в валюте') ||
-      h.contains('сумма в др') ||
-      h.contains('приход') ||
-      h.contains('отримано') ||
-      h.contains('deposit') ||
-      h.contains('inflow') ||
-      h.contains('target amount') ||
-      h.contains('einnahme') ||
-      h.contains('einzahlung') ||
-      h.contains('dépôt') ||
-      h.contains('revenu') ||
-      h.contains('depósito') ||
-      h.contains('ingreso');
+  // ==========================================
+  // 4. ПАРСИНГ ДАНИХ (СУМИ, ДАТИ, ВАЛЮТИ)
+  // ==========================================
 
-  static bool isCurrencyTo(String h) =>
-      h.contains('валюта операции') ||
-      h.contains('др.валюта') ||
-      h.contains('валюта зачисления') ||
-      h.contains('target currency') ||
-      h.contains('zielwährung') ||
-      h.contains('devise cible') ||
-      h.contains('moneda de destino');
+  /// Очищає рядок від сміття та повертає суму в копійках/центах
+  static int parseAmount(String v) {
+    try {
+      String clean = v.replaceAll(RegExp(r'[^\d\.,-]'), '');
+      if (clean.isEmpty) {
+        return 0;
+      }
+
+      if (clean.contains('.') && clean.contains(',')) {
+        final lastDot = clean.lastIndexOf('.');
+        final lastComma = clean.lastIndexOf(',');
+        if (lastDot > lastComma) {
+          clean = clean.replaceAll(',', '');
+        } else {
+          clean = clean.replaceAll('.', '').replaceAll(',', '.');
+        }
+      } else if (clean.contains(',')) {
+        final parts = clean.split(',');
+        if (parts.length == 2 && parts[1].length != 3) {
+          clean = clean.replaceAll(',', '.');
+        } else {
+          clean = clean.replaceAll(',', '');
+        }
+      }
+
+      final value = double.parse(clean);
+      return (value.abs() * 100).round();
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  /// Намагається безпечно розпарсити будь-яку дату
+  static DateTime? parseDate(String v) {
+    try {
+      final clean = v.replaceAll('"', '').trim();
+      final datePart = clean.split('T')[0].split(' ')[0];
+
+      final parsedIso = DateTime.tryParse(clean);
+      if (parsedIso != null) {
+        return parsedIso;
+      }
+
+      final parts = datePart.split(RegExp(r'[\./-]'));
+      if (parts.length == 3) {
+        final p0 = int.parse(parts[0]);
+        final p1 = int.parse(parts[1]);
+        final p2 = int.parse(parts[2]);
+
+        int year, month, day;
+
+        if (p0 > 1000) {
+          year = p0;
+          month = p1;
+          day = p2;
+        } else {
+          year = p2 < 100 ? (p2 > 50 ? 1900 + p2 : 2000 + p2) : p2;
+          if (p0 > 12) {
+            day = p0;
+            month = p1;
+          } else if (p1 > 12) {
+            month = p0;
+            day = p1;
+          } else {
+            if (datePart.contains('/')) {
+              month = p0;
+              day = p1;
+            } else {
+              day = p0;
+              month = p1;
+            }
+          }
+        }
+
+        if (month > 0 && month <= 12 && day > 0 && day <= 31) {
+          return DateTime(year, month, day);
+        }
+      }
+      return DateTime.tryParse(datePart);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Нормалізує валюту, підтримуючи 27+ популярних валют
+  static String normalizeCurrency(String v, String defaultCurrency) {
+    final clean = v.toLowerCase().replaceAll(RegExp(r'[\s\d\.,\-]'), '');
+    if (clean.isEmpty) {
+      return defaultCurrency;
+    }
+
+    if (['cad', 'c\$', 'канад'].any((k) => clean.contains(k))) {
+      return 'CAD';
+    }
+    if (['aud', 'a\$', 'австрал'].any((k) => clean.contains(k))) {
+      return 'AUD';
+    }
+    if (['nzd', 'nz\$', 'новозел'].any((k) => clean.contains(k))) {
+      return 'NZD';
+    }
+    if (['mxn', 'mex\$', 'песо', 'peso'].any((k) => clean.contains(k))) {
+      return 'MXN';
+    }
+    if (['brl', 'r\$', 'реал', 'real'].any((k) => clean.contains(k))) {
+      return 'BRL';
+    }
+
+    if (['uah', 'грн', 'грив', '₴'].any((k) => clean.contains(k))) {
+      return 'UAH';
+    }
+    if (['usd', 'дол', 'dol', '\$'].any((k) => clean.contains(k))) {
+      return 'USD';
+    }
+    if (['eur', 'євро', 'евро', 'euro', '€'].any((k) => clean.contains(k))) {
+      return 'EUR';
+    }
+    if (['gbp', 'фунт', 'pound', '£'].any((k) => clean.contains(k))) {
+      return 'GBP';
+    }
+    if (['chf', 'франк', 'frank', '₣'].any((k) => clean.contains(k))) {
+      return 'CHF';
+    }
+    if (['pln', 'zl', 'zł', 'злот', 'zloty'].any((k) => clean.contains(k))) {
+      return 'PLN';
+    }
+    if (['czk', 'kč', 'kc', 'крон'].any((k) => clean.contains(k))) {
+      return 'CZK';
+    }
+    if (['huf', 'ft', 'форинт', 'forint'].any((k) => clean.contains(k))) {
+      return 'HUF';
+    }
+    if (['bgn', 'лв', 'лев', 'lev'].any((k) => clean.contains(k))) {
+      return 'BGN';
+    }
+    if (['try', '₺', 'лір', 'лир', 'lira'].any((k) => clean.contains(k))) {
+      return 'TRY';
+    }
+    if (['gel', '₾', 'лари', 'lari'].any((k) => clean.contains(k))) {
+      return 'GEL';
+    }
+    if (['kzt', '₸', 'тенге', 'tenge'].any((k) => clean.contains(k))) {
+      return 'KZT';
+    }
+    if (['ils', '₪', 'шекел', 'shekel'].any((k) => clean.contains(k))) {
+      return 'ILS';
+    }
+    if ([
+      'aed',
+      'دإ',
+      'د.إ',
+      'дирхам',
+      'dirham',
+    ].any((k) => clean.contains(k))) {
+      return 'AED';
+    }
+    if (['inr', '₹', 'рупі', 'rupee'].any((k) => clean.contains(k))) {
+      return 'INR';
+    }
+
+    if (['ron', 'romanian'].any((k) => clean.contains(k))) {
+      return 'RON';
+    }
+    if (['mdl', 'moldov'].any((k) => clean.contains(k))) {
+      return 'MDL';
+    }
+    if (['lei', 'лей'].any((k) => clean.contains(k))) {
+      return 'RON';
+    }
+
+    if (['sek', 'swedish', 'швед'].any((k) => clean.contains(k))) {
+      return 'SEK';
+    }
+    if (['nok', 'norwegian', 'норвег'].any((k) => clean.contains(k))) {
+      return 'NOK';
+    }
+    if (['dkk', 'danish', 'дансь'].any((k) => clean.contains(k))) {
+      return 'DKK';
+    }
+    if (clean.contains('kr')) {
+      return 'SEK';
+    }
+
+    if (['jpy', 'йен', 'иен', 'yen'].any((k) => clean.contains(k))) {
+      return 'JPY';
+    }
+    if (['cny', 'юань', 'yuan'].any((k) => clean.contains(k))) {
+      return 'CNY';
+    }
+    if (clean.contains('¥')) {
+      return 'JPY';
+    }
+
+    const supportedIsoCodes = [
+      'UAH',
+      'USD',
+      'EUR',
+      'GBP',
+      'CHF',
+      'JPY',
+      'PLN',
+      'CZK',
+      'RON',
+      'HUF',
+      'BGN',
+      'MDL',
+      'SEK',
+      'NOK',
+      'DKK',
+      'TRY',
+      'GEL',
+      'KZT',
+      'ILS',
+      'AED',
+      'CNY',
+      'INR',
+      'CAD',
+      'AUD',
+      'NZD',
+      'BRL',
+      'MXN',
+    ];
+
+    for (final isoCode in supportedIsoCodes) {
+      if (clean.contains(isoCode.toLowerCase())) {
+        return isoCode;
+      }
+    }
+
+    return defaultCurrency;
+  }
+
+  /// Очищає коментарі від зайвих лапок і пробілів
+  static String cleanNote(String v) {
+    return v.replaceAll('"', '').trim();
+  }
 }

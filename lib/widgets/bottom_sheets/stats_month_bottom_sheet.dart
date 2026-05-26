@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -7,6 +8,7 @@ import '../../providers/all_providers.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../utils/currency_formatter.dart';
 import '../../utils/date_formatter.dart';
+import '../../utils/icon_helper.dart';
 
 class StatsMonthBottomSheet extends ConsumerStatefulWidget {
   final DateTime statsMonth;
@@ -291,9 +293,11 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
                           return false;
                         },
                         child: ListView.builder(
+                          scrollCacheExtent: const ScrollCacheExtent.pixels(
+                            1000,
+                          ),
                           controller: controller,
                           physics: const BouncingScrollPhysics(),
-                          cacheExtent: 1000,
                           itemCount: filteredTxs.length + (showLoader ? 1 : 0),
                           itemBuilder: (context, index) {
                             if (index == filteredTxs.length) {
@@ -389,10 +393,7 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
                                     : colors.iconBg,
                                 child: Icon(
                                   iconCat != null
-                                      ? IconData(
-                                          iconCat.icon,
-                                          fontFamily: 'MaterialIcons',
-                                        )
+                                      ? IconHelper.getIcon(iconCat.icon)
                                       : Icons.help_outline,
                                   color: iconCat != null
                                       ? Color(iconCat.iconColor)

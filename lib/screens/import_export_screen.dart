@@ -5,11 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 
-import 'csv_mapping_screen.dart';
+import 'import_wizard/import_header_selection_screen.dart';
 import '../providers/all_providers.dart';
 import '../services/export_import_service.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/dialogs/custom_date_range_picker.dart';
+import '../utils/icon_helper.dart';
 
 class ImportExportScreen extends ConsumerStatefulWidget {
   const ImportExportScreen({super.key});
@@ -132,7 +133,9 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CsvMappingScreen(rawRows: rawRows),
+                  // ЗМІНЕНО: Відкриваємо Крок 1 замість старого CsvMappingScreen
+                  builder: (context) =>
+                      ImportHeaderSelectionScreen(rawRows: rawRows),
                 ),
               ),
             );
@@ -263,7 +266,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                IconData(cat.icon, fontFamily: 'MaterialIcons'),
+                IconHelper.getIcon(cat.icon),
                 size: 20,
                 color: Color(cat.iconColor),
               ),
@@ -700,34 +703,40 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      SwitchListTile(
-                        contentPadding: EdgeInsets.zero,
-                        activeThumbColor: colors.income,
-                        activeTrackColor: colors.income.withValues(alpha: 0.5),
-                        title: Text(
-                          'export_only_filtered'.tr(),
-                          style: TextStyle(
-                            color: colors.textMain,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
+                      Material(
+                        color: Colors
+                            .transparent, // 👈 Наше магічне прозоре полотно
+                        child: SwitchListTile(
+                          contentPadding: EdgeInsets.zero,
+                          activeThumbColor: colors.income,
+                          activeTrackColor: colors.income.withValues(
+                            alpha: 0.5,
                           ),
-                        ),
-                        subtitle: Text(
-                          _exportOnlyFiltered
-                              ? 'exporting_count'.tr(args: ['$exportCount'])
-                              : "${'exporting_count'.tr(args: ['$exportCount'])} (${'exporting_all'.tr()})",
-                          style: TextStyle(
-                            color: colors.textSecondary,
-                            fontSize: 13,
+                          title: Text(
+                            'export_only_filtered'.tr(),
+                            style: TextStyle(
+                              color: colors.textMain,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
+                          subtitle: Text(
+                            _exportOnlyFiltered
+                                ? 'exporting_count'.tr(args: ['$exportCount'])
+                                : "${'exporting_count'.tr(args: ['$exportCount'])} (${'exporting_all'.tr()})",
+                            style: TextStyle(
+                              color: colors.textSecondary,
+                              fontSize: 13,
+                            ),
+                          ),
+                          value: _exportOnlyFiltered,
+                          onChanged: (val) {
+                            setState(() {
+                              _exportOnlyFiltered = val;
+                              if (val) _showFilterSheet(colors);
+                            });
+                          },
                         ),
-                        value: _exportOnlyFiltered,
-                        onChanged: (val) {
-                          setState(() {
-                            _exportOnlyFiltered = val;
-                            if (val) _showFilterSheet(colors);
-                          });
-                        },
                       ),
                       if (_exportOnlyFiltered)
                         Align(

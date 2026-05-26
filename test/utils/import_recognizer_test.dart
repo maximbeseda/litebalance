@@ -85,7 +85,7 @@ void main() {
       test('Повинен розпізнавати колонки дати (isDate)', () {
         expect(ImportRecognizer.isDate('дата'), true);
         expect(ImportRecognizer.isDate('time'), true);
-        expect(ImportRecognizer.isDate('not a date'), false);
+        expect(ImportRecognizer.isDate('some random header'), false);
       });
 
       test('Повинен розпізнавати колонки звідки (isFrom)', () {

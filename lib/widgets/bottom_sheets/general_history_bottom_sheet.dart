@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/app_currency.dart';
 import '../../utils/currency_formatter.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
+import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
 
 class GeneralHistoryBottomSheet extends ConsumerStatefulWidget {
@@ -158,9 +160,9 @@ class _GeneralHistoryBottomSheetState
                     ),
                   )
                 : ListView.builder(
+                    scrollCacheExtent: const ScrollCacheExtent.pixels(1000),
                     controller: _scrollController,
                     physics: const BouncingScrollPhysics(),
-                    cacheExtent: 1000,
                     itemCount: filteredHistory.length + (showLoader ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index == filteredHistory.length) {
@@ -266,157 +268,158 @@ class _GeneralHistoryBottomSheetState
                           padding: const EdgeInsets.only(right: 20),
                           child: const Icon(Icons.delete, color: Colors.white),
                         ),
-                        // 👇 ОНОВЛЕНО: Миттєво приховуємо транзакцію
                         onDismissed: (_) {
                           setState(() {
                             _localDeletedIds.add(t.id);
                           });
                           widget.onDelete(t);
                         },
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                          ),
-                          onTap: () async => await widget.onEdit(t),
-                          leading: CircleAvatar(
-                            backgroundColor: toCat != null
-                                ? Color(toCat.bgColor)
-                                : colors.iconBg,
-                            child: Icon(
-                              toCat != null
-                                  ? IconData(
-                                      toCat.icon,
-                                      fontFamily: 'MaterialIcons',
-                                    )
-                                  : Icons.help_outline,
-                              color: toCat != null
-                                  ? Color(toCat.iconColor)
-                                  : colors.textSecondary,
-                              size: 20,
+                        child: Material(
+                          // 👈 ДОДАЄМО ПРОЗОРЕ ПОЛОТНО
+                          color: Colors.transparent,
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 4,
                             ),
-                          ),
-                          title: Row(
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  fromName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: colors.textMain,
-                                  ),
-                                ),
+                            onTap: () async => await widget.onEdit(t),
+                            leading: CircleAvatar(
+                              backgroundColor: toCat != null
+                                  ? Color(toCat.bgColor)
+                                  : colors.iconBg,
+                              child: Icon(
+                                toCat != null
+                                    ? IconHelper.getIcon(toCat.icon)
+                                    : Icons.help_outline,
+                                color: toCat != null
+                                    ? Color(toCat.iconColor)
+                                    : colors.textSecondary,
+                                size: 20,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4.0,
-                                ),
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  size: 14,
-                                  color: colors.textSecondary,
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  toName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: colors.textMain,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          subtitle: Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            ),
+                            title: Row(
                               children: [
-                                Text(
-                                  _fastDateFormat(t.date),
-                                  style: TextStyle(
-                                    fontSize: 12,
+                                Flexible(
+                                  child: Text(
+                                    fromName,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: colors.textMain,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    size: 14,
                                     color: colors.textSecondary,
                                   ),
                                 ),
-                                if (customNote.isNotEmpty) ...[
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.notes,
-                                        size: 14,
-                                        color: colors.textSecondary.withValues(
-                                          alpha: 0.7,
+                                Flexible(
+                                  child: Text(
+                                    toName,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: colors.textMain,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _fastDateFormat(t.date),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: colors.textSecondary,
+                                    ),
+                                  ),
+                                  if (customNote.isNotEmpty) ...[
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.notes,
+                                          size: 14,
+                                          color: colors.textSecondary
+                                              .withValues(alpha: 0.7),
                                         ),
+                                        const SizedBox(width: 4),
+                                        Expanded(
+                                          child: Text(
+                                            customNote,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontStyle: FontStyle.italic,
+                                              color: colors.textSecondary,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // Головна сума
+                                    Text(
+                                      '$prefix${CurrencyFormatter.format(mainAmount)} $mainSymbol',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: amountColor,
+                                        fontSize: 14,
                                       ),
-                                      const SizedBox(width: 4),
-                                      Expanded(
+                                    ),
+                                    // Додаткова сума дрібним шрифтом (тільки для мультивалютних)
+                                    if (isMultiCurrency)
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 2.0,
+                                        ),
                                         child: Text(
-                                          customNote,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
+                                          '~ ${CurrencyFormatter.format(secondaryAmount)} $secondarySymbol',
                                           style: TextStyle(
-                                            fontSize: 12,
-                                            fontStyle: FontStyle.italic,
                                             color: colors.textSecondary,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                const SizedBox(width: 4),
+                                Icon(
+                                  Icons.chevron_right,
+                                  size: 16,
+                                  color: colors.textSecondary,
+                                ),
                               ],
                             ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  // Головна сума
-                                  Text(
-                                    '$prefix${CurrencyFormatter.format(mainAmount)} $mainSymbol',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: amountColor,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  // Додаткова сума дрібним шрифтом (тільки для мультивалютних)
-                                  if (isMultiCurrency)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 2.0),
-                                      child: Text(
-                                        '~ ${CurrencyFormatter.format(secondaryAmount)} $secondarySymbol',
-                                        style: TextStyle(
-                                          color: colors.textSecondary,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              const SizedBox(width: 4),
-                              Icon(
-                                Icons.chevron_right,
-                                size: 16,
-                                color: colors.textSecondary,
-                              ),
-                            ],
                           ),
                         ),
                       );
