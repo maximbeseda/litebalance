@@ -280,104 +280,108 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
         setState(() => _localDeletedIds.add(t.id));
         widget.onDelete(t);
       },
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 4),
-        onTap: () async => await widget.onEdit(t),
-        leading: otherCat != null
-            ? CircleAvatar(
-                backgroundColor: Color(otherCat.bgColor),
-                child: Icon(
-                  IconHelper.getIcon(otherCat.icon),
-                  color: Color(otherCat.iconColor),
-                  size: 20,
+      child: Material(
+        // 👈 ДОДАЄМО ПРОЗОРЕ ПОЛОТНО
+        color: Colors.transparent,
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+          onTap: () async => await widget.onEdit(t),
+          leading: otherCat != null
+              ? CircleAvatar(
+                  backgroundColor: Color(otherCat.bgColor),
+                  child: Icon(
+                    IconHelper.getIcon(otherCat.icon),
+                    color: Color(otherCat.iconColor),
+                    size: 20,
+                  ),
+                )
+              : Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colors.iconBg,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    isOut ? Icons.arrow_outward : Icons.arrow_downward,
+                    color: isOut ? colors.expense : colors.income,
+                    size: 20,
+                  ),
                 ),
-              )
-            : Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colors.iconBg,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  isOut ? Icons.arrow_outward : Icons.arrow_downward,
-                  color: isOut ? colors.expense : colors.income,
-                  size: 20,
-                ),
-              ),
-        title: Text(
-          otherCat?.name ?? (isOut ? trOutgoing : trTopUp),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: colors.textMain,
-            fontSize: 14,
-          ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _fastDateFormat(t.date),
-              style: TextStyle(color: colors.textSecondary, fontSize: 12),
+          title: Text(
+            otherCat?.name ?? (isOut ? trOutgoing : trTopUp),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: colors.textMain,
+              fontSize: 14,
             ),
-            if (customNote.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.notes,
-                      size: 14,
-                      color: colors.textSecondary.withValues(alpha: 0.7),
-                    ),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        customNote,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
-                          color: colors.textSecondary,
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _fastDateFormat(t.date),
+                style: TextStyle(color: colors.textSecondary, fontSize: 12),
+              ),
+              if (customNote.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.notes,
+                        size: 14,
+                        color: colors.textSecondary.withValues(alpha: 0.7),
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          customNote,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontStyle: FontStyle.italic,
+                            color: colors.textSecondary,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '$prefix${CurrencyFormatter.format(mainAmount)} $mainSymbol',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: amountColor,
-                    fontSize: 14,
+                    ],
                   ),
                 ),
-                if (isMultiCurrency)
+            ],
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
                   Text(
-                    '~ ${CurrencyFormatter.format(secondaryAmount)} $secondarySymbol',
+                    '$prefix${CurrencyFormatter.format(mainAmount)} $mainSymbol',
                     style: TextStyle(
-                      color: colors.textSecondary,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
+                      color: amountColor,
+                      fontSize: 14,
                     ),
                   ),
-              ],
-            ),
-            const SizedBox(width: 4),
-            Icon(Icons.chevron_right, size: 16, color: colors.textSecondary),
-          ],
+                  if (isMultiCurrency)
+                    Text(
+                      '~ ${CurrencyFormatter.format(secondaryAmount)} $secondarySymbol',
+                      style: TextStyle(
+                        color: colors.textSecondary,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(width: 4),
+              Icon(Icons.chevron_right, size: 16, color: colors.textSecondary),
+            ],
+          ),
         ),
       ),
     );

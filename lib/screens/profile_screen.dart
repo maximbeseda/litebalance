@@ -341,46 +341,53 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           const SecuritySettingsSection(),
 
                           // Кнопка очищення даних
-                          ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 8,
-                            ),
-                            leading: Icon(
-                              Icons.delete_forever_rounded,
-                              color: colors.expense,
-                            ),
-                            title: Text(
-                              'clear_all_data'.tr(),
-                              style: TextStyle(
-                                color: colors.expense,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                          Material(
+                            color: Colors
+                                .transparent, // 👈 Додаємо прозорий Material
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 8,
                               ),
-                            ),
-                            onTap: () async {
-                              final isPinSet = await SecurityService.isPinSet();
+                              leading: Icon(
+                                Icons.delete_forever_rounded,
+                                color: colors.expense,
+                              ),
+                              title: Text(
+                                'clear_all_data'.tr(),
+                                style: TextStyle(
+                                  color: colors.expense,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              onTap: () async {
+                                final isPinSet =
+                                    await SecurityService.isPinSet();
 
-                              if (isPinSet) {
+                                if (isPinSet) {
+                                  if (!context.mounted) return;
+
+                                  final authSuccess =
+                                      await Navigator.push<bool>(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => const LockScreen(
+                                            isSetupMode: false,
+                                          ),
+                                        ),
+                                      );
+
+                                  if (authSuccess != true) {
+                                    return;
+                                  }
+                                }
+
                                 if (!context.mounted) return;
 
-                                final authSuccess = await Navigator.push<bool>(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        const LockScreen(isSetupMode: false),
-                                  ),
-                                );
-
-                                if (authSuccess != true) {
-                                  return;
-                                }
-                              }
-
-                              if (!context.mounted) return;
-
-                              await _showClearDataDialog(context);
-                            },
+                                await _showClearDataDialog(context);
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -408,10 +415,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _buildUnauthenticatedView(
-    AppColorsExtension colors,
-    bool isLoading,
-  ) {
+  Widget _buildUnauthenticatedView(AppColorsExtension colors, bool isLoading) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -580,14 +584,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           _isLoggingOut = true;
                         });
 
-                        // Миттєво стираємо кеш ДО логауту, 
+                        // Миттєво стираємо кеш ДО логауту,
                         // щоб екран відразу перебудувався правильно після завершення запиту.
                         await prefs.setBool('has_logged_in_with_google', false);
                         await prefs.remove('google_user_name');
                         await prefs.remove('google_user_email');
                         await prefs.remove('google_user_photo');
 
-                        await ref.read(authControllerProvider.notifier).signOut();
+                        await ref
+                            .read(authControllerProvider.notifier)
+                            .signOut();
 
                         if (mounted) {
                           setState(() {
@@ -614,25 +620,28 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
         Divider(height: 1, color: colors.textSecondary.withValues(alpha: 0.1)),
 
-        SwitchListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 0,
-          ),
-          title: Text(
-            'sync_only_wifi'.tr(),
-            style: TextStyle(
-              color: colors.textMain,
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
+        Material(
+          color: Colors.transparent, // 👈 Додаємо прозорий Material
+          child: SwitchListTile(
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 0,
             ),
+            title: Text(
+              'sync_only_wifi'.tr(),
+              style: TextStyle(
+                color: colors.textMain,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
+              ),
+            ),
+            secondary: Icon(Icons.wifi_rounded, color: colors.textMain),
+            value: settings.syncOnlyViaWifi,
+            activeThumbColor: colors.income,
+            onChanged: (val) {
+              ref.read(settingsProvider.notifier).toggleSyncOnlyViaWifi(val);
+            },
           ),
-          secondary: Icon(Icons.wifi_rounded, color: colors.textMain),
-          value: settings.syncOnlyViaWifi,
-          activeThumbColor: colors.income,
-          onChanged: (val) {
-            ref.read(settingsProvider.notifier).toggleSyncOnlyViaWifi(val);
-          },
         ),
       ],
     );
@@ -646,35 +655,38 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     required List<DropdownMenuItem<String>> items,
     required void Function(String?) onChanged,
   }) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      leading: Icon(icon, color: colors.textMain),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: colors.textMain,
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
+    return Material(
+      color: Colors.transparent, // 👈 Додаємо прозорий Material
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        leading: Icon(icon, color: colors.textMain),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: colors.textMain,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: SizedBox(
-        width: 115,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: dropdownValue,
-            dropdownColor: colors.cardBg,
-            borderRadius: BorderRadius.circular(8),
-            alignment: Alignment.centerRight,
-            isExpanded: true,
-            icon: Icon(
-              Icons.keyboard_arrow_down,
-              color: colors.textSecondary,
-              size: 20,
+        trailing: SizedBox(
+          width: 115,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: dropdownValue,
+              dropdownColor: colors.cardBg,
+              borderRadius: BorderRadius.circular(8),
+              alignment: Alignment.centerRight,
+              isExpanded: true,
+              icon: Icon(
+                Icons.keyboard_arrow_down,
+                color: colors.textSecondary,
+                size: 20,
+              ),
+              onChanged: onChanged,
+              items: items,
             ),
-            onChanged: onChanged,
-            items: items,
           ),
         ),
       ),
@@ -761,24 +773,28 @@ class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
           ),
           child: Column(
             children: [
-              SwitchListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
-                title: Text(
-                  'pin_code'.tr(),
-                  style: TextStyle(
-                    color: colors.textMain,
-                    fontWeight: FontWeight.w500,
+              Material(
+                // 👈 Додаємо Material
+                color: Colors.transparent,
+                child: SwitchListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
                   ),
-                ),
-                secondary: Icon(Icons.lock_outline, color: colors.textMain),
-                value: _isPinSet,
-                activeThumbColor: colors.accent,
-                onChanged: _togglePin,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  title: Text(
+                    'pin_code'.tr(),
+                    style: TextStyle(
+                      color: colors.textMain,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  secondary: Icon(Icons.lock_outline, color: colors.textMain),
+                  value: _isPinSet,
+                  activeThumbColor: colors.accent,
+                  onChanged: _togglePin,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
               ),
               if (_isPinSet && _canUseBiometrics) ...[
@@ -786,27 +802,31 @@ class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
                   height: 1,
                   color: colors.textSecondary.withValues(alpha: 0.1),
                 ),
-                SwitchListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
-                  title: Text(
-                    'biometrics'.tr(),
-                    style: TextStyle(
-                      color: colors.textMain,
-                      fontWeight: FontWeight.w500,
+                Material(
+                  // 👈 Додаємо Material
+                  color: Colors.transparent,
+                  child: SwitchListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 4,
                     ),
-                  ),
-                  secondary: Icon(Icons.fingerprint, color: colors.textMain),
-                  value: _isBiometricsEnabled,
-                  activeThumbColor: colors.accent,
-                  onChanged: (val) async {
-                    await SecurityService.setBiometricsEnabled(val);
-                    await _loadSecuritySettings();
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    title: Text(
+                      'biometrics'.tr(),
+                      style: TextStyle(
+                        color: colors.textMain,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    secondary: Icon(Icons.fingerprint, color: colors.textMain),
+                    value: _isBiometricsEnabled,
+                    activeThumbColor: colors.accent,
+                    onChanged: (val) async {
+                      await SecurityService.setBiometricsEnabled(val);
+                      await _loadSecuritySettings();
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                 ),
               ],
