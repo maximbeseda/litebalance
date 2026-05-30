@@ -338,6 +338,41 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             color: colors.textSecondary.withValues(alpha: 0.1),
                           ),
 
+                          Material(
+                            color: Colors.transparent,
+                            child: SwitchListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 8,
+                              ),
+                              title: Text(
+                                'haptic_feedback'.tr(),
+                                style: TextStyle(
+                                  color: colors.textMain,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              secondary: Icon(
+                                Icons.vibration_rounded,
+                                color: colors.textMain,
+                              ),
+                              value: prefs.getBool('haptic_feedback_enabled') ?? true,
+                              activeThumbColor: colors.accent,
+                              onChanged: (val) {
+                                prefs.setBool('haptic_feedback_enabled', val);
+                                setState(() {});
+                              },
+                            ),
+                          ),
+
+                          Divider(
+                            height: 1,
+                            indent: 20,
+                            endIndent: 20,
+                            color: colors.textSecondary.withValues(alpha: 0.1),
+                          ),
+
                           const SecuritySettingsSection(),
 
                           // Кнопка очищення даних

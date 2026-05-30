@@ -154,6 +154,8 @@ void main() {
     WidgetTester tester, {
     bool syncOnlyViaWifi = false,
   }) async {
+    final navigatorKey = GlobalKey<NavigatorState>();
+
     final container = ProviderContainer(
       overrides: [
         driveBackupServiceProvider.overrideWithValue(mockDriveService),
@@ -173,9 +175,11 @@ void main() {
     await tester.pumpWidget(
       UncontrolledProviderScope(
         container: container,
-        child: const MaterialApp(
+        child: MaterialApp(
+          navigatorKey: navigatorKey,
           home: SyncLifecycleObserver(
-            child: Scaffold(body: Text('Test Child')),
+            navigatorKey: navigatorKey,
+            child: const Scaffold(body: Text('Test Child')),
           ),
         ),
       ),
