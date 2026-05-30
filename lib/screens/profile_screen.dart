@@ -338,6 +338,41 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             color: colors.textSecondary.withValues(alpha: 0.1),
                           ),
 
+                          Material(
+                            color: Colors.transparent,
+                            child: SwitchListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 8,
+                              ),
+                              title: Text(
+                                'haptic_feedback'.tr(),
+                                style: TextStyle(
+                                  color: colors.textMain,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              secondary: Icon(
+                                Icons.vibration_rounded,
+                                color: colors.textMain,
+                              ),
+                              value: prefs.getBool('haptic_feedback_enabled') ?? true,
+                              activeThumbColor: colors.accent,
+                              onChanged: (val) {
+                                prefs.setBool('haptic_feedback_enabled', val);
+                                setState(() {});
+                              },
+                            ),
+                          ),
+
+                          Divider(
+                            height: 1,
+                            indent: 20,
+                            endIndent: 20,
+                            color: colors.textSecondary.withValues(alpha: 0.1),
+                          ),
+
                           const SecuritySettingsSection(),
 
                           // Кнопка очищення даних
@@ -694,15 +729,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 }
 
-class SecuritySettingsSection extends StatefulWidget {
+class SecuritySettingsSection extends ConsumerStatefulWidget {
   const SecuritySettingsSection({super.key});
 
   @override
-  State<SecuritySettingsSection> createState() =>
+  ConsumerState<SecuritySettingsSection> createState() =>
       _SecuritySettingsSectionState();
 }
 
-class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
+class _SecuritySettingsSectionState extends ConsumerState<SecuritySettingsSection> {
   bool _isPinSet = false;
   bool _isBiometricsEnabled = false;
   bool _canUseBiometrics = false;
@@ -733,7 +768,10 @@ class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
         context,
         MaterialPageRoute(builder: (_) => const LockScreen(isSetupMode: true)),
       );
-      if (success == true) await _loadSecuritySettings();
+      if (success == true) {
+        await ref.read(sharedPreferencesProvider).setBool('pin_set_cache', true);
+        await _loadSecuritySettings();
+      }
     } else {
       final success = await Navigator.push<bool>(
         context,
@@ -741,6 +779,7 @@ class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
       );
       if (success == true) {
         await SecurityService.disableSecurity();
+        await ref.read(sharedPreferencesProvider).setBool('pin_set_cache', false);
         await _loadSecuritySettings();
       }
     }

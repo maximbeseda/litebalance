@@ -341,8 +341,8 @@ class TransactionNotifier extends _$TransactionNotifier {
     if (index != -1) newHistory[index] = updatedT;
     newHistory.sort((a, b) => b.date.compareTo(a.date));
 
-    _updateState((s) => s.copyWith(history: newHistory));
     await StorageService.saveTransaction(db, updatedT);
+    _updateState((s) => s.copyWith(history: newHistory));
 
     // 👇 ДОДАНО: Ставимо прапорець бекапу
     ref.read(dbDirtyProvider.notifier).setDirty(true);

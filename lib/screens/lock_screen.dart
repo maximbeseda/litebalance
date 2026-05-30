@@ -8,10 +8,11 @@ import '../theme/app_colors_extension.dart';
 import 'home_screen.dart';
 
 class LockScreen extends StatefulWidget {
-  final bool
-  isSetupMode; // true - створюємо новий ПІН, false - входимо в додаток
+  final bool isSetupMode;
 
   const LockScreen({super.key, this.isSetupMode = false});
+
+  static bool isShowing = false;
 
   @override
   State<LockScreen> createState() => _LockScreenState();
@@ -28,7 +29,14 @@ class _LockScreenState extends State<LockScreen>
   @override
   void initState() {
     super.initState();
+    LockScreen.isShowing = true;
     _checkBiometrics();
+  }
+
+  @override
+  void dispose() {
+    LockScreen.isShowing = false;
+    super.dispose();
   }
 
   Future<void> _checkBiometrics() async {

@@ -3,10 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../providers/all_providers.dart';
+import '../../screens/lock_screen.dart';
+
+// Публічні константи — використовуються і тут, і в main.dart
+const int kAutoLockTimeoutMs = 5 * 60 * 1000; // 5 хвилин
+const String kLockBgTimeKey = 'lock_background_time';
 
 class SyncLifecycleObserver extends ConsumerStatefulWidget {
   final Widget child;
-  const SyncLifecycleObserver({super.key, required this.child});
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const SyncLifecycleObserver({
+    super.key,
+    required this.child,
+    required this.navigatorKey,
+  });
 
   @override
   ConsumerState<SyncLifecycleObserver> createState() =>
@@ -15,8 +26,8 @@ class SyncLifecycleObserver extends ConsumerStatefulWidget {
 
 class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
     with WidgetsBindingObserver {
-  // 👇 Запобіжник: блокує подвійний запуск
   bool _isAutoSyncing = false;
+  bool _wasResumed = true;
 
   @override
   void initState() {
@@ -32,9 +43,19 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // 👇 ДОДАНО inactive: Ловимо подію ДО того, як ОС повністю заморозить додаток.
-    // Оскільки у нас є запобіжник _isAutoSyncing, подвійного запуску не буде:
-    // inactive заблокує процес, а наступні paused/hidden просто проігноруються.
+    if (state == AppLifecycleState.resumed) {
+      _wasResumed = true;
+      // Синхронний push — відбувається до першого кадру, без flash
+      _checkAndLockSync();
+    } else if ((state == AppLifecycleState.paused ||
+            state == AppLifecycleState.hidden) &&
+        _wasResumed) {
+      _wasResumed = false;
+      ref
+          .read(sharedPreferencesProvider)
+          .setInt(kLockBgTimeKey, DateTime.now().millisecondsSinceEpoch);
+    }
+
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden ||
@@ -43,18 +64,43 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
     }
   }
 
+  // Повністю синхронна перевірка — викликається прямо в didChangeAppLifecycleState.
+  // Використовує pin_set_cache з SharedPreferences (без async/await),
+  // тому push відбувається до того як Flutter намалює перший кадр після resume.
+  void _checkAndLockSync() {
+    if (LockScreen.isShowing) return;
+
+    final prefs = ref.read(sharedPreferencesProvider);
+
+    final bgTime = prefs.getInt(kLockBgTimeKey);
+    if (bgTime == null) return;
+
+    final elapsed = DateTime.now().millisecondsSinceEpoch - bgTime;
+    if (elapsed < kAutoLockTimeoutMs) return;
+
+    final isPinSet = prefs.getBool('pin_set_cache') ?? false;
+    if (!isPinSet) return;
+
+    unawaited(prefs.remove(kLockBgTimeKey));
+
+    widget.navigatorKey.currentState?.push(
+      MaterialPageRoute<void>(
+        builder: (_) => const LockScreen(),
+        fullscreenDialog: true,
+      ),
+    );
+  }
+
   Future<bool> _canSyncNow() async {
     try {
       final connectivityResult = await Connectivity().checkConnectivity();
 
-      // Якщо немає мережі взагалі (новий API ConnectivityPlus повертає список)
       if (connectivityResult.contains(ConnectivityResult.none)) {
         return false;
       }
 
       final settings = ref.read(settingsProvider);
 
-      // Якщо вимагається тільки Wi-Fi
       if (settings.syncOnlyViaWifi) {
         return connectivityResult.contains(ConnectivityResult.wifi) ||
             connectivityResult.contains(ConnectivityResult.ethernet);
@@ -67,7 +113,6 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
   }
 
   Future<void> _attemptAutoSync(AppLifecycleState state) async {
-    // 👇 1. Запобіжник перевіряємо і миттєво блокуємо ДО всіх await!
     if (_isAutoSyncing) return;
     _isAutoSyncing = true;
 
@@ -80,7 +125,6 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
       final hasCompletedOnboarding =
           prefs.getBool('has_completed_onboarding') ?? false;
 
-      // 👇 ФІКС: Жодної фонової синхронізації, поки користувач на екрані онбордингу!
       if (!hasLoggedIn || !hasCompletedOnboarding) {
         _isAutoSyncing = false;
         return;
@@ -93,20 +137,20 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
           );
           if (difference.inMinutes < 10) {
             debugPrint('⏳ Пропуск авто-синхронізації: пройшло менше 10 хв');
-            _isAutoSyncing = false; // Знімаємо блок
+            _isAutoSyncing = false;
             return;
           }
         }
       } else {
         if (!isDirty) {
-          _isAutoSyncing = false; // Знімаємо блок
+          _isAutoSyncing = false;
           return;
         }
       }
 
       if (!await _canSyncNow()) {
         debugPrint('📶 Пропуск авто-синхронізації: відсутня потрібна мережа');
-        _isAutoSyncing = false; // Знімаємо блок
+        _isAutoSyncing = false;
         return;
       }
 
@@ -120,13 +164,13 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
           } catch (e) {
             debugPrint('Помилка у фоновій синхронізації: $e');
           } finally {
-            _isAutoSyncing = false; // Гарантовано знімаємо блок в кінці
+            _isAutoSyncing = false;
           }
         }),
       );
     } catch (e) {
       debugPrint('Помилка авто-синхронізації: $e');
-      _isAutoSyncing = false; // Знімаємо блок при помилці
+      _isAutoSyncing = false;
     }
   }
 

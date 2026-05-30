@@ -230,18 +230,10 @@ class _HomeScreenSkeletonState extends State<HomeScreenSkeleton>
         child: Column(
           children: [
             _buildSummaryHeader(context, skeletonColor),
+            _buildPulseSection(context, false, skeletonColor),
+            _buildPulseSection(context, false, skeletonColor),
             Expanded(
-              child: SingleChildScrollView(
-                physics:
-                    const NeverScrollableScrollPhysics(), // Щоб не заважало скролу екрана
-                child: Column(
-                  children: [
-                    _buildPulseSection(context, false, skeletonColor),
-                    _buildPulseSection(context, false, skeletonColor),
-                    _buildPulseSection(context, true, skeletonColor),
-                  ],
-                ),
-              ),
+              child: _buildPulseSection(context, true, skeletonColor),
             ),
           ],
         ),

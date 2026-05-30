@@ -52,6 +52,7 @@
   "security": "Безпека",
   "pin_code": "ПІН-код",
   "biometrics": "Вхід за відбитком / FaceID",
+  "haptic_feedback": "Вібрація",
 
   "interface_theme": "Тема",
   "theme_light": "Світла",

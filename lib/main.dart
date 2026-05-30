@@ -17,7 +17,8 @@ import 'screens/onboarding_screen.dart';
 import 'screens/lock_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
-import 'widgets/common/sync_lifecycle_observer.dart';
+import 'widgets/common/sync_lifecycle_observer.dart'
+    show SyncLifecycleObserver, kAutoLockTimeoutMs, kLockBgTimeKey;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +50,20 @@ void main() async {
   final bool hasCompletedOnboarding =
       prefs.getBool('has_completed_onboarding') ?? false;
   final bool isPinSet = await SecurityService.isPinSet();
+  // Кеш для синхронної перевірки в SyncLifecycleObserver (без await)
+  await prefs.setBool('pin_set_cache', isPinSet);
+
+  // Показуємо LockScreen тільки якщо PIN встановлений І минув таймаут
+  bool requirePin = false;
+  if (isPinSet) {
+    final bgTime = prefs.getInt(kLockBgTimeKey);
+    if (bgTime == null) {
+      requirePin = true;
+    } else {
+      final elapsed = DateTime.now().millisecondsSinceEpoch - bgTime;
+      requirePin = elapsed >= kAutoLockTimeoutMs;
+    }
+  }
 
   runApp(
     // Використовуємо UncontrolledProviderScope, щоб передати вже створений контейнер
@@ -62,7 +77,7 @@ void main() async {
           enabled: !kReleaseMode && showPreview,
           builder: (context) => MyApp(
             showOnboarding: !hasCompletedOnboarding,
-            requirePin: isPinSet,
+            requirePin: requirePin,
           ),
         ),
       ),
@@ -70,7 +85,7 @@ void main() async {
   );
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   final bool showOnboarding;
   final bool requirePin;
 
@@ -81,8 +96,14 @@ class MyApp extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Реактивно стежимо за темою через Riverpod
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  Widget build(BuildContext context) {
     final themeId = ref.watch(themeProvider);
     final currentTheme = AppTheme.getTheme(themeId);
 
@@ -95,9 +116,9 @@ class MyApp extends ConsumerWidget {
       ),
     );
 
-    // 👇 ТУТ МИ ПРИБРАЛИ обгортку ззовні
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: _navigatorKey,
       title: 'CoinFlow',
       localizationsDelegates: [
         ...context.localizationDelegates,
@@ -107,7 +128,6 @@ class MyApp extends ConsumerWidget {
       locale: context.locale,
       theme: currentTheme,
 
-      // 👇 ТУТ МИ ЇЇ ДОДАЛИ: builder обгортає всі екрани, маючи доступ до ScaffoldMessenger
       builder: (context, child) {
         final Widget currentChild = DevicePreview.appBuilder(context, child);
         final mediaQueryData = MediaQuery.of(context);
@@ -115,6 +135,7 @@ class MyApp extends ConsumerWidget {
         final double safeScale = baseScale.clamp(1.0, 1.15);
 
         return SyncLifecycleObserver(
+          navigatorKey: _navigatorKey,
           child: MediaQuery(
             data: mediaQueryData.copyWith(
               textScaler: TextScaler.linear(safeScale),
@@ -131,9 +152,9 @@ class MyApp extends ConsumerWidget {
           PointerDeviceKind.stylus,
         },
       ),
-      home: showOnboarding
+      home: widget.showOnboarding
           ? const OnboardingScreen()
-          : (requirePin ? const LockScreen() : const HomeScreen()),
+          : (widget.requirePin ? const LockScreen() : const HomeScreen()),
     );
   }
 }
