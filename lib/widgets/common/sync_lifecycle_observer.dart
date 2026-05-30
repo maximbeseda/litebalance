@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../providers/all_providers.dart';
 import '../../screens/lock_screen.dart';
-import '../../services/security_service.dart';
 
 // Публічні константи — використовуються і тут, і в main.dart
 const int kAutoLockTimeoutMs = 5 * 60 * 1000; // 5 хвилин
@@ -28,7 +27,6 @@ class SyncLifecycleObserver extends ConsumerStatefulWidget {
 class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
     with WidgetsBindingObserver {
   bool _isAutoSyncing = false;
-  // true = додаток був у foreground перед останнім background-переходом
   bool _wasResumed = true;
 
   @override
@@ -47,13 +45,11 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _wasResumed = true;
-      _checkAutoLock();
+      // Синхронний push — відбувається до першого кадру, без flash
+      _checkAndLockSync();
     } else if ((state == AppLifecycleState.paused ||
             state == AppLifecycleState.hidden) &&
         _wasResumed) {
-      // Зберігаємо timestamp ТІЛЬКИ при справжньому переході resumed → background.
-      // Якщо _wasResumed=false — Android запалив hidden/paused поки вже в фоні,
-      // тому ігноруємо (не скидаємо таймер).
       _wasResumed = false;
       ref
           .read(sharedPreferencesProvider)
@@ -68,28 +64,26 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
     }
   }
 
-  Future<void> _checkAutoLock() async {
+  // Повністю синхронна перевірка — викликається прямо в didChangeAppLifecycleState.
+  // Використовує pin_set_cache з SharedPreferences (без async/await),
+  // тому push відбувається до того як Flutter намалює перший кадр після resume.
+  void _checkAndLockSync() {
     if (LockScreen.isShowing) return;
 
     final prefs = ref.read(sharedPreferencesProvider);
+
     final bgTime = prefs.getInt(kLockBgTimeKey);
     if (bgTime == null) return;
 
     final elapsed = DateTime.now().millisecondsSinceEpoch - bgTime;
     if (elapsed < kAutoLockTimeoutMs) return;
 
-    final isPinSet = await SecurityService.isPinSet();
+    final isPinSet = prefs.getBool('pin_set_cache') ?? false;
     if (!isPinSet) return;
-    if (LockScreen.isShowing) return;
-    if (!mounted) return;
 
-    await prefs.remove(kLockBgTimeKey);
+    unawaited(prefs.remove(kLockBgTimeKey));
 
-    if (!mounted || LockScreen.isShowing) return;
-    final nav = widget.navigatorKey.currentState;
-    if (nav == null) return;
-
-    await nav.push(
+    widget.navigatorKey.currentState?.push(
       MaterialPageRoute<void>(
         builder: (_) => const LockScreen(),
         fullscreenDialog: true,

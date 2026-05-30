@@ -50,6 +50,8 @@ void main() async {
   final bool hasCompletedOnboarding =
       prefs.getBool('has_completed_onboarding') ?? false;
   final bool isPinSet = await SecurityService.isPinSet();
+  // Кеш для синхронної перевірки в SyncLifecycleObserver (без await)
+  await prefs.setBool('pin_set_cache', isPinSet);
 
   // Показуємо LockScreen тільки якщо PIN встановлений І минув таймаут
   bool requirePin = false;

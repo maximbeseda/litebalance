@@ -729,15 +729,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 }
 
-class SecuritySettingsSection extends StatefulWidget {
+class SecuritySettingsSection extends ConsumerStatefulWidget {
   const SecuritySettingsSection({super.key});
 
   @override
-  State<SecuritySettingsSection> createState() =>
+  ConsumerState<SecuritySettingsSection> createState() =>
       _SecuritySettingsSectionState();
 }
 
-class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
+class _SecuritySettingsSectionState extends ConsumerState<SecuritySettingsSection> {
   bool _isPinSet = false;
   bool _isBiometricsEnabled = false;
   bool _canUseBiometrics = false;
@@ -768,7 +768,10 @@ class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
         context,
         MaterialPageRoute(builder: (_) => const LockScreen(isSetupMode: true)),
       );
-      if (success == true) await _loadSecuritySettings();
+      if (success == true) {
+        await ref.read(sharedPreferencesProvider).setBool('pin_set_cache', true);
+        await _loadSecuritySettings();
+      }
     } else {
       final success = await Navigator.push<bool>(
         context,
@@ -776,6 +779,7 @@ class _SecuritySettingsSectionState extends State<SecuritySettingsSection> {
       );
       if (success == true) {
         await SecurityService.disableSecurity();
+        await ref.read(sharedPreferencesProvider).setBool('pin_set_cache', false);
         await _loadSecuritySettings();
       }
     }
