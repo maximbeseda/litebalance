@@ -10,6 +10,7 @@ import '../utils/icon_helper.dart';
 import '../theme/app_colors_extension.dart';
 import '../theme/category_defaults.dart';
 import '../models/app_currency.dart';
+import '../widgets/common/app_pill.dart';
 
 // 👇 2. Підключаємо наш хаб провайдерів
 import '../providers/all_providers.dart';
@@ -88,8 +89,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   }
 
   void _updateCurrencyText(String code) {
-    final curr = AppCurrency.fromCode(code);
-    _currencyCtrl.text = curr.code;
+    _currencyCtrl.text = 'currency_names.$code'.tr();
   }
 
   @override
@@ -260,10 +260,10 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                         code ==
                         baseCurrency; // 👈 Визначаємо, чи це базова валюта
 
-                    // Колір акценту: зелений для базової, синій для кастомних
+                    // Колір акценту: зелений для базової, акцентний для інших
                     final Color activeColor = isBase
                         ? colors.income
-                        : Colors.blueAccent;
+                        : colors.accent;
 
                     return ListTile(
                       onTap: () {
@@ -277,53 +277,27 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                         horizontal: 8,
                         vertical: 4,
                       ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? activeColor
-                            : (isBase
-                                  ? activeColor.withValues(alpha: 0.15)
-                                  : colors.iconBg),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.center,
-                            child: Text(
-                              curr.symbol.trim(),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                              strutStyle: const StrutStyle(
-                                fontSize: 14,
-                                height: 1.0,
-                                forceStrutHeight: true,
-                              ),
-                              textHeightBehavior: const TextHeightBehavior(
-                                applyHeightToFirstAscent: false,
-                                applyHeightToLastDescent: false,
-                              ),
-                              style: TextStyle(
-                                color: isSelected
-                                    ? Colors.white
-                                    : (isBase ? activeColor : colors.textMain),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
+                      minLeadingWidth: 0,
+                      leading: AppPill(
+                        text: '${curr.code}  ${curr.symbol}',
+                        color: activeColor,
                       ),
                       title: Row(
                         children: [
-                          Text(
-                            curr.code,
-                            style: TextStyle(
-                              color: isSelected ? activeColor : colors.textMain,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.w500,
-                              fontSize: 16,
+                          Flexible(
+                            child: Text(
+                              'currency_names.${curr.code}'.tr(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? activeColor
+                                    : colors.textMain,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.w500,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                           if (isBase) ...[
@@ -350,7 +324,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                         ],
                       ),
                       trailing: isSelected
-                          ? Icon(Icons.check, color: activeColor)
+                          ? Icon(Icons.check_rounded, color: activeColor)
                           : null,
                     );
                   },
@@ -531,11 +505,10 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     final bool isCurrentBase = _selectedCurrency == settings.baseCurrency;
     final Color currencyAccentColor = isCurrentBase
         ? colors.income
-        : Colors.blueAccent;
+        : colors.accent;
 
-    final currencySymbol = AppCurrency.fromCode(
-      _selectedCurrency ?? settings.baseCurrency,
-    ).symbol;
+    final currencyCode = _selectedCurrency ?? settings.baseCurrency;
+    final currencySymbol = AppCurrency.fromCode(currencyCode).symbol;
 
     return Scaffold(
       backgroundColor: colors.cardBg,
@@ -663,7 +636,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                             color: isCurrentBase
                                 ? currencyAccentColor
                                 : colors.textMain, // Підсвітка в полі
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: InputDecoration(
@@ -680,43 +653,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                             ),
                             prefix: Padding(
                               padding: const EdgeInsets.only(right: 12.0),
-                              child: CircleAvatar(
-                                radius: 14,
-                                backgroundColor: isCurrentBase
-                                    ? currencyAccentColor.withValues(
-                                        alpha: 0.15,
-                                      )
-                                    : colors.iconBg,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      currencySymbol.trim(),
-                                      maxLines: 1,
-                                      textAlign: TextAlign.center,
-                                      strutStyle: const StrutStyle(
-                                        fontSize: 14,
-                                        height: 1.0,
-                                        forceStrutHeight: true,
-                                      ),
-                                      textHeightBehavior:
-                                          const TextHeightBehavior(
-                                            applyHeightToFirstAscent: false,
-                                            applyHeightToLastDescent: false,
-                                          ),
-                                      style: TextStyle(
-                                        color: isCurrentBase
-                                            ? currencyAccentColor
-                                            : colors.textMain,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              child: AppPill(
+                                text: '$currencyCode  $currencySymbol',
+                                color: currencyAccentColor,
                               ),
                             ),
                             suffixIcon: Padding(

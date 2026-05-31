@@ -148,8 +148,8 @@ void main() {
       await tester.tap(currencyField);
       await tester.pumpAndSettle();
 
-      expect(find.widgetWithText(ListTile, 'USD'), findsOneWidget);
-      expect(find.widgetWithText(ListTile, 'EUR'), findsOneWidget);
+      expect(find.textContaining('USD'), findsWidgets);
+      expect(find.textContaining('EUR'), findsWidgets);
     });
 
     testWidgets('Кнопка Get Started показує лоадери на всіх кнопках', (

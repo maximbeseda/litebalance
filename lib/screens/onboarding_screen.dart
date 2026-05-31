@@ -9,6 +9,7 @@ import '../services/storage_service.dart';
 import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_pill.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -362,24 +363,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         horizontal: 8,
                         vertical: 4,
                       ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? colors.textMain
-                            : colors.iconBg,
-                        child: Text(
-                          lang['short']!,
-                          style: TextStyle(
-                            color: isSelected ? colors.cardBg : colors.textMain,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      minLeadingWidth: 0,
+                      leading: AppPill(
+                        text: lang['short']!,
+                        color: colors.accent,
+                        width: 48,
                       ),
                       title: Text(
                         lang['name']!,
                         style: TextStyle(
-                          color: colors.textMain,
+                          color: isSelected ? colors.accent : colors.textMain,
                           fontWeight: isSelected
                               ? FontWeight.bold
                               : FontWeight.w500,
@@ -387,7 +380,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         ),
                       ),
                       trailing: isSelected
-                          ? Icon(Icons.check, color: colors.textMain)
+                          ? Icon(Icons.check_rounded, color: colors.accent)
                           : null,
                     );
                   },
@@ -460,34 +453,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         horizontal: 8,
                         vertical: 4,
                       ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? colors.textMain
-                            : colors.iconBg,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.center,
-                            child: Text(
-                              curr.symbol.trim(),
-                              style: TextStyle(
-                                color: isSelected
-                                    ? colors.cardBg
-                                    : colors.textMain,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
+                      minLeadingWidth: 0,
+                      leading: AppPill(
+                        text: '${curr.code}  ${curr.symbol}',
+                        color: colors.income,
                       ),
                       title: Text(
-                        curr.code,
+                        'currency_names.${curr.code}'.tr(),
                         style: TextStyle(
-                          color: colors.textMain,
+                          color: isSelected ? colors.income : colors.textMain,
                           fontWeight: isSelected
                               ? FontWeight.bold
                               : FontWeight.w500,
@@ -495,7 +469,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         ),
                       ),
                       trailing: isSelected
-                          ? Icon(Icons.check, color: colors.textMain)
+                          ? Icon(Icons.check_rounded, color: colors.income)
                           : null,
                     );
                   },
