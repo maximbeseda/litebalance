@@ -10,6 +10,9 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
   final Color expense;
   final Color iconBg;
   final Color accent;
+  final Color warning;
+  final Color divider;
+  final Color shadow;
 
   const AppColorsExtension({
     required this.bgGradientStart,
@@ -21,6 +24,9 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     required this.expense,
     required this.iconBg,
     required this.accent,
+    this.warning = const Color(0xFFF59E0B),
+    this.divider = const Color(0x1A000000),
+    this.shadow = const Color(0x0D000000),
   });
 
   @override
@@ -34,6 +40,9 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     Color? expense,
     Color? iconBg,
     Color? accent,
+    Color? warning,
+    Color? divider,
+    Color? shadow,
   }) {
     return AppColorsExtension(
       bgGradientStart: bgGradientStart ?? this.bgGradientStart,
@@ -45,6 +54,9 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       expense: expense ?? this.expense,
       iconBg: iconBg ?? this.iconBg,
       accent: accent ?? this.accent,
+      warning: warning ?? this.warning,
+      divider: divider ?? this.divider,
+      shadow: shadow ?? this.shadow,
     );
   }
 
@@ -64,6 +76,9 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       expense: Color.lerp(expense, other.expense, t)!,
       iconBg: Color.lerp(iconBg, other.iconBg, t)!,
       accent: Color.lerp(accent, other.accent, t)!,
+      warning: Color.lerp(warning, other.warning, t)!,
+      divider: Color.lerp(divider, other.divider, t)!,
+      shadow: Color.lerp(shadow, other.shadow, t)!,
     );
   }
 }
