@@ -260,5 +260,12 @@
   "backup_protection_title": "Захист копії",
   "export_password_hint": "Встановіть пароль для шифрування ваших даних. Використовуйте його для відновлення файлу в майбутньому.",
   "unlock_backup_title": "Розблокування файлу",
-  "import_password_hint": "Цей файл захищено паролем. Введіть ключ, який ви створили під час експорту цього бекапу."
+  "import_password_hint": "Цей файл захищено паролем. Введіть ключ, який ви створили під час експорту цього бекапу.",
+
+  "default_category_salary": "Зарплата",
+  "default_category_cash": "Готівка",
+  "default_category_card": "Картка",
+  "default_category_transport": "Транспорт",
+  "default_category_food": "Їжа",
+  "default_category_shopping": "Покупки"
 }
