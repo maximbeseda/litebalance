@@ -260,5 +260,12 @@
   "backup_protection_title": "Backup-Schutz",
   "export_password_hint": "Legen Sie ein Passwort fest, um Ihre Daten zu verschlüsseln. Sie benötigen es, um die Datei später wiederherzustellen.",
   "unlock_backup_title": "Backup entsperren",
-  "import_password_hint": "Diese Datei ist passwortgeschützt. Geben Sie den Schlüssel ein, den Sie beim Exportieren erstellt haben."
+  "import_password_hint": "Diese Datei ist passwortgeschützt. Geben Sie den Schlüssel ein, den Sie beim Exportieren erstellt haben.",
+
+  "default_category_salary": "Gehalt",
+  "default_category_cash": "Bargeld",
+  "default_category_card": "Karte",
+  "default_category_transport": "Transport",
+  "default_category_food": "Essen",
+  "default_category_shopping": "Einkäufe"
 }

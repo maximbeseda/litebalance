@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
 import '../services/storage_service.dart';
+import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
 import 'home_screen.dart';
@@ -122,8 +123,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   void _finishOnboarding() async {
     setState(() => _isSaving = true);
 
+    // Отримуємо languageCode з context ДО будь-яких await
+    final languageCode = context.locale.languageCode;
+
     final settingsNotifier = ref.read(settingsProvider.notifier);
     await settingsNotifier.setBaseCurrency(_selectedCurrencyCode);
+
+    // 👇 ДОДАНО: Створюємо базові категорії якщо база порожня
+    final db = ref.read(appDatabaseProvider);
+    await DefaultCategoriesService.createDefaultCategories(
+      db,
+      languageCode,
+      _selectedCurrencyCode,
+    );
+
+    // Інвалідуємо categoryProvider щоб HomeScreen підтягнув нові категорії
+    ref.invalidate(categoryProvider);
 
     final storage = StorageService(ref.read(sharedPreferencesProvider));
     await storage.completeOnboarding();

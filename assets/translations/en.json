@@ -260,5 +260,12 @@
   "backup_protection_title": "Protect Backup",
   "export_password_hint": "Set a password to encrypt your data. You will need it to restore this file later.",
   "unlock_backup_title": "Unlock Backup",
-  "import_password_hint": "This file is password protected. Enter the key you created when exporting this backup."
+  "import_password_hint": "This file is password protected. Enter the key you created when exporting this backup.",
+
+  "default_category_salary": "Salary",
+  "default_category_cash": "Cash",
+  "default_category_card": "Card",
+  "default_category_transport": "Transport",
+  "default_category_food": "Food",
+  "default_category_shopping": "Shopping"
 }
