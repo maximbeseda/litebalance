@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_snackbar.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';
@@ -103,86 +104,14 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
   }
 
   Future<void> _emptyTrash() async {
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-
-    final bool? confirm = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => Dialog(
-        backgroundColor: colors.cardBg,
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colors.expense.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.warning_amber_rounded,
-                  color: colors.expense,
-                  size: 36,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'empty_trash_title'.tr(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'empty_trash_msg'.tr(),
-                style: TextStyle(fontSize: 14, color: colors.textSecondary),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(ctx, false),
-                      child: Text(
-                        'cancel'.tr(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colors.expense,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () => Navigator.pop(ctx, true),
-                      child: Text(
-                        'delete'.tr(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    final bool confirm = await AppDialog.destructive(
+      context,
+      title: 'empty_trash_title'.tr(),
+      message: 'empty_trash_msg'.tr(),
+      confirmText: 'delete'.tr(),
     );
 
-    if (confirm != true) return;
+    if (!confirm) return;
 
     setState(() => _isCleaningUp = true);
 

@@ -9,6 +9,7 @@ import '../services/storage_service.dart';
 import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_pill.dart';
 import '../widgets/common/app_snackbar.dart';
 import 'home_screen.dart';
@@ -212,94 +213,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
   }
 
-  Future<bool> _showRestorePromptDialog() async {
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-
-    return await showDialog<bool>(
-          context: context,
-          barrierDismissible: false,
-          builder: (ctx) => Dialog(
-            backgroundColor: colors.cardBg,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colors.income.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.cloud_download_rounded,
-                      color: colors.income,
-                      size: 36,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'account_connected'.tr(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: colors.textMain,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'restore_prompt_message'.tr(),
-                    style: TextStyle(fontSize: 14, color: colors.textSecondary),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () => Navigator.pop(ctx, false),
-                          child: Text(
-                            'skip'.tr(),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: colors.textSecondary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.income,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          onPressed: () => Navigator.pop(ctx, true),
-                          child: Text(
-                            'restore'.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ) ??
-        false;
+  Future<bool> _showRestorePromptDialog() {
+    return AppDialog.confirm(
+      context,
+      title: 'account_connected'.tr(),
+      message: 'restore_prompt_message'.tr(),
+      icon: Icons.cloud_download_rounded,
+      confirmText: 'restore'.tr(),
+      cancelText: 'skip'.tr(),
+      barrierDismissible: false,
+    );
   }
 
   void _openLanguagePicker(AppColorsExtension colors) {

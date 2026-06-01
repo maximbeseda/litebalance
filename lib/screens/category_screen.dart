@@ -11,6 +11,7 @@ import '../theme/app_colors_extension.dart';
 import '../theme/category_defaults.dart';
 import '../models/app_currency.dart';
 import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_dialog.dart';
 
 // 👇 2. Підключаємо наш хаб провайдерів
 import '../providers/all_providers.dart';
@@ -372,117 +373,37 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     if (widget.category == null) return;
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
-    final bool confirmed =
-        await showDialog<bool>(
-          context: context,
-          builder: (ctx) => Dialog(
-            backgroundColor: colors.cardBg,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colors.expense.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.warning_amber_rounded,
-                      color: colors.expense,
-                      size: 36,
-                    ),
+    // Повідомлення з виділеною жирним назвою категорії.
+    final itemName = widget.category!.name;
+    final fullText = 'delete_category_message'.tr(args: [itemName]);
+    final nameIndex = fullText.indexOf(itemName);
+    final messageWidget = Text.rich(
+      TextSpan(
+        children: nameIndex != -1
+            ? [
+                TextSpan(text: fullText.substring(0, nameIndex)),
+                TextSpan(
+                  text: itemName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: colors.textMain,
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'delete_category_title'.tr(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: colors.textMain,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  Builder(
-                    builder: (context) {
-                      final itemName = widget.category!.name;
-                      final fullText = 'delete_category_message'.tr(
-                        args: [itemName],
-                      );
-                      final nameIndex = fullText.indexOf(itemName);
+                ),
+                TextSpan(
+                  text: fullText.substring(nameIndex + itemName.length),
+                ),
+              ]
+            : [TextSpan(text: fullText)],
+      ),
+      textAlign: TextAlign.center,
+    );
 
-                      return Text.rich(
-                        TextSpan(
-                          children: nameIndex != -1
-                              ? [
-                                  TextSpan(
-                                    text: fullText.substring(0, nameIndex),
-                                  ),
-                                  TextSpan(
-                                    text: itemName,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: colors.textMain,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: fullText.substring(
-                                      nameIndex + itemName.length,
-                                    ),
-                                  ),
-                                ]
-                              : [TextSpan(text: fullText)],
-                        ),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: colors.textSecondary,
-                        ),
-                        textAlign: TextAlign.center,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () => Navigator.pop(ctx, false),
-                          child: Text(
-                            'cancel'.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.expense,
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () => Navigator.pop(ctx, true),
-                          child: Text(
-                            'delete'.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ) ??
-        false;
+    final confirmed = await AppDialog.destructive(
+      context,
+      title: 'delete_category_title'.tr(),
+      messageWidget: messageWidget,
+      confirmText: 'delete'.tr(),
+    );
 
     if (!mounted) return;
 
