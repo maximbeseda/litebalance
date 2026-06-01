@@ -9,6 +9,7 @@ import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
 import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
+import '../common/app_empty_state.dart';
 
 class HistoryBottomSheet extends ConsumerStatefulWidget {
   final Category category;
@@ -172,22 +173,15 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
   }
 
   Widget _buildEmptyState(AppColorsExtension colors, bool isSearch) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.search_off_rounded,
-            size: 48,
-            color: colors.textSecondary.withValues(alpha: 0.5),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            isSearch ? 'nothing_found'.tr() : 'no_transactions_yet'.tr(),
-            style: TextStyle(color: colors.textSecondary),
-          ),
-        ],
-      ),
+    return AppEmptyState(
+      icon: isSearch
+          ? Icons.search_off_rounded
+          : Icons.receipt_long_outlined,
+      color: isSearch ? colors.textSecondary : colors.accent,
+      title: isSearch ? 'nothing_found'.tr() : 'no_transactions_yet'.tr(),
+      subtitle: isSearch
+          ? 'nothing_found_hint'.tr()
+          : 'no_transactions_hint'.tr(),
     );
   }
 

@@ -8,6 +8,7 @@ import '../providers/all_providers.dart';
 import '../models/app_currency.dart';
 import '../utils/date_formatter.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_empty_state.dart';
 
 // 👇 3. Змінили StatefulWidget на ConsumerStatefulWidget
 class CurrenciesScreen extends ConsumerStatefulWidget {
@@ -73,11 +74,13 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
             ),
             const SizedBox(height: 10),
             if (availableCurrencies.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'all_currencies_added'.tr(),
-                  style: TextStyle(color: colors.textSecondary),
+              Expanded(
+                child: AppEmptyState(
+                  icon: Icons.check_circle_outline_rounded,
+                  color: colors.income,
+                  title: 'all_currencies_added'.tr(),
+                  subtitle: 'all_currencies_added_hint'.tr(),
+                  illustrationSize: 96,
                 ),
               )
             else

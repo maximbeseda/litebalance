@@ -28,6 +28,12 @@
   "account": "Account",
   "preferences": "App preferences",
   "version": "Version",
+  "no_subscriptions_hint": "Add your first regular payment so you never miss a subscription",
+  "trash_empty_hint": "Deleted items appear here and are kept for 30 days",
+  "no_transactions_hint": "Your transactions will appear here",
+  "nothing_found_hint": "Try changing your query or filters",
+  "no_data_hint": "Data will appear once you add transactions",
+  "all_currencies_added_hint": "You've added all available currencies",
   "currency_names": {
     "UAH": "Ukrainian Hryvnia",
     "USD": "US Dollar",

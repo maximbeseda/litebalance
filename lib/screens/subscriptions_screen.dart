@@ -10,6 +10,7 @@ import '../utils/icon_helper.dart';
 import '../screens/subscription_screen.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/app_empty_state.dart';
 
 class SubscriptionsScreen extends ConsumerWidget {
   const SubscriptionsScreen({super.key});
@@ -111,14 +112,10 @@ class SubscriptionsScreen extends ConsumerWidget {
               child: (subAsync.isLoading || subState == null)
                   ? const Center(child: CircularProgressIndicator())
                   : subState.subscriptions.isEmpty
-                  ? Center(
-                      child: Text(
-                        'no_subscriptions'.tr(),
-                        style: TextStyle(
-                          color: colors.textSecondary,
-                          fontSize: 16,
-                        ),
-                      ),
+                  ? AppEmptyState(
+                      icon: Icons.event_repeat_rounded,
+                      title: 'no_subscriptions'.tr(),
+                      subtitle: 'no_subscriptions_hint'.tr(),
                     )
                   : ListView.builder(
                       itemCount: subState.subscriptions.length,

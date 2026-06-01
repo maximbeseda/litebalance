@@ -26,6 +26,9 @@ class AppEmptyState extends StatelessWidget {
   /// Чи вмикати анімацію появи.
   final bool animate;
 
+  /// Розмір векторної ілюстрації (для тісних місць можна зменшити).
+  final double illustrationSize;
+
   const AppEmptyState({
     super.key,
     required this.icon,
@@ -34,6 +37,7 @@ class AppEmptyState extends StatelessWidget {
     this.subtitle,
     this.action,
     this.animate = true,
+    this.illustrationSize = 150,
   });
 
   @override
@@ -44,7 +48,11 @@ class AppEmptyState extends StatelessWidget {
         colors?.textMain ?? Theme.of(context).colorScheme.onSurface;
     final textSecondary = colors?.textSecondary ?? Colors.grey;
 
-    Widget illustration = EmptyIllustration(icon: icon, color: baseColor);
+    Widget illustration = EmptyIllustration(
+      icon: icon,
+      color: baseColor,
+      size: illustrationSize,
+    );
     if (animate) {
       illustration = illustration
           .animate()

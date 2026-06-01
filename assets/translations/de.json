@@ -28,6 +28,12 @@
   "account": "Konto",
   "preferences": "App-Einstellungen",
   "version": "Version",
+  "no_subscriptions_hint": "Füge deine erste regelmäßige Zahlung hinzu, um kein Abo zu verpassen",
+  "trash_empty_hint": "Gelöschte Elemente erscheinen hier und werden 30 Tage aufbewahrt",
+  "no_transactions_hint": "Deine Transaktionen erscheinen hier",
+  "nothing_found_hint": "Ändere die Suchanfrage oder die Filter",
+  "no_data_hint": "Daten erscheinen, sobald du Transaktionen hinzufügst",
+  "all_currencies_added_hint": "Du hast alle verfügbaren Währungen hinzugefügt",
   "currency_names": {
     "UAH": "Ukrainische Hrywnja",
     "USD": "US-Dollar",

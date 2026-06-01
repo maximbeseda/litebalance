@@ -6,6 +6,7 @@ import '../providers/all_providers.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/app_empty_state.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/icon_helper.dart';
@@ -402,25 +403,10 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
         body: _isCleaningUp
             ? const Center(child: CircularProgressIndicator())
             : items.isEmpty
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.delete_outline,
-                      size: 64,
-                      color: colors.textSecondary.withValues(alpha: 0.5),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'trash_empty'.tr(),
-                      style: TextStyle(
-                        color: colors.textSecondary,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
+            ? AppEmptyState(
+                icon: Icons.delete_outline,
+                title: 'trash_empty'.tr(),
+                subtitle: 'trash_empty_hint'.tr(),
               )
             : ListView.builder(
                 physics: const BouncingScrollPhysics(),

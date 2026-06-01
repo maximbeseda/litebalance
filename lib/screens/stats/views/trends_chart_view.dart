@@ -9,6 +9,7 @@ import '../../../utils/currency_formatter.dart';
 import '../../../theme/app_colors_extension.dart';
 import '../../../widgets/bottom_sheets/stats_month_bottom_sheet.dart';
 import '../../../widgets/common/pulsing_icon.dart';
+import '../../../widgets/common/app_empty_state.dart';
 import '../year_summary_screen.dart';
 
 class TrendsChartView extends StatefulWidget {
@@ -51,11 +52,11 @@ class _TrendsChartViewState extends State<TrendsChartView> {
   Widget build(BuildContext context) {
     final keys = widget.trends.keys.toList();
     if (keys.isEmpty) {
-      return Center(
-        child: Text(
-          'no_data'.tr(),
-          style: TextStyle(color: widget.colors.textSecondary),
-        ),
+      return AppEmptyState(
+        icon: Icons.show_chart_rounded,
+        title: 'no_data'.tr(),
+        subtitle: 'no_data_hint'.tr(),
+        animate: false,
       );
     }
 
