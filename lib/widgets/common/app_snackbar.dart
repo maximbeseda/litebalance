@@ -27,50 +27,43 @@ class AppSnackbar {
   static void _show(BuildContext context, String message, _SnackKind kind) {
     final colors = Theme.of(context).extension<AppColorsExtension>();
 
-    final Color accentColor;
+    final Color bgColor;
     final IconData icon;
     switch (kind) {
       case _SnackKind.success:
-        accentColor = colors?.income ?? Colors.green;
+        bgColor = colors?.income ?? Colors.green;
         icon = Icons.check_circle_outline;
       case _SnackKind.error:
-        accentColor = colors?.expense ?? Colors.red;
+        bgColor = colors?.expense ?? Colors.red;
         icon = Icons.error_outline;
       case _SnackKind.warning:
-        accentColor = colors?.warning ?? Colors.amber;
+        bgColor = colors?.warning ?? Colors.amber;
         icon = Icons.warning_amber_rounded;
       case _SnackKind.info:
-        accentColor = colors?.accent ?? Colors.blue;
+        bgColor = colors?.accent ?? Colors.blue;
         icon = Icons.info_outline;
     }
-
-    final cardBg = colors?.cardBg ?? Theme.of(context).cardColor;
-    final textMain =
-        colors?.textMain ?? Theme.of(context).colorScheme.onSurface;
 
     final messenger = ScaffoldMessenger.of(context);
     messenger.clearSnackBars();
     messenger.showSnackBar(
       SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: cardBg,
-        elevation: 4,
-        margin: const EdgeInsets.all(20),
+        // Суцільна кольорова смуга на всю ширину, що виїжджає знизу екрана.
+        behavior: SnackBarBehavior.fixed,
+        backgroundColor: bgColor,
+        elevation: 0,
         duration: const Duration(seconds: 3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: accentColor, width: 1.0),
-        ),
         content: Row(
           children: [
-            Icon(icon, color: accentColor, size: 20),
+            Icon(icon, color: Colors.white, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 message,
-                style: TextStyle(
-                  color: textMain,
-                  fontWeight: FontWeight.w500,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
