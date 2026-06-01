@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../utils/import_recognizer.dart';
+import '../../widgets/common/app_snackbar.dart';
 import 'import_category_setup_screen.dart';
 
 class ImportColumnMappingScreen extends StatefulWidget {
@@ -72,12 +73,7 @@ class _ImportColumnMappingScreenState extends State<ImportColumnMappingScreen> {
 
   void _onNextPressed() {
     if (_dateCol == null || (_amountFromCol == null && _amountToCol == null)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('import_step2_error'.tr()),
-          backgroundColor: Colors.orange,
-        ),
-      );
+      AppSnackbar.warning(context, 'import_step2_error'.tr());
       return;
     }
 

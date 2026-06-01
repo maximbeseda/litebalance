@@ -8,6 +8,7 @@ import '../../services/storage_service.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../theme/category_defaults.dart';
 import '../../utils/import_recognizer.dart';
+import '../../widgets/common/app_snackbar.dart';
 
 class ImportCategorySetupScreen extends ConsumerStatefulWidget {
   final List<List<dynamic>> rawRows;
@@ -316,15 +317,10 @@ class _ImportCategorySetupScreenState
       setState(() {
         _isProcessing = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'import_success'.tr(
-              args: [txsToSave.length.toString(), skippedCount.toString()],
-            ),
-          ),
-          backgroundColor: Colors.green,
-          duration: const Duration(seconds: 4),
+      AppSnackbar.success(
+        context,
+        'import_success'.tr(
+          args: [txsToSave.length.toString(), skippedCount.toString()],
         ),
       );
       Navigator.of(context).popUntil((route) => route.isFirst);

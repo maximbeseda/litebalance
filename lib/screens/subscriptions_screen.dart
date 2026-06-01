@@ -9,6 +9,7 @@ import '../utils/date_formatter.dart';
 import '../utils/icon_helper.dart';
 import '../screens/subscription_screen.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_snackbar.dart';
 
 class SubscriptionsScreen extends ConsumerWidget {
   const SubscriptionsScreen({super.key});
@@ -367,74 +368,17 @@ class SubscriptionsScreen extends ConsumerWidget {
                                                     if (!context.mounted) {
                                                       return;
                                                     }
-                                                    ScaffoldMessenger.of(
-                                                      context,
-                                                    ).clearSnackBars();
-                                                    ScaffoldMessenger.of(
-                                                      context,
-                                                    ).showSnackBar(
-                                                      SnackBar(
-                                                        behavior:
-                                                            SnackBarBehavior
-                                                                .floating,
-                                                        backgroundColor:
-                                                            colors.cardBg,
-                                                        elevation: 4,
-                                                        margin:
-                                                            const EdgeInsets.all(
-                                                              20,
-                                                            ),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                12,
-                                                              ),
-                                                          side: BorderSide(
-                                                            color: success
-                                                                ? colors.income
-                                                                : colors
-                                                                      .expense,
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        content: Row(
-                                                          children: [
-                                                            Icon(
-                                                              success
-                                                                  ? Icons
-                                                                        .check_circle_outline
-                                                                  : Icons
-                                                                        .error_outline,
-                                                              color: success
-                                                                  ? colors
-                                                                        .income
-                                                                  : colors
-                                                                        .expense,
-                                                              size: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 12,
-                                                            ),
-                                                            Expanded(
-                                                              child: Text(
-                                                                message,
-                                                                style: TextStyle(
-                                                                  color: colors
-                                                                      .textMain,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                                maxLines: 2,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
+                                                    if (success) {
+                                                      AppSnackbar.success(
+                                                        context,
+                                                        message,
+                                                      );
+                                                    } else {
+                                                      AppSnackbar.error(
+                                                        context,
+                                                        message,
+                                                      );
+                                                    }
                                                   },
                                                   child: Text(
                                                     'pay'.tr(),

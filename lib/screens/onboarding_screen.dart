@@ -10,6 +10,7 @@ import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_snackbar.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -191,17 +192,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             } else {
               if (mounted) {
                 setState(() => _isSaving = false);
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text('restore_error'.tr())));
+                AppSnackbar.error(context, 'restore_error'.tr());
               }
             }
           } catch (e) {
             if (mounted) {
               setState(() => _isSaving = false);
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text('restore_error'.tr())));
+              AppSnackbar.error(context, 'restore_error'.tr());
             }
           }
         } else {

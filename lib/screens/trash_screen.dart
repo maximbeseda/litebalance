@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_snackbar.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/icon_helper.dart';
@@ -211,12 +212,7 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
 
     if (mounted) {
       setState(() => _isCleaningUp = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('trash_emptied'.tr()),
-          backgroundColor: colors.income,
-        ),
-      );
+      AppSnackbar.success(context, 'trash_emptied'.tr());
     }
   }
 
