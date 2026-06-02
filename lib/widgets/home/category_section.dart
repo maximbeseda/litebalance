@@ -56,6 +56,10 @@ class _CategorySectionState extends ConsumerState<CategorySection>
 
   final List<String> _deletingIds = [];
 
+  // Для pop-in анімації лише нових категорій (не на кожен ребілд).
+  final Set<String> _knownIds = {};
+  final Set<String> _appearingIds = {};
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +67,33 @@ class _CategorySectionState extends ConsumerState<CategorySection>
     _jiggleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 250),
+    );
+    // Початкові категорії показуємо без анімації появи.
+    _knownIds.addAll(widget.categories.map((c) => c.id));
+  }
+
+  @override
+  void didUpdateWidget(covariant CategorySection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final currentIds = widget.categories.map((c) => c.id).toSet();
+    final newIds = currentIds.difference(_knownIds);
+
+    if (newIds.isNotEmpty) {
+      // Нова монетка: малюємо її згорнутою, далі — розгортаємо (pop-in).
+      setState(() {
+        _appearingIds.addAll(newIds);
+        _knownIds.addAll(newIds);
+      });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() => _appearingIds.removeAll(newIds));
+        }
+      });
+    }
+
+    // Прибираємо з відомих ті, що зникли (окрім тих, що зараз видаляються).
+    _knownIds.removeWhere(
+      (id) => !currentIds.contains(id) && !_deletingIds.contains(id),
     );
   }
 
@@ -92,6 +123,7 @@ class _CategorySectionState extends ConsumerState<CategorySection>
     String? draggedCategoryId,
   ) {
     final bool isDeleting = _deletingIds.contains(c.id);
+    final bool isAppearing = _appearingIds.contains(c.id);
     final bool isBeingDragged = draggedCategoryId == c.id;
 
     final Widget dragFeedback = Material(
@@ -127,11 +159,11 @@ class _CategorySectionState extends ConsumerState<CategorySection>
     Widget buildContent(bool isHovered) {
       Widget coin = AnimatedScale(
         duration: const Duration(milliseconds: 300),
-        scale: isDeleting ? 0.0 : 1.0,
-        curve: Curves.easeInBack,
+        scale: (isDeleting || isAppearing) ? 0.0 : 1.0,
+        curve: isDeleting ? Curves.easeInBack : Curves.easeOutBack,
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 250),
-          opacity: isDeleting ? 0.0 : 1.0,
+          opacity: (isDeleting || isAppearing) ? 0.0 : 1.0,
           child: CoinWidget(
             category: c,
             isHovered: isHovered,

@@ -9,6 +9,7 @@ import '../models/app_currency.dart';
 import '../utils/date_formatter.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_empty_state.dart';
+import '../widgets/common/animated_item_list.dart';
 
 // 👇 3. Змінили StatefulWidget на ConsumerStatefulWidget
 class CurrenciesScreen extends ConsumerStatefulWidget {
@@ -267,14 +268,14 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
                 color: colors.income,
                 backgroundColor: colors.cardBg,
                 onRefresh: _handleRefresh,
-                child: ListView.builder(
+                child: AnimatedItemList<String>(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
                   padding: const EdgeInsets.all(16),
-                  itemCount: settingsState.selectedCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = settingsState.selectedCurrencies[index];
+                  items: settingsState.selectedCurrencies,
+                  keyOf: (code) => code,
+                  itemBuilder: (context, code) {
                     final currency = AppCurrency.fromCode(code);
 
                     if (code == settingsState.baseCurrency) {

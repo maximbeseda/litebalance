@@ -263,11 +263,20 @@ class _GeneralHistoryBottomSheetState
                       return Dismissible(
                         key: Key('gen_history_${t.id}'),
                         direction: DismissDirection.endToStart,
+                        resizeDuration: const Duration(milliseconds: 250),
                         background: Container(
-                          color: colors.expense,
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          decoration: BoxDecoration(
+                            color: colors.expense,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           alignment: Alignment.centerRight,
-                          padding: const EdgeInsets.only(right: 20),
-                          child: const Icon(Icons.delete, color: Colors.white),
+                          padding: const EdgeInsets.only(right: 24),
+                          child: const Icon(
+                            Icons.delete_outline_rounded,
+                            color: Colors.white,
+                            size: 26,
+                          ),
                         ),
                         onDismissed: (_) {
                           setState(() {

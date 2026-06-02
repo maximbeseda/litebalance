@@ -7,6 +7,7 @@ import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_snackbar.dart';
 import '../widgets/common/app_empty_state.dart';
+import '../widgets/common/animated_item_list.dart';
 import '../models/app_currency.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/icon_helper.dart';
@@ -114,7 +115,10 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
 
     if (!confirm) return;
 
+    // Спершу плавно ховаємо весь список, потім чистимо дані.
     setState(() => _isCleaningUp = true);
+    await Future.delayed(const Duration(milliseconds: 280));
+    if (!mounted) return;
 
     final catState = ref.read(categoryProvider);
     final txAsync = ref.read(transactionProvider);
@@ -400,165 +404,167 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
               ),
           ],
         ),
-        body: _isCleaningUp
-            ? const Center(child: CircularProgressIndicator())
-            : items.isEmpty
-            ? AppEmptyState(
-                icon: Icons.delete_outline,
-                title: 'trash_empty'.tr(),
-                subtitle: 'trash_empty_hint'.tr(),
-              )
-            : ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(12),
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  final daysColor = item.daysLeft <= 3
-                      ? Colors.redAccent
-                      : colors.textSecondary;
+        body: AnimatedOpacity(
+          duration: const Duration(milliseconds: 280),
+          opacity: _isCleaningUp ? 0.0 : 1.0,
+          child: items.isEmpty
+              ? AppEmptyState(
+                  icon: Icons.delete_outline,
+                  title: 'trash_empty'.tr(),
+                  subtitle: 'trash_empty_hint'.tr(),
+                )
+              : AnimatedItemList<TrashItem>(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(12),
+                  items: items,
+                  keyOf: (item) => item.id,
+                  itemBuilder: (context, item) {
+                    final daysColor = item.daysLeft <= 3
+                        ? Colors.redAccent
+                        : colors.textSecondary;
 
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: colors.cardBg,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.05),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        item.icon,
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              item.titleWidget,
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Expanded(child: item.subtitleWidget),
-                                  if (item.amountStr != null) ...[
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      item.amountStr!,
-                                      style: TextStyle(
-                                        color: item.amountColor,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold,
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: colors.cardBg,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          item.icon,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                item.titleWidget,
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    Expanded(child: item.subtitleWidget),
+                                    if (item.amountStr != null) ...[
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        item.amountStr!,
+                                        style: TextStyle(
+                                          color: item.amountColor,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.timer_outlined,
+                                      size: 14,
+                                      color: daysColor,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Expanded(
+                                      child: Text(
+                                        'days_left'.tr(
+                                          args: [item.daysLeft.toString()],
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: daysColor,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ],
-                                ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 36,
+                                height: 36,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: const Icon(
+                                    Icons.restore,
+                                    color: Colors.blueAccent,
+                                    size: 22,
+                                  ),
+                                  tooltip: 'restore'.tr(),
+                                  onPressed: () async {
+                                    if (item.type == TrashItemType.category) {
+                                      await ref
+                                          .read(categoryProvider.notifier)
+                                          .restoreFromTrash(item.rawData);
+                                    } else if (item.type ==
+                                        TrashItemType.transaction) {
+                                      await ref
+                                          .read(transactionProvider.notifier)
+                                          .restoreFromTrash(item.rawData);
+                                    } else if (item.type ==
+                                        TrashItemType.subscription) {
+                                      await ref
+                                          .read(subscriptionProvider.notifier)
+                                          .restoreFromTrash(item.rawData);
+                                    }
+                                  },
+                                ),
                               ),
-                              const SizedBox(height: 6),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.timer_outlined,
-                                    size: 14,
-                                    color: daysColor,
+                              SizedBox(
+                                width: 36,
+                                height: 36,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: Icon(
+                                    Icons.delete_forever,
+                                    color: colors.expense,
+                                    size: 22,
                                   ),
-                                  const SizedBox(width: 4),
-                                  Expanded(
-                                    child: Text(
-                                      'days_left'.tr(
-                                        args: [item.daysLeft.toString()],
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: daysColor,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  tooltip: 'delete_forever'.tr(),
+                                  onPressed: () async {
+                                    if (item.type == TrashItemType.category) {
+                                      await ref
+                                          .read(categoryProvider.notifier)
+                                          .emptyTrashOrArchive(item.rawData);
+                                    } else if (item.type ==
+                                        TrashItemType.transaction) {
+                                      await ref
+                                          .read(transactionProvider.notifier)
+                                          .deletePermanently(item.rawData);
+                                    } else if (item.type ==
+                                        TrashItemType.subscription) {
+                                      await ref
+                                          .read(subscriptionProvider.notifier)
+                                          .deletePermanently(item.id);
+                                    }
+                                  },
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 36,
-                              height: 36,
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                icon: const Icon(
-                                  Icons.restore,
-                                  color: Colors.blueAccent,
-                                  size: 22,
-                                ),
-                                tooltip: 'restore'.tr(),
-                                onPressed: () async {
-                                  if (item.type == TrashItemType.category) {
-                                    await ref
-                                        .read(categoryProvider.notifier)
-                                        .restoreFromTrash(item.rawData);
-                                  } else if (item.type ==
-                                      TrashItemType.transaction) {
-                                    await ref
-                                        .read(transactionProvider.notifier)
-                                        .restoreFromTrash(item.rawData);
-                                  } else if (item.type ==
-                                      TrashItemType.subscription) {
-                                    await ref
-                                        .read(subscriptionProvider.notifier)
-                                        .restoreFromTrash(item.rawData);
-                                  }
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 36,
-                              height: 36,
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                icon: Icon(
-                                  Icons.delete_forever,
-                                  color: colors.expense,
-                                  size: 22,
-                                ),
-                                tooltip: 'delete_forever'.tr(),
-                                onPressed: () async {
-                                  if (item.type == TrashItemType.category) {
-                                    await ref
-                                        .read(categoryProvider.notifier)
-                                        .emptyTrashOrArchive(item.rawData);
-                                  } else if (item.type ==
-                                      TrashItemType.transaction) {
-                                    await ref
-                                        .read(transactionProvider.notifier)
-                                        .deletePermanently(item.rawData);
-                                  } else if (item.type ==
-                                      TrashItemType.subscription) {
-                                    await ref
-                                        .read(subscriptionProvider.notifier)
-                                        .deletePermanently(item.id);
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+        ),
       ),
     );
   }

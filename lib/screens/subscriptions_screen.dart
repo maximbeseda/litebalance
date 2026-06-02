@@ -11,6 +11,7 @@ import '../screens/subscription_screen.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_snackbar.dart';
 import '../widgets/common/app_empty_state.dart';
+import '../widgets/common/animated_item_list.dart';
 
 class SubscriptionsScreen extends ConsumerWidget {
   const SubscriptionsScreen({super.key});
@@ -117,14 +118,14 @@ class SubscriptionsScreen extends ConsumerWidget {
                       title: 'no_subscriptions'.tr(),
                       subtitle: 'no_subscriptions_hint'.tr(),
                     )
-                  : ListView.builder(
-                      itemCount: subState.subscriptions.length,
+                  : AnimatedItemList<Subscription>(
+                      items: subState.subscriptions,
+                      keyOf: (sub) => sub.id,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 8,
                       ),
-                      itemBuilder: (context, index) {
-                        final sub = subState.subscriptions[index];
+                      itemBuilder: (context, sub) {
                         final bool accountExists = catState.accounts.any(
                           (c) => c.id == sub.accountId,
                         );
