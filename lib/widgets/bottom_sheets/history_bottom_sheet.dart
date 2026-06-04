@@ -10,6 +10,7 @@ import '../../providers/all_providers.dart';
 import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
 import '../common/app_empty_state.dart';
+import '../common/category_halo_icon.dart';
 
 class HistoryBottomSheet extends ConsumerStatefulWidget {
   final Category category;
@@ -115,17 +116,28 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
             ),
           ),
           const SizedBox(height: 20),
-          // 👇 ЗАХИСТ: Додано обмеження рядків для довгої назви категорії
-          Text(
-            'history_category'.tr(args: [widget.category.name]),
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: colors.textMain,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              CategoryHaloIcon(
+                icon: IconHelper.getIcon(widget.category.icon),
+                bgColor: Color(widget.category.bgColor),
+                iconColor: Color(widget.category.iconColor),
+                size: 60,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'history_category'.tr(args: [widget.category.name]),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: colors.textMain,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
 

@@ -10,6 +10,7 @@ import '../../utils/currency_formatter.dart';
 import '../../utils/date_formatter.dart';
 import '../../utils/icon_helper.dart';
 import '../common/app_empty_state.dart';
+import '../common/category_halo_icon.dart';
 
 class StatsCategoryBottomSheet extends ConsumerStatefulWidget {
   final Category category;
@@ -124,16 +125,13 @@ class _StatsCategoryBottomSheetState
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Color(widget.category.bgColor),
-                      child: Icon(
-                        IconHelper.getIcon(widget.category.icon),
-                        color: Color(widget.category.iconColor),
-                        size: 20,
-                      ),
+                    CategoryHaloIcon(
+                      icon: IconHelper.getIcon(widget.category.icon),
+                      bgColor: Color(widget.category.bgColor),
+                      iconColor: Color(widget.category.iconColor),
+                      size: 64,
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

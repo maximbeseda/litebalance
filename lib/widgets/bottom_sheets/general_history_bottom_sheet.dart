@@ -10,6 +10,7 @@ import '../../providers/all_providers.dart';
 import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
 import '../common/app_empty_state.dart';
+import '../common/category_halo_icon.dart';
 
 class GeneralHistoryBottomSheet extends ConsumerStatefulWidget {
   final String title;
@@ -123,13 +124,28 @@ class _GeneralHistoryBottomSheetState
             ),
           ),
           const SizedBox(height: 20),
-          Text(
-            widget.title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: colors.textMain,
-            ),
+          Row(
+            children: [
+              CategoryHaloIcon(
+                icon: Icons.receipt_long_rounded,
+                bgColor: colors.accent,
+                iconColor: Colors.white,
+                size: 60,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: colors.textMain,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
 
