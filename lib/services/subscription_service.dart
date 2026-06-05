@@ -32,6 +32,10 @@ class SubscriptionService {
         nextDate = DateTime(nextDate.year + 1, nextDate.month, nextDate.day);
       } else if (sub.periodicity == 'weekly') {
         nextDate = nextDate.add(const Duration(days: 7));
+      } else if (sub.periodicity == 'every_28_days') {
+        nextDate = nextDate.add(const Duration(days: 28));
+      } else if (sub.periodicity == 'every_30_days') {
+        nextDate = nextDate.add(const Duration(days: 30));
       }
     }
 
@@ -58,6 +62,10 @@ class SubscriptionService {
       nextDate = DateTime(nextDate.year + 1, nextDate.month, nextDate.day);
     } else if (sub.periodicity == 'weekly') {
       nextDate = nextDate.add(const Duration(days: 7));
+    } else if (sub.periodicity == 'every_28_days') {
+      nextDate = nextDate.add(const Duration(days: 28));
+    } else if (sub.periodicity == 'every_30_days') {
+      nextDate = nextDate.add(const Duration(days: 30));
     }
 
     final updatedSub = sub.copyWith(nextPaymentDate: nextDate);

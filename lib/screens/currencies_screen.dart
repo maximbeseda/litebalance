@@ -10,6 +10,7 @@ import '../utils/date_formatter.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_empty_state.dart';
 import '../widgets/common/animated_item_list.dart';
+import '../widgets/common/app_pill.dart';
 
 // 👇 3. Змінили StatefulWidget на ConsumerStatefulWidget
 class CurrenciesScreen extends ConsumerStatefulWidget {
@@ -91,25 +92,17 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
                   itemBuilder: (context, index) {
                     final currency = availableCurrencies[index];
                     return ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: colors.iconBg,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              currency.symbol,
-                              style: TextStyle(
-                                color: colors.textMain,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                      minLeadingWidth: 0,
+                      leading: AppPill(
+                        text: '${currency.code}  ${currency.symbol}',
+                        color: colors.accent,
                       ),
                       title: Text(
-                        currency.code,
-                        style: TextStyle(color: colors.textMain),
+                        'currency_names.${currency.code}'.tr(),
+                        style: TextStyle(
+                          color: colors.textMain,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       onTap: () {
                         // 👇 Викликаємо метод через Notifier

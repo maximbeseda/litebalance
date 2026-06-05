@@ -343,10 +343,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Yearly'), findsOneWidget);
 
-      // ВАЛЮТА
+      // ВАЛЮТА (у пікері тепер пілюля "код  символ" + локалізована назва)
       await tester.tap(find.text('USD'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('EUR').last);
+      await tester.tap(find.text('EUR  €').last);
       await tester.pumpAndSettle();
 
       // ІКОНКА

@@ -436,6 +436,14 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
             currentSub = currentSub.copyWith(
               nextPaymentDate: pDate.add(const Duration(days: 7)),
             );
+          } else if (currentSub.periodicity == 'every_28_days') {
+            currentSub = currentSub.copyWith(
+              nextPaymentDate: pDate.add(const Duration(days: 28)),
+            );
+          } else if (currentSub.periodicity == 'every_30_days') {
+            currentSub = currentSub.copyWith(
+              nextPaymentDate: pDate.add(const Duration(days: 30)),
+            );
           }
 
           subUpdated = true;

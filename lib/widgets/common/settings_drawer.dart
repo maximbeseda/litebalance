@@ -10,6 +10,7 @@ import '../../screens/currencies_screen.dart';
 import '../../screens/import_export_screen.dart';
 import '../../screens/backup_management_screen.dart';
 import '../../theme/app_colors_extension.dart';
+import 'category_halo_icon.dart';
 
 import '../../providers/all_providers.dart';
 
@@ -43,7 +44,6 @@ class SettingsDrawer extends ConsumerWidget {
 
     // Фолбеки для кольорів, щоб не було Null error
     final textMainColor = colors?.textMain ?? Colors.black;
-    final textSecondaryColor = colors?.textSecondary ?? Colors.grey;
     final cardBgColor = colors?.cardBg ?? Colors.white;
     final iconBgColor = colors?.iconBg ?? Colors.grey.shade200;
     final menuIconColor = colors?.accent ?? Colors.blueAccent;
@@ -76,9 +76,11 @@ class SettingsDrawer extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(
-                          Icons.settings_outlined,
-                          color: textSecondaryColor,
+                        CategoryHaloIcon(
+                          icon: Icons.settings_outlined,
+                          bgColor: menuIconColor,
+                          iconColor: Colors.white,
+                          size: 52,
                         ),
                       ],
                     ),

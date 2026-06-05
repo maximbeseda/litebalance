@@ -93,6 +93,18 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     _currencyCtrl.text = 'currency_names.$code'.tr();
   }
 
+  // Заголовок для нового запису залежно від типу.
+  String _newTitleKey() {
+    switch (widget.type) {
+      case CategoryType.income:
+        return 'new_income';
+      case CategoryType.account:
+        return 'new_account';
+      case CategoryType.expense:
+        return 'new_expense';
+    }
+  }
+
   @override
   void dispose() {
     _nameCtrl.dispose();
@@ -451,7 +463,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                   Text(
-                    widget.category == null ? 'new_category'.tr() : 'edit'.tr(),
+                    widget.category == null
+                        ? _newTitleKey().tr()
+                        : 'edit'.tr(),
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

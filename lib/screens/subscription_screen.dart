@@ -16,6 +16,7 @@ import '../utils/icon_helper.dart';
 import '../widgets/dialogs/premium_date_picker.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_pill.dart';
 
 class SubscriptionScreen extends ConsumerStatefulWidget {
   final Subscription? subscription;
@@ -170,6 +171,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
       _periodicityCtrl.text = 'period_yearly'.tr();
     } else if (period == 'weekly') {
       _periodicityCtrl.text = 'period_weekly'.tr();
+    } else if (period == 'every_28_days') {
+      _periodicityCtrl.text = 'period_28_days'.tr();
+    } else if (period == 'every_30_days') {
+      _periodicityCtrl.text = 'period_30_days'.tr();
     }
   }
 
@@ -246,7 +251,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
                     final Color activeColor = isBase
                         ? colors.income
-                        : Colors.blueAccent;
+                        : colors.accent;
 
                     return ListTile(
                       onTap: () {
@@ -261,53 +266,27 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                         horizontal: 8,
                         vertical: 4,
                       ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? activeColor
-                            : (isBase
-                                  ? activeColor.withValues(alpha: 0.15)
-                                  : colors.iconBg),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.center,
-                            child: Text(
-                              curr.symbol.trim(),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                              strutStyle: const StrutStyle(
-                                fontSize: 14,
-                                height: 1.0,
-                                forceStrutHeight: true,
-                              ),
-                              textHeightBehavior: const TextHeightBehavior(
-                                applyHeightToFirstAscent: false,
-                                applyHeightToLastDescent: false,
-                              ),
-                              style: TextStyle(
-                                color: isSelected
-                                    ? Colors.white
-                                    : (isBase ? activeColor : colors.textMain),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
+                      minLeadingWidth: 0,
+                      leading: AppPill(
+                        text: '${curr.code}  ${curr.symbol}',
+                        color: activeColor,
                       ),
                       title: Row(
                         children: [
-                          Text(
-                            curr.code,
-                            style: TextStyle(
-                              color: isSelected ? activeColor : colors.textMain,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.w500,
-                              fontSize: 16,
+                          Flexible(
+                            child: Text(
+                              'currency_names.${curr.code}'.tr(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? activeColor
+                                    : colors.textMain,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.w500,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                           if (isBase) ...[
@@ -334,7 +313,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                         ],
                       ),
                       trailing: isSelected
-                          ? Icon(Icons.check, color: activeColor)
+                          ? Icon(Icons.check_rounded, color: activeColor)
                           : null,
                     );
                   },
@@ -473,9 +452,11 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final options = {
+      'weekly': 'period_weekly'.tr(),
+      'every_28_days': 'period_28_days'.tr(),
+      'every_30_days': 'period_30_days'.tr(),
       'monthly': 'period_monthly'.tr(),
       'yearly': 'period_yearly'.tr(),
-      'weekly': 'period_weekly'.tr(),
     };
 
     await showModalBottomSheet(

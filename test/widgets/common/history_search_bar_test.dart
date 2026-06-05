@@ -29,27 +29,27 @@ void main() {
         );
 
         // 1. Спочатку іконка "очистити" (Clear) не повинна відображатися
-        expect(find.byIcon(Icons.clear), findsNothing);
+        expect(find.byIcon(Icons.close_rounded), findsNothing);
 
         // 2. Вводимо текст у поле
         await tester.enterText(find.byType(TextField), 'Кава');
         await tester.pump(); // Оновлюємо UI, щоб віджет перебудувався
 
         // 3. Тепер іконка "очистити" має з'явитися
-        expect(find.byIcon(Icons.clear), findsOneWidget);
+        expect(find.byIcon(Icons.close_rounded), findsOneWidget);
 
         // ⚠️ МАГІЯ ТАЙМЕРІВ: Чекаємо 350 мілісекунд, щоб відпрацював Debounce _debounce (який у вас 300мс)
         // Це критично важливо, інакше тест завершиться з помилкою "A Timer is still pending"
         await tester.pump(const Duration(milliseconds: 350));
 
         // 4. Натискаємо на іконку очищення
-        await tester.tap(find.byIcon(Icons.clear));
+        await tester.tap(find.byIcon(Icons.close_rounded));
         await tester.pump(); // Оновлюємо UI
 
         // 5. Перевіряємо, що поле очистилося, а іконка зникла
         final textField = tester.widget<TextField>(find.byType(TextField));
         expect(textField.controller?.text, '');
-        expect(find.byIcon(Icons.clear), findsNothing);
+        expect(find.byIcon(Icons.close_rounded), findsNothing);
 
         // Знову чекаємо 350мс, тому що після очищення ви викликаєте _onSearchChanged(''),
         // що створює ще один таймер

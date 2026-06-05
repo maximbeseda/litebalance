@@ -165,13 +165,13 @@ void main() {
         expect(find.text('add_currency'), findsOneWidget);
 
         await tester.dragUntilVisible(
-          find.text('UAH'),
+          find.text('UAH  ₴'),
           find.byType(ListView).last,
           const Offset(0, -300),
         );
         await tester.pumpAndSettle();
 
-        await tester.tap(find.text('UAH'));
+        await tester.tap(find.text('UAH  ₴'));
         await tester.pumpAndSettle();
 
         expect(fakeNotifier.toggledCurrencyCode, 'UAH');
