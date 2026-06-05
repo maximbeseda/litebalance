@@ -129,10 +129,10 @@ class _PremiumDatePickerState extends State<PremiumDatePicker> {
                   const SizedBox(height: 2),
                   Text(
                     DateFormat.yMMMEd(localeCode).format(_tempSelectedDate),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
+                      color: colors.accent,
                     ),
                   ),
                 ],

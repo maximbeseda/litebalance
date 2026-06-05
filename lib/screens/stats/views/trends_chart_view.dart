@@ -727,128 +727,69 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
               margin: const EdgeInsets.fromLTRB(24, 16, 24, 8),
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               decoration: BoxDecoration(
-                color: widget.colors.iconBg,
-                borderRadius: BorderRadius.circular(16),
+                color: widget.colors.accent.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: widget.colors.textSecondary.withValues(alpha: 0.1),
+                  color: widget.colors.accent.withValues(alpha: 0.15),
                 ),
               ),
               child: Column(
                 children: [
-                  Stack(
-                    alignment: Alignment.center,
+                  Row(
                     children: [
-                      Align(
-                        alignment: Alignment.center,
+                      PulsingIcon(
+                        icon: Icons.insights_rounded,
+                        size: 18,
+                        color: widget.colors.accent,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
                         child: Text(
                           'average_for_year'.tr(args: [focusedYear]),
                           style: TextStyle(
-                            color: widget.colors.textSecondary,
-                            fontSize: 12,
+                            color: widget.colors.textMain,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: PulsingIcon(
-                          icon: Icons.insights,
-                          size: 16,
-                          color: widget.colors.textSecondary.withValues(
-                            alpha: 0.8,
-                          ),
-                        ),
+                      Icon(
+                        Icons.chevron_right_rounded,
+                        size: 20,
+                        color: widget.colors.textSecondary,
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: Column(
-                          children: [
-                            Text(
-                              'income'.tr(),
-                              style: TextStyle(
-                                color: widget.colors.textSecondary,
-                                fontSize: 10,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
+                        child: _avgMetric(
+                          icon: Icons.arrow_downward_rounded,
+                          color: widget.colors.income,
+                          label: 'income'.tr(),
+                          value:
                               '${CurrencyFormatter.format(avgInc.round())} $symbol',
-                              style: TextStyle(
-                                color: widget.colors.income,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
                         ),
                       ),
-                      Container(
-                        width: 1,
-                        height: 30,
-                        color: widget.colors.textSecondary.withValues(
-                          alpha: 0.2,
-                        ),
-                      ),
+                      _avgDivider(),
                       Expanded(
-                        child: Column(
-                          children: [
-                            Text(
-                              'savings'.tr(),
-                              style: TextStyle(
-                                color: widget.colors.textSecondary,
-                                fontSize: 10,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
+                        child: _avgMetric(
+                          icon: Icons.savings_rounded,
+                          color: widget.colors.accent,
+                          label: 'savings'.tr(),
+                          value:
                               '${(avgInc > 0 ? ((avgInc - avgExp) / avgInc * 100) : 0).round()}%',
-                              style: TextStyle(
-                                color: widget.colors.textMain,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
                         ),
                       ),
-                      Container(
-                        width: 1,
-                        height: 30,
-                        color: widget.colors.textSecondary.withValues(
-                          alpha: 0.2,
-                        ),
-                      ),
+                      _avgDivider(),
                       Expanded(
-                        child: Column(
-                          children: [
-                            Text(
-                              'stats_expenses'.tr(),
-                              style: TextStyle(
-                                color: widget.colors.textSecondary,
-                                fontSize: 10,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
+                        child: _avgMetric(
+                          icon: Icons.arrow_upward_rounded,
+                          color: widget.colors.expense,
+                          label: 'stats_expenses'.tr(),
+                          value:
                               '${CurrencyFormatter.format(avgExp.round())} $symbol',
-                              style: TextStyle(
-                                color: widget.colors.expense,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
                         ),
                       ),
                     ],
@@ -859,6 +800,45 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _avgDivider() => Container(
+    width: 1,
+    height: 34,
+    color: widget.colors.textSecondary.withValues(alpha: 0.15),
+  );
+
+  Widget _avgMetric({
+    required IconData icon,
+    required Color color,
+    required String label,
+    required String value,
+  }) {
+    return Column(
+      children: [
+        Icon(icon, size: 16, color: color),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(color: widget.colors.textSecondary, fontSize: 10),
+        ),
+        const SizedBox(height: 3),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            value,
+            maxLines: 1,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

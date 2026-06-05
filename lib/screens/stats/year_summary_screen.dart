@@ -171,12 +171,18 @@ class YearSummaryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            "${net > 0 ? '+' : ''}${CurrencyFormatter.format(net)} $symbol",
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 32,
-              fontWeight: FontWeight.w900,
+          // Повна сума без копійок; FittedBox гарантує, що навіть великі
+          // числа вмістяться на вузьких екранах.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              "${net > 0 ? '+' : ''}${CurrencyFormatter.formatFull(net)} $symbol",
+              maxLines: 1,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 32,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
           const SizedBox(height: 16),

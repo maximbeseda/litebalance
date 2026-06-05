@@ -69,7 +69,7 @@ final darkTheme = ThemeData(
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(color: Colors.blueAccent, width: 2),
+      borderSide: const BorderSide(color: Color(0xFF5A7DCD), width: 2),
     ),
   ),
 

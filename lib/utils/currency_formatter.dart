@@ -54,6 +54,15 @@ class CurrencyFormatter {
     return '$sign$formattedInt,$fString';
   }
 
+  /// Повна сума без копійок і без скорочень (напр. "1 234 567").
+  /// Для місць, де важливо бачити точне число (його варто масштабувати
+  /// FittedBox, щоб вміщалося на малих екранах).
+  static String formatFull(int amount) {
+    final int iPart = amount.abs() ~/ 100;
+    final String sign = amount < 0 ? '-' : '';
+    return '$sign${_addSpaces(iPart.toString())}';
+  }
+
   static String formatBudget(int amount) {
     final String formatted = format(amount);
     if (formatted.contains(',') && !formatted.contains('М')) {

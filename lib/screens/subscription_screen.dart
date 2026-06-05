@@ -423,7 +423,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                         cat.name,
                         style: TextStyle(
                           color: isSelected
-                              ? Colors.blueAccent
+                              ? colors.accent
                               : colors.textMain,
                           fontWeight: isSelected
                               ? FontWeight.bold
@@ -432,7 +432,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                         ),
                       ),
                       trailing: isSelected
-                          ? const Icon(Icons.check, color: Colors.blueAccent)
+                          ? Icon(Icons.check, color: colors.accent)
                           : null,
                     );
                   },
@@ -499,13 +499,13 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                 title: Text(
                   entry.value,
                   style: TextStyle(
-                    color: isSelected ? Colors.blueAccent : colors.textMain,
+                    color: isSelected ? colors.accent : colors.textMain,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                     fontSize: 16,
                   ),
                 ),
                 trailing: isSelected
-                    ? const Icon(Icons.check, color: Colors.blueAccent)
+                    ? Icon(Icons.check, color: colors.accent)
                     : null,
               );
             }),
@@ -575,11 +575,11 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
               ),
               const SizedBox(height: 10),
               ListTile(
-                leading: const Icon(Icons.refresh, color: Colors.blueAccent),
+                leading: Icon(Icons.refresh, color: colors.accent),
                 title: Text(
                   'use_category_icon'.tr(),
-                  style: const TextStyle(
-                    color: Colors.blueAccent,
+                  style: TextStyle(
+                    color: colors.accent,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -630,7 +630,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: isSelected
-                                    ? Colors.blueAccent
+                                    ? colors.accent
                                     : colors.iconBg,
                                 shape: BoxShape.circle,
                               ),
@@ -771,7 +771,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     int? maxLength,
   }) {
     final baseColor = isError ? Colors.red : colors.textSecondary;
-    final activeColor = isError ? Colors.red : Colors.blueAccent;
+    final activeColor = isError ? Colors.red : colors.accent;
     final underlineBaseColor = isError
         ? Colors.red
         : colors.textSecondary.withValues(alpha: 0.3);
@@ -877,7 +877,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     final baseColor = isError ? Colors.red : colors.textSecondary;
     final activeColor = isError
         ? Colors.red
-        : (customActiveColor ?? Colors.blueAccent);
+        : (customActiveColor ?? colors.accent);
     final textColor = customTextColor ?? colors.textMain;
     final underlineBaseColor = isError
         ? Colors.red
@@ -970,7 +970,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         settingsState.baseCurrency;
     final Color currencyAccentColor = isCurrentBase
         ? colors.income
-        : Colors.blueAccent;
+        : colors.accent;
 
     final currencySymbol = AppCurrency.fromCode(
       _selectedCurrency ?? settingsState.baseCurrency,
@@ -1046,9 +1046,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                             onPressed: _delete,
                           ),
                         IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.check,
-                            color: Colors.blueAccent,
+                            color: colors.accent,
                             size: 28,
                           ),
                           onPressed: () => unawaited(_save()),
@@ -1102,9 +1102,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   ),
                                 ],
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.edit,
-                                color: Colors.blueAccent,
+                                color: colors.accent,
                                 size: 14,
                               ),
                             ),
@@ -1260,7 +1260,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                           ),
                         ),
                         value: _isAutoPay,
-                        activeThumbColor: Colors.blueAccent,
+                        activeThumbColor: colors.accent,
                         onChanged: (val) {
                           FocusManager.instance.primaryFocus?.unfocus();
                           setState(() => _isAutoPay = val);

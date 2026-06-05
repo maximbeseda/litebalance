@@ -350,12 +350,12 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.blueAccent.withValues(alpha: 0.1),
+                color: colors.accent.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.event_repeat,
-                color: Colors.blueAccent,
+                color: colors.accent,
                 size: 20,
               ),
             ),
@@ -502,9 +502,9 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
                                 height: 36,
                                 child: IconButton(
                                   padding: EdgeInsets.zero,
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.restore,
-                                    color: Colors.blueAccent,
+                                    color: colors.accent,
                                     size: 22,
                                   ),
                                   tooltip: 'restore'.tr(),

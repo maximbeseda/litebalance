@@ -186,7 +186,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: isSelected
-                                    ? Colors.blueAccent
+                                    ? colors.accent
                                     : colors.iconBg,
                                 shape: BoxShape.circle,
                               ),
@@ -484,9 +484,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                           onPressed: _deleteCategory,
                         ),
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.check,
-                          color: Colors.blueAccent,
+                          color: colors.accent,
                           size: 28,
                         ),
                         onPressed: _saveCategory,
@@ -538,9 +538,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                                 BoxShadow(color: Colors.black12, blurRadius: 4),
                               ],
                             ),
-                            child: const Icon(
+                            child: Icon(
                               Icons.edit,
-                              color: Colors.blueAccent,
+                              color: colors.accent,
                               size: 14,
                             ),
                           ),
@@ -649,7 +649,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                               ),
                             ),
                             value: _includeInTotal,
-                            activeThumbColor: Colors.blueAccent,
+                            activeThumbColor: colors.accent,
                             onChanged: (val) =>
                                 setState(() => _includeInTotal = val),
                           ),
@@ -689,7 +689,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     bool isError = false,
   }) {
     final baseColor = isError ? Colors.red : colors.textSecondary;
-    final activeColor = isError ? Colors.red : Colors.blueAccent;
+    final activeColor = isError ? Colors.red : colors.accent;
     final underlineBaseColor = isError
         ? Colors.red
         : colors.textSecondary.withValues(alpha: 0.3);

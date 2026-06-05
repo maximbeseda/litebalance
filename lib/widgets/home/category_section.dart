@@ -196,10 +196,10 @@ class _CategorySectionState extends ConsumerState<CategorySection>
                       ),
                     ],
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.edit,
                     size: 14,
-                    color: Colors.blueAccent,
+                    color: colors.accent,
                   ),
                 ),
               ),

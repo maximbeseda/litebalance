@@ -745,7 +745,7 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
 
     final Color activeColor = _isUsingFallbackRate
         ? colors.expense
-        : Colors.blueAccent;
+        : colors.accent;
     final Color inactiveColor = colors.textSecondary.withValues(alpha: 0.4);
     Color currentColor = _isRateLinked ? activeColor : inactiveColor;
 

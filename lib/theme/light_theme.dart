@@ -71,7 +71,7 @@ final lightTheme = ThemeData(
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(color: Colors.blue, width: 2),
+      borderSide: const BorderSide(color: Color(0xFF2950A0), width: 2),
     ),
   ),
 
