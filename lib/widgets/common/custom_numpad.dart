@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vibration/vibration.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../theme/category_defaults.dart';
-import '../../providers/all_providers.dart';
+import '../../utils/haptic_helper.dart';
 
 class CustomNumpad extends ConsumerStatefulWidget {
   final Function(String) onKeyPressed;
@@ -16,8 +14,6 @@ class CustomNumpad extends ConsumerStatefulWidget {
 }
 
 class _CustomNumpadState extends ConsumerState<CustomNumpad> {
-  bool? _hasVibrator;
-
   static const _keys = [
     ['C', '⌫', '%', '÷'],
     ['1', '2', '3', '×'],
@@ -26,20 +22,9 @@ class _CustomNumpadState extends ConsumerState<CustomNumpad> {
     ['00', '0', '.', '='],
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    Vibration.hasVibrator().then((v) => _hasVibrator = v);
-  }
-
   void _handleKeyPress(String key) {
     widget.onKeyPressed(key);
-    final hapticEnabled =
-        ref.read(sharedPreferencesProvider).getBool('haptic_feedback_enabled') ??
-        true;
-    if (_hasVibrator == true && hapticEnabled) {
-      unawaited(Vibration.vibrate(duration: 15, amplitude: 30));
-    }
+    HapticHelper.light();
   }
 
   @override

@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/services.dart';
 import '../services/security_service.dart';
 import '../theme/app_colors_extension.dart';
+import '../utils/haptic_helper.dart';
 import 'home_screen.dart';
 
 class LockScreen extends StatefulWidget {
@@ -105,7 +105,7 @@ class _LockScreenState extends State<LockScreen>
   }
 
   void _showError() {
-    HapticFeedback.heavyImpact();
+    HapticHelper.heavy();
     setState(() {
       _hasError = true;
       _pin = '';
@@ -287,7 +287,7 @@ class _LockScreenState extends State<LockScreen>
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     return InkWell(
       onTap: () {
-        HapticFeedback.lightImpact();
+        HapticHelper.light();
         if (value == 'bio') {
           unawaited(_triggerBiometrics());
         } else {

@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vibration/vibration.dart';
-
 import '../../providers/all_providers.dart';
+import '../../utils/haptic_helper.dart';
 import '../../theme/app_colors_extension.dart';
 import '../common/coin_widget.dart';
 
@@ -251,10 +250,8 @@ class _CategorySectionState extends ConsumerState<CategorySection>
             data: c,
             maxSimultaneousDrags: 1,
             delay: const Duration(milliseconds: 500),
-            onDragStarted: () async {
-              if (await Vibration.hasVibrator() == true) {
-                unawaited(Vibration.vibrate(duration: 15, amplitude: 40));
-              }
+            onDragStarted: () {
+              HapticHelper.medium();
               ref.read(homeScreenControllerProvider.notifier).toggleEditMode();
               ref.read(draggingCategoryProvider.notifier).setId(c.id);
             },
