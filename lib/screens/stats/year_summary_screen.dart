@@ -82,6 +82,8 @@ class YearSummaryScreen extends StatelessWidget {
                       grandNet,
                       grandSavingsRate,
                       symbol,
+                      grandTotalInc,
+                      grandTotalExp,
                     ),
                     const SizedBox(height: 32),
 
@@ -140,6 +142,8 @@ class YearSummaryScreen extends StatelessWidget {
     int net,
     double rate,
     String symbol,
+    int totalInc,
+    int totalExp,
   ) {
     final Color baseColor = net >= 0 ? colors.income : colors.expense;
 
@@ -185,6 +189,16 @@ class YearSummaryScreen extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 12),
+          // Розбивка доходи / витрати під чистим результатом.
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _grandBreakdown(Icons.arrow_downward_rounded, totalInc, symbol),
+              const SizedBox(width: 20),
+              _grandBreakdown(Icons.arrow_upward_rounded, totalExp, symbol),
+            ],
+          ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -198,6 +212,32 @@ class YearSummaryScreen extends StatelessWidget {
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _grandBreakdown(IconData icon, int value, String symbol) {
+    return Flexible(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: Colors.white70, size: 16),
+          const SizedBox(width: 4),
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                '${CurrencyFormatter.formatFull(value)} $symbol',
+                maxLines: 1,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -290,22 +330,31 @@ class YearSummaryScreen extends StatelessWidget {
                   color: colors.textMain,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "${netProfit > 0 ? '+' : ''}${CurrencyFormatter.format(netProfit)} $symbol",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: netColor,
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        "${netProfit > 0 ? '+' : ''}${CurrencyFormatter.formatFull(netProfit)} $symbol",
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: netColor,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    "${'savings'.tr()}: ${savingsRate.round()}%",
-                    style: TextStyle(fontSize: 11, color: colors.textSecondary),
-                  ),
-                ],
+                    Text(
+                      "${'savings'.tr()}: ${savingsRate.round()}%",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -435,12 +484,17 @@ class YearSummaryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-          Text(
-            '${CurrencyFormatter.format(value)} $symbol',
-            style: TextStyle(
-              color: colors.textMain,
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '${CurrencyFormatter.formatFull(value)} $symbol',
+              maxLines: 1,
+              style: TextStyle(
+                color: colors.textMain,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
             ),
           ),
           const SizedBox(height: 4),
