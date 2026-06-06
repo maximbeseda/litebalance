@@ -10,6 +10,7 @@ import '../../screens/currencies_screen.dart';
 import '../../screens/import_export_screen.dart';
 import '../../screens/backup_management_screen.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/app_page_route.dart';
 import 'category_halo_icon.dart';
 
 import '../../providers/all_providers.dart';
@@ -234,10 +235,7 @@ class SettingsDrawer extends ConsumerWidget {
       trailing: trailing,
       onTap: () {
         Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => screenBuilder()),
-        );
+        Navigator.push(context, appPageRoute(screenBuilder()));
       },
     );
   }

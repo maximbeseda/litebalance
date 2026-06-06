@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../widgets/common/app_snackbar.dart';
+import '../../utils/app_page_route.dart';
 import 'import_column_mapping_screen.dart';
 
 class ImportHeaderSelectionScreen extends StatefulWidget {
@@ -67,8 +68,8 @@ class _ImportHeaderSelectionScreenState
 
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => ImportColumnMappingScreen(
+      appPageRoute(
+        ImportColumnMappingScreen(
           rawRows: widget.rawRows,
           headerRowIndex: _selectedIndex!,
         ),

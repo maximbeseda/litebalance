@@ -10,6 +10,7 @@ import '../../../theme/app_colors_extension.dart';
 import '../../../widgets/bottom_sheets/stats_month_bottom_sheet.dart';
 import '../../../widgets/common/pulsing_icon.dart';
 import '../../../widgets/common/app_empty_state.dart';
+import '../../../utils/app_page_route.dart';
 import '../year_summary_screen.dart';
 
 class TrendsChartView extends StatefulWidget {
@@ -697,29 +698,11 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
             onTap: () {
               Navigator.push(
                 context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      YearSummaryScreen(
-                        currency: widget.currency,
-                        data: widget.data,
-                      ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                        return SlideTransition(
-                          position:
-                              Tween<Offset>(
-                                begin: const Offset(1.0, 0.0),
-                                end: Offset.zero,
-                              ).animate(
-                                CurvedAnimation(
-                                  parent: animation,
-                                  curve: Curves.easeOutQuart,
-                                ),
-                              ),
-                          child: child,
-                        );
-                      },
-                  transitionDuration: const Duration(milliseconds: 350),
+                appPageRoute(
+                  YearSummaryScreen(
+                    currency: widget.currency,
+                    data: widget.data,
+                  ),
                 ),
               );
             },

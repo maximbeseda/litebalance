@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 
 import 'import_wizard/import_header_selection_screen.dart';
 import '../providers/all_providers.dart';
+import '../utils/app_page_route.dart';
 import '../services/export_import_service.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/dialogs/custom_date_range_picker.dart';
@@ -120,11 +121,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
             unawaited(
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  // ЗМІНЕНО: Відкриваємо Крок 1 замість старого CsvMappingScreen
-                  builder: (context) =>
-                      ImportHeaderSelectionScreen(rawRows: rawRows),
-                ),
+                appPageRoute(ImportHeaderSelectionScreen(rawRows: rawRows)),
               ),
             );
           } else {
