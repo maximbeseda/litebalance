@@ -21,7 +21,7 @@ void main() {
       expect(colors!.bgGradientStart, const Color(0xFF2C2C2E));
       expect(colors.income, const Color(0xFF1E8E3E));
       expect(colors.expense, const Color(0xFFE53935));
-      expect(colors.accent, const Color(0xFF4361EE));
+      expect(colors.accent, const Color(0xFF5A7DCD));
     });
 
     test('3. Тема діалогів та шторок (Strict Radii)', () {

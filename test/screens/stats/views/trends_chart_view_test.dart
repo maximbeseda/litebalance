@@ -128,7 +128,7 @@ void main() {
       expect(find.text('savings'), findsOneWidget);
 
       // Знаходимо іконку графіків
-      expect(find.byIcon(Icons.insights), findsOneWidget);
+      expect(find.byIcon(Icons.insights_rounded), findsOneWidget);
     });
 
     testWidgets('Дозволяє свайпати між сторінками валют, якщо їх декілька', (
@@ -169,7 +169,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 500));
 
         // Натискаємо на іконку insights, яка лежить всередині GestureDetector
-        await tester.tap(find.byIcon(Icons.insights));
+        await tester.tap(find.byIcon(Icons.insights_rounded));
 
         // Чекаємо на анімацію навігації
         await tester.pump();

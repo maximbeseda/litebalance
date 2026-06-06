@@ -237,7 +237,7 @@ void main() {
       } catch (_) {}
     });
 
-    testWidgets('3. Зміна налаштувань через Dropdown (Theme, Currency)', (
+    testWidgets('3. Зміна налаштувань через пікери (Theme, Currency)', (
       tester,
     ) async {
       setLargeScreen(tester);
@@ -247,24 +247,23 @@ void main() {
       await tester.pumpWidget(await createTestWidget(prefs));
       await tester.pumpAndSettle();
 
-      // ЗМІНА ТЕМИ
-      final themeDropdown = find.byType(DropdownButton<String>).first;
-      await tester.ensureVisible(themeDropdown);
-      await tester.tap(themeDropdown, warnIfMissed: false);
+      // ЗМІНА ТЕМИ: тапаємо рядок -> відкривається bottom-sheet -> обираємо Dark
+      final themeRow = find.text('Theme');
+      await tester.ensureVisible(themeRow);
+      await tester.tap(themeRow, warnIfMissed: false);
       await tester.pumpAndSettle();
 
       final darkText = find.text('Dark').last;
-      await tester.ensureVisible(darkText);
       await tester.tap(darkText, warnIfMissed: false);
       await tester.pumpAndSettle();
 
-      // ЗМІНА ВАЛЮТИ
-      final currencyDropdown = find.byType(DropdownButton<String>).last;
-      await tester.ensureVisible(currencyDropdown);
-      await tester.tap(currencyDropdown, warnIfMissed: false);
+      // ЗМІНА ВАЛЮТИ: тапаємо рядок -> bottom-sheet -> обираємо EUR
+      final currencyRow = find.text('Currency');
+      await tester.ensureVisible(currencyRow);
+      await tester.tap(currencyRow, warnIfMissed: false);
       await tester.pumpAndSettle();
 
-      final eurText = find.text('EUR (€)').last;
+      final eurText = find.textContaining('EUR').last;
       await tester.ensureVisible(eurText);
       await tester.tap(eurText, warnIfMissed: false);
       await tester.pumpAndSettle();

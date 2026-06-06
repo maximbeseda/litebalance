@@ -8,6 +8,9 @@ import '../providers/all_providers.dart';
 import '../models/app_currency.dart';
 import '../utils/date_formatter.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_empty_state.dart';
+import '../widgets/common/animated_item_list.dart';
+import '../widgets/common/app_pill.dart';
 
 // 👇 3. Змінили StatefulWidget на ConsumerStatefulWidget
 class CurrenciesScreen extends ConsumerStatefulWidget {
@@ -73,11 +76,13 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
             ),
             const SizedBox(height: 10),
             if (availableCurrencies.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'all_currencies_added'.tr(),
-                  style: TextStyle(color: colors.textSecondary),
+              Expanded(
+                child: AppEmptyState(
+                  icon: Icons.check_circle_outline_rounded,
+                  color: colors.income,
+                  title: 'all_currencies_added'.tr(),
+                  subtitle: 'all_currencies_added_hint'.tr(),
+                  illustrationSize: 96,
                 ),
               )
             else
@@ -87,25 +92,17 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
                   itemBuilder: (context, index) {
                     final currency = availableCurrencies[index];
                     return ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: colors.iconBg,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              currency.symbol,
-                              style: TextStyle(
-                                color: colors.textMain,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                      minLeadingWidth: 0,
+                      leading: AppPill(
+                        text: '${currency.code}  ${currency.symbol}',
+                        color: colors.accent,
                       ),
                       title: Text(
-                        currency.code,
-                        style: TextStyle(color: colors.textMain),
+                        'currency_names.${currency.code}'.tr(),
+                        style: TextStyle(
+                          color: colors.textMain,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       onTap: () {
                         // 👇 Викликаємо метод через Notifier
@@ -264,14 +261,14 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
                 color: colors.income,
                 backgroundColor: colors.cardBg,
                 onRefresh: _handleRefresh,
-                child: ListView.builder(
+                child: AnimatedItemList<String>(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
                   padding: const EdgeInsets.all(16),
-                  itemCount: settingsState.selectedCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = settingsState.selectedCurrencies[index];
+                  items: settingsState.selectedCurrencies,
+                  keyOf: (code) => code,
+                  itemBuilder: (context, code) {
                     final currency = AppCurrency.fromCode(code);
 
                     if (code == settingsState.baseCurrency) {

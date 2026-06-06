@@ -104,8 +104,8 @@ void main() {
     ) async {
       await pumpStatsSheet(tester, transactions: []);
 
-      // Оскільки ми передали порожній список, маємо побачити 'no_data'
-      expect(find.text('no_data'), findsOneWidget);
+      // Порожній список -> уніфікований порожній стан із заголовком
+      expect(find.text('no_transactions_yet'), findsOneWidget);
 
       addTearDown(tester.view.resetPhysicalSize);
     });

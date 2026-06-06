@@ -8,6 +8,7 @@ import '../../../theme/app_colors_extension.dart';
 import '../../../utils/currency_formatter.dart';
 import '../../../utils/icon_helper.dart';
 import '../../../widgets/common/animated_dots.dart';
+import '../../../widgets/common/app_empty_state.dart';
 import '../../../widgets/bottom_sheets/stats_category_bottom_sheet.dart';
 
 class MonthlyPieView extends ConsumerStatefulWidget {
@@ -168,17 +169,17 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
             ],
           ),
           child: activeData.isEmpty
-              ? Center(
-                  child: Text(
-                    widget.showExpenses
-                        ? 'no_expenses_month'.tr()
-                        : 'no_incomes_month'.tr(),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: widget.colors.textSecondary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+              ? AppEmptyState(
+                  icon: Icons.pie_chart_outline_rounded,
+                  color: widget.showExpenses
+                      ? widget.colors.expense
+                      : widget.colors.income,
+                  title: widget.showExpenses
+                      ? 'no_expenses_month'.tr()
+                      : 'no_incomes_month'.tr(),
+                  subtitle: 'no_data_hint'.tr(),
+                  animate: false,
+                  illustrationSize: 90,
                 )
               : Column(
                   children: [

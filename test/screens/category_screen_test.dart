@@ -111,7 +111,8 @@ void main() {
           .widgetList<TextField>(find.byType(TextField))
           .toList();
       expect(textFields[0].controller?.text, '');
-      expect(textFields[1].controller?.text, 'USD');
+      // Поле валюти тепер показує назву (без локалізації .tr() повертає ключ)
+      expect(textFields[1].controller?.text, 'currency_names.USD');
     });
 
     testWidgets(
@@ -129,7 +130,7 @@ void main() {
             .widgetList<TextField>(find.byType(TextField))
             .toList();
         expect(textFields[0].controller?.text, 'Freelance');
-        expect(textFields[1].controller?.text, 'EUR');
+        expect(textFields[1].controller?.text, 'currency_names.EUR');
         expect(textFields[2].controller?.text, '1 000');
       },
     );
@@ -182,21 +183,19 @@ void main() {
       await tester.tap(find.byType(TextField).at(1));
       await tester.pumpAndSettle();
 
-      // 👇 ВИПРАВЛЕНО: Скролимо список вниз, поки не побачимо текст 'EUR'
-      await tester.dragUntilVisible(
-        find.text('EUR'),
-        find.byType(ListView), // Скролимо сам ListView
-        const Offset(0, -300), // Рух пальцем вгору (щоб прокрутити вниз)
-      );
-      await tester.pumpAndSettle(); // Даємо списку зупинитися
+      // Переконуємось, що шторку вибору валюти відкрито
+      expect(find.text('currency'), findsWidgets);
 
-      await tester.tap(find.text('EUR'));
+      // Обираємо валюту, видиму без прокрутки (друга в списку після базової
+      // USD — це AED). Заголовок — локалізована назва; без локалізації
+      // .tr() повертає сам ключ.
+      await tester.tap(find.text('currency_names.AED'));
       await tester.pumpAndSettle();
 
       final currencyField = tester.widget<TextField>(
         find.byType(TextField).at(1),
       );
-      expect(currencyField.controller?.text, 'EUR');
+      expect(currencyField.controller?.text, 'currency_names.AED');
     });
 
     testWidgets(

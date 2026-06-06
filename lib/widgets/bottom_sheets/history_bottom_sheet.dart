@@ -9,6 +9,8 @@ import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
 import '../../utils/icon_helper.dart';
 import '../common/history_search_bar.dart';
+import '../common/app_empty_state.dart';
+import '../common/category_halo_icon.dart';
 
 class HistoryBottomSheet extends ConsumerStatefulWidget {
   final Category category;
@@ -114,17 +116,28 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
             ),
           ),
           const SizedBox(height: 20),
-          // 👇 ЗАХИСТ: Додано обмеження рядків для довгої назви категорії
-          Text(
-            'history_category'.tr(args: [widget.category.name]),
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: colors.textMain,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              CategoryHaloIcon(
+                icon: IconHelper.getIcon(widget.category.icon),
+                bgColor: Color(widget.category.bgColor),
+                iconColor: Color(widget.category.iconColor),
+                size: 60,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'history_category'.tr(args: [widget.category.name]),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: colors.textMain,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
 
@@ -172,22 +185,15 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
   }
 
   Widget _buildEmptyState(AppColorsExtension colors, bool isSearch) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.search_off_rounded,
-            size: 48,
-            color: colors.textSecondary.withValues(alpha: 0.5),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            isSearch ? 'nothing_found'.tr() : 'no_transactions_yet'.tr(),
-            style: TextStyle(color: colors.textSecondary),
-          ),
-        ],
-      ),
+    return AppEmptyState(
+      icon: isSearch
+          ? Icons.search_off_rounded
+          : Icons.receipt_long_outlined,
+      color: isSearch ? colors.textSecondary : colors.accent,
+      title: isSearch ? 'nothing_found'.tr() : 'no_transactions_yet'.tr(),
+      subtitle: isSearch
+          ? 'nothing_found_hint'.tr()
+          : 'no_transactions_hint'.tr(),
     );
   }
 
@@ -270,11 +276,20 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
     return Dismissible(
       key: Key('history_item_${t.id}'),
       direction: DismissDirection.endToStart,
+      resizeDuration: const Duration(milliseconds: 250),
       background: Container(
-        color: colors.expense,
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        decoration: BoxDecoration(
+          color: colors.expense,
+          borderRadius: BorderRadius.circular(12),
+        ),
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20),
-        child: const Icon(Icons.delete, color: Colors.white),
+        padding: const EdgeInsets.only(right: 24),
+        child: const Icon(
+          Icons.delete_outline_rounded,
+          color: Colors.white,
+          size: 26,
+        ),
       ),
       onDismissed: (_) {
         setState(() => _localDeletedIds.add(t.id));

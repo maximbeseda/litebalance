@@ -745,7 +745,7 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
 
     final Color activeColor = _isUsingFallbackRate
         ? colors.expense
-        : Colors.blueAccent;
+        : colors.accent;
     final Color inactiveColor = colors.textSecondary.withValues(alpha: 0.4);
     Color currentColor = _isRateLinked ? activeColor : inactiveColor;
 
@@ -935,6 +935,12 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
   }
 
   Widget _buildKeyboardArea(AppColorsExtension colors) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    const radius = BorderRadius.all(Radius.circular(8));
+    final fillColor = isDark
+        ? Colors.white.withValues(alpha: 0.06)
+        : colors.textSecondary.withValues(alpha: 0.06);
+
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 150),
       child: _isCommentActive
@@ -950,19 +956,44 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                 autofocus: true,
                 maxLength: 100,
                 textInputAction: TextInputAction.done,
+                cursorColor: colors.accent,
                 onSubmitted: (_) {
                   _commentFocusNode.unfocus();
                   setState(() => _isCommentActive = false);
                 },
                 style: TextStyle(color: colors.textMain, fontSize: 16),
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: fillColor,
+                  isDense: true,
                   hintText: 'add_note'.tr(),
-                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: colors.textSecondary),
                   counterText: '',
+                  prefixIcon: Icon(
+                    Icons.notes_rounded,
+                    color: colors.accent,
+                    size: 22,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  border: const OutlineInputBorder(
+                    borderRadius: radius,
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: radius,
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: radius,
+                    borderSide: BorderSide(color: colors.accent, width: 1.5),
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       Icons.check_circle,
-                      color: colors.textMain,
+                      color: colors.accent,
                       size: 28,
                     ),
                     onPressed: () {

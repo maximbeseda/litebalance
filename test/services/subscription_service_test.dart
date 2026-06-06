@@ -103,5 +103,45 @@ void main() {
       // Ваш код робить: DateTime(nextDate.year + 1, nextDate.month, nextDate.day)
       expect(subs.first.nextPaymentDate.year, 2025);
     });
+
+    test('Логіка 28-денної підписки додає рівно 28 днів', () async {
+      final sub = baseSub.copyWith(
+        periodicity: 'every_28_days',
+        nextPaymentDate: DateTime(2026, 4, 1),
+      );
+
+      await SubscriptionService.advanceOnePeriod(db, sub);
+
+      final subs = await StorageService.getSubscriptions(db);
+      expect(subs.first.nextPaymentDate, DateTime(2026, 4, 29));
+    });
+
+    test('Логіка 30-денної підписки додає рівно 30 днів', () async {
+      final sub = baseSub.copyWith(
+        periodicity: 'every_30_days',
+        nextPaymentDate: DateTime(2026, 4, 1),
+      );
+
+      await SubscriptionService.advanceOnePeriod(db, sub);
+
+      final subs = await StorageService.getSubscriptions(db);
+      expect(subs.first.nextPaymentDate, DateTime(2026, 5, 1));
+    });
+
+    test('shiftSubscriptionDate для 30 днів наздоганяє кратно 30', () async {
+      final overdue = baseSub.copyWith(
+        periodicity: 'every_30_days',
+        nextPaymentDate: DateTime(2020, 1, 1),
+      );
+
+      await SubscriptionService.shiftSubscriptionDate(db, overdue);
+
+      final subs = await StorageService.getSubscriptions(db);
+      final next = subs.first.nextPaymentDate;
+      final today = DateTime.now();
+      // Має бути в майбутньому і відстояти від старту на ціле число 30-денних кроків.
+      expect(next.isAfter(DateTime(today.year, today.month, today.day)), true);
+      expect(next.difference(DateTime(2020, 1, 1)).inDays % 30, 0);
+    });
   });
 }

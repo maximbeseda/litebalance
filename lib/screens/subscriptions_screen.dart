@@ -9,6 +9,9 @@ import '../utils/date_formatter.dart';
 import '../utils/icon_helper.dart';
 import '../screens/subscription_screen.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/app_empty_state.dart';
+import '../widgets/common/animated_item_list.dart';
 
 class SubscriptionsScreen extends ConsumerWidget {
   const SubscriptionsScreen({super.key});
@@ -110,23 +113,19 @@ class SubscriptionsScreen extends ConsumerWidget {
               child: (subAsync.isLoading || subState == null)
                   ? const Center(child: CircularProgressIndicator())
                   : subState.subscriptions.isEmpty
-                  ? Center(
-                      child: Text(
-                        'no_subscriptions'.tr(),
-                        style: TextStyle(
-                          color: colors.textSecondary,
-                          fontSize: 16,
-                        ),
-                      ),
+                  ? AppEmptyState(
+                      icon: Icons.event_repeat_rounded,
+                      title: 'no_subscriptions'.tr(),
+                      subtitle: 'no_subscriptions_hint'.tr(),
                     )
-                  : ListView.builder(
-                      itemCount: subState.subscriptions.length,
+                  : AnimatedItemList<Subscription>(
+                      items: subState.subscriptions,
+                      keyOf: (sub) => sub.id,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 8,
                       ),
-                      itemBuilder: (context, index) {
-                        final sub = subState.subscriptions[index];
+                      itemBuilder: (context, sub) {
                         final bool accountExists = catState.accounts.any(
                           (c) => c.id == sub.accountId,
                         );
@@ -367,74 +366,17 @@ class SubscriptionsScreen extends ConsumerWidget {
                                                     if (!context.mounted) {
                                                       return;
                                                     }
-                                                    ScaffoldMessenger.of(
-                                                      context,
-                                                    ).clearSnackBars();
-                                                    ScaffoldMessenger.of(
-                                                      context,
-                                                    ).showSnackBar(
-                                                      SnackBar(
-                                                        behavior:
-                                                            SnackBarBehavior
-                                                                .floating,
-                                                        backgroundColor:
-                                                            colors.cardBg,
-                                                        elevation: 4,
-                                                        margin:
-                                                            const EdgeInsets.all(
-                                                              20,
-                                                            ),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                12,
-                                                              ),
-                                                          side: BorderSide(
-                                                            color: success
-                                                                ? colors.income
-                                                                : colors
-                                                                      .expense,
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        content: Row(
-                                                          children: [
-                                                            Icon(
-                                                              success
-                                                                  ? Icons
-                                                                        .check_circle_outline
-                                                                  : Icons
-                                                                        .error_outline,
-                                                              color: success
-                                                                  ? colors
-                                                                        .income
-                                                                  : colors
-                                                                        .expense,
-                                                              size: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 12,
-                                                            ),
-                                                            Expanded(
-                                                              child: Text(
-                                                                message,
-                                                                style: TextStyle(
-                                                                  color: colors
-                                                                      .textMain,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                                maxLines: 2,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
+                                                    if (success) {
+                                                      AppSnackbar.success(
+                                                        context,
+                                                        message,
+                                                      );
+                                                    } else {
+                                                      AppSnackbar.error(
+                                                        context,
+                                                        message,
+                                                      );
+                                                    }
                                                   },
                                                   child: Text(
                                                     'pay'.tr(),

@@ -31,15 +31,25 @@ class SecurityService {
 
   static Future<bool> authenticateWithBiometrics(String localizedReason) async {
     try {
-      // ТЕПЕР БЕЗ DYNAMIC! Для local_auth ^3.0.0 параметри передаються напряму.
+      // Підбираємо підказку залежно від доступного типу біометрії
+      // (Face ID — інша фраза, ніж для відбитка).
+      final available = await _auth.getAvailableBiometrics();
+      final bool isFace =
+          available.contains(BiometricType.face) &&
+          !available.contains(BiometricType.fingerprint);
+      final String hint = isFace
+          ? 'biometric_hint_face'.tr()
+          : 'biometric_hint'.tr();
+
       return await _auth.authenticate(
         localizedReason: localizedReason,
         authMessages: [
           AndroidAuthMessages(
-            signInTitle: 'security'.tr(),
-            cancelButton: 'cancel'.tr(),
+            signInTitle: 'biometric_title'.tr(),
+            signInHint: hint,
+            cancelButton: 'use_pin_code'.tr(),
           ),
-          IOSAuthMessages(cancelButton: 'cancel'.tr()),
+          IOSAuthMessages(cancelButton: 'use_pin_code'.tr()),
         ],
         biometricOnly: true,
         persistAcrossBackgrounding: true,

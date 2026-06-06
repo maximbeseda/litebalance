@@ -8,6 +8,8 @@ import '../../services/storage_service.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../theme/category_defaults.dart';
 import '../../utils/import_recognizer.dart';
+import '../../widgets/common/app_snackbar.dart';
+import '../../widgets/common/app_empty_state.dart';
 
 class ImportCategorySetupScreen extends ConsumerStatefulWidget {
   final List<List<dynamic>> rawRows;
@@ -316,15 +318,10 @@ class _ImportCategorySetupScreenState
       setState(() {
         _isProcessing = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'import_success'.tr(
-              args: [txsToSave.length.toString(), skippedCount.toString()],
-            ),
-          ),
-          backgroundColor: Colors.green,
-          duration: const Duration(seconds: 4),
+      AppSnackbar.success(
+        context,
+        'import_success'.tr(
+          args: [txsToSave.length.toString(), skippedCount.toString()],
         ),
       );
       Navigator.of(context).popUntil((route) => route.isFirst);
@@ -661,29 +658,11 @@ class _ImportCategorySetupScreenState
   }
 
   Widget _buildEmptyState(AppColorsExtension colors) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-        const SizedBox(height: 16),
-        Text(
-          'import_all_categories_known'.tr(),
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: colors.textMain,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Text(
-            'import_all_categories_known_desc'.tr(),
-            textAlign: TextAlign.center,
-            style: TextStyle(color: colors.textSecondary),
-          ),
-        ),
-      ],
+    return AppEmptyState(
+      icon: Icons.check_circle_outline,
+      color: colors.income,
+      title: 'import_all_categories_known'.tr(),
+      subtitle: 'import_all_categories_known_desc'.tr(),
     );
   }
 }

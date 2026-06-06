@@ -5,6 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import '../theme/app_colors_extension.dart';
 import '../providers/all_providers.dart';
 import '../services/backup_service.dart';
+import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/section_header.dart';
 
 class BackupManagementScreen extends ConsumerStatefulWidget {
   const BackupManagementScreen({super.key});
@@ -29,41 +32,11 @@ class _BackupManagementScreenState
 
   void _showStatus(String message, bool isSuccess) {
     if (!mounted) return;
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-    final accentColor = isSuccess ? colors.income : colors.expense;
-
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: colors.cardBg,
-        elevation: 4,
-        margin: const EdgeInsets.all(20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: accentColor, width: 1.0),
-        ),
-        content: Row(
-          children: [
-            Icon(
-              isSuccess ? Icons.check_circle_outline : Icons.error_outline,
-              color: accentColor,
-              size: 20,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: colors.textMain,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    if (isSuccess) {
+      AppSnackbar.success(context, message);
+    } else {
+      AppSnackbar.error(context, message);
+    }
   }
 
   // СУЧАСНИЙ BOTTOM SHEET ДЛЯ ПАРОЛЯ
@@ -184,81 +157,14 @@ class _BackupManagementScreenState
   }
 
   // ДІАЛОГ ПІДТВЕРДЖЕННЯ
-  Future<bool> _confirmRestore(String message) async {
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-
-    final bool? confirm = await showDialog<bool>(
-      context: context,
+  Future<bool> _confirmRestore(String message) {
+    return AppDialog.destructive(
+      context,
+      title: 'warning_overwrite'.tr(),
+      message: message,
+      confirmText: 'confirm'.tr(),
       barrierDismissible: false,
-      builder: (ctx) => Dialog(
-        // Dialog автоматично використовує dialogTheme: радіус 16 та колір cardBg[cite: 7, 8]
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colors.expense.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.warning_amber_rounded,
-                  color: colors.expense,
-                  size: 36,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'warning_overwrite'.tr(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                message,
-                style: TextStyle(fontSize: 14, color: colors.textSecondary),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(ctx, false),
-                      child: Text(
-                        'cancel'.tr(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colors.expense,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () => Navigator.pop(ctx, true),
-                      child: Text(
-                        'confirm'.tr(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
     );
-    return confirm ?? false;
   }
 
   // --- ЛОГІКА РОБОТИ ---
@@ -403,8 +309,7 @@ class _BackupManagementScreenState
       child: Stack(
         children: [
           Scaffold(
-            backgroundColor: Colors.transparent,
-            extendBodyBehindAppBar: true,
+            backgroundColor: colors.cardBg,
             appBar: AppBar(
               iconTheme: IconThemeData(color: colors.textMain),
               title: Text(
@@ -416,93 +321,72 @@ class _BackupManagementScreenState
                 ),
               ),
               centerTitle: true,
-              backgroundColor: Colors.transparent,
+              backgroundColor: colors.cardBg,
               elevation: 0,
+              scrolledUnderElevation: 0,
+              surfaceTintColor: Colors.transparent,
             ),
-            body: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [colors.bgGradientStart, colors.bgGradientEnd],
+            body: SafeArea(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
                 ),
-              ),
-              child: SafeArea(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
+                children: [
+                  SectionHeader('google_drive_backup'.tr()),
+                  _buildActionRow(
+                    colors: colors,
+                    icon: Icons.cloud_upload_outlined,
+                    title: 'sync_with_cloud'.tr(),
+                    subtitle: settings.lastCloudBackup != null
+                        ? '${'last_backup'.tr()}: ${df.format(settings.lastCloudBackup!)}'
+                        : 'no_backups_yet'.tr(),
+                    iconColor: colors.accent,
+                    onTap: _runCloudBackup,
                   ),
-                  children: [
-                    _buildSectionHeader(colors, 'google_drive_backup'.tr()),
-                    _buildSettingsContainer(
-                      colors: colors,
-                      child: Column(
-                        children: [
-                          _buildActionRow(
-                            colors: colors,
-                            icon: Icons.cloud_upload_outlined,
-                            title: 'sync_with_cloud'.tr(),
-                            subtitle: settings.lastCloudBackup != null
-                                ? '${'last_backup'.tr()}: ${df.format(settings.lastCloudBackup!)}'
-                                : 'no_backups_yet'.tr(),
-                            iconColor: Colors.blueAccent,
-                            onTap: _runCloudBackup,
-                          ),
-                          Divider(
-                            height: 1,
-                            indent: 20,
-                            endIndent: 20,
-                            color: colors.textSecondary.withValues(alpha: 0.1),
-                          ),
-                          _buildActionRow(
-                            colors: colors,
-                            icon: Icons.cloud_download_outlined,
-                            title: 'import_from_cloud'.tr(),
-                            subtitle: 'warning_overwrite'.tr(),
-                            iconColor: colors.expense,
-                            onTap: _runCloudRestore,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    _buildSectionHeader(colors, 'file_backup'.tr()),
-                    _buildSettingsContainer(
-                      colors: colors,
-                      child: Column(
-                        children: [
-                          _buildActionRow(
-                            colors: colors,
-                            icon: Icons.upload_file_outlined,
-                            title: 'export_to_file'.tr(),
-                            subtitle: settings.lastFileBackup != null
-                                ? '${'last_backup'.tr()}: ${df.format(settings.lastFileBackup!)}'
-                                : 'no_backups_yet'.tr(),
-                            iconColor: colors.income,
-                            onTap: _runFileExport,
-                          ),
-                          Divider(
-                            height: 1,
-                            indent: 20,
-                            endIndent: 20,
-                            color: colors.textSecondary.withValues(alpha: 0.1),
-                          ),
-                          _buildActionRow(
-                            colors: colors,
-                            icon: Icons.download_outlined,
-                            title: 'import_from_file'.tr(),
-                            subtitle: 'warning_overwrite'.tr(),
-                            iconColor: colors.expense,
-                            onTap: _runFileImport,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: colors.divider,
+                  ),
+                  _buildActionRow(
+                    colors: colors,
+                    icon: Icons.cloud_download_outlined,
+                    title: 'import_from_cloud'.tr(),
+                    subtitle: 'warning_overwrite'.tr(),
+                    iconColor: colors.expense,
+                    onTap: _runCloudRestore,
+                  ),
+                  const SizedBox(height: 16),
+                  Divider(height: 1, color: colors.divider),
+                  const SizedBox(height: 8),
+                  SectionHeader('file_backup'.tr()),
+                  _buildActionRow(
+                    colors: colors,
+                    icon: Icons.upload_file_outlined,
+                    title: 'export_to_file'.tr(),
+                    subtitle: settings.lastFileBackup != null
+                        ? '${'last_backup'.tr()}: ${df.format(settings.lastFileBackup!)}'
+                        : 'no_backups_yet'.tr(),
+                    iconColor: colors.income,
+                    onTap: _runFileExport,
+                  ),
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: colors.divider,
+                  ),
+                  _buildActionRow(
+                    colors: colors,
+                    icon: Icons.download_outlined,
+                    title: 'import_from_file'.tr(),
+                    subtitle: 'warning_overwrite'.tr(),
+                    iconColor: colors.expense,
+                    onTap: _runFileImport,
+                  ),
+                ],
               ),
             ),
           ),
@@ -519,42 +403,6 @@ class _BackupManagementScreenState
   }
 
   // --- ДОПОМІЖНІ ВІДЖЕТИ ---
-  Widget _buildSectionHeader(AppColorsExtension colors, String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, bottom: 8, top: 14),
-      child: Text(
-        title.toUpperCase(),
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: colors.textSecondary,
-          letterSpacing: 1.2,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSettingsContainer({
-    required AppColorsExtension colors,
-    required Widget child,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: colors.cardBg,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      // 👇 ДОДАНО: ClipRRect жорстко обрізає всі квадратні тіні від кнопок всередині
-      child: ClipRRect(borderRadius: BorderRadius.circular(12), child: child),
-    );
-  }
-
   Widget _buildActionRow({
     required AppColorsExtension colors,
     required IconData icon,

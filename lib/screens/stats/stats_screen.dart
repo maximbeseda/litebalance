@@ -10,6 +10,8 @@ import '../../widgets/dialogs/month_picker_dialog.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../widgets/common/animated_dots.dart';
 import '../../widgets/common/pulsing_icon.dart';
+import '../../widgets/common/app_empty_state.dart';
+import '../../widgets/common/rolling_digit.dart';
 
 // Підключаємо наші ізольовані Views
 import 'views/monthly_pie_view.dart';
@@ -392,9 +394,10 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
               children: [
                 Opacity(
                   opacity: isReady ? 1.0 : 0.0,
-                  child: Text(
-                    '${CurrencyFormatter.format(amount)} $symbol',
-                    style: TextStyle(
+                  child: _buildRollingAmount(
+                    amount,
+                    symbol,
+                    TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                       color: isActive
@@ -426,14 +429,29 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     );
   }
 
+  // Сума з ефектом "слот-машини" (кожна цифра плавно прокручується).
+  Widget _buildRollingAmount(int amount, String symbol, TextStyle style) {
+    final formatted = CurrencyFormatter.format(amount);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        for (int i = 0; i < formatted.length; i++)
+          RollingDigit(char: formatted[i], style: style),
+        Text(' $symbol', style: style),
+      ],
+    );
+  }
+
   Widget _buildTrendsView(AppColorsExtension colors) {
     final trends = ref.read(statsProvider.notifier).calculateTrends();
     if (trends.isEmpty) {
-      return Center(
-        child: Text(
-          'no_data'.tr(),
-          style: TextStyle(color: colors.textSecondary),
-        ),
+      return AppEmptyState(
+        icon: Icons.show_chart_rounded,
+        title: 'no_data'.tr(),
+        subtitle: 'no_data_hint'.tr(),
+        animate: false,
       );
     }
     return TrendsChartView(

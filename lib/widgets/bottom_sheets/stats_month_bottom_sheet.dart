@@ -9,6 +9,7 @@ import '../../theme/app_colors_extension.dart';
 import '../../utils/currency_formatter.dart';
 import '../../utils/date_formatter.dart';
 import '../../utils/icon_helper.dart';
+import '../common/app_empty_state.dart';
 
 class StatsMonthBottomSheet extends ConsumerStatefulWidget {
   final DateTime statsMonth;
@@ -270,11 +271,10 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
                         widget.initialTransactions == null)
                     ? const Center(child: CircularProgressIndicator())
                     : filteredTxs.isEmpty
-                    ? Center(
-                        child: Text(
-                          'no_data'.tr(),
-                          style: TextStyle(color: colors.textSecondary),
-                        ),
+                    ? AppEmptyState(
+                        icon: Icons.receipt_long_outlined,
+                        title: 'no_transactions_yet'.tr(),
+                        subtitle: 'no_transactions_hint'.tr(),
                       )
                     : NotificationListener<ScrollNotification>(
                         onNotification: (ScrollNotification scrollInfo) {

@@ -9,6 +9,11 @@ import '../services/storage_service.dart';
 import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_picker_sheet.dart';
+import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/category_halo_icon.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -190,17 +195,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             } else {
               if (mounted) {
                 setState(() => _isSaving = false);
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text('restore_error'.tr())));
+                AppSnackbar.error(context, 'restore_error'.tr());
               }
             }
           } catch (e) {
             if (mounted) {
               setState(() => _isSaving = false);
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text('restore_error'.tr())));
+              AppSnackbar.error(context, 'restore_error'.tr());
             }
           }
         } else {
@@ -214,297 +215,69 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
   }
 
-  Future<bool> _showRestorePromptDialog() async {
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-
-    return await showDialog<bool>(
-          context: context,
-          barrierDismissible: false,
-          builder: (ctx) => Dialog(
-            backgroundColor: colors.cardBg,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colors.income.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.cloud_download_rounded,
-                      color: colors.income,
-                      size: 36,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'account_connected'.tr(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: colors.textMain,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'restore_prompt_message'.tr(),
-                    style: TextStyle(fontSize: 14, color: colors.textSecondary),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () => Navigator.pop(ctx, false),
-                          child: Text(
-                            'skip'.tr(),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: colors.textSecondary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.income,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          onPressed: () => Navigator.pop(ctx, true),
-                          child: Text(
-                            'restore'.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ) ??
-        false;
+  Future<bool> _showRestorePromptDialog() {
+    return AppDialog.confirm(
+      context,
+      title: 'account_connected'.tr(),
+      message: 'restore_prompt_message'.tr(),
+      icon: Icons.cloud_download_rounded,
+      confirmText: 'restore'.tr(),
+      cancelText: 'skip'.tr(),
+      barrierDismissible: false,
+    );
   }
 
   void _openLanguagePicker(AppColorsExtension colors) {
     FocusScope.of(context).unfocus();
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
+      title: 'language_title'.tr(),
+      selected: context.locale.languageCode,
+      options: _supportedLanguages
+          .map(
+            (lang) => AppPickerOption(
+              value: lang['code']!,
+              label: lang['name']!,
+              leading: AppPill(
+                text: lang['short']!,
+                color: colors.accent,
+                width: 48,
               ),
-              const SizedBox(height: 20),
-              Text(
-                'language_title'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _supportedLanguages.length,
-                  itemBuilder: (context, index) {
-                    final lang = _supportedLanguages[index];
-                    final bool isSelected =
-                        context.locale.languageCode == lang['code'];
-
-                    return ListTile(
-                      onTap: () async {
-                        await context.setLocale(Locale(lang['code']!));
-                        if (!ctx.mounted) return;
-                        Navigator.pop(ctx);
-                        if (!mounted) return;
-                        setState(() {
-                          _languageCtrl.text = lang['name']!;
-                        });
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? colors.textMain
-                            : colors.iconBg,
-                        child: Text(
-                          lang['short']!,
-                          style: TextStyle(
-                            color: isSelected ? colors.cardBg : colors.textMain,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        lang['name']!,
-                        style: TextStyle(
-                          color: colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check, color: colors.textMain)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              color: colors.accent,
+            ),
+          )
+          .toList(),
+      onSelected: (code) async {
+        await context.setLocale(Locale(code));
+        if (!mounted) return;
+        final lang = _supportedLanguages.firstWhere(
+          (l) => l['code'] == code,
+        );
+        setState(() => _languageCtrl.text = lang['name']!);
+      },
     );
   }
 
   void _openCurrencyPicker(AppColorsExtension colors) {
     FocusScope.of(context).unfocus();
-    final List<String> availableCurrencies = AppCurrency.supportedCurrencies
-        .map((c) => c.code)
-        .toList();
-
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'base_currency_title'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = availableCurrencies[index];
-                    final curr = AppCurrency.fromCode(code);
-                    final bool isSelected = _selectedCurrencyCode == code;
-
-                    return ListTile(
-                      onTap: () {
-                        setState(() {
-                          _selectedCurrencyCode = code;
-                          _currencyCtrl.text = code;
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? colors.textMain
-                            : colors.iconBg,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.center,
-                            child: Text(
-                              curr.symbol.trim(),
-                              style: TextStyle(
-                                color: isSelected
-                                    ? colors.cardBg
-                                    : colors.textMain,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        curr.code,
-                        style: TextStyle(
-                          color: colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check, color: colors.textMain)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      title: 'base_currency_title'.tr(),
+      selected: _selectedCurrencyCode,
+      options: AppCurrency.supportedCurrencies.map((c) {
+        return AppPickerOption(
+          value: c.code,
+          label: 'currency_names.${c.code}'.tr(),
+          leading: AppPill(text: '${c.code}  ${c.symbol}', color: colors.income),
+          color: colors.income,
+        );
+      }).toList(),
+      onSelected: (code) {
+        setState(() {
+          _selectedCurrencyCode = code;
+          _currencyCtrl.text = code;
+        });
+      },
     );
   }
 
@@ -618,24 +391,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // Логотип
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: colors.cardBg,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    size: 80,
-                    color: colors.textMain,
+                // Логотип (тимчасовий halo-бейдж у стилі застосунку)
+                Center(
+                  child: CategoryHaloIcon(
+                    icon: Icons.account_balance_wallet_rounded,
+                    bgColor: colors.accent,
+                    iconColor: Colors.white,
+                    size: 120,
                   ),
                 ),
                 const SizedBox(height: 32),

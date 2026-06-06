@@ -64,6 +64,9 @@ class FakeAppColors extends AppColorsExtension {
     Color? income,
     Color? textMain,
     Color? textSecondary,
+    Color? warning,
+    Color? divider,
+    Color? shadow,
   }) => this;
 
   @override
