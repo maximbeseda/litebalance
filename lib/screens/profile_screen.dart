@@ -14,18 +14,11 @@ import '../utils/app_constants.dart';
 import '../services/security_service.dart';
 import '../services/storage_service.dart';
 import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_picker_sheet.dart';
 import '../widgets/common/app_pill.dart';
 import '../widgets/common/app_snackbar.dart';
 import '../widgets/common/section_header.dart';
 import 'lock_screen.dart';
-
-/// Один варіант вибору для bottom-sheet пікера.
-typedef _PickerItem = ({
-  String value,
-  String label,
-  Widget? leading,
-  Color color,
-});
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -64,98 +57,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   /// Універсальний bottom-sheet пікер у стилі екрана категорій.
-  Future<void> _showPickerSheet({
-    required String title,
-    required String selectedValue,
-    required List<_PickerItem> items,
-    required ValueChanged<String> onSelected,
-  }) {
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
-
-    return showModalBottomSheet(
-      context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(ctx).size.height * 0.85,
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 8),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Flexible(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    final bool isSelected = item.value == selectedValue;
-                    return ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                      ),
-                      leading: item.leading,
-                      minLeadingWidth: 0,
-                      title: Text(
-                        item.label,
-                        style: TextStyle(
-                          color: isSelected ? item.color : colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check_rounded, color: item.color)
-                          : null,
-                      onTap: () {
-                        Navigator.pop(ctx);
-                        if (!isSelected) onSelected(item.value);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   void _openThemePicker(AppColorsExtension colors) {
-    _showPickerSheet(
+    AppPickerSheet.show<String>(
+      context: context,
       title: 'interface_theme'.tr(),
-      selectedValue: ref.read(themeProvider),
-      items: AppTheme.allThemes.entries
-          .map<_PickerItem>(
-            (e) => (
+      selected: ref.read(themeProvider),
+      options: AppTheme.allThemes.entries
+          .map(
+            (e) => AppPickerOption(
               value: e.key,
               label: e.value.tr(),
-              leading: null,
               color: colors.accent,
             ),
           )
@@ -165,12 +76,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   void _openLanguagePicker(AppColorsExtension colors) {
-    _showPickerSheet(
+    AppPickerSheet.show<String>(
+      context: context,
       title: 'language'.tr(),
-      selectedValue: context.locale.languageCode,
-      items: context.supportedLocales
-          .map<_PickerItem>(
-            (locale) => (
+      selected: context.locale.languageCode,
+      options: context.supportedLocales
+          .map(
+            (locale) => AppPickerOption(
               value: locale.languageCode,
               label:
                   AppConstants.languages[locale.languageCode] ??
@@ -189,12 +101,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   void _openCurrencyPicker(AppColorsExtension colors) {
-    _showPickerSheet(
+    AppPickerSheet.show<String>(
+      context: context,
       title: 'base_currency'.tr(),
-      selectedValue: ref.read(settingsProvider).baseCurrency,
-      items: AppCurrency.supportedCurrencies
-          .map<_PickerItem>(
-            (c) => (
+      selected: ref.read(settingsProvider).baseCurrency,
+      options: AppCurrency.supportedCurrencies
+          .map(
+            (c) => AppPickerOption(
               value: c.code,
               label: 'currency_names.${c.code}'.tr(),
               leading: AppPill(

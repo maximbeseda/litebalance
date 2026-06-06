@@ -12,6 +12,7 @@ import '../theme/category_defaults.dart';
 import '../models/app_currency.dart';
 import '../widgets/common/app_pill.dart';
 import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_picker_sheet.dart';
 
 // 👇 2. Підключаємо наш хаб провайдерів
 import '../providers/all_providers.dart';
@@ -219,134 +220,38 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
     // Сортуємо: базова валюта завжди перша, інші за алфавітом
     final baseCurrency = ref.read(settingsProvider).baseCurrency;
-    final List<String> availableCurrencies = AppCurrency.supportedCurrencies
+    final List<String> codes = AppCurrency.supportedCurrencies
         .map((c) => c.code)
         .toList();
+    codes.remove(baseCurrency);
+    codes.sort();
+    codes.insert(0, baseCurrency);
 
-    availableCurrencies.remove(baseCurrency);
-    availableCurrencies.sort();
-    availableCurrencies.insert(0, baseCurrency);
-
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'currency'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = availableCurrencies[index];
-                    final curr = AppCurrency.fromCode(code);
-
-                    final bool isSelected = _selectedCurrency == code;
-                    final bool isBase =
-                        code ==
-                        baseCurrency; // 👈 Визначаємо, чи це базова валюта
-
-                    // Колір акценту: зелений для базової, акцентний для інших
-                    final Color activeColor = isBase
-                        ? colors.income
-                        : colors.accent;
-
-                    return ListTile(
-                      onTap: () {
-                        setState(() {
-                          _selectedCurrency = code;
-                          _updateCurrencyText(code);
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      minLeadingWidth: 0,
-                      leading: AppPill(
-                        text: '${curr.code}  ${curr.symbol}',
-                        color: activeColor,
-                      ),
-                      title: Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'currency_names.${curr.code}'.tr(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: isSelected
-                                    ? activeColor
-                                    : colors.textMain,
-                                fontWeight: isSelected
-                                    ? FontWeight.bold
-                                    : FontWeight.w500,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          if (isBase) ...[
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: activeColor.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'base_currency_label'.tr(),
-                                style: TextStyle(
-                                  color: activeColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check_rounded, color: activeColor)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
+      title: 'currency'.tr(),
+      selected: _selectedCurrency ?? baseCurrency,
+      options: codes.map((code) {
+        final curr = AppCurrency.fromCode(code);
+        final bool isBase = code == baseCurrency;
+        final Color activeColor = isBase ? colors.income : colors.accent;
+        return AppPickerOption(
+          value: code,
+          label: 'currency_names.$code'.tr(),
+          leading: AppPill(
+            text: '${curr.code}  ${curr.symbol}',
+            color: activeColor,
           ),
-        ),
-      ),
+          color: activeColor,
+          badge: isBase ? 'base_currency_label'.tr() : null,
+        );
+      }).toList(),
+      onSelected: (code) {
+        setState(() {
+          _selectedCurrency = code;
+          _updateCurrencyText(code);
+        });
+      },
     );
   }
 

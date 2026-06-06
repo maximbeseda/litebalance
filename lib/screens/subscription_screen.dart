@@ -16,6 +16,7 @@ import '../utils/icon_helper.dart';
 import '../widgets/dialogs/premium_date_picker.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_picker_sheet.dart';
 import '../widgets/common/app_pill.dart';
 
 class SubscriptionScreen extends ConsumerStatefulWidget {
@@ -194,136 +195,44 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   Future<void> _openCurrencyPicker() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
+    final baseCurrency = ref.read(settingsProvider).baseCurrency;
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
-    final baseCurrency = ref.read(settingsProvider).baseCurrency;
-    final List<String> availableCurrencies = AppCurrency.supportedCurrencies
+    final List<String> codes = AppCurrency.supportedCurrencies
         .map((c) => c.code)
         .toList();
+    codes.remove(baseCurrency);
+    codes.sort();
+    codes.insert(0, baseCurrency);
 
-    availableCurrencies.remove(baseCurrency);
-    availableCurrencies.sort();
-    availableCurrencies.insert(0, baseCurrency);
-
-    await showModalBottomSheet(
+    await AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'currency'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = availableCurrencies[index];
-                    final curr = AppCurrency.fromCode(code);
-
-                    final bool isSelected = _selectedCurrency == code;
-                    final bool isBase = code == baseCurrency;
-
-                    final Color activeColor = isBase
-                        ? colors.income
-                        : colors.accent;
-
-                    return ListTile(
-                      onTap: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        setState(() {
-                          _selectedCurrency = code;
-                          _updateCurrencyText(code);
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      minLeadingWidth: 0,
-                      leading: AppPill(
-                        text: '${curr.code}  ${curr.symbol}',
-                        color: activeColor,
-                      ),
-                      title: Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'currency_names.${curr.code}'.tr(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: isSelected
-                                    ? activeColor
-                                    : colors.textMain,
-                                fontWeight: isSelected
-                                    ? FontWeight.bold
-                                    : FontWeight.w500,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          if (isBase) ...[
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: activeColor.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'base_currency_label'.tr(),
-                                style: TextStyle(
-                                  color: activeColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check_rounded, color: activeColor)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
+      title: 'currency'.tr(),
+      selected: _selectedCurrency ?? baseCurrency,
+      options: codes.map((code) {
+        final curr = AppCurrency.fromCode(code);
+        final bool isBase = code == baseCurrency;
+        final Color activeColor = isBase ? colors.income : colors.accent;
+        return AppPickerOption(
+          value: code,
+          label: 'currency_names.$code'.tr(),
+          leading: AppPill(
+            text: '${curr.code}  ${curr.symbol}',
+            color: activeColor,
           ),
-        ),
-      ),
+          color: activeColor,
+          badge: isBase ? 'base_currency_label'.tr() : null,
+        );
+      }).toList(),
+      onSelected: (code) {
+        setState(() {
+          _selectedCurrency = code;
+          _updateCurrencyText(code);
+        });
+      },
     );
+
+    if (mounted) FocusManager.instance.primaryFocus?.unfocus();
   }
 
   Future<void> _openCategoryPicker(
@@ -450,7 +359,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   Future<void> _openPeriodicityPicker() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final options = {
       'weekly': 'period_weekly'.tr(),
       'every_28_days': 'period_28_days'.tr(),
@@ -459,59 +367,19 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
       'yearly': 'period_yearly'.tr(),
     };
 
-    await showModalBottomSheet(
+    await AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colors.textSecondary.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'period'.tr(),
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: colors.textMain,
-              ),
-            ),
-            const SizedBox(height: 10),
-            ...options.entries.map((entry) {
-              final bool isSelected = _selectedPeriodicity == entry.key;
-              return ListTile(
-                onTap: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  setState(() {
-                    _selectedPeriodicity = entry.key;
-                    _updatePeriodicityText(entry.key);
-                  });
-                  Navigator.pop(ctx);
-                },
-                title: Text(
-                  entry.value,
-                  style: TextStyle(
-                    color: isSelected ? colors.accent : colors.textMain,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                trailing: isSelected
-                    ? Icon(Icons.check, color: colors.accent)
-                    : null,
-              );
-            }),
-          ],
-        ),
-      ),
+      title: 'period'.tr(),
+      selected: _selectedPeriodicity,
+      options: options.entries
+          .map((e) => AppPickerOption(value: e.key, label: e.value))
+          .toList(),
+      onSelected: (val) {
+        setState(() {
+          _selectedPeriodicity = val;
+          _updatePeriodicityText(val);
+        });
+      },
     );
 
     if (mounted) FocusManager.instance.primaryFocus?.unfocus();
