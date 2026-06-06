@@ -15,12 +15,13 @@ Route<T> appPageRoute<T>(Widget page, {RouteSettings? settings}) {
         curve: Curves.easeOutCubic,
         reverseCurve: Curves.easeInCubic,
       );
+      // Повноцінний в'їзд справа (як у iOS), щоб напрям був явним.
       return SlideTransition(
         position: Tween<Offset>(
-          begin: const Offset(0.18, 0),
+          begin: const Offset(1.0, 0),
           end: Offset.zero,
         ).animate(curved),
-        child: FadeTransition(opacity: curved, child: child),
+        child: child,
       );
     },
   );

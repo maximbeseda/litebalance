@@ -194,9 +194,19 @@ class YearSummaryScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _grandBreakdown(Icons.arrow_downward_rounded, totalInc, symbol),
-              const SizedBox(width: 20),
-              _grandBreakdown(Icons.arrow_upward_rounded, totalExp, symbol),
+              _grandBreakdown(
+                Icons.arrow_downward_rounded,
+                'income'.tr(),
+                totalInc,
+                symbol,
+              ),
+              const SizedBox(width: 16),
+              _grandBreakdown(
+                Icons.arrow_upward_rounded,
+                'stats_expenses'.tr(),
+                totalExp,
+                symbol,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -220,25 +230,47 @@ class YearSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _grandBreakdown(IconData icon, int value, String symbol) {
+  Widget _grandBreakdown(
+    IconData icon,
+    String label,
+    int value,
+    String symbol,
+  ) {
     return Flexible(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.white70, size: 16),
-          const SizedBox(width: 4),
+          Icon(icon, color: Colors.white70, size: 18),
+          const SizedBox(width: 6),
           Flexible(
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                '${CurrencyFormatter.formatFull(value)} $symbol',
-                maxLines: 1,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '${CurrencyFormatter.formatFull(value)} $symbol',
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

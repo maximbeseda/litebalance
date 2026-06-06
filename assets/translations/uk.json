@@ -87,7 +87,7 @@
   "biometric_title": "Підтвердження особи",
   "biometric_hint": "Проскануйте відбиток пальця",
   "biometric_hint_face": "Подивіться в камеру",
-  "use_pin_code": "Увести ПІН-код",
+  "use_pin_code": "Використати ПІН код",
   "biometric_not_recognized": "Не розпізнано. Спробуйте ще раз",
   "create_pin": "Створіть ПІН-код",
   "confirm_pin": "Повторіть ПІН-код",
