@@ -11,7 +11,9 @@ import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_picker_sheet.dart';
 import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/category_halo_icon.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -227,178 +229,55 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   void _openLanguagePicker(AppColorsExtension colors) {
     FocusScope.of(context).unfocus();
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
+      title: 'language_title'.tr(),
+      selected: context.locale.languageCode,
+      options: _supportedLanguages
+          .map(
+            (lang) => AppPickerOption(
+              value: lang['code']!,
+              label: lang['name']!,
+              leading: AppPill(
+                text: lang['short']!,
+                color: colors.accent,
+                width: 48,
               ),
-              const SizedBox(height: 20),
-              Text(
-                'language_title'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _supportedLanguages.length,
-                  itemBuilder: (context, index) {
-                    final lang = _supportedLanguages[index];
-                    final bool isSelected =
-                        context.locale.languageCode == lang['code'];
-
-                    return ListTile(
-                      onTap: () async {
-                        await context.setLocale(Locale(lang['code']!));
-                        if (!ctx.mounted) return;
-                        Navigator.pop(ctx);
-                        if (!mounted) return;
-                        setState(() {
-                          _languageCtrl.text = lang['name']!;
-                        });
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      minLeadingWidth: 0,
-                      leading: AppPill(
-                        text: lang['short']!,
-                        color: colors.accent,
-                        width: 48,
-                      ),
-                      title: Text(
-                        lang['name']!,
-                        style: TextStyle(
-                          color: isSelected ? colors.accent : colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check_rounded, color: colors.accent)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              color: colors.accent,
+            ),
+          )
+          .toList(),
+      onSelected: (code) async {
+        await context.setLocale(Locale(code));
+        if (!mounted) return;
+        final lang = _supportedLanguages.firstWhere(
+          (l) => l['code'] == code,
+        );
+        setState(() => _languageCtrl.text = lang['name']!);
+      },
     );
   }
 
   void _openCurrencyPicker(AppColorsExtension colors) {
     FocusScope.of(context).unfocus();
-    final List<String> availableCurrencies = AppCurrency.supportedCurrencies
-        .map((c) => c.code)
-        .toList();
-
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'base_currency_title'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = availableCurrencies[index];
-                    final curr = AppCurrency.fromCode(code);
-                    final bool isSelected = _selectedCurrencyCode == code;
-
-                    return ListTile(
-                      onTap: () {
-                        setState(() {
-                          _selectedCurrencyCode = code;
-                          _currencyCtrl.text = code;
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      minLeadingWidth: 0,
-                      leading: AppPill(
-                        text: '${curr.code}  ${curr.symbol}',
-                        color: colors.income,
-                      ),
-                      title: Text(
-                        'currency_names.${curr.code}'.tr(),
-                        style: TextStyle(
-                          color: isSelected ? colors.income : colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check_rounded, color: colors.income)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      title: 'base_currency_title'.tr(),
+      selected: _selectedCurrencyCode,
+      options: AppCurrency.supportedCurrencies.map((c) {
+        return AppPickerOption(
+          value: c.code,
+          label: 'currency_names.${c.code}'.tr(),
+          leading: AppPill(text: '${c.code}  ${c.symbol}', color: colors.income),
+          color: colors.income,
+        );
+      }).toList(),
+      onSelected: (code) {
+        setState(() {
+          _selectedCurrencyCode = code;
+          _currencyCtrl.text = code;
+        });
+      },
     );
   }
 
@@ -512,24 +391,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // Логотип
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: colors.cardBg,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    size: 80,
-                    color: colors.textMain,
+                // Логотип (тимчасовий halo-бейдж у стилі застосунку)
+                Center(
+                  child: CategoryHaloIcon(
+                    icon: Icons.account_balance_wallet_rounded,
+                    bgColor: colors.accent,
+                    iconColor: Colors.white,
+                    size: 120,
                   ),
                 ),
                 const SizedBox(height: 32),
