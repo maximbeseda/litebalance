@@ -13,7 +13,7 @@ import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_pill.dart';
 import '../widgets/common/app_picker_sheet.dart';
 import '../widgets/common/app_snackbar.dart';
-import '../widgets/common/category_halo_icon.dart';
+import '../widgets/common/app_logo.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -391,15 +391,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // Логотип (тимчасовий halo-бейдж у стилі застосунку)
-                Center(
-                  child: CategoryHaloIcon(
-                    icon: Icons.account_balance_wallet_rounded,
-                    bgColor: colors.accent,
-                    iconColor: Colors.white,
-                    size: 120,
-                  ),
-                ),
+                // Логотип LiteBalance
+                const Center(child: AppLogo(size: 200, halo: true)),
                 const SizedBox(height: 32),
 
                 // Привітання

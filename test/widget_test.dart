@@ -14,7 +14,7 @@ void main() {
     await EasyLocalization.ensureInitialized();
   });
 
-  testWidgets('CoinFlow App boots successfully (smoke test)', (
+  testWidgets('LiteBalance App boots successfully (smoke test)', (
     WidgetTester tester,
   ) async {
     final prefs = await SharedPreferences.getInstance();

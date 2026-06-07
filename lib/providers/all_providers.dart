@@ -1,4 +1,4 @@
-// 🎉 Додаток CoinFlow офіційно працює на Riverpod 3.0! 🎉
+// 🎉 Додаток LiteBalance офіційно працює на Riverpod 3.0! 🎉
 
 export 'theme_provider.dart';
 export 'settings_provider.dart';

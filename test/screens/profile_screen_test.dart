@@ -82,7 +82,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
 
     PackageInfo.setMockInitialValues(
-      appName: 'Coin Flow',
+      appName: 'LiteBalance',
       packageName: 'com.example.coinflow',
       version: '1.0.0',
       buildNumber: '1',

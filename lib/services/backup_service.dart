@@ -47,7 +47,7 @@ class BackupService {
 
       final directory = await getTemporaryDirectory();
       final dateStr = DateFormat('dd_MM_yyyy_HHmm').format(DateTime.now());
-      final file = File('${directory.path}/coinflow_backup_$dateStr.cfbak');
+      final file = File('${directory.path}/litebalance_backup_$dateStr.cfbak');
 
       await file.writeAsString(exportString);
 
