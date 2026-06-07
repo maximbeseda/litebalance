@@ -119,7 +119,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: _navigatorKey,
-      title: 'CoinFlow',
+      title: 'LiteBalance',
       localizationsDelegates: [
         ...context.localizationDelegates,
         GlobalCupertinoLocalizations.delegate,

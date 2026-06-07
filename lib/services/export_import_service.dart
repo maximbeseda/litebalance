@@ -135,7 +135,7 @@ class ExportImportService {
 
       final directory = await getTemporaryDirectory();
       final dateStr = DateFormat('dd_MM_yyyy_HHmm').format(DateTime.now());
-      final path = '${directory.path}/CoinFlow_Export_$dateStr.csv';
+      final path = '${directory.path}/LiteBalance_Export_$dateStr.csv';
 
       final file = File(path);
       await file.writeAsString(buffer.toString());

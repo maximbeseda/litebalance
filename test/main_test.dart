@@ -48,7 +48,7 @@ void main() {
     await EasyLocalization.ensureInitialized();
 
     PackageInfo.setMockInitialValues(
-      appName: 'CoinFlow',
+      appName: 'LiteBalance',
       packageName: 'com.example.coinflow',
       version: '1.0.0',
       buildNumber: '1',
