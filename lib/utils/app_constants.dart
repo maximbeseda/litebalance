@@ -7,6 +7,23 @@ class AppConstants {
     'uk': 'Українська',
     'en': 'English',
     'de': 'Deutsch',
+    'pl': 'Polski',
+    'es': 'Español',
+    'fr': 'Français',
+    'it': 'Italiano',
+    'pt': 'Português',
+    'nl': 'Nederlands',
+    'tr': 'Türkçe',
+    'cs': 'Čeština',
+    'ro': 'Română',
+    'hu': 'Magyar',
+    'sk': 'Slovenčina',
+    'el': 'Ελληνικά',
+    'bg': 'Български',
+    'sv': 'Svenska',
+    'da': 'Dansk',
+    'fi': 'Suomi',
+    'hr': 'Hrvatski',
   };
 
   // Використовуємо getter (get), щоб переклади підтягувалися динамічно

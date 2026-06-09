@@ -17,8 +17,9 @@ Future<void> _capture(
   WidgetTester tester,
   Widget child,
   double side,
-  String outPath,
-) async {
+  String outPath, {
+  double? height,
+}) async {
   final key = GlobalKey();
   await tester.pumpWidget(
     Directionality(
@@ -26,7 +27,7 @@ Future<void> _capture(
       child: Center(
         child: RepaintBoundary(
           key: key,
-          child: SizedBox(width: side, height: side, child: child),
+          child: SizedBox(width: side, height: height ?? side, child: child),
         ),
       ),
     ),
@@ -123,5 +124,51 @@ void main() {
     );
 
     expect(File('$_dir/launcher_icon.png').existsSync(), isTrue);
+  });
+
+  testWidgets('generate README hero banner', (tester) async {
+    await _capture(
+      tester,
+      Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF101A30), Color(0xFF05070E)],
+          ),
+        ),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppLogo(size: 240, halo: true),
+            SizedBox(height: 16),
+            Text(
+              'LiteBalance',
+              style: TextStyle(
+                fontFamily: AppLogo.fontFamily,
+                fontVariations: [FontVariation('wght', 700)],
+                fontSize: 64,
+                color: Colors.white,
+                letterSpacing: 0.5,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Clear, calm money tracking',
+              style: TextStyle(
+                fontFamily: AppLogo.fontFamily,
+                fontVariations: [FontVariation('wght', 700)],
+                fontSize: 26,
+                color: Color(0xFF8AA9E6),
+              ),
+            ),
+          ],
+        ),
+      ),
+      1200,
+      'docs/hero.png',
+      height: 630,
+    );
+    expect(File('docs/hero.png').existsSync(), isTrue);
   });
 }

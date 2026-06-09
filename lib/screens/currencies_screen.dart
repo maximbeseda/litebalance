@@ -42,7 +42,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
     // 👇 Отримуємо стан налаштувань через ref.read
     final settingsState = ref.read(settingsProvider);
 
-    final availableCurrencies = AppCurrency.supportedCurrencies
+    final availableCurrencies = AppCurrency.ordered()
         .where((c) => !settingsState.selectedCurrencies.contains(c.code))
         .toList();
 

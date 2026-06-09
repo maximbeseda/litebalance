@@ -35,6 +35,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     {'code': 'uk', 'name': 'Українська', 'short': 'UK'},
     {'code': 'en', 'name': 'English', 'short': 'EN'},
     {'code': 'de', 'name': 'Deutsch', 'short': 'DE'},
+    {'code': 'pl', 'name': 'Polski', 'short': 'PL'},
+    {'code': 'es', 'name': 'Español', 'short': 'ES'},
+    {'code': 'fr', 'name': 'Français', 'short': 'FR'},
+    {'code': 'it', 'name': 'Italiano', 'short': 'IT'},
+    {'code': 'pt', 'name': 'Português', 'short': 'PT'},
+    {'code': 'nl', 'name': 'Nederlands', 'short': 'NL'},
+    {'code': 'tr', 'name': 'Türkçe', 'short': 'TR'},
+    {'code': 'cs', 'name': 'Čeština', 'short': 'CS'},
+    {'code': 'ro', 'name': 'Română', 'short': 'RO'},
+    {'code': 'hu', 'name': 'Magyar', 'short': 'HU'},
+    {'code': 'sk', 'name': 'Slovenčina', 'short': 'SK'},
+    {'code': 'el', 'name': 'Ελληνικά', 'short': 'EL'},
+    {'code': 'bg', 'name': 'Български', 'short': 'BG'},
+    {'code': 'sv', 'name': 'Svenska', 'short': 'SV'},
+    {'code': 'da', 'name': 'Dansk', 'short': 'DA'},
+    {'code': 'fi', 'name': 'Suomi', 'short': 'FI'},
+    {'code': 'hr', 'name': 'Hrvatski', 'short': 'HR'},
   ];
 
   @override
@@ -264,7 +281,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       context: context,
       title: 'base_currency_title'.tr(),
       selected: _selectedCurrencyCode,
-      options: AppCurrency.supportedCurrencies.map((c) {
+      options: AppCurrency.ordered().map((c) {
         return AppPickerOption(
           value: c.code,
           label: 'currency_names.${c.code}'.tr(),

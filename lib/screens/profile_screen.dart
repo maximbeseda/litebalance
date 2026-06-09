@@ -105,7 +105,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       context: context,
       title: 'base_currency'.tr(),
       selected: ref.read(settingsProvider).baseCurrency,
-      options: AppCurrency.supportedCurrencies
+      options: AppCurrency.ordered()
           .map(
             (c) => AppPickerOption(
               value: c.code,

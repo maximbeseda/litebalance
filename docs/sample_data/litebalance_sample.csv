@@ -1,0 +1,258 @@
+﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
+01.01.2026 09:00,Expense,Bank Card,12000.00,UAH,Rent,12000.00,UAH,Apartment rent
+01.01.2026 09:03,Expense,Monobank,233.00,UAH,Cafe,233.00,UAH,Coffee
+01.01.2026 10:15,Expense,Monobank,53.00,UAH,Transport,53.00,UAH,
+02.01.2026 13:41,Expense,Cash,596.00,UAH,Groceries,596.00,UAH,ATB
+02.01.2026 17:08,Expense,Cash,1023.00,UAH,Groceries,1023.00,UAH,Auchan
+02.01.2026 18:00,Expense,Bank Card,2452.00,UAH,Clothing,2452.00,UAH,
+02.01.2026 18:36,Expense,Monobank,624.00,UAH,Groceries,624.00,UAH,Novus
+02.01.2026 20:54,Expense,Monobank,191.00,UAH,Cafe,191.00,UAH,Coffee
+03.01.2026 09:30,Expense,Bank Card,2296.00,UAH,Utilities,2296.00,UAH,
+04.01.2026 09:00,Expense,Monobank,300.00,UAH,Internet,300.00,UAH,
+04.01.2026 09:05,Expense,Monobank,250.00,UAH,Mobile,250.00,UAH,
+04.01.2026 11:19,Expense,Monobank,2326.00,UAH,Fuel,2326.00,UAH,
+04.01.2026 13:19,Expense,Cash,46.00,UAH,Transport,46.00,UAH,
+05.01.2026 10:34,Expense,Cash,138.00,UAH,Transport,138.00,UAH,
+05.01.2026 10:39,Income,Salary,44063.00,UAH,Monobank,44063.00,UAH,Monthly salary
+05.01.2026 21:00,Expense,Monobank,524.00,UAH,Entertainment,524.00,UAH,
+06.01.2026 08:00,Expense,Monobank,600.00,UAH,Subscriptions,600.00,UAH,Netflix + Spotify
+06.01.2026 08:18,Expense,Cash,1138.00,UAH,Groceries,1138.00,UAH,ATB
+06.01.2026 17:13,Expense,Monobank,855.00,UAH,Groceries,855.00,UAH,Silpo
+07.01.2026 11:00,Transfer,Monobank,9818.00,UAH,Savings Account,9818.00,UAH,Monthly savings
+07.01.2026 17:00,Expense,Monobank,3468.00,UAH,Health,3468.00,UAH,
+09.01.2026 09:42,Expense,Monobank,105.00,UAH,Cafe,105.00,UAH,Coffee
+09.01.2026 16:08,Expense,Monobank,944.00,UAH,Groceries,944.00,UAH,Auchan
+09.01.2026 18:00,Expense,Monobank,967.00,UAH,Entertainment,967.00,UAH,
+09.01.2026 21:34,Expense,Monobank,1629.00,UAH,Restaurants,1629.00,UAH,
+12.01.2026 09:05,Expense,Cash,1134.00,UAH,Groceries,1134.00,UAH,Auchan
+12.01.2026 11:30,Expense,Monobank,1132.00,UAH,Groceries,1132.00,UAH,Auchan
+12.01.2026 12:00,Income,Dividends,4050.00,UAH,Savings Account,4050.00,UAH,Quarterly dividends
+12.01.2026 17:02,Expense,Monobank,172.00,UAH,Cafe,172.00,UAH,Coffee
+13.01.2026 09:58,Expense,Monobank,1633.00,UAH,Fuel,1633.00,UAH,
+14.01.2026 09:47,Expense,Monobank,186.00,UAH,Cafe,186.00,UAH,Coffee
+14.01.2026 17:00,Transfer,Monobank,2889.00,UAH,Cash,2889.00,UAH,ATM withdrawal
+14.01.2026 19:31,Expense,Monobank,1160.00,UAH,Restaurants,1160.00,UAH,
+16.01.2026 15:00,Expense,Monobank,272.00,UAH,Cafe,272.00,UAH,Coffee
+17.01.2026 18:44,Expense,Monobank,534.00,UAH,Groceries,534.00,UAH,ATB
+18.01.2026 15:30,Income,Freelance,9515.00,UAH,Monobank,9515.00,UAH,Side project
+19.01.2026 11:00,Expense,Monobank,328.00,UAH,Pharmacy,328.00,UAH,
+22.01.2026 13:00,Expense,Monobank,1017.00,UAH,Entertainment,1017.00,UAH,
+23.01.2026 16:42,Expense,Monobank,90.00,UAH,Transport,90.00,UAH,
+26.01.2026 12:00,Expense,Cash,644.00,UAH,Pharmacy,644.00,UAH,
+27.01.2026 20:19,Expense,Cash,47.00,UAH,Transport,47.00,UAH,
+30.01.2026 16:01,Expense,Monobank,132.00,UAH,Transport,132.00,UAH,
+01.02.2026 09:00,Expense,Bank Card,12000.00,UAH,Rent,12000.00,UAH,Apartment rent
+01.02.2026 19:24,Expense,Cash,102.00,UAH,Transport,102.00,UAH,
+02.02.2026 16:00,Expense,Monobank,804.00,UAH,Entertainment,804.00,UAH,
+03.02.2026 08:10,Expense,Cash,1048.00,UAH,Groceries,1048.00,UAH,Silpo
+03.02.2026 09:30,Expense,Bank Card,2391.00,UAH,Utilities,2391.00,UAH,
+03.02.2026 20:10,Expense,Cash,51.00,UAH,Transport,51.00,UAH,
+04.02.2026 09:00,Expense,Monobank,300.00,UAH,Internet,300.00,UAH,
+04.02.2026 09:05,Expense,Monobank,250.00,UAH,Mobile,250.00,UAH,
+05.02.2026 10:27,Income,Salary,45672.00,UAH,Monobank,45672.00,UAH,Monthly salary
+05.02.2026 12:31,Expense,Cash,1248.00,UAH,Groceries,1248.00,UAH,Novus
+06.02.2026 08:00,Expense,Monobank,600.00,UAH,Subscriptions,600.00,UAH,Netflix + Spotify
+07.02.2026 11:00,Transfer,Monobank,9765.00,UAH,Savings Account,9765.00,UAH,Monthly savings
+09.02.2026 11:17,Expense,Monobank,149.00,UAH,Cafe,149.00,UAH,Coffee
+09.02.2026 15:00,Transfer,Monobank,2812.00,UAH,Cash,2812.00,UAH,ATM withdrawal
+10.02.2026 11:12,Expense,Cash,100.00,UAH,Transport,100.00,UAH,
+10.02.2026 15:42,Expense,Monobank,134.00,UAH,Cafe,134.00,UAH,Coffee
+10.02.2026 16:02,Expense,Cash,87.00,UAH,Transport,87.00,UAH,
+12.02.2026 13:11,Expense,Monobank,2369.00,UAH,Fuel,2369.00,UAH,
+13.02.2026 20:18,Expense,Monobank,1887.00,UAH,Restaurants,1887.00,UAH,
+15.02.2026 17:00,Expense,Monobank,2239.00,UAH,Shopping,2239.00,UAH,
+15.02.2026 19:34,Expense,Monobank,133.00,UAH,Cafe,133.00,UAH,Coffee
+16.02.2026 10:37,Expense,Cash,1037.00,UAH,Groceries,1037.00,UAH,ATB
+16.02.2026 11:09,Expense,Monobank,100.00,UAH,Transport,100.00,UAH,
+16.02.2026 13:07,Expense,Cash,1267.00,UAH,Groceries,1267.00,UAH,Novus
+17.02.2026 11:39,Expense,Monobank,44.00,UAH,Transport,44.00,UAH,
+17.02.2026 15:56,Expense,Monobank,709.00,UAH,Restaurants,709.00,UAH,
+18.02.2026 09:24,Expense,Cash,1192.00,UAH,Groceries,1192.00,UAH,Novus
+18.02.2026 18:21,Expense,Monobank,2176.00,UAH,Fuel,2176.00,UAH,
+19.02.2026 11:00,Expense,Monobank,578.00,UAH,Pharmacy,578.00,UAH,
+21.02.2026 11:20,Expense,Cash,1123.00,UAH,Groceries,1123.00,UAH,ATB
+21.02.2026 17:58,Expense,Monobank,168.00,UAH,Cafe,168.00,UAH,Coffee
+22.02.2026 16:00,Expense,Monobank,612.00,UAH,Pharmacy,612.00,UAH,
+23.02.2026 11:57,Expense,Monobank,30.00,UAH,Transport,30.00,UAH,
+24.02.2026 13:10,Expense,Monobank,296.00,UAH,Cafe,296.00,UAH,Coffee
+24.02.2026 15:21,Expense,Monobank,189.00,UAH,Cafe,189.00,UAH,Coffee
+24.02.2026 16:11,Expense,Monobank,605.00,UAH,Groceries,605.00,UAH,Novus
+24.02.2026 20:00,Expense,Monobank,1017.00,UAH,Restaurants,1017.00,UAH,
+26.02.2026 09:03,Expense,Monobank,137.00,UAH,Cafe,137.00,UAH,Coffee
+26.02.2026 20:27,Expense,Cash,1272.00,UAH,Groceries,1272.00,UAH,ATB
+27.02.2026 11:55,Expense,Cash,33.00,UAH,Transport,33.00,UAH,
+27.02.2026 17:00,Expense,Monobank,1331.00,UAH,Entertainment,1331.00,UAH,
+01.03.2026 09:00,Expense,Bank Card,12000.00,UAH,Rent,12000.00,UAH,Apartment rent
+02.03.2026 08:38,Expense,Monobank,877.00,UAH,Groceries,877.00,UAH,Novus
+02.03.2026 09:53,Expense,Cash,1227.00,UAH,Groceries,1227.00,UAH,Auchan
+02.03.2026 18:26,Expense,Cash,116.00,UAH,Transport,116.00,UAH,
+02.03.2026 20:20,Expense,Monobank,277.00,UAH,Cafe,277.00,UAH,Coffee
+03.03.2026 09:30,Expense,Bank Card,1707.00,UAH,Utilities,1707.00,UAH,
+04.03.2026 09:00,Expense,Monobank,300.00,UAH,Internet,300.00,UAH,
+04.03.2026 09:05,Expense,Monobank,250.00,UAH,Mobile,250.00,UAH,
+05.03.2026 10:27,Income,Salary,44735.00,UAH,Monobank,44735.00,UAH,Monthly salary
+05.03.2026 12:07,Expense,Monobank,498.00,UAH,Groceries,498.00,UAH,ATB
+06.03.2026 08:00,Expense,Monobank,600.00,UAH,Subscriptions,600.00,UAH,Netflix + Spotify
+07.03.2026 11:00,Transfer,Monobank,9927.00,UAH,Savings Account,9927.00,UAH,Monthly savings
+09.03.2026 12:08,Expense,Monobank,42.00,UAH,Transport,42.00,UAH,
+09.03.2026 19:54,Expense,Cash,136.00,UAH,Transport,136.00,UAH,
+10.03.2026 10:24,Expense,Cash,125.00,UAH,Transport,125.00,UAH,
+11.03.2026 12:00,Expense,Monobank,486.00,UAH,Pharmacy,486.00,UAH,
+11.03.2026 16:54,Expense,Monobank,291.00,UAH,Cafe,291.00,UAH,Coffee
+12.03.2026 10:57,Expense,Monobank,119.00,UAH,Cafe,119.00,UAH,Coffee
+12.03.2026 15:07,Expense,Cash,659.00,UAH,Groceries,659.00,UAH,Auchan
+12.03.2026 17:57,Expense,Monobank,1593.00,UAH,Restaurants,1593.00,UAH,
+13.03.2026 19:46,Expense,Cash,1247.00,UAH,Groceries,1247.00,UAH,Novus
+13.03.2026 21:00,Expense,Monobank,433.00,UAH,Entertainment,433.00,UAH,
+14.03.2026 19:55,Expense,Cash,587.00,UAH,Groceries,587.00,UAH,Novus
+15.03.2026 14:00,Expense,Monobank,1118.00,UAH,Entertainment,1118.00,UAH,
+16.03.2026 12:27,Expense,Monobank,2253.00,UAH,Fuel,2253.00,UAH,
+16.03.2026 17:53,Expense,Cash,1200.00,UAH,Groceries,1200.00,UAH,Silpo
+17.03.2026 10:00,Expense,Monobank,848.00,UAH,Pharmacy,848.00,UAH,
+17.03.2026 17:18,Expense,Monobank,118.00,UAH,Cafe,118.00,UAH,Coffee
+18.03.2026 15:42,Income,Freelance,11726.00,UAH,Monobank,11726.00,UAH,Side project
+19.03.2026 13:00,Transfer,Monobank,3083.00,UAH,Cash,3083.00,UAH,ATM withdrawal
+19.03.2026 13:45,Expense,Monobank,104.00,UAH,Transport,104.00,UAH,
+19.03.2026 17:00,Expense,Monobank,2036.00,UAH,Shopping,2036.00,UAH,
+20.03.2026 08:13,Expense,Cash,1144.00,UAH,Groceries,1144.00,UAH,Novus
+20.03.2026 09:47,Expense,Cash,1163.00,UAH,Groceries,1163.00,UAH,ATB
+20.03.2026 18:00,Income,Gifts,1143.00,UAH,Cash,1143.00,UAH,Gift
+23.03.2026 13:09,Expense,Monobank,1250.00,UAH,Restaurants,1250.00,UAH,
+23.03.2026 14:00,Expense,Monobank,2194.00,UAH,Health,2194.00,UAH,
+27.03.2026 10:51,Expense,Monobank,98.00,UAH,Transport,98.00,UAH,
+27.03.2026 15:57,Expense,Monobank,96.00,UAH,Cafe,96.00,UAH,Coffee
+27.03.2026 16:37,Expense,Cash,854.00,UAH,Groceries,854.00,UAH,Silpo
+28.03.2026 11:15,Expense,Monobank,270.00,UAH,Cafe,270.00,UAH,Coffee
+29.03.2026 13:00,Expense,Monobank,653.00,UAH,Entertainment,653.00,UAH,
+29.03.2026 19:48,Expense,Monobank,187.00,UAH,Cafe,187.00,UAH,Coffee
+30.03.2026 13:36,Expense,Cash,34.00,UAH,Transport,34.00,UAH,
+01.04.2026 09:00,Expense,Bank Card,12000.00,UAH,Rent,12000.00,UAH,Apartment rent
+01.04.2026 12:13,Expense,Cash,79.00,UAH,Transport,79.00,UAH,
+01.04.2026 15:00,Expense,Monobank,4112.00,UAH,Shopping,4112.00,UAH,
+01.04.2026 18:00,Expense,Monobank,1441.00,UAH,Entertainment,1441.00,UAH,
+01.04.2026 19:31,Expense,Monobank,94.00,UAH,Transport,94.00,UAH,
+02.04.2026 19:02,Expense,Monobank,913.00,UAH,Groceries,913.00,UAH,Auchan
+03.04.2026 09:14,Expense,Monobank,983.00,UAH,Groceries,983.00,UAH,Auchan
+03.04.2026 09:30,Expense,Bank Card,2227.00,UAH,Utilities,2227.00,UAH,
+03.04.2026 09:58,Expense,Monobank,511.00,UAH,Groceries,511.00,UAH,Silpo
+04.04.2026 09:00,Expense,Monobank,300.00,UAH,Internet,300.00,UAH,
+04.04.2026 09:05,Expense,Monobank,250.00,UAH,Mobile,250.00,UAH,
+04.04.2026 20:50,Expense,Monobank,191.00,UAH,Cafe,191.00,UAH,Coffee
+05.04.2026 10:09,Income,Salary,46017.00,UAH,Monobank,46017.00,UAH,Monthly salary
+05.04.2026 12:24,Expense,Cash,64.00,UAH,Transport,64.00,UAH,
+06.04.2026 08:00,Expense,Monobank,600.00,UAH,Subscriptions,600.00,UAH,Netflix + Spotify
+06.04.2026 09:02,Expense,Monobank,141.00,UAH,Cafe,141.00,UAH,Coffee
+06.04.2026 10:00,Expense,Cash,576.00,UAH,Pharmacy,576.00,UAH,
+06.04.2026 14:02,Expense,Monobank,555.00,UAH,Groceries,555.00,UAH,ATB
+07.04.2026 11:00,Transfer,Monobank,5516.00,UAH,Savings Account,5516.00,UAH,Monthly savings
+07.04.2026 17:21,Expense,Cash,431.00,UAH,Groceries,431.00,UAH,Silpo
+11.04.2026 12:10,Expense,Monobank,1577.00,UAH,Restaurants,1577.00,UAH,
+11.04.2026 13:27,Expense,Monobank,2271.00,UAH,Fuel,2271.00,UAH,
+11.04.2026 14:29,Expense,Monobank,1252.00,UAH,Groceries,1252.00,UAH,Silpo
+12.04.2026 12:00,Income,Dividends,4307.00,UAH,Savings Account,4307.00,UAH,Quarterly dividends
+13.04.2026 09:30,Expense,Cash,1196.00,UAH,Groceries,1196.00,UAH,Auchan
+13.04.2026 18:28,Expense,Monobank,125.00,UAH,Cafe,125.00,UAH,Coffee
+14.04.2026 13:57,Expense,Cash,58.00,UAH,Transport,58.00,UAH,
+16.04.2026 10:00,Transfer,Monobank,2856.00,UAH,Cash,2856.00,UAH,ATM withdrawal
+18.04.2026 15:28,Income,Freelance,12723.00,UAH,Monobank,12723.00,UAH,Side project
+19.04.2026 19:00,Expense,Cash,461.00,UAH,Pharmacy,461.00,UAH,
+19.04.2026 21:00,Expense,Monobank,823.00,UAH,Entertainment,823.00,UAH,
+20.04.2026 15:49,Expense,Monobank,38.00,UAH,Transport,38.00,UAH,
+21.04.2026 10:00,Expense,Bank Card,10625.00,UAH,Travel,10625.00,UAH,Weekend trip
+22.04.2026 15:11,Expense,Cash,135.00,UAH,Transport,135.00,UAH,
+24.04.2026 12:36,Expense,Monobank,217.00,UAH,Cafe,217.00,UAH,Coffee
+24.04.2026 17:23,Expense,Monobank,119.00,UAH,Transport,119.00,UAH,
+26.04.2026 11:52,Expense,Monobank,136.00,UAH,Cafe,136.00,UAH,Coffee
+26.04.2026 19:02,Expense,Cash,1212.00,UAH,Groceries,1212.00,UAH,Novus
+27.04.2026 07:02,Expense,Monobank,33.00,UAH,Transport,33.00,UAH,
+27.04.2026 16:05,Expense,Monobank,268.00,UAH,Cafe,268.00,UAH,Coffee
+29.04.2026 16:12,Expense,Monobank,1181.00,UAH,Restaurants,1181.00,UAH,
+01.05.2026 09:00,Expense,Bank Card,12000.00,UAH,Rent,12000.00,UAH,Apartment rent
+01.05.2026 09:24,Expense,Cash,431.00,UAH,Groceries,431.00,UAH,Auchan
+02.05.2026 13:06,Expense,Cash,622.00,UAH,Groceries,622.00,UAH,ATB
+02.05.2026 13:48,Expense,Monobank,1979.00,UAH,Fuel,1979.00,UAH,
+02.05.2026 18:07,Expense,Cash,887.00,UAH,Groceries,887.00,UAH,Silpo
+02.05.2026 18:29,Expense,Monobank,64.00,UAH,Transport,64.00,UAH,
+03.05.2026 09:30,Expense,Bank Card,2551.00,UAH,Utilities,2551.00,UAH,
+04.05.2026 09:00,Expense,Monobank,300.00,UAH,Internet,300.00,UAH,
+04.05.2026 09:05,Expense,Monobank,250.00,UAH,Mobile,250.00,UAH,
+05.05.2026 10:53,Income,Salary,46707.00,UAH,Monobank,46707.00,UAH,Monthly salary
+05.05.2026 13:57,Expense,Monobank,1337.00,UAH,Restaurants,1337.00,UAH,
+05.05.2026 15:00,Expense,Monobank,736.00,UAH,Pharmacy,736.00,UAH,
+05.05.2026 18:39,Expense,Monobank,225.00,UAH,Cafe,225.00,UAH,Coffee
+06.05.2026 08:00,Expense,Monobank,600.00,UAH,Subscriptions,600.00,UAH,Netflix + Spotify
+06.05.2026 11:35,Expense,Monobank,75.00,UAH,Transport,75.00,UAH,
+08.05.2026 19:29,Expense,Monobank,114.00,UAH,Cafe,114.00,UAH,Coffee
+08.05.2026 20:07,Expense,Monobank,1555.00,UAH,Restaurants,1555.00,UAH,
+10.05.2026 20:21,Expense,Monobank,97.00,UAH,Cafe,97.00,UAH,Coffee
+11.05.2026 08:41,Expense,Monobank,122.00,UAH,Transport,122.00,UAH,
+12.05.2026 12:09,Expense,Monobank,95.00,UAH,Transport,95.00,UAH,
+13.05.2026 16:18,Expense,Monobank,409.00,UAH,Groceries,409.00,UAH,Auchan
+13.05.2026 20:27,Expense,Monobank,236.00,UAH,Cafe,236.00,UAH,Coffee
+14.05.2026 10:20,Expense,Monobank,101.00,UAH,Transport,101.00,UAH,
+15.05.2026 18:26,Expense,Monobank,1996.00,UAH,Restaurants,1996.00,UAH,
+16.05.2026 15:00,Expense,Monobank,3996.00,UAH,Shopping,3996.00,UAH,
+17.05.2026 10:00,Expense,Bank Card,10522.00,UAH,Travel,10522.00,UAH,Weekend trip
+18.05.2026 17:05,Expense,Monobank,1761.00,UAH,Restaurants,1761.00,UAH,
+20.05.2026 11:00,Transfer,Monobank,3562.00,UAH,Cash,3562.00,UAH,ATM withdrawal
+20.05.2026 18:14,Expense,Monobank,782.00,UAH,Groceries,782.00,UAH,ATB
+21.05.2026 11:16,Expense,Monobank,237.00,UAH,Cafe,237.00,UAH,Coffee
+22.05.2026 10:41,Expense,Monobank,167.00,UAH,Cafe,167.00,UAH,Coffee
+22.05.2026 18:12,Expense,Monobank,295.00,UAH,Cafe,295.00,UAH,Coffee
+23.05.2026 17:58,Expense,Cash,1038.00,UAH,Groceries,1038.00,UAH,Novus
+25.05.2026 17:54,Expense,Cash,1260.00,UAH,Groceries,1260.00,UAH,Novus
+26.05.2026 12:04,Expense,Monobank,55.00,UAH,Transport,55.00,UAH,
+26.05.2026 13:00,Expense,Monobank,1250.00,UAH,Entertainment,1250.00,UAH,
+26.05.2026 19:00,Expense,Monobank,376.00,UAH,Entertainment,376.00,UAH,
+27.05.2026 20:33,Expense,Monobank,437.00,UAH,Groceries,437.00,UAH,Novus
+28.05.2026 10:00,Expense,Cash,492.00,UAH,Pharmacy,492.00,UAH,
+28.05.2026 10:26,Expense,Monobank,595.00,UAH,Groceries,595.00,UAH,Novus
+30.05.2026 12:21,Expense,Monobank,1185.00,UAH,Groceries,1185.00,UAH,Auchan
+30.05.2026 14:41,Expense,Monobank,52.00,UAH,Transport,52.00,UAH,
+30.05.2026 16:00,Expense,Bank Card,4137.00,UAH,Clothing,4137.00,UAH,
+01.06.2026 07:51,Expense,Monobank,53.00,UAH,Transport,53.00,UAH,
+01.06.2026 09:00,Expense,Bank Card,12000.00,UAH,Rent,12000.00,UAH,Apartment rent
+01.06.2026 12:07,Expense,Monobank,307.00,UAH,Cafe,307.00,UAH,Coffee
+01.06.2026 13:21,Expense,Cash,424.00,UAH,Groceries,424.00,UAH,Novus
+01.06.2026 13:34,Expense,Monobank,817.00,UAH,Groceries,817.00,UAH,Auchan
+01.06.2026 17:00,Expense,Monobank,1184.00,UAH,Entertainment,1184.00,UAH,
+02.06.2026 10:34,Expense,Monobank,1202.00,UAH,Groceries,1202.00,UAH,Novus
+02.06.2026 15:00,Expense,Cash,832.00,UAH,Pharmacy,832.00,UAH,
+02.06.2026 16:13,Expense,Monobank,2378.00,UAH,Fuel,2378.00,UAH,
+02.06.2026 20:45,Expense,Monobank,1256.00,UAH,Restaurants,1256.00,UAH,
+03.06.2026 07:18,Expense,Cash,132.00,UAH,Transport,132.00,UAH,
+03.06.2026 09:30,Expense,Bank Card,1657.00,UAH,Utilities,1657.00,UAH,
+03.06.2026 17:02,Expense,Monobank,462.00,UAH,Groceries,462.00,UAH,Novus
+04.06.2026 08:39,Expense,Cash,852.00,UAH,Groceries,852.00,UAH,Novus
+04.06.2026 09:00,Expense,Monobank,300.00,UAH,Internet,300.00,UAH,
+04.06.2026 09:05,Expense,Monobank,250.00,UAH,Mobile,250.00,UAH,
+04.06.2026 09:39,Expense,Monobank,2067.00,UAH,Fuel,2067.00,UAH,
+04.06.2026 11:57,Expense,Cash,54.00,UAH,Transport,54.00,UAH,
+04.06.2026 13:09,Expense,Monobank,1934.00,UAH,Restaurants,1934.00,UAH,
+04.06.2026 13:33,Expense,Monobank,123.00,UAH,Cafe,123.00,UAH,Coffee
+04.06.2026 14:00,Expense,Monobank,1074.00,UAH,Entertainment,1074.00,UAH,
+04.06.2026 14:47,Expense,Monobank,284.00,UAH,Cafe,284.00,UAH,Coffee
+04.06.2026 18:00,Expense,Monobank,2857.00,UAH,Shopping,2857.00,UAH,
+05.06.2026 10:14,Income,Salary,45934.00,UAH,Monobank,45934.00,UAH,Monthly salary
+05.06.2026 18:00,Expense,Bank Card,4606.00,UAH,Clothing,4606.00,UAH,
+05.06.2026 18:16,Expense,Cash,465.00,UAH,Groceries,465.00,UAH,ATB
+05.06.2026 18:52,Expense,Monobank,252.00,UAH,Cafe,252.00,UAH,Coffee
+05.06.2026 18:53,Expense,Cash,96.00,UAH,Transport,96.00,UAH,
+05.06.2026 20:32,Expense,Monobank,91.00,UAH,Transport,91.00,UAH,
+05.06.2026 22:00,Expense,Monobank,398.00,UAH,Entertainment,398.00,UAH,
+06.06.2026 08:00,Expense,Monobank,600.00,UAH,Subscriptions,600.00,UAH,Netflix + Spotify
+06.06.2026 13:24,Expense,Monobank,164.00,UAH,Cafe,164.00,UAH,Coffee
+06.06.2026 13:55,Expense,Monobank,104.00,UAH,Transport,104.00,UAH,
+06.06.2026 13:56,Expense,Monobank,73.00,UAH,Transport,73.00,UAH,
+06.06.2026 16:46,Expense,Monobank,1245.00,UAH,Groceries,1245.00,UAH,Novus
+07.06.2026 11:00,Transfer,Monobank,6681.00,UAH,Savings Account,6681.00,UAH,Monthly savings
+07.06.2026 11:28,Expense,Monobank,463.00,UAH,Groceries,463.00,UAH,Auchan
+07.06.2026 15:11,Expense,Monobank,627.00,UAH,Restaurants,627.00,UAH,
+07.06.2026 15:13,Expense,Cash,902.00,UAH,Groceries,902.00,UAH,Auchan
+07.06.2026 20:36,Expense,Monobank,616.00,UAH,Restaurants,616.00,UAH,
+08.06.2026 10:00,Expense,Monobank,3174.00,UAH,Health,3174.00,UAH,
+08.06.2026 11:21,Expense,Cash,664.00,UAH,Groceries,664.00,UAH,ATB
+08.06.2026 20:45,Expense,Monobank,165.00,UAH,Cafe,165.00,UAH,Coffee
+09.06.2026 11:00,Transfer,Monobank,3666.00,UAH,Cash,3666.00,UAH,ATM withdrawal
+09.06.2026 15:48,Income,Freelance,12996.00,UAH,Monobank,12996.00,UAH,Side project
+09.06.2026 18:00,Income,Gifts,2190.00,UAH,Cash,2190.00,UAH,Gift
