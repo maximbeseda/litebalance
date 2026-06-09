@@ -198,12 +198,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     final baseCurrency = ref.read(settingsProvider).baseCurrency;
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
-    final List<String> codes = AppCurrency.supportedCurrencies
-        .map((c) => c.code)
-        .toList();
-    codes.remove(baseCurrency);
-    codes.sort();
-    codes.insert(0, baseCurrency);
+    final List<String> codes = AppCurrency.orderedCodes(pin: baseCurrency);
 
     await AppPickerSheet.show<String>(
       context: context,

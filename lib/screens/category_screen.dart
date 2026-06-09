@@ -218,14 +218,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     FocusScope.of(context).unfocus();
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
-    // Сортуємо: базова валюта завжди перша, інші за алфавітом
+    // Єдиний порядок: базова валюта перша (з бейджем), далі популярні + алфавіт
     final baseCurrency = ref.read(settingsProvider).baseCurrency;
-    final List<String> codes = AppCurrency.supportedCurrencies
-        .map((c) => c.code)
-        .toList();
-    codes.remove(baseCurrency);
-    codes.sort();
-    codes.insert(0, baseCurrency);
+    final List<String> codes = AppCurrency.orderedCodes(pin: baseCurrency);
 
     AppPickerSheet.show<String>(
       context: context,
