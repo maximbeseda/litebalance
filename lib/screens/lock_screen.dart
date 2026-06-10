@@ -5,12 +5,18 @@ import 'package:easy_localization/easy_localization.dart';
 import '../services/security_service.dart';
 import '../theme/app_colors_extension.dart';
 import '../utils/haptic_helper.dart';
+import '../widgets/common/app_logo.dart';
 import 'home_screen.dart';
 
 class LockScreen extends StatefulWidget {
   final bool isSetupMode;
 
-  const LockScreen({super.key, this.isSetupMode = false});
+  /// Якщо задано — викликається при успішному розблокуванні замість навігації
+  /// (для inline-використання в [AppLockGate]). Якщо `null` — стара поведінка
+  /// (pop / pushReplacement) для пушнутого маршруту.
+  final VoidCallback? onUnlocked;
+
+  const LockScreen({super.key, this.isSetupMode = false, this.onUnlocked});
 
   static bool isShowing = false;
 
@@ -117,6 +123,11 @@ class _LockScreenState extends State<LockScreen>
   }
 
   void _unlockApp() {
+    // Inline-режим (AppLockGate): просто повідомляємо про розблокування.
+    if (widget.onUnlocked != null) {
+      widget.onUnlocked!();
+      return;
+    }
     if (Navigator.canPop(context)) {
       Navigator.pop(context, true);
     } else {
@@ -161,12 +172,19 @@ class _LockScreenState extends State<LockScreen>
                   offset: Offset(offset, 0),
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.lock_outline,
-                        size: 48,
-                        color: _hasError ? colors.expense : colors.textMain,
+                      const AppLogo(size: 56),
+                      const SizedBox(height: 8),
+                      Text(
+                        'LiteBalance',
+                        style: TextStyle(
+                          fontFamily: AppLogo.fontFamily,
+                          fontVariations: const [FontVariation('wght', 700)],
+                          fontSize: 18,
+                          letterSpacing: -0.3,
+                          color: colors.textMain,
+                        ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       Text(
                         title,
                         style: TextStyle(

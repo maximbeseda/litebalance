@@ -177,9 +177,8 @@ void main() {
         container: container,
         child: MaterialApp(
           navigatorKey: navigatorKey,
-          home: SyncLifecycleObserver(
-            navigatorKey: navigatorKey,
-            child: const Scaffold(body: Text('Test Child')),
+          home: const SyncLifecycleObserver(
+            child: Scaffold(body: Text('Test Child')),
           ),
         ),
       ),

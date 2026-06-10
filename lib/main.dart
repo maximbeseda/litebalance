@@ -14,11 +14,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/home_screen.dart';
 import 'providers/all_providers.dart';
 import 'screens/onboarding_screen.dart';
-import 'screens/lock_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
-import 'widgets/common/sync_lifecycle_observer.dart'
-    show SyncLifecycleObserver, kAutoLockTimeoutMs, kLockBgTimeKey;
+import 'widgets/common/sync_lifecycle_observer.dart' show SyncLifecycleObserver;
+import 'widgets/common/app_lock_gate.dart'
+    show AppLockGate, kAutoLockTimeoutMs, kLockBgTimeKey;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -155,13 +155,15 @@ class _MyAppState extends ConsumerState<MyApp> {
         final double baseScale = mediaQueryData.textScaler.scale(10) / 10;
         final double safeScale = baseScale.clamp(1.0, 1.15);
 
-        return SyncLifecycleObserver(
-          navigatorKey: _navigatorKey,
-          child: MediaQuery(
-            data: mediaQueryData.copyWith(
-              textScaler: TextScaler.linear(safeScale),
+        return AppLockGate(
+          initiallyLocked: widget.requirePin,
+          child: SyncLifecycleObserver(
+            child: MediaQuery(
+              data: mediaQueryData.copyWith(
+                textScaler: TextScaler.linear(safeScale),
+              ),
+              child: currentChild,
             ),
-            child: currentChild,
           ),
         );
       },
@@ -175,7 +177,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       home: widget.showOnboarding
           ? const OnboardingScreen()
-          : (widget.requirePin ? const LockScreen() : const HomeScreen()),
+          : const HomeScreen(),
     );
   }
 }
