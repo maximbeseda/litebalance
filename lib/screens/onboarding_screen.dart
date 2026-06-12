@@ -8,6 +8,7 @@ import '../providers/all_providers.dart';
 import '../services/storage_service.dart';
 import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
+import '../utils/app_constants.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_pill.dart';
@@ -31,27 +32,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   bool _isSaving = false;
   bool _isInitialized = false;
 
+  // Єдине джерело мов — [AppConstants.languages]. «short» — це код у верхньому
+  // регістрі (UK, EN, …), тож не дублюємо назви тут.
   final List<Map<String, String>> _supportedLanguages = [
-    {'code': 'uk', 'name': 'Українська', 'short': 'UK'},
-    {'code': 'en', 'name': 'English', 'short': 'EN'},
-    {'code': 'de', 'name': 'Deutsch', 'short': 'DE'},
-    {'code': 'pl', 'name': 'Polski', 'short': 'PL'},
-    {'code': 'es', 'name': 'Español', 'short': 'ES'},
-    {'code': 'fr', 'name': 'Français', 'short': 'FR'},
-    {'code': 'it', 'name': 'Italiano', 'short': 'IT'},
-    {'code': 'pt', 'name': 'Português', 'short': 'PT'},
-    {'code': 'nl', 'name': 'Nederlands', 'short': 'NL'},
-    {'code': 'tr', 'name': 'Türkçe', 'short': 'TR'},
-    {'code': 'cs', 'name': 'Čeština', 'short': 'CS'},
-    {'code': 'ro', 'name': 'Română', 'short': 'RO'},
-    {'code': 'hu', 'name': 'Magyar', 'short': 'HU'},
-    {'code': 'sk', 'name': 'Slovenčina', 'short': 'SK'},
-    {'code': 'el', 'name': 'Ελληνικά', 'short': 'EL'},
-    {'code': 'bg', 'name': 'Български', 'short': 'BG'},
-    {'code': 'sv', 'name': 'Svenska', 'short': 'SV'},
-    {'code': 'da', 'name': 'Dansk', 'short': 'DA'},
-    {'code': 'fi', 'name': 'Suomi', 'short': 'FI'},
-    {'code': 'hr', 'name': 'Hrvatski', 'short': 'HR'},
+    for (final e in AppConstants.languages.entries)
+      {'code': e.key, 'name': e.value, 'short': e.key.toUpperCase()},
   ];
 
   @override

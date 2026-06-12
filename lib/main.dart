@@ -16,6 +16,7 @@ import 'providers/all_providers.dart';
 import 'screens/onboarding_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
+import 'utils/currency_formatter.dart';
 import 'widgets/common/sync_lifecycle_observer.dart' show SyncLifecycleObserver;
 import 'widgets/common/app_lock_gate.dart'
     show AppLockGate, kAutoLockTimeoutMs, kLockBgTimeKey;
@@ -43,7 +44,9 @@ void main() async {
     ],
   );
 
-  await initializeDateFormatting('uk_UA', null);
+  // Ініціалізуємо дані формату дат для ВСІХ локалей, щоб назви місяців/днів
+  // відображалися мовою інтерфейсу (а не лише українською).
+  await initializeDateFormatting();
   const bool showPreview = false;
 
   // 3. Отримуємо статус онбордингу напряму з SharedPreferences
@@ -127,6 +130,10 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     final themeId = ref.watch(themeProvider);
     final currentTheme = AppTheme.getTheme(themeId);
+
+    // Тримаємо форматування чисел/дат і скорочення мільйонів у синхроні з мовою.
+    Intl.defaultLocale = context.locale.toString();
+    CurrencyFormatter.millionSuffix = 'million_suffix'.tr();
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
