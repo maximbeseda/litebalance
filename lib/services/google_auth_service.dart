@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:http/http.dart' as http;
+import '../utils/app_lock.dart';
 
 class GoogleAuthService {
   static const String _serverClientId =
@@ -165,7 +166,9 @@ class GoogleAuthService {
       // 👇 Згідно з практиками Google: для кнопок використовується тільки authenticate().
       // Це дає користувачу повний вибір усіх його Google-акаунтів на пристрої.
       // Якщо він натисне "Скасувати", метод просто викине помилку, ми її зловимо і повернемо null.
-      final account = await _googleSignIn.authenticate();
+      final account = await AppLock.runTrusted(
+        () => _googleSignIn.authenticate(),
+      );
 
       return account;
     } catch (e) {

@@ -126,6 +126,8 @@
   "clear_data_title": "Tüm veriler temizlensin mi?",
   "clear_data_message": "Bu işlem tüm işlemleri, abonelikleri siler ve hesap bakiyelerini sıfırlar. Bu işlem geri alınamaz.",
   "data_cleared_success": "Tüm veriler başarıyla temizlendi",
+  "clear_data_cloud_note": "Google Drive kopyan da bir sonraki eşitlemede boş verilerle üzerine yazılacak.",
+  "current_copy": "Geçerli kopya",
 
   "statistics": "İstatistikler",
   "stats_expenses": "Giderler",

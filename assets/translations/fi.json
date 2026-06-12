@@ -126,6 +126,8 @@
   "clear_data_title": "Tyhjennetäänkö kaikki tiedot?",
   "clear_data_message": "Tämä poistaa kaikki tapahtumat ja tilaukset sekä nollaa tilien saldot. Toimintoa ei voi peruuttaa.",
   "data_cleared_success": "Kaikki tiedot tyhjennetty onnistuneesti",
+  "clear_data_cloud_note": "Myös Google Drive -kopiosi korvataan tyhjillä tiedoilla seuraavan synkronoinnin yhteydessä.",
+  "current_copy": "Nykyinen kopio",
 
   "statistics": "Tilastot",
   "stats_expenses": "Menot",

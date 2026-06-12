@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../database/app_database.dart';
+import '../utils/app_lock.dart';
 
 class ExportImportService {
   // ==========================================
@@ -140,8 +141,10 @@ class ExportImportService {
       final file = File(path);
       await file.writeAsString(buffer.toString());
 
-      final result = await SharePlus.instance.share(
-        ShareParams(files: [XFile(path)], text: 'my_coinflow_backup'.tr()),
+      final result = await AppLock.runTrusted(
+        () => SharePlus.instance.share(
+          ShareParams(files: [XFile(path)], text: 'my_coinflow_backup'.tr()),
+        ),
       );
 
       try {

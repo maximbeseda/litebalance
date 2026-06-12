@@ -126,6 +126,8 @@
   "clear_data_title": "Ștergi toate datele?",
   "clear_data_message": "Aceasta va șterge toate tranzacțiile, abonamentele și va reseta soldurile conturilor. Această acțiune nu poate fi anulată.",
   "data_cleared_success": "Toate datele au fost șterse cu succes",
+  "clear_data_cloud_note": "Copia ta de pe Google Drive va fi de asemenea suprascrisă cu date goale la următoarea sincronizare.",
+  "current_copy": "Copia curentă",
 
   "statistics": "Statistici",
   "stats_expenses": "Cheltuieli",

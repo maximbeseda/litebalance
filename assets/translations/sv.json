@@ -126,6 +126,8 @@
   "clear_data_title": "Rensa all data?",
   "clear_data_message": "Detta raderar alla transaktioner, prenumerationer och nollställer kontosaldon. Åtgärden kan inte ångras.",
   "data_cleared_success": "All data har rensats",
+  "clear_data_cloud_note": "Din kopia på Google Drive skrivs också över med tom data vid nästa synkronisering.",
+  "current_copy": "Nuvarande kopia",
 
   "statistics": "Statistik",
   "stats_expenses": "Utgifter",

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/all_providers.dart';
 import '../../screens/lock_screen.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/app_lock.dart';
 import 'app_logo.dart';
 
 // Публічні константи автоблокування (використовуються тут і в main.dart).
@@ -63,12 +64,10 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
     if (state == AppLifecycleState.resumed) {
       _wasResumed = true;
 
-      // Уже заблоковано (напр. холодний старт) — лишаємо екран блокування.
-      if (_locked) {
-        if (_shield) setState(() => _shield = false);
-        return;
-      }
-      if (!_pinSet) {
+      // Уже заблоковано (холодний старт) / триває довірена системна дія
+      // (file picker, share, Google-вхід) / PIN вимкнено — нічого не блокуємо,
+      // лише прибираємо шторку, якщо була.
+      if (_locked || AppLock.isTrusted || !_pinSet) {
         if (_shield) setState(() => _shield = false);
         return;
       }
@@ -90,6 +89,9 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
     } else if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden) {
+      // Під час довіреної дії або коли вже заблоковано — не реагуємо.
+      if (_locked || AppLock.isTrusted) return;
+
       // Час фону фіксуємо лише коли застосунок реально йде у фон.
       if ((state == AppLifecycleState.paused ||
               state == AppLifecycleState.hidden) &&
@@ -97,8 +99,9 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
         _wasResumed = false;
         prefs.setInt(kLockBgTimeKey, DateTime.now().millisecondsSinceEpoch);
       }
-      // Накриваємо вміст шторкою (має сенс лише коли ввімкнено PIN).
-      if (_pinSet && !_locked && !_shield) {
+      // Внутрішня шторка (поверх контенту, поки приймається рішення). Знімок
+      // «нещодавніх» і кадр повернення накриває нативний оверлей у MainActivity.
+      if (_pinSet && !_shield) {
         setState(() => _shield = true);
       }
     }
@@ -106,6 +109,9 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
 
   void _onUnlocked() {
     if (!mounted) return;
+    // Прибираємо час фону, щоб подія resumed після діалогу біометрії не
+    // спричинила повторне блокування (інакше — подвійний запит відбитка).
+    unawaited(ref.read(sharedPreferencesProvider).remove(kLockBgTimeKey));
     setState(() {
       _locked = false;
       _shield = false;
@@ -118,9 +124,15 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
       children: [
         widget.child,
         if (_shield && !_locked)
-          const Positioned.fill(child: _PrivacyShield()),
+          const Positioned.fill(
+            key: ValueKey('lb_shield'),
+            child: _PrivacyShield(),
+          ),
         if (_locked)
-          Positioned.fill(child: LockScreen(onUnlocked: _onUnlocked)),
+          Positioned.fill(
+            key: const ValueKey('lb_lock'),
+            child: LockScreen(onUnlocked: _onUnlocked),
+          ),
       ],
     );
   }

@@ -31,6 +31,7 @@ class _LockScreenState extends State<LockScreen>
   bool _isConfirming = false;
   bool _hasError = false;
   bool _canUseBiometrics = false;
+  bool _autoBioTried = false; // авто-біометрія лише раз за час життя екрана
 
   @override
   void initState() {
@@ -52,8 +53,12 @@ class _LockScreenState extends State<LockScreen>
     final canUse = await SecurityService.canUseBiometrics();
 
     if (isEnabledInSettings && canUse) {
-      setState(() => _canUseBiometrics = true);
-      await _triggerBiometrics();
+      if (mounted) setState(() => _canUseBiometrics = true);
+      // Запускаємо системний діалог автоматично лише один раз.
+      if (!_autoBioTried) {
+        _autoBioTried = true;
+        await _triggerBiometrics();
+      }
     }
   }
 

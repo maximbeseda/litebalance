@@ -126,6 +126,8 @@
   "clear_data_title": "Alle Daten löschen?",
   "clear_data_message": "Dies löscht alle Transaktionen und Abonnements und setzt alle Kontostände zurück. Diese Aktion kann nicht rückgängig gemacht werden.",
   "data_cleared_success": "Alle Daten erfolgreich gelöscht",
+  "clear_data_cloud_note": "Deine Google-Drive-Kopie wird bei der nächsten Synchronisierung ebenfalls mit leeren Daten überschrieben.",
+  "current_copy": "Aktuelle Kopie",
 
   "statistics": "Statistik",
   "stats_expenses": "Ausgaben",

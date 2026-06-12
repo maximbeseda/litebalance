@@ -31,10 +31,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool _isLoggingOut = false;
 
   Future<void> _showClearDataDialog(BuildContext context) async {
+    // Якщо ввімкнено синхронізацію з Google Drive — попереджаємо, що хмарну
+    // копію теж буде перезаписано порожнім станом при наступній синхронізації.
+    final bool loggedIn =
+        ref.read(sharedPreferencesProvider).getBool('has_logged_in_with_google') ??
+        false;
+    final String message = loggedIn
+        ? '${'clear_data_message'.tr()}\n\n${'clear_data_cloud_note'.tr()}'
+        : 'clear_data_message'.tr();
+
     final confirmed = await AppDialog.destructive(
       context,
       title: 'clear_data_title'.tr(),
-      message: 'clear_data_message'.tr(),
+      message: message,
       icon: Icons.delete_forever_rounded,
       confirmText: 'delete'.tr(),
     );

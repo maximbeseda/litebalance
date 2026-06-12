@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../theme/app_colors_extension.dart';
 import '../providers/all_providers.dart';
 import '../services/backup_service.dart';
+import '../services/drive_backup_service.dart';
 import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_snackbar.dart';
 import '../widgets/common/section_header.dart';
@@ -179,30 +180,114 @@ class _BackupManagementScreenState
     ref.read(dbDirtyProvider.notifier).setDirty(true);
   }
 
-  Future<void> _runCloudBackup() async {
-    setState(() => _isLoading = true);
-    final service = ref.read(driveBackupServiceProvider);
-    final success = await service.backupDatabase(ref.read(appDatabaseProvider));
-
-    if (!mounted) return;
-    if (success) {
-      await ref.read(settingsProvider.notifier).updateCloudBackupTime();
-      if (!mounted) return;
-      _showStatus('cloud_backup_success'.tr(), true);
-    } else {
-      _showStatus('cloud_backup_error'.tr(), false);
-    }
-    setState(() => _isLoading = false);
+  String _formatSize(int bytes) {
+    if (bytes <= 0) return '—';
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).round()} KB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 
-  Future<void> _runCloudRestore() async {
+  // Відкриває список копій у хмарі (актуальна + датовані знімки) для відкату.
+  Future<void> _openCloudVersions() async {
+    setState(() => _isLoading = true);
+    final service = ref.read(driveBackupServiceProvider);
+    final versions = await service.listCloudBackups();
+    if (!mounted) return;
+    setState(() => _isLoading = false);
+
+    if (versions.isEmpty) {
+      _showStatus('no_backups_yet'.tr(), false);
+      return;
+    }
+
+    final colors = Theme.of(context).extension<AppColorsExtension>()!;
+    final df = DateFormat('dd.MM.yyyy HH:mm');
+
+    final selected = await showModalBottomSheet<CloudBackupInfo>(
+      context: context,
+      backgroundColor: colors.cardBg,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: colors.textSecondary.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'import_from_cloud'.tr(),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: colors.textMain,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: versions.length,
+                itemBuilder: (_, i) {
+                  final v = versions[i];
+                  return ListTile(
+                    leading: Icon(
+                      v.isCurrent
+                          ? Icons.cloud_done_outlined
+                          : Icons.history_rounded,
+                      color: v.isCurrent ? colors.accent : colors.textSecondary,
+                    ),
+                    title: Text(
+                      v.date != null ? df.format(v.date!) : 'unknown'.tr(),
+                      style: TextStyle(
+                        color: colors.textMain,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      v.isCurrent
+                          ? '${_formatSize(v.sizeBytes)} • ${'current_copy'.tr()}'
+                          : _formatSize(v.sizeBytes),
+                      style: TextStyle(
+                        color: colors.textSecondary,
+                        fontSize: 12,
+                      ),
+                    ),
+                    onTap: () => Navigator.pop(ctx, v),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
+    );
+
+    if (selected == null) return;
+    await _restoreVersion(selected);
+  }
+
+  Future<void> _restoreVersion(CloudBackupInfo version) async {
     final confirmed = await _confirmRestore('cloud_restore_confirm'.tr());
     if (!confirmed) return;
 
     setState(() => _isLoading = true);
     final service = ref.read(driveBackupServiceProvider);
-    final success = await service.restoreDatabase(
+    final success = await service.restoreFromId(
       ref.read(appDatabaseProvider),
+      version.id,
     );
 
     if (!mounted) return;
@@ -336,27 +421,13 @@ class _BackupManagementScreenState
                   SectionHeader('google_drive_backup'.tr()),
                   _buildActionRow(
                     colors: colors,
-                    icon: Icons.cloud_upload_outlined,
-                    title: 'sync_with_cloud'.tr(),
+                    icon: Icons.cloud_download_outlined,
+                    title: 'import_from_cloud'.tr(),
                     subtitle: settings.lastCloudBackup != null
                         ? '${'last_backup'.tr()}: ${df.format(settings.lastCloudBackup!)}'
                         : 'no_backups_yet'.tr(),
                     iconColor: colors.accent,
-                    onTap: _runCloudBackup,
-                  ),
-                  Divider(
-                    height: 1,
-                    indent: 20,
-                    endIndent: 20,
-                    color: colors.divider,
-                  ),
-                  _buildActionRow(
-                    colors: colors,
-                    icon: Icons.cloud_download_outlined,
-                    title: 'import_from_cloud'.tr(),
-                    subtitle: 'warning_overwrite'.tr(),
-                    iconColor: colors.expense,
-                    onTap: _runCloudRestore,
+                    onTap: _openCloudVersions,
                   ),
                   const SizedBox(height: 16),
                   Divider(height: 1, color: colors.divider),

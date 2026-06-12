@@ -126,6 +126,8 @@
   "clear_data_title": "Töröljük az összes adatot?",
   "clear_data_message": "Ez törli az összes tranzakciót, előfizetést, és visszaállítja a számlaegyenlegeket. Ez a művelet nem vonható vissza.",
   "data_cleared_success": "Minden adat sikeresen törölve",
+  "clear_data_cloud_note": "A Google Drive-on lévő másolatod is felülíródik üres adatokkal a következő szinkronizáláskor.",
+  "current_copy": "Aktuális másolat",
 
   "statistics": "Statisztikák",
   "stats_expenses": "Kiadások",

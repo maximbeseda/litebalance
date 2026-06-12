@@ -126,6 +126,8 @@
   "clear_data_title": "¿Borrar todos los datos?",
   "clear_data_message": "Esto eliminará todas las transacciones, suscripciones y restablecerá los saldos de las cuentas. Esta acción no se puede deshacer.",
   "data_cleared_success": "Todos los datos se han borrado correctamente",
+  "clear_data_cloud_note": "Tu copia en Google Drive también se sobrescribirá con datos vacíos en la próxima sincronización.",
+  "current_copy": "Copia actual",
 
   "statistics": "Estadísticas",
   "stats_expenses": "Gastos",

@@ -12,6 +12,7 @@ import 'package:encrypt/encrypt.dart' as enc;
 import 'package:crypto/crypto.dart';
 
 import '../database/app_database.dart';
+import '../utils/app_lock.dart';
 import 'storage_service.dart';
 
 class BackupService {
@@ -56,7 +57,7 @@ class BackupService {
         files: [XFile(file.path)],
       );
 
-      await SharePlus.instance.share(params);
+      await AppLock.runTrusted(() => SharePlus.instance.share(params));
 
       if (await file.exists()) {
         await file.delete();
@@ -72,7 +73,9 @@ class BackupService {
   static Future<File?> pickBackupFile() async {
     try {
       debugPrint('📂 Відкриття вибору файлу...');
-      final result = await FilePicker.platform.pickFiles(type: FileType.any);
+      final result = await AppLock.runTrusted(
+        () => FilePicker.platform.pickFiles(type: FileType.any),
+      );
 
       if (result == null || result.files.isEmpty) {
         debugPrint('ℹ️ Вибір файлу скасовано');

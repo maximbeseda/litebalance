@@ -126,6 +126,8 @@
   "clear_data_title": "Obrisati sve podatke?",
   "clear_data_message": "Ovo će izbrisati sve transakcije, pretplate i poništiti stanja računa. Ova se radnja ne može poništiti.",
   "data_cleared_success": "Svi podaci uspješno obrisani",
+  "clear_data_cloud_note": "Tvoja kopija na Google Disku također će biti prebrisana praznim podacima pri sljedećoj sinkronizaciji.",
+  "current_copy": "Trenutna kopija",
 
   "statistics": "Statistika",
   "stats_expenses": "Troškovi",

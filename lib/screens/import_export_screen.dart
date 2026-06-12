@@ -9,6 +9,7 @@ import 'import_wizard/import_header_selection_screen.dart';
 import '../providers/all_providers.dart';
 import '../utils/app_page_route.dart';
 import '../services/export_import_service.dart';
+import '../utils/app_lock.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/dialogs/custom_date_range_picker.dart';
 import '../widgets/common/app_snackbar.dart';
@@ -104,9 +105,11 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
     FilePickerResult? result;
 
     try {
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['csv'],
+      result = await AppLock.runTrusted(
+        () => FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['csv'],
+        ),
       );
 
       if (result != null && result.files.single.path != null) {

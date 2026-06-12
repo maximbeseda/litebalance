@@ -126,6 +126,8 @@
   "clear_data_title": "Clear all data?",
   "clear_data_message": "This will delete all transactions, subscriptions, and reset account balances. This action cannot be undone.",
   "data_cleared_success": "All data cleared successfully",
+  "clear_data_cloud_note": "Your Google Drive copy will also be overwritten with empty data on the next sync.",
+  "current_copy": "Current copy",
 
   "statistics": "Statistics",
   "stats_expenses": "Expenses",
