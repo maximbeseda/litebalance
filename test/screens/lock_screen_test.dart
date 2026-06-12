@@ -1,6 +1,6 @@
-import 'package:coin_flow/screens/lock_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/widgets/common/app_logo.dart';
+import 'package:litebalance/screens/lock_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/widgets/common/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

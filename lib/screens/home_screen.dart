@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:coin_flow/theme/category_defaults.dart';
+import 'package:litebalance/theme/category_defaults.dart';
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:uuid/uuid.dart';

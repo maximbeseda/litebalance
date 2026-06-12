@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/native.dart';
 import 'package:drift/drift.dart' hide isNotNull;
-import 'package:coin_flow/database/app_database.dart';
+import 'package:litebalance/database/app_database.dart';
 import 'package:sqlite3/common.dart'; // Тепер це працюватиме
 
 class _DummyUser extends QueryExecutorUser {

@@ -1,6 +1,6 @@
-import 'package:coin_flow/screens/stats/views/trends_chart_view.dart'; // Переконайся, що шлях правильний
-import 'package:coin_flow/screens/stats/year_summary_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/screens/stats/views/trends_chart_view.dart'; // Переконайся, що шлях правильний
+import 'package:litebalance/screens/stats/year_summary_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';

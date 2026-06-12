@@ -10,10 +10,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'package:coin_flow/widgets/common/sync_lifecycle_observer.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/services/drive_backup_service.dart';
-import 'package:coin_flow/services/google_auth_service.dart';
+import 'package:litebalance/widgets/common/sync_lifecycle_observer.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/drive_backup_service.dart';
+import 'package:litebalance/services/google_auth_service.dart';
 
 // --- МОКИ СЕРВІСІВ ---
 class MockDriveBackupService extends Mock implements DriveBackupService {}

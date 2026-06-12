@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:http/http.dart' as http;
 import 'google_auth_service.dart';
-import 'package:coin_flow/database/app_database.dart';
+import 'package:litebalance/database/app_database.dart';
 
 enum SyncStatus { backedUp, restored, upToDate, error, noAuth }
 

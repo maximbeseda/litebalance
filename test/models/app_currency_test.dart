@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/models/app_currency.dart';
+import 'package:litebalance/models/app_currency.dart';
 
 void main() {
   group('AppCurrency Model Tests', () {

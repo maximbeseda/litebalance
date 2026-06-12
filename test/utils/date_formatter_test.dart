@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart'; // Потрібно для ініціалізації мов
 
-import 'package:coin_flow/utils/date_formatter.dart';
+import 'package:litebalance/utils/date_formatter.dart';
 
 void main() {
   // setUpAll виконується один раз перед запуском усіх тестів у цьому файлі

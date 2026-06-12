@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:coin_flow/providers/home_screen_controller.dart';
+import 'package:litebalance/providers/home_screen_controller.dart';
 
 void main() {
   late ProviderContainer container;

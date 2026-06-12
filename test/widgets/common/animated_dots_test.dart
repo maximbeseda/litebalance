@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/widgets/common/animated_dots.dart';
+import 'package:litebalance/widgets/common/animated_dots.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

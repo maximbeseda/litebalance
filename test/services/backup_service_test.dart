@@ -8,8 +8,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/services/backup_service.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/services/backup_service.dart';
 
 // ==========================================
 // 1. ЕЛЕГАНТНИЙ МОК ЧЕРЕЗ MOCKTAIL

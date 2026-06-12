@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:coin_flow/screens/backup_management_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/services/drive_backup_service.dart';
+import 'package:litebalance/screens/backup_management_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/drive_backup_service.dart';
 
 class MockDriveBackupService extends Mock implements DriveBackupService {}
 

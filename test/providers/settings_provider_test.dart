@@ -3,8 +3,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/services/currency_repository.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/currency_repository.dart';
 
 // 1. МОК для репозиторію
 class MockCurrencyRepository extends Mock implements CurrencyRepository {}

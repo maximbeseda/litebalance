@@ -7,19 +7,19 @@ import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:coin_flow/widgets/common/settings_drawer.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/services/google_auth_service.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/widgets/common/settings_drawer.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/google_auth_service.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 
 // Імпортуємо всі екрани для навігації
-import 'package:coin_flow/screens/profile_screen.dart';
-import 'package:coin_flow/screens/stats/stats_screen.dart';
-import 'package:coin_flow/screens/currencies_screen.dart';
-import 'package:coin_flow/screens/import_export_screen.dart';
-import 'package:coin_flow/screens/backup_management_screen.dart';
-import 'package:coin_flow/screens/subscriptions_screen.dart';
-import 'package:coin_flow/screens/trash_screen.dart';
+import 'package:litebalance/screens/profile_screen.dart';
+import 'package:litebalance/screens/stats/stats_screen.dart';
+import 'package:litebalance/screens/currencies_screen.dart';
+import 'package:litebalance/screens/import_export_screen.dart';
+import 'package:litebalance/screens/backup_management_screen.dart';
+import 'package:litebalance/screens/subscriptions_screen.dart';
+import 'package:litebalance/screens/trash_screen.dart';
 
 // ==========================================
 // МОКИ КЛАСІВ ТА СТАНІВ

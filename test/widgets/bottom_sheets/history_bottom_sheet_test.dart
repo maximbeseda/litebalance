@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:coin_flow/widgets/bottom_sheets/history_bottom_sheet.dart';
-import 'package:coin_flow/database/app_database.dart';
+import 'package:litebalance/widgets/bottom_sheets/history_bottom_sheet.dart';
+import 'package:litebalance/database/app_database.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

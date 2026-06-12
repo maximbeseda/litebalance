@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:coin_flow/widgets/home/category_section.dart';
-import 'package:coin_flow/providers/all_providers.dart';
+import 'package:litebalance/widgets/home/category_section.dart';
+import 'package:litebalance/providers/all_providers.dart';
 import '../../helpers/test_wrapper.dart';
 
 // ==========================================

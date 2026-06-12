@@ -5,8 +5,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/services/google_auth_service.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/google_auth_service.dart';
 
 class MockGoogleAuthService extends Mock implements GoogleAuthService {}
 

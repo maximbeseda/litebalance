@@ -1,5 +1,5 @@
-name: coin_flow
-description: "A new Flutter project."
+name: litebalance
+description: "LiteBalance — clear, calm personal finance tracking."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -156,11 +156,6 @@ flutter_launcher_icons:
   min_sdk_android: 21
   adaptive_icon_background: "#080B14"
   adaptive_icon_foreground: "assets/branding/launcher_foreground.png"
-  web:
-    generated: true
-    image_path: "assets/branding/launcher_icon.png"
-    background_color: "#080B14"
-    theme_color: "#080B14"
 
 # Сплеш-екран LiteBalance (плитка-логотип на авто світлому/темному тлі).
 flutter_native_splash:

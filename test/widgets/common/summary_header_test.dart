@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/providers/settings_provider.dart';
-import 'package:coin_flow/providers/subscription_provider.dart';
-import 'package:coin_flow/widgets/common/summary_header.dart';
-import 'package:coin_flow/widgets/common/animated_dots.dart';
-import 'package:coin_flow/widgets/common/rolling_digit.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/providers/settings_provider.dart';
+import 'package:litebalance/providers/subscription_provider.dart';
+import 'package:litebalance/widgets/common/summary_header.dart';
+import 'package:litebalance/widgets/common/animated_dots.dart';
+import 'package:litebalance/widgets/common/rolling_digit.dart';
 
 import '../../helpers/test_wrapper.dart';
 

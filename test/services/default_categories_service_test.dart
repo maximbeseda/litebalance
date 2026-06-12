@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/native.dart';
 
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/services/default_categories_service.dart';
-import 'package:coin_flow/theme/category_defaults.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/services/default_categories_service.dart';
+import 'package:litebalance/theme/category_defaults.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
