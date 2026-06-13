@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -47,7 +45,6 @@ void main() async {
   // Ініціалізуємо дані формату дат для ВСІХ локалей, щоб назви місяців/днів
   // відображалися мовою інтерфейсу (а не лише українською).
   await initializeDateFormatting();
-  const bool showPreview = false;
 
   // 3. Отримуємо статус онбордингу напряму з SharedPreferences
   final bool hasCompletedOnboarding =
@@ -97,12 +94,9 @@ void main() async {
         ],
         path: 'assets/translations',
         fallbackLocale: const Locale('uk'),
-        child: DevicePreview(
-          enabled: !kReleaseMode && showPreview,
-          builder: (context) => MyApp(
-            showOnboarding: !hasCompletedOnboarding,
-            requirePin: requirePin,
-          ),
+        child: MyApp(
+          showOnboarding: !hasCompletedOnboarding,
+          requirePin: requirePin,
         ),
       ),
     ),
@@ -157,7 +151,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       theme: currentTheme,
 
       builder: (context, child) {
-        final Widget currentChild = DevicePreview.appBuilder(context, child);
+        final Widget currentChild = child ?? const SizedBox.shrink();
         final mediaQueryData = MediaQuery.of(context);
         final double baseScale = mediaQueryData.textScaler.scale(10) / 10;
         final double safeScale = baseScale.clamp(1.0, 1.15);
