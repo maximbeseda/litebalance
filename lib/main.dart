@@ -128,6 +128,10 @@ class _MyAppState extends ConsumerState<MyApp> {
     // Тримаємо форматування чисел/дат і скорочення мільйонів у синхроні з мовою.
     Intl.defaultLocale = context.locale.toString();
     CurrencyFormatter.millionSuffix = 'million_suffix'.tr();
+    // Базова валюта визначає знаки після коми для сум без явного коду.
+    CurrencyFormatter.defaultCurrencyCode = ref.watch(
+      settingsProvider.select((s) => s.baseCurrency),
+    );
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

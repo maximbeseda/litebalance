@@ -84,12 +84,18 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
     _targetCurrency = widget.initialTargetCurrency ?? widget.target.currency;
 
     if (widget.initialAmount != null && widget.initialAmount! > 0) {
-      _sourceAmount = _formatAmount(widget.initialAmount!);
+      _sourceAmount = _formatAmount(
+        widget.initialAmount!,
+        currencyCode: _sourceCurrency,
+      );
       _sourceExpression = _sourceAmount;
     }
 
     if (widget.initialTargetAmount != null && widget.initialTargetAmount! > 0) {
-      _targetAmount = _formatAmount(widget.initialTargetAmount!);
+      _targetAmount = _formatAmount(
+        widget.initialTargetAmount!,
+        currencyCode: _targetCurrency,
+      );
       _targetExpression = _targetAmount;
       _isRateLinked = false;
     }
@@ -200,11 +206,17 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
 
     if (!_isEditingTarget) {
       final double targetVal = currentVal * _currentExchangeRate;
-      _targetAmount = _formatDoubleForInput(targetVal);
+      _targetAmount = _formatDoubleForInput(
+        targetVal,
+        currencyCode: _targetCurrency,
+      );
       _targetExpression = _targetAmount;
     } else {
       final double sourceVal = currentVal / _currentExchangeRate;
-      _sourceAmount = _formatDoubleForInput(sourceVal);
+      _sourceAmount = _formatDoubleForInput(
+        sourceVal,
+        currencyCode: _sourceCurrency,
+      );
       _sourceExpression = _sourceAmount;
     }
   }
@@ -227,13 +239,17 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
     }
   }
 
-  String _formatAmount(int val) {
+  String _formatAmount(int val, {String? currencyCode}) {
     if (val == 0) return '0';
     final double displayVal = val / 100.0;
-    return _formatDoubleForInput(displayVal);
+    return _formatDoubleForInput(displayVal, currencyCode: currencyCode);
   }
 
-  String _formatDoubleForInput(double val) {
+  String _formatDoubleForInput(double val, {String? currencyCode}) {
+    // Безкопійчані валюти (JPY тощо) — округлюємо до цілого, без дробу.
+    if (currencyCode != null && AppCurrency.decimals(currencyCode) == 0) {
+      return val.round().toString();
+    }
     final String formatted = val.toStringAsFixed(2);
     if (formatted.endsWith('.00')) {
       return formatted.substring(0, formatted.length - 3);
@@ -361,6 +377,11 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
             .last;
 
         if (key == '.') {
+          // Безкопійчані валюти (JPY тощо) — десяткова частина не дозволена.
+          final String activeCode = _isEditingTarget
+              ? _targetCurrency
+              : _sourceCurrency;
+          if (AppCurrency.decimals(activeCode) == 0) return;
           if (currentNumber.contains('.')) return;
           if (currentNumber.isEmpty) {
             _activeExpression += '0.';
@@ -1007,6 +1028,11 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           : CustomNumpad(
               key: const ValueKey('numpad'),
               onKeyPressed: _onNumpadPressed,
+              // Для активної «безкопійчаної» валюти крапка недоступна.
+              decimalEnabled: AppCurrency.decimals(
+                    _isEditingTarget ? _targetCurrency : _sourceCurrency,
+                  ) !=
+                  0,
             ),
     );
   }

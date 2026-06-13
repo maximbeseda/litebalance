@@ -274,7 +274,7 @@ class SubscriptionsScreen extends ConsumerWidget {
                                         ),
                                         const SizedBox(width: 8),
                                         Text(
-                                          '-${CurrencyFormatter.format(sub.amount)} $currencySymbol',
+                                          '-${CurrencyFormatter.format(sub.amount, currencyCode: sub.currency)} $currencySymbol',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w900,

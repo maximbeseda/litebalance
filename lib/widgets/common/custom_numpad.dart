@@ -7,7 +7,15 @@ import '../../utils/haptic_helper.dart';
 class CustomNumpad extends ConsumerStatefulWidget {
   final Function(String) onKeyPressed;
 
-  const CustomNumpad({super.key, required this.onKeyPressed});
+  /// Чи активна кнопка десяткової крапки. Для «безкопійчаних» валют (JPY тощо)
+  /// передаємо false — крапка гасне й не реагує.
+  final bool decimalEnabled;
+
+  const CustomNumpad({
+    super.key,
+    required this.onKeyPressed,
+    this.decimalEnabled = true,
+  });
 
   @override
   ConsumerState<CustomNumpad> createState() => _CustomNumpadState();
@@ -43,6 +51,7 @@ class _CustomNumpadState extends ConsumerState<CustomNumpad> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: row.map((key) {
+                final bool enabled = !(key == '.' && !widget.decimalEnabled);
                 return Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -50,7 +59,8 @@ class _CustomNumpadState extends ConsumerState<CustomNumpad> {
                       text: key,
                       isDark: isDark,
                       colors: colors,
-                      onPressed: () => _handleKeyPress(key),
+                      enabled: enabled,
+                      onPressed: enabled ? () => _handleKeyPress(key) : null,
                     ),
                   ),
                 );
@@ -67,13 +77,15 @@ class _NumpadButton extends StatefulWidget {
   final String text;
   final bool isDark;
   final AppColorsExtension colors;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
+  final bool enabled;
 
   const _NumpadButton({
     required this.text,
     required this.isDark,
     required this.colors,
     required this.onPressed,
+    this.enabled = true,
   });
 
   @override
@@ -108,13 +120,17 @@ class _NumpadButtonState extends State<_NumpadButton> {
 
     return Listener(
       behavior: HitTestBehavior.opaque,
-      onPointerDown: (_) {
-        setState(() => _isPressed = true);
-        widget.onPressed();
-      },
+      onPointerDown: widget.enabled
+          ? (_) {
+              setState(() => _isPressed = true);
+              widget.onPressed?.call();
+            }
+          : null,
       onPointerUp: (_) => setState(() => _isPressed = false),
       onPointerCancel: (_) => setState(() => _isPressed = false),
-      child: Material(
+      child: Opacity(
+        opacity: widget.enabled ? 1.0 : 0.35,
+        child: Material(
         color: _isPressed
             ? Color.alphaBlend(Colors.black.withValues(alpha: 0.18), bgColor)
             : bgColor,
@@ -146,6 +162,7 @@ class _NumpadButtonState extends State<_NumpadButton> {
                     color: textColor,
                   ),
                 ),
+        ),
         ),
       ),
     );

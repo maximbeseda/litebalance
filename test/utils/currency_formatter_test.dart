@@ -58,4 +58,27 @@ void main() {
       expect(CurrencyFormatter.formatBudget(150050), '1 500');
     });
   });
+
+  group('CurrencyFormatter — валюти без копійок', () {
+    test('Для 0-знакової валюти (JPY) не показує дробову частину', () {
+      // ¥1500 зберігається як 150000 (×100). Очікуємо ціле без коми.
+      expect(CurrencyFormatter.format(150000, currencyCode: 'JPY'), '1 500');
+    });
+
+    test('Залишок копійок відкидається для 0-знакової валюти', () {
+      expect(CurrencyFormatter.format(150050, currencyCode: 'JPY'), '1 500');
+    });
+
+    test('HUF трактується як без копійок', () {
+      expect(CurrencyFormatter.format(150000, currencyCode: 'HUF'), '1 500');
+    });
+
+    test('Звичайна валюта (USD) показує 2 знаки', () {
+      expect(CurrencyFormatter.format(150000, currencyCode: 'USD'), '1 500,00');
+    });
+
+    test('Від’ємна 0-знакова сума', () {
+      expect(CurrencyFormatter.format(-150000, currencyCode: 'JPY'), '-1 500');
+    });
+  });
 }

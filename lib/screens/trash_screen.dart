@@ -296,7 +296,8 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
             daysLeft: daysLeft,
             titleWidget: titleWidget,
             subtitleWidget: subtitleWidget,
-            amountStr: '${CurrencyFormatter.format(tx.amount)} $sym',
+            amountStr:
+                '${CurrencyFormatter.format(tx.amount, currencyCode: tx.currency)} $sym',
             amountColor: amountColor,
             icon: Container(
               width: 40,
@@ -344,7 +345,8 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: colors.textSecondary, fontSize: 12),
             ),
-            amountStr: '${CurrencyFormatter.format(sub.amount)} $sym',
+            amountStr:
+                '${CurrencyFormatter.format(sub.amount, currencyCode: sub.currency)} $sym',
             amountColor: colors.textMain,
             icon: Container(
               width: 40,

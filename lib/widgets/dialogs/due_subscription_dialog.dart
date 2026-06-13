@@ -164,7 +164,7 @@ class DueSubscriptionDialog extends ConsumerWidget {
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      '${CurrencyFormatter.format(subscription.amount)} $currencySymbol',
+                      '${CurrencyFormatter.format(subscription.amount, currencyCode: subscription.currency)} $currencySymbol',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,

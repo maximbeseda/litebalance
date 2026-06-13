@@ -81,6 +81,21 @@ class AppCurrency {
   /// Популярні валюти + гривня, що завжди йдуть зверху списків (у цьому порядку).
   static const List<String> topCodes = ['UAH', 'USD', 'EUR', 'GBP', 'PLN'];
 
+  /// Валюти без дробової частини. JPY/KRW/VND/CLP/ISK мають 0 знаків за ISO 4217;
+  /// HUF за ISO = 2, але де-факто без філлерів (скасовані 1999) — тож теж 0.
+  static const Set<String> zeroDecimalCodes = {
+    'JPY',
+    'KRW',
+    'VND',
+    'CLP',
+    'ISK',
+    'HUF',
+  };
+
+  /// Кількість знаків після коми для валюти (0 для «безкопійчаних», інакше 2).
+  static int decimals(String code) =>
+      zeroDecimalCodes.contains(code.toUpperCase()) ? 0 : 2;
+
   // 👇 ОПТИМІЗАЦІЯ: Кеш для миттєвого доступу (O(1) замість O(N))
   static final Map<String, AppCurrency> _currencyCache = {
     for (var c in supportedCurrencies) c.code: c,
