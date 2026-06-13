@@ -401,7 +401,7 @@ class _StatsCategoryBottomSheetState
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '$prefix${CurrencyFormatter.format(mainAmount.abs())} $mainSymbol',
+                                    '$prefix${CurrencyFormatter.format(mainAmount.abs(), currencyCode: mainCurrency)} $mainSymbol',
                                     style: TextStyle(
                                       color: amountColor,
                                       fontWeight: FontWeight.bold,
@@ -412,7 +412,7 @@ class _StatsCategoryBottomSheetState
                                     Padding(
                                       padding: const EdgeInsets.only(top: 2.0),
                                       child: Text(
-                                        '~ ${CurrencyFormatter.format(secondaryAmount.abs())} $secondarySymbol',
+                                        '~ ${CurrencyFormatter.format(secondaryAmount.abs(), currencyCode: secondaryCurrency)} $secondarySymbol',
                                         style: TextStyle(
                                           color: colors.textSecondary,
                                           fontSize: 11,

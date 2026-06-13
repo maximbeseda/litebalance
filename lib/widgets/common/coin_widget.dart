@@ -38,6 +38,7 @@ class _CoinWidgetState extends State<CoinWidget> {
 
     final String displayAmount = CurrencyFormatter.format(
       widget.category.amount,
+      currencyCode: widget.category.currency,
     );
     final String currencySymbol = AppCurrency.fromCode(
       widget.category.currency,

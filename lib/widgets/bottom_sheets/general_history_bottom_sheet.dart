@@ -414,7 +414,7 @@ class _GeneralHistoryBottomSheetState
                                   children: [
                                     // Головна сума
                                     Text(
-                                      '$prefix${CurrencyFormatter.format(mainAmount)} $mainSymbol',
+                                      '$prefix${CurrencyFormatter.format(mainAmount, currencyCode: mainCurrency)} $mainSymbol',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: amountColor,
@@ -428,7 +428,7 @@ class _GeneralHistoryBottomSheetState
                                           top: 2.0,
                                         ),
                                         child: Text(
-                                          '~ ${CurrencyFormatter.format(secondaryAmount)} $secondarySymbol',
+                                          '~ ${CurrencyFormatter.format(secondaryAmount, currencyCode: secondaryCurrency)} $secondarySymbol',
                                           style: TextStyle(
                                             color: colors.textSecondary,
                                             fontSize: 11,

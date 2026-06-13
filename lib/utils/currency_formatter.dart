@@ -1,10 +1,18 @@
 // lib/utils/currency_formatter.dart
+import '../models/app_currency.dart';
+
 class CurrencyFormatter {
   /// Скорочення для мільйонів (напр. «1,5М»). Локалізується застосунком:
   /// `MyApp` оновлює це поле з ключа `million_suffix` при кожній зміні мови.
   /// Тримаємо значення тут (а не через `.tr()`), щоб форматер лишався чистим
   /// і тестувався без ініціалізації локалізації.
   static String millionSuffix = 'М';
+
+  /// Валюта за замовчуванням для сум без явного коду (базова валюта застосунку).
+  /// `MyApp` оновлює це поле при зміні базової валюти. Завдяки цьому всі місця,
+  /// що показують суму в базовій валюті, автоматично враховують її знаки після
+  /// коми, не передаючи код вручну.
+  static String? defaultCurrencyCode;
 
   // Швидкий метод для розділення тисяч
   static String _addSpaces(String integerPart) {
@@ -25,8 +33,17 @@ class CurrencyFormatter {
     return buffer.toString().split('').reversed.join();
   }
 
-  static String format(int amount, {bool isHeader = false}) {
+  /// [currencyCode] визначає кількість знаків після коми: «безкопійчані» валюти
+  /// (JPY, KRW, …) показуються без дробу. Якщо код не передано — звичні 2 знаки,
+  /// тож наявні виклики поведінки не змінюють.
+  static String format(
+    int amount, {
+    bool isHeader = false,
+    String? currencyCode,
+  }) {
     if (amount == 0) return '0';
+    final String? code = currencyCode ?? defaultCurrencyCode;
+    final int decimals = code == null ? 2 : AppCurrency.decimals(code);
 
     // 👇 ТЕПЕР МАТЕМАТИКА ПРАВИЛЬНА (Беремо копійки з бази)
     final int absCents = amount.abs();
@@ -52,6 +69,9 @@ class CurrencyFormatter {
     final int fPart = absCents % 100; // Це залишок (копійки/центи)
 
     final String formattedInt = _addSpaces(iPart.toString());
+
+    // Валюти без копійок — завжди ціле, без коми.
+    if (decimals == 0) return '$sign$formattedInt';
 
     // Якщо сума >= 100 000 (тобто 10 000 000 копійок), показуємо без копійок
     if (absCents >= 10000000) return '$sign$formattedInt';

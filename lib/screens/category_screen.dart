@@ -534,6 +534,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                                 : 'current_balance'.tr(),
                             colors: colors,
                             isNumber: true,
+                            allowDecimal: AppCurrency.decimals(currencyCode) != 0,
                             suffix: ' $currencySymbol',
                           ),
                           const SizedBox(height: 16),
@@ -562,6 +563,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                             label: 'monthly_budget'.tr(),
                             colors: colors,
                             isNumber: true,
+                            allowDecimal: AppCurrency.decimals(currencyCode) != 0,
                             suffix: ' $currencySymbol',
                           ),
                         ],
@@ -585,6 +587,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     required AppColorsExtension colors,
     String? suffix,
     bool isNumber = false,
+    bool allowDecimal = true,
     int? maxLength,
     bool isError = false,
   }) {
@@ -606,6 +609,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                 String text = newValue.text
                     .replaceAll(',', '.')
                     .replaceAll(' ', '');
+                // Безкопійчані валюти — десяткова крапка недоступна.
+                if (!allowDecimal) text = text.replaceAll('.', '');
                 if (text.isEmpty) return newValue.copyWith(text: text);
 
                 if (text.indexOf('.') != text.lastIndexOf('.')) return oldValue;

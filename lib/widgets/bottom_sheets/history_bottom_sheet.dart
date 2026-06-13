@@ -375,7 +375,7 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '$prefix${CurrencyFormatter.format(mainAmount)} $mainSymbol',
+                    '$prefix${CurrencyFormatter.format(mainAmount, currencyCode: mainCurrency)} $mainSymbol',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: amountColor,
@@ -384,7 +384,7 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
                   ),
                   if (isMultiCurrency)
                     Text(
-                      '~ ${CurrencyFormatter.format(secondaryAmount)} $secondarySymbol',
+                      '~ ${CurrencyFormatter.format(secondaryAmount, currencyCode: secondaryCurrency)} $secondarySymbol',
                       style: TextStyle(
                         color: colors.textSecondary,
                         fontSize: 11,
