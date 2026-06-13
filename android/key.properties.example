@@ -1,0 +1,13 @@
+# Скопіюй цей файл у android/key.properties і заповни своїми значеннями.
+# key.properties у .gitignore — НЕ комітити (містить паролі до keystore).
+#
+# 1. Згенеруй upload keystore (один раз, зберігай у безпечному місці поза репо):
+#    keytool -genkey -v -keystore %USERPROFILE%\litebalance-upload.jks \
+#      -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+#
+# 2. Пропиши шлях і паролі нижче (storeFile — абсолютний шлях до .jks).
+
+storePassword=ВАШ_ПАРОЛЬ_СХОВИЩА
+keyPassword=ВАШ_ПАРОЛЬ_КЛЮЧА
+keyAlias=upload
+storeFile=C:/Users/Admin/litebalance-upload.jks

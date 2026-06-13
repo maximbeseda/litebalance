@@ -8,7 +8,7 @@ import '../utils/app_lock.dart';
 
 class GoogleAuthService {
   static const String _serverClientId =
-      '711001679852-cmf3msj3a8re2c9cq4pefvbntr8vcomp.apps.googleusercontent.com';
+      '603162110111-02k3rrsnqn78tcpjmsq5o1p4nrl883d6.apps.googleusercontent.com';
 
   final GoogleSignIn _googleSignIn;
   final List<String> _scopes = [drive.DriveApi.driveAppdataScope];
