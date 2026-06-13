@@ -434,6 +434,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: const SettingsDrawer(),
+      // Відкриваємо лише кнопкою: edge-свайп drawer'а конфліктував із системним
+      // жестом «назад» і давав білий проблиск збоку.
+      endDrawerEnableOpenDragGesture: false,
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
