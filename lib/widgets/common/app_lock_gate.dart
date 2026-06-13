@@ -17,8 +17,9 @@ const String kLockBgTimeKey = 'lock_background_time';
 /// **прямо в дереві** (а не пушить маршрут і не вставляє overlay) — тому перший
 /// же кадр після повернення з фону вже накритий, без проблиску даних.
 ///
-/// • На фоні (`inactive/paused/hidden`) синхронно вмикаємо шторку з лого — її
-///   ж бачить і прев'ю в списку нещодавніх.
+/// • Коли застосунок іде у фон (`paused`/`hidden`) — вмикаємо шторку з лого; її
+///   ж бачить і прев'ю в списку нещодавніх. `inactive` (шторка сповіщень,
+///   системні діалоги, біометрія) свідомо ігноруємо, щоб не блимати шторкою.
 /// • На `resumed`: якщо минув таймаут і є PIN — показуємо екран блокування
 ///   тут само (без гонки з push); інакше знімаємо шторку.
 class AppLockGate extends ConsumerStatefulWidget {
@@ -86,21 +87,18 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
       } else if (_shield) {
         setState(() => _shield = false);
       }
-    } else if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.paused ||
+    } else if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden) {
-      // Під час довіреної дії або коли вже заблоковано — не реагуємо.
+      // ТІЛЬКИ реальний фон. `inactive` свідомо НЕ обробляємо: він спрацьовує на
+      // шторку сповіщень, системні діалоги, діалог біометрії тощо — там шторка
+      // не потрібна й лише дратує. `paused` встигає накрити свайп-згортання та
+      // знімок «нещодавніх».
       if (_locked || AppLock.isTrusted) return;
 
-      // Час фону фіксуємо лише коли застосунок реально йде у фон.
-      if ((state == AppLifecycleState.paused ||
-              state == AppLifecycleState.hidden) &&
-          _wasResumed) {
+      if (_wasResumed) {
         _wasResumed = false;
         prefs.setInt(kLockBgTimeKey, DateTime.now().millisecondsSinceEpoch);
       }
-      // Внутрішня шторка (поверх контенту, поки приймається рішення). Знімок
-      // «нещодавніх» і кадр повернення накриває нативний оверлей у MainActivity.
       if (_pinSet && !_shield) {
         setState(() => _shield = true);
       }
