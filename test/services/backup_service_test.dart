@@ -8,8 +8,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/services/backup_service.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/services/backup_service.dart';
 
 // ==========================================
 // 1. ЕЛЕГАНТНИЙ МОК ЧЕРЕЗ MOCKTAIL
@@ -115,7 +115,7 @@ void main() {
         [dummySubscription],
       );
 
-      expect(encryptedString.contains(':'), isTrue);
+      expect(encryptedString.startsWith('LBK2:'), isTrue);
       expect(encryptedString.contains('Test Category'), isFalse);
 
       final Map<String, dynamic> decryptedJson = BackupService.decryptPayload(
@@ -157,6 +157,39 @@ void main() {
       },
     );
   });
+
+    test('Новий формат використовує PBKDF2 (тег LBK2 + сіль)', () {
+      final payload = BackupService.generateEncryptedPayload(
+        'pass',
+        [],
+        [],
+        [],
+      );
+      final parts = payload.split(':');
+      // LBK2 : iterations : salt : iv : cipher
+      expect(parts.length, 5);
+      expect(parts[0], 'LBK2');
+      expect(int.parse(parts[1]) >= 100000, isTrue);
+    });
+
+    test('Зворотна сумісність: старий .cfbak (SHA-256) досі читається', () {
+      const password = 'OldFormatPass';
+      final legacy = BackupService.legacyEncryptedPayload(
+        password,
+        [dummyCategory],
+        [],
+        [],
+      );
+      // Старий формат — без тегу LBK2.
+      expect(legacy.startsWith('LBK2:'), isFalse);
+
+      final decoded = BackupService.decryptPayload(password, legacy);
+      final cats = decoded['categories'] as List;
+      expect(
+        Map<String, dynamic>.from(cats.first as Map)['name'],
+        'Test Category',
+      );
+    });
 
   group('BackupService - File System & Database Operations', () {
     late AppDatabase db;

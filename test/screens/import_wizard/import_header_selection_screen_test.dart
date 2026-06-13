@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 // import 'package:easy_localization/easy_localization.dart';
 
 // ЗАМІНІТЬ імпорти на ваші реальні шляхи
-import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/screens/import_wizard/import_header_selection_screen.dart';
-import 'package:coin_flow/screens/import_wizard/import_column_mapping_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/screens/import_wizard/import_header_selection_screen.dart';
+import 'package:litebalance/screens/import_wizard/import_column_mapping_screen.dart';
 
 void main() {
   // 1. СТВОРЮЄМО ФЕЙКОВУ ТЕМУ ДЛЯ ТЕСТІВ

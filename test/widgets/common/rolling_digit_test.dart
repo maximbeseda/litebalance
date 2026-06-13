@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/widgets/common/rolling_digit.dart';
+import 'package:litebalance/widgets/common/rolling_digit.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

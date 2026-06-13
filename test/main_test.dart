@@ -7,11 +7,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:drift/native.dart';
 
-import 'package:coin_flow/main.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/screens/home_screen.dart';
-import 'package:coin_flow/screens/onboarding_screen.dart';
-import 'package:coin_flow/screens/lock_screen.dart';
+import 'package:litebalance/main.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/screens/home_screen.dart';
+import 'package:litebalance/screens/onboarding_screen.dart';
+import 'package:litebalance/screens/lock_screen.dart';
 
 // 👇 1. Мок для локалізації
 class _MockAssetLoader extends AssetLoader {

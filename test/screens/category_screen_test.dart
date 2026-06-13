@@ -1,6 +1,6 @@
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/screens/category_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/screens/category_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

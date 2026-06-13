@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/utils/app_constants.dart';
+import 'package:litebalance/utils/app_constants.dart';
 
 void main() {
   // Ініціалізація зв'язків Flutter (необхідно для роботи з іконками та контекстом у тестах)

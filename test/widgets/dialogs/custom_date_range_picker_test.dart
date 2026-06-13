@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:coin_flow/widgets/dialogs/custom_date_range_picker.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/widgets/dialogs/custom_date_range_picker.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Додано для мокування пам'яті
 
 // ЗАМІНІТЬ імпорти на ваші реальні шляхи
-import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/screens/import_wizard/import_category_setup_screen.dart';
-import 'package:coin_flow/providers/all_providers.dart'; // Додано для доступу до провайдерів
-import 'package:coin_flow/providers/core_providers.dart'; // Додано для sharedPreferencesProvider
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/screens/import_wizard/import_category_setup_screen.dart';
+import 'package:litebalance/providers/all_providers.dart'; // Додано для доступу до провайдерів
+import 'package:litebalance/providers/core_providers.dart'; // Додано для sharedPreferencesProvider
 
 void main() {
   // 1. ФЕЙКОВА ТЕМА ДЛЯ ТЕСТІВ

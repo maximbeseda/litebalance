@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Оновіть цей імпорт, якщо ваш database.dart знаходиться в іншій папці
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/utils/import_recognizer.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/utils/import_recognizer.dart';
 
 void main() {
   group('ImportRecognizer Tests', () {

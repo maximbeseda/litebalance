@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:coin_flow/widgets/dialogs/month_picker_dialog.dart';
+import 'package:litebalance/widgets/dialogs/month_picker_dialog.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

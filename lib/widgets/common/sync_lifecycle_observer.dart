@@ -3,21 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../providers/all_providers.dart';
-import '../../screens/lock_screen.dart';
 
-// Публічні константи — використовуються і тут, і в main.dart
-const int kAutoLockTimeoutMs = 5 * 60 * 1000; // 5 хвилин
-const String kLockBgTimeKey = 'lock_background_time';
-
+/// Спостерігач життєвого циклу для фонової авто-синхронізації з Google Drive.
+/// (Блокування/шторку винесено в [AppLockGate].)
 class SyncLifecycleObserver extends ConsumerStatefulWidget {
   final Widget child;
-  final GlobalKey<NavigatorState> navigatorKey;
 
-  const SyncLifecycleObserver({
-    super.key,
-    required this.child,
-    required this.navigatorKey,
-  });
+  const SyncLifecycleObserver({super.key, required this.child});
 
   @override
   ConsumerState<SyncLifecycleObserver> createState() =>
@@ -27,7 +19,6 @@ class SyncLifecycleObserver extends ConsumerStatefulWidget {
 class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
     with WidgetsBindingObserver {
   bool _isAutoSyncing = false;
-  bool _wasResumed = true;
 
   @override
   void initState() {
@@ -43,52 +34,12 @@ class _SyncLifecycleObserverState extends ConsumerState<SyncLifecycleObserver>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _wasResumed = true;
-      // Синхронний push — відбувається до першого кадру, без flash
-      _checkAndLockSync();
-    } else if ((state == AppLifecycleState.paused ||
-            state == AppLifecycleState.hidden) &&
-        _wasResumed) {
-      _wasResumed = false;
-      ref
-          .read(sharedPreferencesProvider)
-          .setInt(kLockBgTimeKey, DateTime.now().millisecondsSinceEpoch);
-    }
-
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden ||
         state == AppLifecycleState.resumed) {
       _attemptAutoSync(state);
     }
-  }
-
-  // Повністю синхронна перевірка — викликається прямо в didChangeAppLifecycleState.
-  // Використовує pin_set_cache з SharedPreferences (без async/await),
-  // тому push відбувається до того як Flutter намалює перший кадр після resume.
-  void _checkAndLockSync() {
-    if (LockScreen.isShowing) return;
-
-    final prefs = ref.read(sharedPreferencesProvider);
-
-    final bgTime = prefs.getInt(kLockBgTimeKey);
-    if (bgTime == null) return;
-
-    final elapsed = DateTime.now().millisecondsSinceEpoch - bgTime;
-    if (elapsed < kAutoLockTimeoutMs) return;
-
-    final isPinSet = prefs.getBool('pin_set_cache') ?? false;
-    if (!isPinSet) return;
-
-    unawaited(prefs.remove(kLockBgTimeKey));
-
-    widget.navigatorKey.currentState?.push(
-      MaterialPageRoute<void>(
-        builder: (_) => const LockScreen(),
-        fullscreenDialog: true,
-      ),
-    );
   }
 
   Future<bool> _canSyncNow() async {

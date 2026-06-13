@@ -7,17 +7,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/screens/home_screen.dart';
-import 'package:coin_flow/screens/transaction_screen.dart';
-import 'package:coin_flow/screens/category_screen.dart';
-import 'package:coin_flow/widgets/bottom_sheets/general_history_bottom_sheet.dart';
-import 'package:coin_flow/widgets/bottom_sheets/history_bottom_sheet.dart';
-import 'package:coin_flow/widgets/common/home_screen_skeleton.dart';
-import 'package:coin_flow/widgets/common/summary_header.dart';
-import 'package:coin_flow/widgets/dialogs/due_subscription_dialog.dart';
-import 'package:coin_flow/widgets/home/category_section.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/screens/home_screen.dart';
+import 'package:litebalance/screens/transaction_screen.dart';
+import 'package:litebalance/screens/category_screen.dart';
+import 'package:litebalance/widgets/bottom_sheets/general_history_bottom_sheet.dart';
+import 'package:litebalance/widgets/bottom_sheets/history_bottom_sheet.dart';
+import 'package:litebalance/widgets/common/home_screen_skeleton.dart';
+import 'package:litebalance/widgets/common/summary_header.dart';
+import 'package:litebalance/widgets/dialogs/due_subscription_dialog.dart';
+import 'package:litebalance/widgets/home/category_section.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 
 // ======================================================================
 // 1. ЗАГЛУШКИ (MOCKS) ТА ДАНІ

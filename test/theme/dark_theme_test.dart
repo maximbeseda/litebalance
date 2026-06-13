@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/theme/dark_theme.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/theme/dark_theme.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 
 void main() {
   group('Dark Theme Configuration Tests', () {

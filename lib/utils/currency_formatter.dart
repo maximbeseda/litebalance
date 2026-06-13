@@ -1,5 +1,11 @@
 // lib/utils/currency_formatter.dart
 class CurrencyFormatter {
+  /// Скорочення для мільйонів (напр. «1,5М»). Локалізується застосунком:
+  /// `MyApp` оновлює це поле з ключа `million_suffix` при кожній зміні мови.
+  /// Тримаємо значення тут (а не через `.tr()`), щоб форматер лишався чистим
+  /// і тестувався без ініціалізації локалізації.
+  static String millionSuffix = 'М';
+
   // Швидкий метод для розділення тисяч
   static String _addSpaces(String integerPart) {
     if (integerPart.length <= 3) return integerPart;
@@ -27,7 +33,7 @@ class CurrencyFormatter {
     final String sign = amount < 0 ? '-' : '';
 
     // Понад 100 мільярдів
-    if (absCents >= 10000000000000) return '${sign}99 999М+';
+    if (absCents >= 10000000000000) return '${sign}99 999$millionSuffix+';
 
     // Поріг для мільйонів (у копійках)
     final int millionThresholdCents = isHeader ? 10000000000 : 100000000;
@@ -38,7 +44,7 @@ class CurrencyFormatter {
       final int fractionalPart = ((millions - integerPart) * 10).truncate();
 
       final String formattedInteger = _addSpaces(integerPart.toString());
-      return '$sign$formattedInteger,$fractionalPartМ';
+      return '$sign$formattedInteger,$fractionalPart$millionSuffix';
     }
 
     // ЗВИЧАЙНІ СУМИ: Беремо цілу та дробову частину математично!
@@ -65,7 +71,7 @@ class CurrencyFormatter {
 
   static String formatBudget(int amount) {
     final String formatted = format(amount);
-    if (formatted.contains(',') && !formatted.contains('М')) {
+    if (formatted.contains(',') && !formatted.endsWith(millionSuffix)) {
       return formatted.split(',')[0];
     }
     return formatted;

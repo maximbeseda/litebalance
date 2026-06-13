@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:coin_flow/widgets/common/custom_numpad.dart';
-import 'package:coin_flow/providers/all_providers.dart';
+import 'package:litebalance/widgets/common/custom_numpad.dart';
+import 'package:litebalance/providers/all_providers.dart';
 import '../../helpers/test_wrapper.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}

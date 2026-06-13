@@ -1,4 +1,5 @@
 {
+  "million_suffix": "M",
   "cancel": "Zrušiť",
   "delete": "Odstrániť",
   "edit": "Upraviť",
@@ -126,6 +127,8 @@
   "clear_data_title": "Vymazať všetky údaje?",
   "clear_data_message": "Týmto sa odstránia všetky transakcie, predplatné a vynulujú sa zostatky účtov. Túto akciu nie je možné vrátiť späť.",
   "data_cleared_success": "Všetky údaje boli úspešne vymazané",
+  "clear_data_cloud_note": "Tvoja kópia na Disku Google bude pri ďalšej synchronizácii tiež prepísaná prázdnymi údajmi.",
+  "current_copy": "Aktuálna kópia",
 
   "statistics": "Štatistiky",
   "stats_expenses": "Výdavky",

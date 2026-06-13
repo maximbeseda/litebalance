@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:coin_flow/widgets/common/date_strip_selector.dart';
+import 'package:litebalance/widgets/common/date_strip_selector.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

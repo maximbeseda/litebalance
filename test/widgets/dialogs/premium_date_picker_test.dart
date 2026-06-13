@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:coin_flow/widgets/dialogs/premium_date_picker.dart';
+import 'package:litebalance/widgets/dialogs/premium_date_picker.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

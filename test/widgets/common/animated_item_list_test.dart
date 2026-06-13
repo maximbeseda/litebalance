@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/widgets/common/animated_item_list.dart';
+import 'package:litebalance/widgets/common/animated_item_list.dart';
 import '../../helpers/test_wrapper.dart';
 
 class _Harness extends StatefulWidget {

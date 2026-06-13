@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/services/export_import_service.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/services/export_import_service.dart';
 
 void main() {
   group('ExportImportService - CSV Generation', () {

@@ -1,4 +1,5 @@
 {
+  "million_suffix": "M",
   "cancel": "Cancelar",
   "delete": "Eliminar",
   "edit": "Editar",
@@ -126,6 +127,8 @@
   "clear_data_title": "Limpar todos os dados?",
   "clear_data_message": "Isto eliminará todas as transações, subscrições e repõe os saldos das contas. Esta ação não pode ser anulada.",
   "data_cleared_success": "Todos os dados foram limpos com sucesso",
+  "clear_data_cloud_note": "A tua cópia no Google Drive também será substituída por dados vazios na próxima sincronização.",
+  "current_copy": "Cópia atual",
 
   "statistics": "Estatísticas",
   "stats_expenses": "Despesas",

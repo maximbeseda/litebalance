@@ -1,5 +1,5 @@
-name: coin_flow
-description: "A new Flutter project."
+name: litebalance
+description: "LiteBalance — clear, calm personal finance tracking."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -36,8 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.4
   vibration: ^3.1.7
-  device_preview: ^1.3.1
-  provider: ^6.1.5+1
   flutter_localizations:
     sdk: flutter
   table_calendar: ^3.2.0
@@ -56,6 +54,7 @@ dependencies:
   flutter_secure_storage: ^10.0.0
   crypto: ^3.0.7
   encrypt: ^5.0.3
+  pointycastle: ^3.9.1
   drift: ^2.31.0
   sqlite3_flutter_libs: ^0.5.20
   path: ^1.9.1
@@ -144,6 +143,8 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
 
+# Потрібно, доки local_auth_ios прив'язаний до старого intl (<0.19): Flutter/
+# flutter_localizations тягнуть intl 0.20.x, тож вирівнюємо всіх через override.
 dependency_overrides:
   intl: ^0.20.2
 
@@ -156,11 +157,6 @@ flutter_launcher_icons:
   min_sdk_android: 21
   adaptive_icon_background: "#080B14"
   adaptive_icon_foreground: "assets/branding/launcher_foreground.png"
-  web:
-    generated: true
-    image_path: "assets/branding/launcher_icon.png"
-    background_color: "#080B14"
-    theme_color: "#080B14"
 
 # Сплеш-екран LiteBalance (плитка-логотип на авто світлому/темному тлі).
 flutter_native_splash:

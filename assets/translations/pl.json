@@ -1,4 +1,5 @@
 {
+  "million_suffix": "M",
   "cancel": "Anuluj",
   "delete": "Usuń",
   "edit": "Edytuj",
@@ -126,6 +127,8 @@
   "clear_data_title": "Wyczyścić wszystkie dane?",
   "clear_data_message": "Spowoduje to usunięcie wszystkich transakcji, subskrypcji oraz wyzerowanie sald kont. Tej operacji nie można cofnąć.",
   "data_cleared_success": "Wszystkie dane zostały wyczyszczone",
+  "clear_data_cloud_note": "Kopia na Dysku Google również zostanie nadpisana pustymi danymi przy następnej synchronizacji.",
+  "current_copy": "Bieżąca kopia",
 
   "statistics": "Statystyki",
   "stats_expenses": "Wydatki",

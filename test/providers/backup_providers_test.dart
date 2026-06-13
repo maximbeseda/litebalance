@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Заміни 'coinflow_app' на реальну назву твого пакета, якщо вона відрізняється
-import 'package:coin_flow/providers/backup_providers.dart';
-import 'package:coin_flow/services/google_auth_service.dart';
-import 'package:coin_flow/services/drive_backup_service.dart';
+import 'package:litebalance/providers/backup_providers.dart';
+import 'package:litebalance/services/google_auth_service.dart';
+import 'package:litebalance/services/drive_backup_service.dart';
 
 void main() {
   // Групуємо тести для зручності читання в консолі

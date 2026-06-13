@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'package:coin_flow/main.dart';
-import 'package:coin_flow/providers/all_providers.dart';
+import 'package:litebalance/main.dart';
+import 'package:litebalance/providers/all_providers.dart';
 
 void main() {
   setUpAll(() async {

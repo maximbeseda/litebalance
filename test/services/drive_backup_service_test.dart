@@ -6,9 +6,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
-import 'package:coin_flow/services/drive_backup_service.dart';
-import 'package:coin_flow/services/google_auth_service.dart';
-import 'package:coin_flow/database/app_database.dart';
+import 'package:litebalance/services/drive_backup_service.dart';
+import 'package:litebalance/services/google_auth_service.dart';
+import 'package:litebalance/database/app_database.dart';
 
 class AppDatabaseSpy extends Fake implements AppDatabase {
   static int checkpointCalls = 0;

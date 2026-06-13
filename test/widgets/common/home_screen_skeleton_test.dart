@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/widgets/common/home_screen_skeleton.dart';
-import 'package:coin_flow/theme/app_theme.dart';
+import 'package:litebalance/widgets/common/home_screen_skeleton.dart';
+import 'package:litebalance/theme/app_theme.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

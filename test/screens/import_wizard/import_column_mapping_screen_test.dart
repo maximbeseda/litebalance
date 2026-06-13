@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Імпорти згідно з вашою структурою
-import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/screens/import_wizard/import_category_setup_screen.dart';
-import 'package:coin_flow/providers/core_providers.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/screens/import_wizard/import_category_setup_screen.dart';
+import 'package:litebalance/providers/core_providers.dart';
 
 void main() {
   const mockColors = AppColorsExtension(

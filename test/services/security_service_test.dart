@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:coin_flow/services/security_service.dart';
+import 'package:litebalance/services/security_service.dart';
 
 void main() {
   // Обов'язкова ініціалізація для тестів, які взаємодіють з нативними плагінами

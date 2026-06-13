@@ -1,4 +1,5 @@
 {
+  "million_suffix": "M",
   "cancel": "Annuleren",
   "delete": "Verwijderen",
   "edit": "Bewerken",
@@ -126,6 +127,8 @@
   "clear_data_title": "Alle gegevens wissen?",
   "clear_data_message": "Hiermee worden alle transacties en abonnementen verwijderd en de accountsaldo's gereset. Deze actie kan niet ongedaan worden gemaakt.",
   "data_cleared_success": "Alle gegevens succesvol gewist",
+  "clear_data_cloud_note": "Je Google Drive-kopie wordt bij de volgende synchronisatie ook overschreven met lege gegevens.",
+  "current_copy": "Huidige kopie",
 
   "statistics": "Statistieken",
   "stats_expenses": "Uitgaven",

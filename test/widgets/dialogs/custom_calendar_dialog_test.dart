@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:coin_flow/widgets/dialogs/custom_calendar_dialog.dart'; // Перевірте шлях!
+import 'package:litebalance/widgets/dialogs/custom_calendar_dialog.dart'; // Перевірте шлях!
 import '../../helpers/test_wrapper.dart';
 
 void main() {

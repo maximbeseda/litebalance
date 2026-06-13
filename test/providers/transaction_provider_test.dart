@@ -4,8 +4,8 @@ import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/services/storage_service.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/storage_service.dart';
 
 // ==========================================
 // 1. SPIES & FAKES

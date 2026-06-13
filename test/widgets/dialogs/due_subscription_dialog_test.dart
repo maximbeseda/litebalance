@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'package:coin_flow/widgets/dialogs/due_subscription_dialog.dart';
-import 'package:coin_flow/providers/all_providers.dart';
+import 'package:litebalance/widgets/dialogs/due_subscription_dialog.dart';
+import 'package:litebalance/providers/all_providers.dart';
 import '../../helpers/test_wrapper.dart';
 
 // --- МОКИ ТА ФЕЙКИ ---

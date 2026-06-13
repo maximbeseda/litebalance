@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -14,11 +12,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/home_screen.dart';
 import 'providers/all_providers.dart';
 import 'screens/onboarding_screen.dart';
-import 'screens/lock_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
-import 'widgets/common/sync_lifecycle_observer.dart'
-    show SyncLifecycleObserver, kAutoLockTimeoutMs, kLockBgTimeKey;
+import 'utils/currency_formatter.dart';
+import 'widgets/common/sync_lifecycle_observer.dart' show SyncLifecycleObserver;
+import 'widgets/common/app_lock_gate.dart'
+    show AppLockGate, kAutoLockTimeoutMs, kLockBgTimeKey;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +42,9 @@ void main() async {
     ],
   );
 
-  await initializeDateFormatting('uk_UA', null);
-  const bool showPreview = false;
+  // Ініціалізуємо дані формату дат для ВСІХ локалей, щоб назви місяців/днів
+  // відображалися мовою інтерфейсу (а не лише українською).
+  await initializeDateFormatting();
 
   // 3. Отримуємо статус онбордингу напряму з SharedPreferences
   final bool hasCompletedOnboarding =
@@ -94,12 +94,9 @@ void main() async {
         ],
         path: 'assets/translations',
         fallbackLocale: const Locale('uk'),
-        child: DevicePreview(
-          enabled: !kReleaseMode && showPreview,
-          builder: (context) => MyApp(
-            showOnboarding: !hasCompletedOnboarding,
-            requirePin: requirePin,
-          ),
+        child: MyApp(
+          showOnboarding: !hasCompletedOnboarding,
+          requirePin: requirePin,
         ),
       ),
     ),
@@ -128,6 +125,10 @@ class _MyAppState extends ConsumerState<MyApp> {
     final themeId = ref.watch(themeProvider);
     final currentTheme = AppTheme.getTheme(themeId);
 
+    // Тримаємо форматування чисел/дат і скорочення мільйонів у синхроні з мовою.
+    Intl.defaultLocale = context.locale.toString();
+    CurrencyFormatter.millionSuffix = 'million_suffix'.tr();
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -150,18 +151,20 @@ class _MyAppState extends ConsumerState<MyApp> {
       theme: currentTheme,
 
       builder: (context, child) {
-        final Widget currentChild = DevicePreview.appBuilder(context, child);
+        final Widget currentChild = child ?? const SizedBox.shrink();
         final mediaQueryData = MediaQuery.of(context);
         final double baseScale = mediaQueryData.textScaler.scale(10) / 10;
         final double safeScale = baseScale.clamp(1.0, 1.15);
 
-        return SyncLifecycleObserver(
-          navigatorKey: _navigatorKey,
-          child: MediaQuery(
-            data: mediaQueryData.copyWith(
-              textScaler: TextScaler.linear(safeScale),
+        return AppLockGate(
+          initiallyLocked: widget.requirePin,
+          child: SyncLifecycleObserver(
+            child: MediaQuery(
+              data: mediaQueryData.copyWith(
+                textScaler: TextScaler.linear(safeScale),
+              ),
+              child: currentChild,
             ),
-            child: currentChild,
           ),
         );
       },
@@ -175,7 +178,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       home: widget.showOnboarding
           ? const OnboardingScreen()
-          : (widget.requirePin ? const LockScreen() : const HomeScreen()),
+          : const HomeScreen(),
     );
   }
 }

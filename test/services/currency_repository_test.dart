@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart'; // Спеціальна бібліотека для моків HTTP
 import 'dart:convert';
 
-import 'package:coin_flow/services/currency_repository.dart'; // Вкажіть ваш шлях
+import 'package:litebalance/services/currency_repository.dart'; // Вкажіть ваш шлях
 
 void main() {
   group('FawazahmedApi - API Client Tests', () {

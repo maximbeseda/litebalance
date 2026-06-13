@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:coin_flow/theme/category_defaults.dart';
+import 'package:litebalance/theme/category_defaults.dart';
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:uuid/uuid.dart';
@@ -434,6 +434,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: const SettingsDrawer(),
+      // Відкриваємо лише кнопкою: edge-свайп drawer'а конфліктував із системним
+      // жестом «назад» і давав білий проблиск збоку.
+      endDrawerEnableOpenDragGesture: false,
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,

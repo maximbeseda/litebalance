@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 // Зверни увагу: імпорт extension_google_sign_in_as_googleapis_auth потрібен для роботи сервісу, але не для моку.
 
-import 'package:coin_flow/services/google_auth_service.dart';
+import 'package:litebalance/services/google_auth_service.dart';
 
 // ==========================================
 // МОКИ ТА ЗАГЛУШКИ

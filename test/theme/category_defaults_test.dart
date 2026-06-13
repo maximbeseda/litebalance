@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/theme/category_defaults.dart';
-import 'package:coin_flow/database/app_database.dart';
+import 'package:litebalance/theme/category_defaults.dart';
+import 'package:litebalance/database/app_database.dart';
 
 void main() {
   group('CategoryDefaults Tests', () {

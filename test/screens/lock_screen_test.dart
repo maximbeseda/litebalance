@@ -1,5 +1,6 @@
-import 'package:coin_flow/screens/lock_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/screens/lock_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/widgets/common/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -55,7 +56,9 @@ void main() {
 
       // У тестовому середовищі без перекладів текст буде дорівнювати ключу
       expect(find.text('enter_pin'), findsOneWidget);
-      expect(find.byIcon(Icons.lock_outline), findsOneWidget);
+      // Замість іконки замка тепер лого + назва застосунку
+      expect(find.byType(AppLogo), findsOneWidget);
+      expect(find.text('LiteBalance'), findsOneWidget);
 
       // Кнопки скасування не повинно бути в режимі входу
       expect(find.text('cancel'), findsNothing);
