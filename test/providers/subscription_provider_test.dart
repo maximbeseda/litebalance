@@ -161,6 +161,41 @@ void main() {
     );
 
     test(
+      'Авто-підписка НІКОЛИ не потрапляє в dueSubscriptions (навіть коли бракує коштів)',
+      () async {
+        // Регресія: вранці, коли настала дата списання, авто-підписка не має
+        // показувати діалог ручного підтвердження. Беремо суму більшу за баланс,
+        // щоб processAutoPayments не зміг її обробити й вона лишилась простроченою —
+        // вона все одно має бути виключена з due, бо isAutoPay = true.
+        final container = await createContainer();
+
+        final yesterday = DateTime.now().subtract(const Duration(days: 1));
+        final autoSub = subBase.copyWith(
+          id: 'sub_auto_broke',
+          nextPaymentDate: yesterday,
+          isAutoPay: true,
+          amount: 999999, // більше за баланс (10 000) -> авто не пройде
+        );
+
+        await StorageService.saveSubscription(db, autoSub);
+
+        final notifier = container.read(subscriptionProvider.notifier);
+        await Future.delayed(Duration.zero);
+        await notifier.loadSubscriptions();
+
+        final state = container.read(subscriptionProvider).value!;
+
+        // Авто-списання не відбулось (бракує коштів), але діалог НЕ має тригеритись.
+        expect(state.dueSubscriptions, isEmpty);
+
+        final txNotifier =
+            container.read(transactionProvider.notifier)
+                as SpyTransactionNotifier;
+        expect(txNotifier.addedTransactions, isEmpty);
+      },
+    );
+
+    test(
       'hasPendingPayments: правильно визначає прострочені платежі',
       () async {
         final container = await createContainer();
