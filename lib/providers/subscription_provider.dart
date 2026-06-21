@@ -83,6 +83,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     final today = DateTime(now.year, now.month, now.day);
     final due = activeSubs.where((sub) {
       if (ignored.contains(sub.id)) return false;
+      // Авто-підписки ніколи не показуємо в діалозі ручного підтвердження —
+      // їх тихо обробляє processAutoPayments(). Інакше через гонку (build викликає
+      // processAutoPayments через unawaited) діалог встигає блимнути до автосписання.
+      if (sub.isAutoPay) return false;
       final pDate = DateTime(
         sub.nextPaymentDate.year,
         sub.nextPaymentDate.month,
@@ -125,6 +129,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     final today = DateTime(now.year, now.month, now.day);
     final due = activeSubs.where((sub) {
       if (ignored.contains(sub.id)) return false;
+      // Авто-підписки ніколи не показуємо в діалозі ручного підтвердження —
+      // їх тихо обробляє processAutoPayments(). Інакше через гонку (build викликає
+      // processAutoPayments через unawaited) діалог встигає блимнути до автосписання.
+      if (sub.isAutoPay) return false;
       final pDate = DateTime(
         sub.nextPaymentDate.year,
         sub.nextPaymentDate.month,
@@ -152,6 +160,8 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
 
       final due = s.subscriptions.where((sub) {
         if (s.ignoredSubIds.contains(sub.id)) return false;
+        // Авто-підписки не потрапляють у діалог ручного підтвердження.
+        if (sub.isAutoPay) return false;
         final paymentDate = DateTime(
           sub.nextPaymentDate.year,
           sub.nextPaymentDate.month,
