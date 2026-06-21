@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../models/app_currency.dart';
 
@@ -179,8 +180,9 @@ class YearSummaryScreen extends StatelessWidget {
           // числа вмістяться на вузьких екранах.
           FittedBox(
             fit: BoxFit.scaleDown,
-            child: Text(
-              "${net > 0 ? '+' : ''}${CurrencyFormatter.formatFull(net)} $symbol",
+            child: AmountText(
+              amount: "${net > 0 ? '+' : ''}${CurrencyFormatter.formatFull(net)}",
+              symbol: symbol,
               maxLines: 1,
               style: const TextStyle(
                 color: Colors.white,
@@ -260,8 +262,9 @@ class YearSummaryScreen extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${CurrencyFormatter.formatFull(value)} $symbol',
+                  child: AmountText(
+                    amount: CurrencyFormatter.formatFull(value),
+                    symbol: symbol,
                     maxLines: 1,
                     style: const TextStyle(
                       color: Colors.white,
@@ -368,8 +371,10 @@ class YearSummaryScreen extends StatelessWidget {
                   children: [
                     FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(
-                        "${netProfit > 0 ? '+' : ''}${CurrencyFormatter.formatFull(netProfit)} $symbol",
+                      child: AmountText(
+                        amount:
+                            "${netProfit > 0 ? '+' : ''}${CurrencyFormatter.formatFull(netProfit)}",
+                        symbol: symbol,
                         maxLines: 1,
                         style: TextStyle(
                           fontSize: 16,
@@ -519,8 +524,9 @@ class YearSummaryScreen extends StatelessWidget {
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: Text(
-              '${CurrencyFormatter.formatFull(value)} $symbol',
+            child: AmountText(
+              amount: CurrencyFormatter.formatFull(value),
+              symbol: symbol,
               maxLines: 1,
               style: TextStyle(
                 color: colors.textMain,

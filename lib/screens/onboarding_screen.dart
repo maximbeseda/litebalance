@@ -106,7 +106,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
 
     _selectedCurrencyCode = initialCurrency;
-    _currencyCtrl.text = initialCurrency;
+    _currencyCtrl.text = 'currency_names.$initialCurrency'.tr();
     _languageCtrl.text = initialLang['name']!;
 
     if (context.locale.languageCode != initialLang['code']) {
@@ -277,7 +277,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       onSelected: (code) {
         setState(() {
           _selectedCurrencyCode = code;
-          _currencyCtrl.text = code;
+          _currencyCtrl.text = 'currency_names.$code'.tr();
         });
       },
     );

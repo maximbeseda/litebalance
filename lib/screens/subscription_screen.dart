@@ -806,8 +806,8 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                     style: TextStyle(
                       color: textColor,
                       fontSize: 18,
-                      fontWeight:
-                          FontWeight.bold, // Зробили трохи жирнішим для краси
+                      // Однакова вага з полями вводу (тонша).
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

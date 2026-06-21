@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
@@ -230,9 +231,10 @@ class _CoinWidgetState extends State<CoinWidget> {
                   child: ScaleTransition(scale: animation, child: child),
                 );
               },
-              child: Text(
-                '$displayAmount $currencySymbol',
+              child: AmountText(
                 key: ValueKey<String>('$displayAmount $currencySymbol'),
+                amount: displayAmount,
+                symbol: currencySymbol,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

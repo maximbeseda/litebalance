@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../../../providers/all_providers.dart';
 import '../../../theme/app_colors_extension.dart';
+import '../../../utils/amount_text.dart';
 import '../../../utils/currency_formatter.dart';
 import '../../../utils/icon_helper.dart';
 import '../../../widgets/common/animated_dots.dart';
@@ -331,8 +332,11 @@ class _MonthlyPieViewState extends ConsumerState<MonthlyPieView> {
                                         opacity: widget.txState.isMigrating
                                             ? 0.0
                                             : 1.0,
-                                        child: Text(
-                                          '${CurrencyFormatter.format(cat.amount.abs())} ${widget.baseCurrencySymbol}',
+                                        child: AmountText(
+                                          amount: CurrencyFormatter.format(
+                                            cat.amount.abs(),
+                                          ),
+                                          symbol: widget.baseCurrencySymbol,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w800,
                                             fontSize: 14,

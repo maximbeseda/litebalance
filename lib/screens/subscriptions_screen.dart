@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
 import '../models/app_currency.dart';
+import '../utils/amount_text.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/date_formatter.dart';
 import '../utils/icon_helper.dart';
@@ -273,8 +274,10 @@ class SubscriptionsScreen extends ConsumerWidget {
                                           ),
                                         ),
                                         const SizedBox(width: 8),
-                                        Text(
-                                          '-${CurrencyFormatter.format(sub.amount, currencyCode: sub.currency)} $currencySymbol',
+                                        AmountText(
+                                          amount:
+                                              '-${CurrencyFormatter.format(sub.amount, currencyCode: sub.currency)}',
+                                          symbol: currencySymbol,
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w900,

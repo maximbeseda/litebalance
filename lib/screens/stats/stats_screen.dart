@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../../providers/all_providers.dart';
 import '../../models/app_currency.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../utils/date_formatter.dart';
 import '../../widgets/dialogs/month_picker_dialog.dart';
@@ -439,7 +440,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
       children: [
         for (int i = 0; i < formatted.length; i++)
           RollingDigit(char: formatted[i], style: style),
-        Text(' $symbol', style: style),
+        Text(' ${symbol.trim()}', style: CurrencyAmount.symbolStyle(style)),
       ],
     );
   }

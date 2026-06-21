@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/app_currency.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
@@ -374,8 +375,10 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    '$prefix${CurrencyFormatter.format(mainAmount, currencyCode: mainCurrency)} $mainSymbol',
+                  AmountText(
+                    amount:
+                        '$prefix${CurrencyFormatter.format(mainAmount, currencyCode: mainCurrency)}',
+                    symbol: mainSymbol,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: amountColor,
@@ -383,8 +386,10 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
                     ),
                   ),
                   if (isMultiCurrency)
-                    Text(
-                      '~ ${CurrencyFormatter.format(secondaryAmount, currencyCode: secondaryCurrency)} $secondarySymbol',
+                    AmountText(
+                      amount:
+                          '~ ${CurrencyFormatter.format(secondaryAmount, currencyCode: secondaryCurrency)}',
+                      symbol: secondarySymbol,
                       style: TextStyle(
                         color: colors.textSecondary,
                         fontSize: 11,
