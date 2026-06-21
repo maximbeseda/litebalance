@@ -9,6 +9,7 @@ import '../widgets/common/app_snackbar.dart';
 import '../widgets/common/app_empty_state.dart';
 import '../widgets/common/animated_item_list.dart';
 import '../models/app_currency.dart';
+import '../utils/amount_text.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/icon_helper.dart';
 
@@ -22,6 +23,7 @@ class TrashItem {
   final Widget titleWidget;
   final Widget subtitleWidget;
   final String? amountStr;
+  final String? amountSymbol;
   final Color amountColor;
   final Widget icon;
   final dynamic rawData;
@@ -34,6 +36,7 @@ class TrashItem {
     required this.titleWidget,
     required this.subtitleWidget,
     this.amountStr,
+    this.amountSymbol,
     this.amountColor = Colors.grey,
     required this.icon,
     required this.rawData,
@@ -296,8 +299,11 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
             daysLeft: daysLeft,
             titleWidget: titleWidget,
             subtitleWidget: subtitleWidget,
-            amountStr:
-                '${CurrencyFormatter.format(tx.amount, currencyCode: tx.currency)} $sym',
+            amountStr: CurrencyFormatter.format(
+              tx.amount,
+              currencyCode: tx.currency,
+            ),
+            amountSymbol: sym,
             amountColor: amountColor,
             icon: Container(
               width: 40,
@@ -345,8 +351,11 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: colors.textSecondary, fontSize: 12),
             ),
-            amountStr:
-                '${CurrencyFormatter.format(sub.amount, currencyCode: sub.currency)} $sym',
+            amountStr: CurrencyFormatter.format(
+              sub.amount,
+              currencyCode: sub.currency,
+            ),
+            amountSymbol: sym,
             amountColor: colors.textMain,
             icon: Container(
               width: 40,
@@ -455,8 +464,9 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
                                     Expanded(child: item.subtitleWidget),
                                     if (item.amountStr != null) ...[
                                       const SizedBox(width: 8),
-                                      Text(
-                                        item.amountStr!,
+                                      AmountText(
+                                        amount: item.amountStr!,
+                                        symbol: item.amountSymbol ?? '',
                                         style: TextStyle(
                                           color: item.amountColor,
                                           fontSize: 13,

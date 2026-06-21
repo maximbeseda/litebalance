@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../models/app_currency.dart';
+import '../../../utils/amount_text.dart';
 import '../../../utils/currency_formatter.dart';
 import '../../../theme/app_colors_extension.dart';
 import '../../../widgets/bottom_sheets/stats_month_bottom_sheet.dart';
@@ -751,8 +752,8 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
                           icon: Icons.arrow_downward_rounded,
                           color: widget.colors.income,
                           label: 'income'.tr(),
-                          value:
-                              '${CurrencyFormatter.format(avgInc.round())} $symbol',
+                          value: CurrencyFormatter.format(avgInc.round()),
+                          symbol: symbol,
                         ),
                       ),
                       _avgDivider(),
@@ -771,8 +772,8 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
                           icon: Icons.arrow_upward_rounded,
                           color: widget.colors.expense,
                           label: 'stats_expenses'.tr(),
-                          value:
-                              '${CurrencyFormatter.format(avgExp.round())} $symbol',
+                          value: CurrencyFormatter.format(avgExp.round()),
+                          symbol: symbol,
                         ),
                       ),
                     ],
@@ -797,7 +798,13 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
     required Color color,
     required String label,
     required String value,
+    String? symbol,
   }) {
+    final valueStyle = TextStyle(
+      color: color,
+      fontWeight: FontWeight.bold,
+      fontSize: 14,
+    );
     return Column(
       children: [
         Icon(icon, size: 16, color: color),
@@ -811,15 +818,14 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
         const SizedBox(height: 3),
         FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(
-            value,
-            maxLines: 1,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: symbol == null
+              ? Text(value, maxLines: 1, style: valueStyle)
+              : AmountText(
+                  amount: value,
+                  symbol: symbol,
+                  maxLines: 1,
+                  style: valueStyle,
+                ),
         ),
       ],
     );

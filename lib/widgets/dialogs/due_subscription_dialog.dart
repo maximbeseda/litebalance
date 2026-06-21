@@ -8,6 +8,7 @@ import '../../providers/all_providers.dart';
 
 import '../../models/app_currency.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../common/app_snackbar.dart';
 
@@ -163,8 +164,12 @@ class DueSubscriptionDialog extends ConsumerWidget {
                   // 5. СУМА
                   FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text(
-                      '${CurrencyFormatter.format(subscription.amount, currencyCode: subscription.currency)} $currencySymbol',
+                    child: AmountText(
+                      amount: CurrencyFormatter.format(
+                        subscription.amount,
+                        currencyCode: subscription.currency,
+                      ),
+                      symbol: currencySymbol,
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,

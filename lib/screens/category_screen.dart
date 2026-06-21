@@ -472,7 +472,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                                 ? currencyAccentColor
                                 : colors.textMain, // Підсвітка в полі
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            // Однакова вага з полями вводу (тонша).
+                            fontWeight: FontWeight.w500,
                           ),
                           decoration: InputDecoration(
                             filled: false,
