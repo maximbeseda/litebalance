@@ -13,17 +13,14 @@
   "date": "Tarih",
   "choose_date": "Tarih seç",
   "update_date": "Tarihi güncelle",
-
   "onboarding_title": "LiteBalance'a hoş geldin!",
   "onboarding_subtitle": "Profilini ayarlayalım",
   "language_title": "Dil",
   "base_currency_title": "Temel para birimi",
   "get_started": "Başla",
   "sign_in_with_google": "Google ile giriş yap",
-
   "expenses": "Giderler",
   "income": "Gelir",
-
   "settings": "Ayarlar",
   "profile": "Profil",
   "account": "Hesap",
@@ -84,10 +81,53 @@
     "PEN": "Peru solü",
     "EGP": "Mısır lirası",
     "NGN": "Nijerya nairası",
-    "MAD": "Fas dirhemi"
+    "MAD": "Fas dirhemi",
+    "ALL": "Arnavutluk leki",
+    "MKD": "Makedonya dinarı",
+    "BAM": "Konvertibl Bosna Hersek markı",
+    "LBP": "Lübnan lirası",
+    "YER": "Yemen riyali",
+    "AZN": "Azerbaycan manatı",
+    "AMD": "Ermenistan dramı",
+    "UZS": "Özbekistan somu",
+    "KGS": "Kırgızistan somu",
+    "TJS": "Tacikistan somonisi",
+    "PKR": "Pakistan rupisi",
+    "BDT": "Bangladeş takası",
+    "LKR": "Sri Lanka rupisi",
+    "NPR": "Nepal rupisi",
+    "AFN": "Afganistan afganisi",
+    "MMK": "Myanmar kyatı",
+    "KHR": "Kamboçya rieli",
+    "LAK": "Laos kipi",
+    "MNT": "Moğolistan tugriki",
+    "KES": "Kenya şilini",
+    "GHS": "Gana sedisi",
+    "TZS": "Tanzanya şilini",
+    "UGX": "Uganda şilini",
+    "DZD": "Cezayir dinarı",
+    "ETB": "Etiyopya birri",
+    "ZMW": "Zambiya kvaçası",
+    "BWP": "Botsvana pulası",
+    "NAD": "Namibya doları",
+    "MZN": "Mozambik metikali",
+    "AOA": "Angola kvanzası",
+    "CDF": "Kongo frangı",
+    "RWF": "Ruanda frangı",
+    "XOF": "Batı Afrika CFA frangı",
+    "XAF": "Orta Afrika CFA frangı",
+    "BOB": "Bolivya bolivyanosu",
+    "UYU": "Uruguay pesosu",
+    "GTQ": "Guatemala quetzalı",
+    "DOP": "Dominik pesosu",
+    "CRC": "Kosta Rika kolonu",
+    "HNL": "Honduras lempirası",
+    "NIO": "Nikaragua kordobası",
+    "JMD": "Jamaika doları",
+    "PYG": "Paraguay guaranisi",
+    "PGK": "Papua Yeni Gine kinası"
   },
   "language": "Dil",
-
   "backup_title": "Yedekleme ve geri yükleme",
   "warning_overwrite": "Dikkat: mevcut verilerin üzerine yazılacak!",
   "backup_success": "Veriler başarıyla geri yüklendi! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN kodu",
   "biometrics": "Biyometri / FaceID",
   "haptic_feedback": "Titreşim",
-
   "interface_theme": "Tema",
   "theme_light": "Açık",
   "theme_dark": "Koyu",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Tüm veriler başarıyla temizlendi",
   "clear_data_cloud_note": "Google Drive kopyan da bir sonraki eşitlemede boş verilerle üzerine yazılacak.",
   "current_copy": "Geçerli kopya",
-
   "statistics": "İstatistikler",
   "stats_expenses": "Giderler",
   "no_expenses_month": "Bu ay gider yok 👏",
@@ -146,7 +184,6 @@
   "average": "Aylık ortalama",
   "savings_rate": "Tasarruf oranı",
   "savings": "Tasarruflar",
-
   "new_category": "Yeni kategori",
   "new_income": "Yeni gelir",
   "new_account": "Yeni hesap",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Giden transfer",
   "top_up": "Yükleme",
   "base_currency_label": "Temel",
-
   "select_date": "Tarih seç",
   "current_month": "Bu ay",
   "transfer": "Transfer",
   "today": "Bugün",
   "yesterday": "Dün",
   "tomorrow": "Yarın",
-
   "regular_payments": "Düzenli ödemeler",
   "add_subscription": "Abonelik ekle",
   "no_subscriptions": "Henüz düzenli ödemen yok",
@@ -202,7 +237,6 @@
   "not_enough_funds": "'{}' hesabında yeterli bakiye yok 😔",
   "paid_success": "Ödendi: {} 🎉",
   "auto_payment_marker": "{} (Oto)",
-
   "icons_finance": "Finans ve yatırımlar",
   "icons_currencies": "Para birimleri",
   "icons_food": "Yiyecek ve içecek",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abonelikler ve hizmetler",
   "icons_family": "Aile ve evcil hayvanlar",
   "icons_other": "Diğer",
-
   "exchange_rates": "Döviz kurları",
   "add_currency": "Para birimi ekle",
   "all_currencies_added": "Mevcut tüm para birimleri eklendi",
@@ -229,7 +262,6 @@
   "rates_update_error": "Güncelleme başarısız. Bağlantını kontrol et!",
   "search_transactions": "İşlemleri ara...",
   "nothing_found": "Hiçbir şey bulunamadı",
-
   "data_management": "Veri yönetimi",
   "export_csv": "CSV olarak dışa aktar",
   "export_description": "İşlemlerini Excel veya Google E-Tablolar'da açmak için CSV tablosu olarak kaydet.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Transfer",
   "csv_deleted_category": "Silindi",
   "csv_export_headers": "Tarih,Tür,Kategori (Kimden),Tutar (Kimden),Para Birimi (Kimden),Kategori (Kime),Tutar (Kime),Para Birimi (Kime),Yorum",
-
   "filter_settings": "Filtre ayarları",
   "filter_period": "Dönem",
   "filter_all_time": "Tüm zamanlar",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Giderler",
   "filter_type_transfers": "Transferler",
   "filter_select_period": "Dönem seç",
-
   "week_mo": "Pzt",
   "week_tu": "Sal",
   "week_we": "Çar",
@@ -301,7 +331,6 @@
   "week_fr": "Cum",
   "week_sa": "Cmt",
   "week_su": "Paz",
-
   "reset": "Sıfırla",
   "trash": "Çöp kutusu",
   "trash_empty": "Çöp kutusu boş",
@@ -316,7 +345,6 @@
   "transaction": "İşlem",
   "subscription": "Abonelik",
   "deleted_category": "Silinen kategori",
-
   "last_backup": "Son yedek",
   "no_backups_yet": "Henüz yedek yok",
   "file_backup": "Yerel dosyalar",
@@ -334,11 +362,11 @@
   "export_password_hint": "Verilerini şifrelemek için bir parola belirle. Bu dosyayı daha sonra geri yüklemek için gerekecek.",
   "unlock_backup_title": "Yedeğin kilidini aç",
   "import_password_hint": "Bu dosya parolayla korunuyor. Bu yedeği dışa aktarırken oluşturduğun anahtarı gir.",
-
   "default_category_salary": "Maaş",
   "default_category_cash": "Nakit",
   "default_category_card": "Kart",
   "default_category_transport": "Ulaşım",
   "default_category_food": "Yiyecek",
-  "default_category_shopping": "Alışveriş"
+  "default_category_shopping": "Alışveriş",
+  "search": "Ara"
 }

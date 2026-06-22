@@ -11,6 +11,7 @@ import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_empty_state.dart';
 import '../widgets/common/animated_item_list.dart';
 import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_picker_sheet.dart';
 
 // 👇 3. Змінили StatefulWidget на ConsumerStatefulWidget
 class CurrenciesScreen extends ConsumerStatefulWidget {
@@ -46,77 +47,32 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
         .where((c) => !settingsState.selectedCurrencies.contains(c.code))
         .toList();
 
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colors.textSecondary.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
+      title: 'add_currency'.tr(),
+      // Немає «обраного» — це список для додавання валют.
+      selected: '',
+      enableSearch: true,
+      onSelected: (code) =>
+          ref.read(settingsProvider.notifier).toggleSelectedCurrency(code),
+      options: availableCurrencies
+          .map(
+            (currency) => AppPickerOption<String>(
+              value: currency.code,
+              label: 'currency_names.${currency.code}'.tr(),
+              leading: AppPill(
+                text: '${currency.code}  ${currency.symbol}',
+                color: colors.accent,
               ),
             ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'add_currency'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            if (availableCurrencies.isEmpty)
-              Expanded(
-                child: AppEmptyState(
-                  icon: Icons.check_circle_outline_rounded,
-                  color: colors.income,
-                  title: 'all_currencies_added'.tr(),
-                  subtitle: 'all_currencies_added_hint'.tr(),
-                  illustrationSize: 96,
-                ),
-              )
-            else
-              Expanded(
-                child: ListView.builder(
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final currency = availableCurrencies[index];
-                    return ListTile(
-                      minLeadingWidth: 0,
-                      leading: AppPill(
-                        text: '${currency.code}  ${currency.symbol}',
-                        color: colors.accent,
-                      ),
-                      title: Text(
-                        'currency_names.${currency.code}'.tr(),
-                        style: TextStyle(
-                          color: colors.textMain,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      onTap: () {
-                        // 👇 Викликаємо метод через Notifier
-                        ref
-                            .read(settingsProvider.notifier)
-                            .toggleSelectedCurrency(currency.code);
-                        Navigator.pop(ctx);
-                      },
-                    );
-                  },
-                ),
-              ),
-          ],
-        ),
+          )
+          .toList(),
+      emptyState: AppEmptyState(
+        icon: Icons.check_circle_outline_rounded,
+        color: colors.income,
+        title: 'all_currencies_added'.tr(),
+        subtitle: 'all_currencies_added_hint'.tr(),
+        illustrationSize: 96,
       ),
     );
   }

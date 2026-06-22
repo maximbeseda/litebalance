@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:litebalance/models/app_currency.dart';
 
@@ -37,5 +40,40 @@ void main() {
       expect(c1 == c2, true);
       expect(c1.hashCode == c2.hashCode, true);
     });
+  });
+
+  group('Цілісність назв валют у перекладах', () {
+    final translationFiles = Directory('assets/translations')
+        .listSync()
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.json'))
+        .toList();
+
+    test('знайдено всі 20 файлів перекладу', () {
+      expect(translationFiles.length, 20);
+    });
+
+    for (final file in translationFiles) {
+      final locale = file.uri.pathSegments.last.replaceAll('.json', '');
+
+      test('[$locale] має назву для кожної підтримуваної валюти', () {
+        final data = json.decode(file.readAsStringSync()) as Map<String, dynamic>;
+        final names = (data['currency_names'] as Map<String, dynamic>?) ?? {};
+
+        final missing = <String>[];
+        for (final c in AppCurrency.supportedCurrencies) {
+          final name = names[c.code];
+          if (name == null || (name as String).trim().isEmpty) {
+            missing.add(c.code);
+          }
+        }
+
+        expect(
+          missing,
+          isEmpty,
+          reason: 'У [$locale] бракує назв для: ${missing.join(', ')}',
+        );
+      });
+    }
   });
 }

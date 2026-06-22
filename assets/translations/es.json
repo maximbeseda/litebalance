@@ -13,17 +13,14 @@
   "date": "Fecha",
   "choose_date": "Elegir fecha",
   "update_date": "Actualizar fecha",
-
   "onboarding_title": "¡Bienvenido a LiteBalance!",
   "onboarding_subtitle": "Vamos a configurar tu perfil",
   "language_title": "Idioma",
   "base_currency_title": "Moneda base",
   "get_started": "Comenzar",
   "sign_in_with_google": "Iniciar sesión con Google",
-
   "expenses": "Gastos",
   "income": "Ingresos",
-
   "settings": "Ajustes",
   "profile": "Perfil",
   "account": "Cuenta",
@@ -84,10 +81,53 @@
     "PEN": "Sol peruano",
     "EGP": "Libra egipcia",
     "NGN": "Naira nigeriano",
-    "MAD": "Dírham marroquí"
+    "MAD": "Dírham marroquí",
+    "ALL": "Lek albanés",
+    "MKD": "Dinar macedonio",
+    "BAM": "Marco convertible de Bosnia y Herzegovina",
+    "LBP": "Libra libanesa",
+    "YER": "Rial yemení",
+    "AZN": "Manat azerbaiyano",
+    "AMD": "Dram armenio",
+    "UZS": "Sum uzbeko",
+    "KGS": "Som kirguís",
+    "TJS": "Somoni tayiko",
+    "PKR": "Rupia pakistaní",
+    "BDT": "Taka bangladesí",
+    "LKR": "Rupia esrilanquesa",
+    "NPR": "Rupia nepalí",
+    "AFN": "Afgani afgano",
+    "MMK": "Kiat de Myanmar",
+    "KHR": "Riel camboyano",
+    "LAK": "Kip laosiano",
+    "MNT": "Tugrik mongol",
+    "KES": "Chelín keniano",
+    "GHS": "Cedi ghanés",
+    "TZS": "Chelín tanzano",
+    "UGX": "Chelín ugandés",
+    "DZD": "Dinar argelino",
+    "ETB": "Bir etíope",
+    "ZMW": "Kuacha zambiano",
+    "BWP": "Pula botsuano",
+    "NAD": "Dólar namibio",
+    "MZN": "Metical mozambiqueño",
+    "AOA": "Kuanza angoleño",
+    "CDF": "Franco congoleño",
+    "RWF": "Franco ruandés",
+    "XOF": "Franco CFA de África Occidental",
+    "XAF": "Franco CFA de África Central",
+    "BOB": "Boliviano",
+    "UYU": "Peso uruguayo",
+    "GTQ": "Quetzal guatemalteco",
+    "DOP": "Peso dominicano",
+    "CRC": "Colón costarricense",
+    "HNL": "Lempira hondureño",
+    "NIO": "Córdoba oro",
+    "JMD": "Dólar jamaicano",
+    "PYG": "Guaraní paraguayo",
+    "PGK": "Kina papú"
   },
   "language": "Idioma",
-
   "backup_title": "Copia de seguridad y restauración",
   "warning_overwrite": "Atención: ¡los datos actuales se sobrescribirán!",
   "backup_success": "¡Datos restaurados correctamente! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Código PIN",
   "biometrics": "Biometría / FaceID",
   "haptic_feedback": "Vibración",
-
   "interface_theme": "Tema",
   "theme_light": "Claro",
   "theme_dark": "Oscuro",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Todos los datos se han borrado correctamente",
   "clear_data_cloud_note": "Tu copia en Google Drive también se sobrescribirá con datos vacíos en la próxima sincronización.",
   "current_copy": "Copia actual",
-
   "statistics": "Estadísticas",
   "stats_expenses": "Gastos",
   "no_expenses_month": "Sin gastos este mes 👏",
@@ -146,7 +184,6 @@
   "average": "Media mensual",
   "savings_rate": "Tasa de ahorro",
   "savings": "Ahorros",
-
   "new_category": "Nueva categoría",
   "new_income": "Nuevo ingreso",
   "new_account": "Nueva cuenta",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Transferencia saliente",
   "top_up": "Recarga",
   "base_currency_label": "Base",
-
   "select_date": "Seleccionar fecha",
   "current_month": "Mes actual",
   "transfer": "Transferencia",
   "today": "Hoy",
   "yesterday": "Ayer",
   "tomorrow": "Mañana",
-
   "regular_payments": "Pagos periódicos",
   "add_subscription": "Añadir suscripción",
   "no_subscriptions": "Aún no tienes pagos periódicos",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Fondos insuficientes en la cuenta '{}' 😔",
   "paid_success": "Pagado: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finanzas e inversiones",
   "icons_currencies": "Monedas",
   "icons_food": "Comida y bebida",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Suscripciones y servicios",
   "icons_family": "Familia y mascotas",
   "icons_other": "Otros",
-
   "exchange_rates": "Tipos de cambio",
   "add_currency": "Añadir moneda",
   "all_currencies_added": "Todas las monedas disponibles añadidas",
@@ -229,7 +262,6 @@
   "rates_update_error": "Error al actualizar. ¡Comprueba tu conexión!",
   "search_transactions": "Buscar transacciones...",
   "nothing_found": "No se encontró nada",
-
   "data_management": "Gestión de datos",
   "export_csv": "Exportar a CSV",
   "export_description": "Guarda tus transacciones como tabla CSV para verlas en Excel o Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Transferencia",
   "csv_deleted_category": "Eliminado",
   "csv_export_headers": "Fecha,Tipo,Categoría (Desde),Importe (Desde),Moneda (Desde),Categoría (Hacia),Importe (Hacia),Moneda (Hacia),Comentario",
-
   "filter_settings": "Ajustes de filtro",
   "filter_period": "Periodo",
   "filter_all_time": "Todo el tiempo",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Gastos",
   "filter_type_transfers": "Transferencias",
   "filter_select_period": "Seleccionar periodo",
-
   "week_mo": "lu",
   "week_tu": "ma",
   "week_we": "mi",
@@ -301,7 +331,6 @@
   "week_fr": "vi",
   "week_sa": "sá",
   "week_su": "do",
-
   "reset": "Restablecer",
   "trash": "Papelera",
   "trash_empty": "La papelera está vacía",
@@ -316,7 +345,6 @@
   "transaction": "Transacción",
   "subscription": "Suscripción",
   "deleted_category": "Categoría eliminada",
-
   "last_backup": "Última copia de seguridad",
   "no_backups_yet": "Aún no hay copias de seguridad",
   "file_backup": "Archivos locales",
@@ -334,11 +362,11 @@
   "export_password_hint": "Establece una contraseña para cifrar tus datos. La necesitarás para restaurar este archivo más adelante.",
   "unlock_backup_title": "Desbloquear copia de seguridad",
   "import_password_hint": "Este archivo está protegido con contraseña. Introduce la clave que creaste al exportar esta copia.",
-
   "default_category_salary": "Salario",
   "default_category_cash": "Efectivo",
   "default_category_card": "Tarjeta",
   "default_category_transport": "Transporte",
   "default_category_food": "Comida",
-  "default_category_shopping": "Compras"
+  "default_category_shopping": "Compras",
+  "search": "Buscar"
 }

@@ -13,17 +13,14 @@
   "date": "Datum",
   "choose_date": "Odaberi datum",
   "update_date": "Ažuriraj datum",
-
   "onboarding_title": "Dobro došli u LiteBalance!",
   "onboarding_subtitle": "Postavimo tvoj profil",
   "language_title": "Jezik",
   "base_currency_title": "Osnovna valuta",
   "get_started": "Započni",
   "sign_in_with_google": "Prijava putem Googlea",
-
   "expenses": "Troškovi",
   "income": "Prihodi",
-
   "settings": "Postavke",
   "profile": "Profil",
   "account": "Račun",
@@ -84,10 +81,53 @@
     "PEN": "Peruanski sol",
     "EGP": "Egipatska funta",
     "NGN": "Nigerijska naira",
-    "MAD": "Marokanski dirham"
+    "MAD": "Marokanski dirham",
+    "ALL": "Albanski lek",
+    "MKD": "Makedonski denar",
+    "BAM": "Konvertibilna marka",
+    "LBP": "Libanonska funta",
+    "YER": "Jemenski rijal",
+    "AZN": "Azerbajdžanski manat",
+    "AMD": "Armenski dram",
+    "UZS": "Uzbekistanski som",
+    "KGS": "Kirgiski som",
+    "TJS": "Tadžikistanski somoni",
+    "PKR": "Pakistanska rupija",
+    "BDT": "Bangladeška taka",
+    "LKR": "Šrilankanska rupija",
+    "NPR": "Nepalska rupija",
+    "AFN": "Afganistanski afgani",
+    "MMK": "Mjanmarski kjat",
+    "KHR": "Kambodžanski rijal",
+    "LAK": "Laoski kip",
+    "MNT": "Mongolski tugrik",
+    "KES": "Kenijski šiling",
+    "GHS": "Ganski cedi",
+    "TZS": "Tanzanijski šiling",
+    "UGX": "Ugandski šiling",
+    "DZD": "Alžirski dinar",
+    "ETB": "Etiopski bir",
+    "ZMW": "Zambijska kvača",
+    "BWP": "Bocvanska pula",
+    "NAD": "Namibijski dolar",
+    "MZN": "Mozambički metikal",
+    "AOA": "Angolska kvanza",
+    "CDF": "Kongoanski franak",
+    "RWF": "Ruandski franak",
+    "XOF": "CFA franak BCEAO",
+    "XAF": "CFA franak BEAC",
+    "BOB": "Bolivijski bolivijano",
+    "UYU": "Urugvajski pezo",
+    "GTQ": "Gvatemalski kvecal",
+    "DOP": "Dominikanski pezo",
+    "CRC": "Kostarikanski kolon",
+    "HNL": "Honduraška lempira",
+    "NIO": "Nikaragvanska zlatna kordoba",
+    "JMD": "Jamajčanski dolar",
+    "PYG": "Paragvajski gvarani",
+    "PGK": "Kina Papue Nove Gvineje"
   },
   "language": "Jezik",
-
   "backup_title": "Sigurnosna kopija i vraćanje",
   "warning_overwrite": "Upozorenje: trenutni podaci bit će prebrisani!",
   "backup_success": "Podaci uspješno vraćeni! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN kod",
   "biometrics": "Biometrija / FaceID",
   "haptic_feedback": "Vibracija",
-
   "interface_theme": "Tema",
   "theme_light": "Svijetla",
   "theme_dark": "Tamna",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Svi podaci uspješno obrisani",
   "clear_data_cloud_note": "Tvoja kopija na Google Disku također će biti prebrisana praznim podacima pri sljedećoj sinkronizaciji.",
   "current_copy": "Trenutna kopija",
-
   "statistics": "Statistika",
   "stats_expenses": "Troškovi",
   "no_expenses_month": "Nema troškova ovaj mjesec 👏",
@@ -146,7 +184,6 @@
   "average": "Mjesečni prosjek",
   "savings_rate": "Stopa štednje",
   "savings": "Štednja",
-
   "new_category": "Nova kategorija",
   "new_income": "Novi prihod",
   "new_account": "Novi račun",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Odlazni prijenos",
   "top_up": "Nadoplata",
   "base_currency_label": "Osnovna",
-
   "select_date": "Odaberi datum",
   "current_month": "Trenutni mjesec",
   "transfer": "Prijenos",
   "today": "Danas",
   "yesterday": "Jučer",
   "tomorrow": "Sutra",
-
   "regular_payments": "Redovita plaćanja",
   "add_subscription": "Dodaj pretplatu",
   "no_subscriptions": "Još nemaš redovitih plaćanja",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Nedovoljno sredstava na računu '{}' 😔",
   "paid_success": "Plaćeno: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Financije i ulaganja",
   "icons_currencies": "Valute",
   "icons_food": "Hrana i piće",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Pretplate i usluge",
   "icons_family": "Obitelj i ljubimci",
   "icons_other": "Ostalo",
-
   "exchange_rates": "Tečajevi",
   "add_currency": "Dodaj valutu",
   "all_currencies_added": "Sve dostupne valute dodane",
@@ -229,7 +262,6 @@
   "rates_update_error": "Ažuriranje nije uspjelo. Provjeri vezu!",
   "search_transactions": "Pretraži transakcije...",
   "nothing_found": "Ništa nije pronađeno",
-
   "data_management": "Upravljanje podacima",
   "export_csv": "Izvezi u CSV",
   "export_description": "Spremi svoje transakcije kao CSV tablicu za otvaranje u Excelu ili Google tablicama.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Prijenos",
   "csv_deleted_category": "Izbrisano",
   "csv_export_headers": "Datum,Vrsta,Kategorija (Iz),Iznos (Iz),Valuta (Iz),Kategorija (U),Iznos (U),Valuta (U),Komentar",
-
   "filter_settings": "Postavke filtra",
   "filter_period": "Razdoblje",
   "filter_all_time": "Cijelo razdoblje",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Troškovi",
   "filter_type_transfers": "Prijenosi",
   "filter_select_period": "Odaberi razdoblje",
-
   "week_mo": "pon",
   "week_tu": "uto",
   "week_we": "sri",
@@ -301,7 +331,6 @@
   "week_fr": "pet",
   "week_sa": "sub",
   "week_su": "ned",
-
   "reset": "Poništi",
   "trash": "Smeće",
   "trash_empty": "Smeće je prazno",
@@ -316,7 +345,6 @@
   "transaction": "Transakcija",
   "subscription": "Pretplata",
   "deleted_category": "Izbrisana kategorija",
-
   "last_backup": "Posljednja sigurnosna kopija",
   "no_backups_yet": "Još nema sigurnosnih kopija",
   "file_backup": "Lokalne datoteke",
@@ -334,11 +362,11 @@
   "export_password_hint": "Postavi lozinku za šifriranje podataka. Trebat će ti za kasnije vraćanje ove datoteke.",
   "unlock_backup_title": "Otključaj sigurnosnu kopiju",
   "import_password_hint": "Ova je datoteka zaštićena lozinkom. Unesi ključ koji si stvorio pri izvozu ove sigurnosne kopije.",
-
   "default_category_salary": "Plaća",
   "default_category_cash": "Gotovina",
   "default_category_card": "Kartica",
   "default_category_transport": "Prijevoz",
   "default_category_food": "Hrana",
-  "default_category_shopping": "Kupnja"
+  "default_category_shopping": "Kupnja",
+  "search": "Pretraži"
 }

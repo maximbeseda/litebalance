@@ -88,6 +88,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     AppPickerSheet.show<String>(
       context: context,
       title: 'language'.tr(),
+      enableSearch: true,
       selected: context.locale.languageCode,
       options: context.supportedLocales
           .map(
@@ -113,6 +114,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     AppPickerSheet.show<String>(
       context: context,
       title: 'base_currency'.tr(),
+      enableSearch: true,
       selected: ref.read(settingsProvider).baseCurrency,
       options: AppCurrency.ordered()
           .map(

@@ -13,17 +13,14 @@
   "date": "Päivämäärä",
   "choose_date": "Valitse päivämäärä",
   "update_date": "Päivitä päivämäärä",
-
   "onboarding_title": "Tervetuloa LiteBalanceen!",
   "onboarding_subtitle": "Määritetään profiilisi",
   "language_title": "Kieli",
   "base_currency_title": "Perusvaluutta",
   "get_started": "Aloita",
   "sign_in_with_google": "Kirjaudu Googlella",
-
   "expenses": "Menot",
   "income": "Tulot",
-
   "settings": "Asetukset",
   "profile": "Profiili",
   "account": "Tili",
@@ -84,10 +81,53 @@
     "PEN": "Perun sol",
     "EGP": "Egyptin punta",
     "NGN": "Nigerian naira",
-    "MAD": "Marokon dirhami"
+    "MAD": "Marokon dirhami",
+    "ALL": "Albanian lek",
+    "MKD": "Makedonian denaari",
+    "BAM": "Bosnia-Hertsegovinan vaihdettava markka",
+    "LBP": "Libanonin punta",
+    "YER": "Jemenin rial",
+    "AZN": "Azerbaidžanin manat",
+    "AMD": "Armenian dram",
+    "UZS": "Uzbekistanin som",
+    "KGS": "Kirgisian som",
+    "TJS": "Tadžikistanin somoni",
+    "PKR": "Pakistanin rupia",
+    "BDT": "Bangladeshin taka",
+    "LKR": "Sri Lankan rupia",
+    "NPR": "Nepalin rupia",
+    "AFN": "Afganistanin afgaani",
+    "MMK": "Myanmarin kyat",
+    "KHR": "Kambodžan riel",
+    "LAK": "Laosin kip",
+    "MNT": "Mongolian tugrik",
+    "KES": "Kenian šillinki",
+    "GHS": "Ghanan cedi",
+    "TZS": "Tansanian šillinki",
+    "UGX": "Ugandan šillinki",
+    "DZD": "Algerian dinaari",
+    "ETB": "Etiopian birr",
+    "ZMW": "Sambian kwacha",
+    "BWP": "Botswanan pula",
+    "NAD": "Namibian dollari",
+    "MZN": "Mosambikin metical",
+    "AOA": "Angolan kwanza",
+    "CDF": "Kongon frangi",
+    "RWF": "Ruandan frangi",
+    "XOF": "CFA-frangi BCEAO",
+    "XAF": "CFA-frangi BEAC",
+    "BOB": "Bolivian boliviano",
+    "UYU": "Uruguayn peso",
+    "GTQ": "Guatemalan quetzal",
+    "DOP": "Dominikaanisen tasavallan peso",
+    "CRC": "Costa Rican colón",
+    "HNL": "Hondurasin lempira",
+    "NIO": "Nicaraguan córdoba",
+    "JMD": "Jamaikan dollari",
+    "PYG": "Paraguayn guarani",
+    "PGK": "Papua-Uuden-Guinean kina"
   },
   "language": "Kieli",
-
   "backup_title": "Varmuuskopiointi ja palautus",
   "warning_overwrite": "Varoitus: nykyiset tiedot korvataan!",
   "backup_success": "Tiedot palautettu onnistuneesti! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN-koodi",
   "biometrics": "Biometriikka / FaceID",
   "haptic_feedback": "Värinä",
-
   "interface_theme": "Teema",
   "theme_light": "Vaalea",
   "theme_dark": "Tumma",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Kaikki tiedot tyhjennetty onnistuneesti",
   "clear_data_cloud_note": "Myös Google Drive -kopiosi korvataan tyhjillä tiedoilla seuraavan synkronoinnin yhteydessä.",
   "current_copy": "Nykyinen kopio",
-
   "statistics": "Tilastot",
   "stats_expenses": "Menot",
   "no_expenses_month": "Ei menoja tässä kuussa 👏",
@@ -146,7 +184,6 @@
   "average": "Kuukausikeskiarvo",
   "savings_rate": "Säästöaste",
   "savings": "Säästöt",
-
   "new_category": "Uusi kategoria",
   "new_income": "Uusi tulo",
   "new_account": "Uusi tili",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Lähtevä siirto",
   "top_up": "Lataus",
   "base_currency_label": "Perus",
-
   "select_date": "Valitse päivämäärä",
   "current_month": "Nykyinen kuukausi",
   "transfer": "Siirto",
   "today": "Tänään",
   "yesterday": "Eilen",
   "tomorrow": "Huomenna",
-
   "regular_payments": "Toistuvat maksut",
   "add_subscription": "Lisää tilaus",
   "no_subscriptions": "Sinulla ei ole vielä toistuvia maksuja",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Tilillä '{}' ei ole tarpeeksi varoja 😔",
   "paid_success": "Maksettu: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Talous ja sijoitukset",
   "icons_currencies": "Valuutat",
   "icons_food": "Ruoka ja juoma",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Tilaukset ja palvelut",
   "icons_family": "Perhe ja lemmikit",
   "icons_other": "Muu",
-
   "exchange_rates": "Valuuttakurssit",
   "add_currency": "Lisää valuutta",
   "all_currencies_added": "Kaikki saatavilla olevat valuutat lisätty",
@@ -229,7 +262,6 @@
   "rates_update_error": "Päivitys epäonnistui. Tarkista yhteytesi!",
   "search_transactions": "Hae tapahtumia...",
   "nothing_found": "Ei tuloksia",
-
   "data_management": "Tiedonhallinta",
   "export_csv": "Vie CSV-muotoon",
   "export_description": "Tallenna tapahtumasi CSV-taulukkona avattavaksi Excelissä tai Google Sheetsissä.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Siirto",
   "csv_deleted_category": "Poistettu",
   "csv_export_headers": "Päivämäärä,Tyyppi,Kategoria (Mistä),Summa (Mistä),Valuutta (Mistä),Kategoria (Mihin),Summa (Mihin),Valuutta (Mihin),Kommentti",
-
   "filter_settings": "Suodatinasetukset",
   "filter_period": "Jakso",
   "filter_all_time": "Koko aika",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Menot",
   "filter_type_transfers": "Siirrot",
   "filter_select_period": "Valitse jakso",
-
   "week_mo": "ma",
   "week_tu": "ti",
   "week_we": "ke",
@@ -301,7 +331,6 @@
   "week_fr": "pe",
   "week_sa": "la",
   "week_su": "su",
-
   "reset": "Nollaa",
   "trash": "Roskakori",
   "trash_empty": "Roskakori on tyhjä",
@@ -316,7 +345,6 @@
   "transaction": "Tapahtuma",
   "subscription": "Tilaus",
   "deleted_category": "Poistettu kategoria",
-
   "last_backup": "Viimeisin varmuuskopio",
   "no_backups_yet": "Ei vielä varmuuskopioita",
   "file_backup": "Paikalliset tiedostot",
@@ -334,11 +362,11 @@
   "export_password_hint": "Aseta salasana tietojesi salaamiseksi. Tarvitset sitä tämän tiedoston palauttamiseen myöhemmin.",
   "unlock_backup_title": "Avaa varmuuskopion lukitus",
   "import_password_hint": "Tämä tiedosto on salasanasuojattu. Anna avain, jonka loit viedessäsi tätä varmuuskopiota.",
-
   "default_category_salary": "Palkka",
   "default_category_cash": "Käteinen",
   "default_category_card": "Kortti",
   "default_category_transport": "Liikenne",
   "default_category_food": "Ruoka",
-  "default_category_shopping": "Ostokset"
+  "default_category_shopping": "Ostokset",
+  "search": "Hae"
 }

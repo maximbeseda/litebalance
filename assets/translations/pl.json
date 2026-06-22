@@ -13,17 +13,14 @@
   "date": "Data",
   "choose_date": "Wybierz datę",
   "update_date": "Zaktualizuj datę",
-
   "onboarding_title": "Witamy w LiteBalance!",
   "onboarding_subtitle": "Skonfigurujmy Twój profil",
   "language_title": "Język",
   "base_currency_title": "Waluta bazowa",
   "get_started": "Rozpocznij",
   "sign_in_with_google": "Zaloguj się przez Google",
-
   "expenses": "Wydatki",
   "income": "Przychody",
-
   "settings": "Ustawienia",
   "profile": "Profil",
   "account": "Konto",
@@ -84,10 +81,53 @@
     "PEN": "Sol peruwiański",
     "EGP": "Funt egipski",
     "NGN": "Naira nigeryjska",
-    "MAD": "Dirham marokański"
+    "MAD": "Dirham marokański",
+    "ALL": "Lek albański",
+    "MKD": "Denar macedoński",
+    "BAM": "Marka zamienna Bośni i Hercegowiny",
+    "LBP": "Funt libański",
+    "YER": "Rial jemeński",
+    "AZN": "Manat azerski",
+    "AMD": "Dram armeński",
+    "UZS": "Som uzbecki",
+    "KGS": "Som kirgiski",
+    "TJS": "Somoni tadżyckie",
+    "PKR": "Rupia pakistańska",
+    "BDT": "Taka bengalska",
+    "LKR": "Rupia lankijska",
+    "NPR": "Rupia nepalska",
+    "AFN": "Afgani afgańskie",
+    "MMK": "Kiat birmański",
+    "KHR": "Riel kambodżański",
+    "LAK": "Kip laotański",
+    "MNT": "Tugrik mongolski",
+    "KES": "Szyling kenijski",
+    "GHS": "Cedi ghańskie",
+    "TZS": "Szyling tanzański",
+    "UGX": "Szyling ugandyjski",
+    "DZD": "Dinar algierski",
+    "ETB": "Birr etiopski",
+    "ZMW": "Kwacha zambijska",
+    "BWP": "Pula botswańska",
+    "NAD": "Dolar namibijski",
+    "MZN": "Metical mozambicki",
+    "AOA": "Kwanza angolska",
+    "CDF": "Frank kongijski",
+    "RWF": "Frank ruandyjski",
+    "XOF": "Frank CFA",
+    "XAF": "Frank CFA BEAC",
+    "BOB": "Boliviano boliwijskie",
+    "UYU": "Peso urugwajskie",
+    "GTQ": "Quetzal gwatemalski",
+    "DOP": "Peso dominikańskie",
+    "CRC": "Colon kostarykański",
+    "HNL": "Lempira honduraska",
+    "NIO": "Cordoba nikaraguańska",
+    "JMD": "Dolar jamajski",
+    "PYG": "Guarani paragwajskie",
+    "PGK": "Kina papuańska"
   },
   "language": "Język",
-
   "backup_title": "Kopia zapasowa i przywracanie",
   "warning_overwrite": "Uwaga: bieżące dane zostaną nadpisane!",
   "backup_success": "Dane przywrócone pomyślnie! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Kod PIN",
   "biometrics": "Biometria / FaceID",
   "haptic_feedback": "Wibracje",
-
   "interface_theme": "Motyw",
   "theme_light": "Jasny",
   "theme_dark": "Ciemny",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Wszystkie dane zostały wyczyszczone",
   "clear_data_cloud_note": "Kopia na Dysku Google również zostanie nadpisana pustymi danymi przy następnej synchronizacji.",
   "current_copy": "Bieżąca kopia",
-
   "statistics": "Statystyki",
   "stats_expenses": "Wydatki",
   "no_expenses_month": "Brak wydatków w tym miesiącu 👏",
@@ -146,7 +184,6 @@
   "average": "Średnia miesięczna",
   "savings_rate": "Stopa oszczędności",
   "savings": "Oszczędności",
-
   "new_category": "Nowa kategoria",
   "new_income": "Nowy przychód",
   "new_account": "Nowe konto",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Przelew wychodzący",
   "top_up": "Doładowanie",
   "base_currency_label": "Bazowa",
-
   "select_date": "Wybierz datę",
   "current_month": "Bieżący miesiąc",
   "transfer": "Przelew",
   "today": "Dziś",
   "yesterday": "Wczoraj",
   "tomorrow": "Jutro",
-
   "regular_payments": "Płatności cykliczne",
   "add_subscription": "Dodaj subskrypcję",
   "no_subscriptions": "Nie masz jeszcze płatności cyklicznych",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Brak wystarczających środków na koncie '{}' 😔",
   "paid_success": "Zapłacono: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finanse i inwestycje",
   "icons_currencies": "Waluty",
   "icons_food": "Jedzenie i napoje",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Subskrypcje i usługi",
   "icons_family": "Rodzina i zwierzęta",
   "icons_other": "Inne",
-
   "exchange_rates": "Kursy walut",
   "add_currency": "Dodaj walutę",
   "all_currencies_added": "Dodano wszystkie dostępne waluty",
@@ -229,7 +262,6 @@
   "rates_update_error": "Aktualizacja nie powiodła się. Sprawdź połączenie!",
   "search_transactions": "Szukaj transakcji...",
   "nothing_found": "Nic nie znaleziono",
-
   "data_management": "Zarządzanie danymi",
   "export_csv": "Eksportuj do CSV",
   "export_description": "Zapisz transakcje jako tabelę CSV do otwarcia w Excelu lub Arkuszach Google.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Przelew",
   "csv_deleted_category": "Usunięto",
   "csv_export_headers": "Data,Typ,Kategoria (Z),Kwota (Z),Waluta (Z),Kategoria (Do),Kwota (Do),Waluta (Do),Komentarz",
-
   "filter_settings": "Ustawienia filtra",
   "filter_period": "Okres",
   "filter_all_time": "Cały okres",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Wydatki",
   "filter_type_transfers": "Przelewy",
   "filter_select_period": "Wybierz okres",
-
   "week_mo": "pn",
   "week_tu": "wt",
   "week_we": "śr",
@@ -301,7 +331,6 @@
   "week_fr": "pt",
   "week_sa": "so",
   "week_su": "nd",
-
   "reset": "Resetuj",
   "trash": "Kosz",
   "trash_empty": "Kosz jest pusty",
@@ -316,7 +345,6 @@
   "transaction": "Transakcja",
   "subscription": "Subskrypcja",
   "deleted_category": "Usunięta kategoria",
-
   "last_backup": "Ostatnia kopia zapasowa",
   "no_backups_yet": "Brak kopii zapasowych",
   "file_backup": "Pliki lokalne",
@@ -334,11 +362,11 @@
   "export_password_hint": "Ustaw hasło, aby zaszyfrować dane. Będzie potrzebne do późniejszego przywrócenia tego pliku.",
   "unlock_backup_title": "Odblokuj kopię zapasową",
   "import_password_hint": "Ten plik jest chroniony hasłem. Wprowadź klucz utworzony podczas eksportu tej kopii.",
-
   "default_category_salary": "Wynagrodzenie",
   "default_category_cash": "Gotówka",
   "default_category_card": "Karta",
   "default_category_transport": "Transport",
   "default_category_food": "Jedzenie",
-  "default_category_shopping": "Zakupy"
+  "default_category_shopping": "Zakupy",
+  "search": "Szukaj"
 }

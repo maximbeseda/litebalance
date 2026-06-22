@@ -13,17 +13,14 @@
   "date": "Date",
   "choose_date": "Choisir une date",
   "update_date": "Mettre à jour la date",
-
   "onboarding_title": "Bienvenue sur LiteBalance !",
   "onboarding_subtitle": "Configurons votre profil",
   "language_title": "Langue",
   "base_currency_title": "Devise de base",
   "get_started": "Commencer",
   "sign_in_with_google": "Se connecter avec Google",
-
   "expenses": "Dépenses",
   "income": "Revenus",
-
   "settings": "Paramètres",
   "profile": "Profil",
   "account": "Compte",
@@ -84,10 +81,53 @@
     "PEN": "Sol péruvien",
     "EGP": "Livre égyptienne",
     "NGN": "Naira nigérian",
-    "MAD": "Dirham marocain"
+    "MAD": "Dirham marocain",
+    "ALL": "Lek albanais",
+    "MKD": "Denar macédonien",
+    "BAM": "Mark convertible bosniaque",
+    "LBP": "Livre libanaise",
+    "YER": "Riyal yéménite",
+    "AZN": "Manat azéri",
+    "AMD": "Dram arménien",
+    "UZS": "Sum ouzbek",
+    "KGS": "Som kirghize",
+    "TJS": "Somoni tadjik",
+    "PKR": "Roupie pakistanaise",
+    "BDT": "Taka bangladeshi",
+    "LKR": "Roupie srilankaise",
+    "NPR": "Roupie népalaise",
+    "AFN": "Afghani afghan",
+    "MMK": "Kyat myanmarais",
+    "KHR": "Riel cambodgien",
+    "LAK": "Kip laotien",
+    "MNT": "Tugrik mongol",
+    "KES": "Shilling kényan",
+    "GHS": "Cédi ghanéen",
+    "TZS": "Shilling tanzanien",
+    "UGX": "Shilling ougandais",
+    "DZD": "Dinar algérien",
+    "ETB": "Birr éthiopien",
+    "ZMW": "Kwacha zambien",
+    "BWP": "Pula botswanais",
+    "NAD": "Dollar namibien",
+    "MZN": "Metical mozambicain",
+    "AOA": "Kwanza angolais",
+    "CDF": "Franc congolais",
+    "RWF": "Franc rwandais",
+    "XOF": "Franc CFA (BCEAO)",
+    "XAF": "Franc CFA (BEAC)",
+    "BOB": "Boliviano bolivien",
+    "UYU": "Peso uruguayen",
+    "GTQ": "Quetzal guatémaltèque",
+    "DOP": "Peso dominicain",
+    "CRC": "Colón costaricain",
+    "HNL": "Lempira hondurien",
+    "NIO": "Córdoba oro nicaraguayen",
+    "JMD": "Dollar jamaïcain",
+    "PYG": "Guaraní paraguayen",
+    "PGK": "Kina papouan-néo-guinéen"
   },
   "language": "Langue",
-
   "backup_title": "Sauvegarde et restauration",
   "warning_overwrite": "Attention : les données actuelles seront écrasées !",
   "backup_success": "Données restaurées avec succès ! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Code PIN",
   "biometrics": "Biométrie / FaceID",
   "haptic_feedback": "Vibration",
-
   "interface_theme": "Thème",
   "theme_light": "Clair",
   "theme_dark": "Sombre",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Toutes les données ont été effacées",
   "clear_data_cloud_note": "Votre copie sur Google Drive sera également écrasée par des données vides lors de la prochaine synchronisation.",
   "current_copy": "Copie actuelle",
-
   "statistics": "Statistiques",
   "stats_expenses": "Dépenses",
   "no_expenses_month": "Aucune dépense ce mois-ci 👏",
@@ -146,7 +184,6 @@
   "average": "Moyenne mensuelle",
   "savings_rate": "Taux d'épargne",
   "savings": "Épargne",
-
   "new_category": "Nouvelle catégorie",
   "new_income": "Nouveau revenu",
   "new_account": "Nouveau compte",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Transfert sortant",
   "top_up": "Rechargement",
   "base_currency_label": "Base",
-
   "select_date": "Sélectionner une date",
   "current_month": "Mois en cours",
   "transfer": "Transfert",
   "today": "Aujourd'hui",
   "yesterday": "Hier",
   "tomorrow": "Demain",
-
   "regular_payments": "Paiements réguliers",
   "add_subscription": "Ajouter un abonnement",
   "no_subscriptions": "Vous n'avez pas encore de paiements réguliers",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Fonds insuffisants sur le compte '{}' 😔",
   "paid_success": "Payé : {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finances et investissements",
   "icons_currencies": "Devises",
   "icons_food": "Nourriture et boissons",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abonnements et services",
   "icons_family": "Famille et animaux",
   "icons_other": "Autres",
-
   "exchange_rates": "Taux de change",
   "add_currency": "Ajouter une devise",
   "all_currencies_added": "Toutes les devises disponibles ont été ajoutées",
@@ -229,7 +262,6 @@
   "rates_update_error": "Échec de la mise à jour. Vérifiez votre connexion !",
   "search_transactions": "Rechercher des transactions...",
   "nothing_found": "Aucun résultat",
-
   "data_management": "Gestion des données",
   "export_csv": "Exporter en CSV",
   "export_description": "Enregistrez vos transactions sous forme de tableau CSV à ouvrir dans Excel ou Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Transfert",
   "csv_deleted_category": "Supprimé",
   "csv_export_headers": "Date,Type,Catégorie (De),Montant (De),Devise (De),Catégorie (Vers),Montant (Vers),Devise (Vers),Commentaire",
-
   "filter_settings": "Paramètres de filtre",
   "filter_period": "Période",
   "filter_all_time": "Tout l'historique",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Dépenses",
   "filter_type_transfers": "Transferts",
   "filter_select_period": "Sélectionner une période",
-
   "week_mo": "lu",
   "week_tu": "ma",
   "week_we": "me",
@@ -301,7 +331,6 @@
   "week_fr": "ve",
   "week_sa": "sa",
   "week_su": "di",
-
   "reset": "Réinitialiser",
   "trash": "Corbeille",
   "trash_empty": "La corbeille est vide",
@@ -316,7 +345,6 @@
   "transaction": "Transaction",
   "subscription": "Abonnement",
   "deleted_category": "Catégorie supprimée",
-
   "last_backup": "Dernière sauvegarde",
   "no_backups_yet": "Aucune sauvegarde pour l'instant",
   "file_backup": "Fichiers locaux",
@@ -334,11 +362,11 @@
   "export_password_hint": "Définissez un mot de passe pour chiffrer vos données. Vous en aurez besoin pour restaurer ce fichier plus tard.",
   "unlock_backup_title": "Déverrouiller la sauvegarde",
   "import_password_hint": "Ce fichier est protégé par mot de passe. Saisissez la clé créée lors de l'exportation de cette sauvegarde.",
-
   "default_category_salary": "Salaire",
   "default_category_cash": "Espèces",
   "default_category_card": "Carte",
   "default_category_transport": "Transport",
   "default_category_food": "Alimentation",
-  "default_category_shopping": "Achats"
+  "default_category_shopping": "Achats",
+  "search": "Rechercher"
 }

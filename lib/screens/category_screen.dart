@@ -225,6 +225,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     AppPickerSheet.show<String>(
       context: context,
       title: 'currency'.tr(),
+      enableSearch: true,
       selected: _selectedCurrency ?? baseCurrency,
       options: codes.map((code) {
         final curr = AppCurrency.fromCode(code);

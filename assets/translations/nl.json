@@ -13,17 +13,14 @@
   "date": "Datum",
   "choose_date": "Datum kiezen",
   "update_date": "Datum bijwerken",
-
   "onboarding_title": "Welkom bij LiteBalance!",
   "onboarding_subtitle": "Laten we je profiel instellen",
   "language_title": "Taal",
   "base_currency_title": "Basisvaluta",
   "get_started": "Aan de slag",
   "sign_in_with_google": "Inloggen met Google",
-
   "expenses": "Uitgaven",
   "income": "Inkomsten",
-
   "settings": "Instellingen",
   "profile": "Profiel",
   "account": "Account",
@@ -84,10 +81,53 @@
     "PEN": "Peruaanse sol",
     "EGP": "Egyptisch pond",
     "NGN": "Nigeriaanse naira",
-    "MAD": "Marokkaanse dirham"
+    "MAD": "Marokkaanse dirham",
+    "ALL": "Albanese lek",
+    "MKD": "Macedonische denar",
+    "BAM": "Bosnische convertibele mark",
+    "LBP": "Libanees pond",
+    "YER": "Jemenitische rial",
+    "AZN": "Azerbeidzjaanse manat",
+    "AMD": "Armeense dram",
+    "UZS": "Oezbeekse sum",
+    "KGS": "Kirgizische som",
+    "TJS": "Tadzjiekse somoni",
+    "PKR": "Pakistaanse roepie",
+    "BDT": "Bengalese taka",
+    "LKR": "Sri Lankaanse roepie",
+    "NPR": "Nepalese roepie",
+    "AFN": "Afghaanse afghani",
+    "MMK": "Myanmarese kyat",
+    "KHR": "Cambodjaanse riel",
+    "LAK": "Laotiaanse kip",
+    "MNT": "Mongoolse tugrik",
+    "KES": "Keniaanse shilling",
+    "GHS": "Ghanese cedi",
+    "TZS": "Tanzaniaanse shilling",
+    "UGX": "Oegandese shilling",
+    "DZD": "Algerijnse dinar",
+    "ETB": "Ethiopische birr",
+    "ZMW": "Zambiaanse kwacha",
+    "BWP": "Botswaanse pula",
+    "NAD": "Namibische dollar",
+    "MZN": "Mozambikaanse metical",
+    "AOA": "Angolese kwanza",
+    "CDF": "Congolese frank",
+    "RWF": "Rwandese frank",
+    "XOF": "CFA-franc BCEAO",
+    "XAF": "CFA-frank",
+    "BOB": "Boliviaanse boliviano",
+    "UYU": "Uruguayaanse peso",
+    "GTQ": "Guatemalteekse quetzal",
+    "DOP": "Dominicaanse peso",
+    "CRC": "Costa Ricaanse colon",
+    "HNL": "Hondurese lempira",
+    "NIO": "Nicaraguaanse córdoba",
+    "JMD": "Jamaicaanse dollar",
+    "PYG": "Paraguayaanse guarani",
+    "PGK": "Papoea-Nieuw-Guinese kina"
   },
   "language": "Taal",
-
   "backup_title": "Back-up en herstel",
   "warning_overwrite": "Let op: huidige gegevens worden overschreven!",
   "backup_success": "Gegevens succesvol hersteld! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Pincode",
   "biometrics": "Biometrie / FaceID",
   "haptic_feedback": "Trillen",
-
   "interface_theme": "Thema",
   "theme_light": "Licht",
   "theme_dark": "Donker",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Alle gegevens succesvol gewist",
   "clear_data_cloud_note": "Je Google Drive-kopie wordt bij de volgende synchronisatie ook overschreven met lege gegevens.",
   "current_copy": "Huidige kopie",
-
   "statistics": "Statistieken",
   "stats_expenses": "Uitgaven",
   "no_expenses_month": "Geen uitgaven deze maand 👏",
@@ -146,7 +184,6 @@
   "average": "Maandgemiddelde",
   "savings_rate": "Spaarquote",
   "savings": "Spaargeld",
-
   "new_category": "Nieuwe categorie",
   "new_income": "Nieuwe inkomst",
   "new_account": "Nieuwe rekening",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Uitgaande overboeking",
   "top_up": "Opwaarderen",
   "base_currency_label": "Basis",
-
   "select_date": "Datum selecteren",
   "current_month": "Huidige maand",
   "transfer": "Overboeking",
   "today": "Vandaag",
   "yesterday": "Gisteren",
   "tomorrow": "Morgen",
-
   "regular_payments": "Vaste betalingen",
   "add_subscription": "Abonnement toevoegen",
   "no_subscriptions": "Je hebt nog geen vaste betalingen",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Onvoldoende saldo op rekening '{}' 😔",
   "paid_success": "Betaald: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Financiën en beleggingen",
   "icons_currencies": "Valuta's",
   "icons_food": "Eten en drinken",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abonnementen en diensten",
   "icons_family": "Gezin en huisdieren",
   "icons_other": "Overig",
-
   "exchange_rates": "Wisselkoersen",
   "add_currency": "Valuta toevoegen",
   "all_currencies_added": "Alle beschikbare valuta's toegevoegd",
@@ -229,7 +262,6 @@
   "rates_update_error": "Bijwerken mislukt. Controleer je verbinding!",
   "search_transactions": "Transacties zoeken...",
   "nothing_found": "Niets gevonden",
-
   "data_management": "Gegevensbeheer",
   "export_csv": "Exporteren naar CSV",
   "export_description": "Sla je transacties op als CSV-tabel om te openen in Excel of Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Overboeking",
   "csv_deleted_category": "Verwijderd",
   "csv_export_headers": "Datum,Type,Categorie (Van),Bedrag (Van),Valuta (Van),Categorie (Naar),Bedrag (Naar),Valuta (Naar),Opmerking",
-
   "filter_settings": "Filterinstellingen",
   "filter_period": "Periode",
   "filter_all_time": "Hele periode",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Uitgaven",
   "filter_type_transfers": "Overboekingen",
   "filter_select_period": "Periode selecteren",
-
   "week_mo": "ma",
   "week_tu": "di",
   "week_we": "wo",
@@ -301,7 +331,6 @@
   "week_fr": "vr",
   "week_sa": "za",
   "week_su": "zo",
-
   "reset": "Resetten",
   "trash": "Prullenbak",
   "trash_empty": "De prullenbak is leeg",
@@ -316,7 +345,6 @@
   "transaction": "Transactie",
   "subscription": "Abonnement",
   "deleted_category": "Verwijderde categorie",
-
   "last_backup": "Laatste back-up",
   "no_backups_yet": "Nog geen back-ups",
   "file_backup": "Lokale bestanden",
@@ -334,11 +362,11 @@
   "export_password_hint": "Stel een wachtwoord in om je gegevens te versleutelen. Je hebt het later nodig om dit bestand te herstellen.",
   "unlock_backup_title": "Back-up ontgrendelen",
   "import_password_hint": "Dit bestand is met een wachtwoord beveiligd. Voer de sleutel in die je bij het exporteren van deze back-up hebt aangemaakt.",
-
   "default_category_salary": "Salaris",
   "default_category_cash": "Contant",
   "default_category_card": "Kaart",
   "default_category_transport": "Vervoer",
   "default_category_food": "Eten",
-  "default_category_shopping": "Winkelen"
+  "default_category_shopping": "Winkelen",
+  "search": "Zoeken"
 }

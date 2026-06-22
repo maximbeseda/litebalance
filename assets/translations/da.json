@@ -13,17 +13,14 @@
   "date": "Dato",
   "choose_date": "Vælg dato",
   "update_date": "Opdater dato",
-
   "onboarding_title": "Velkommen til LiteBalance!",
   "onboarding_subtitle": "Lad os konfigurere din profil",
   "language_title": "Sprog",
   "base_currency_title": "Basisvaluta",
   "get_started": "Kom i gang",
   "sign_in_with_google": "Log ind med Google",
-
   "expenses": "Udgifter",
   "income": "Indtægter",
-
   "settings": "Indstillinger",
   "profile": "Profil",
   "account": "Konto",
@@ -84,10 +81,53 @@
     "PEN": "Peruansk sol",
     "EGP": "Egyptisk pund",
     "NGN": "Nigeriansk naira",
-    "MAD": "Marokkansk dirham"
+    "MAD": "Marokkansk dirham",
+    "ALL": "Albansk lek",
+    "MKD": "Makedonsk denar",
+    "BAM": "Bosnien-hercegovinsk konvertibel mark",
+    "LBP": "Libanesisk pund",
+    "YER": "Yemenitisk rial",
+    "AZN": "Aserbajdsjansk manat",
+    "AMD": "Armensk dram",
+    "UZS": "Usbekisk sum",
+    "KGS": "Kirgisisk som",
+    "TJS": "Tadsjikisk somoni",
+    "PKR": "Pakistansk rupee",
+    "BDT": "Bangladeshisk taka",
+    "LKR": "Srilankansk rupee",
+    "NPR": "Nepalesisk rupee",
+    "AFN": "Afghansk afghani",
+    "MMK": "Myanmarsk kyat",
+    "KHR": "Cambodjansk riel",
+    "LAK": "Laotisk kip",
+    "MNT": "Mongolsk tugrik",
+    "KES": "Kenyansk shilling",
+    "GHS": "Ghanesisk cedi",
+    "TZS": "Tanzanisk shilling",
+    "UGX": "Ugandisk shilling",
+    "DZD": "Algerisk dinar",
+    "ETB": "Etiopisk birr",
+    "ZMW": "Zambisk kwacha",
+    "BWP": "Botswansk pula",
+    "NAD": "Namibisk dollar",
+    "MZN": "Mozambiquisk metical",
+    "AOA": "Angolansk kwanza",
+    "CDF": "Congolesisk franc",
+    "RWF": "Rwandisk franc",
+    "XOF": "CFA-franc BCEAO",
+    "XAF": "CFA-franc (BEAC)",
+    "BOB": "Boliviansk boliviano",
+    "UYU": "Uruguayansk peso",
+    "GTQ": "Guatemalansk quetzal",
+    "DOP": "Dominikansk peso",
+    "CRC": "Costaricansk colón",
+    "HNL": "Honduransk lempira",
+    "NIO": "Nicaraguansk cordoba",
+    "JMD": "Jamaicansk dollar",
+    "PYG": "Paraguaysk guarani",
+    "PGK": "Papuansk kina"
   },
   "language": "Sprog",
-
   "backup_title": "Sikkerhedskopiering og gendannelse",
   "warning_overwrite": "Advarsel: nuværende data overskrives!",
   "backup_success": "Data gendannet! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN-kode",
   "biometrics": "Biometri / FaceID",
   "haptic_feedback": "Vibration",
-
   "interface_theme": "Tema",
   "theme_light": "Lyst",
   "theme_dark": "Mørkt",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Alle data er ryddet",
   "clear_data_cloud_note": "Din kopi på Google Drev bliver også overskrevet med tomme data ved næste synkronisering.",
   "current_copy": "Nuværende kopi",
-
   "statistics": "Statistik",
   "stats_expenses": "Udgifter",
   "no_expenses_month": "Ingen udgifter denne måned 👏",
@@ -146,7 +184,6 @@
   "average": "Månedligt gennemsnit",
   "savings_rate": "Opsparingsrate",
   "savings": "Opsparing",
-
   "new_category": "Ny kategori",
   "new_income": "Ny indtægt",
   "new_account": "Ny konto",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Udgående overførsel",
   "top_up": "Optankning",
   "base_currency_label": "Basis",
-
   "select_date": "Vælg dato",
   "current_month": "Aktuel måned",
   "transfer": "Overførsel",
   "today": "I dag",
   "yesterday": "I går",
   "tomorrow": "I morgen",
-
   "regular_payments": "Faste betalinger",
   "add_subscription": "Tilføj abonnement",
   "no_subscriptions": "Du har ingen faste betalinger endnu",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Ikke nok midler på konto '{}' 😔",
   "paid_success": "Betalt: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Økonomi og investeringer",
   "icons_currencies": "Valutaer",
   "icons_food": "Mad og drikke",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abonnementer og tjenester",
   "icons_family": "Familie og kæledyr",
   "icons_other": "Andet",
-
   "exchange_rates": "Valutakurser",
   "add_currency": "Tilføj valuta",
   "all_currencies_added": "Alle tilgængelige valutaer er tilføjet",
@@ -229,7 +262,6 @@
   "rates_update_error": "Opdatering mislykkedes. Tjek din forbindelse!",
   "search_transactions": "Søg transaktioner...",
   "nothing_found": "Intet fundet",
-
   "data_management": "Datahåndtering",
   "export_csv": "Eksportér til CSV",
   "export_description": "Gem dine transaktioner som en CSV-tabel, der kan åbnes i Excel eller Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Overførsel",
   "csv_deleted_category": "Slettet",
   "csv_export_headers": "Dato,Type,Kategori (Fra),Beløb (Fra),Valuta (Fra),Kategori (Til),Beløb (Til),Valuta (Til),Kommentar",
-
   "filter_settings": "Filterindstillinger",
   "filter_period": "Periode",
   "filter_all_time": "Hele perioden",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Udgifter",
   "filter_type_transfers": "Overførsler",
   "filter_select_period": "Vælg periode",
-
   "week_mo": "ma",
   "week_tu": "ti",
   "week_we": "on",
@@ -301,7 +331,6 @@
   "week_fr": "fr",
   "week_sa": "lø",
   "week_su": "sø",
-
   "reset": "Nulstil",
   "trash": "Papirkurv",
   "trash_empty": "Papirkurven er tom",
@@ -316,7 +345,6 @@
   "transaction": "Transaktion",
   "subscription": "Abonnement",
   "deleted_category": "Slettet kategori",
-
   "last_backup": "Seneste sikkerhedskopi",
   "no_backups_yet": "Ingen sikkerhedskopier endnu",
   "file_backup": "Lokale filer",
@@ -334,11 +362,11 @@
   "export_password_hint": "Angiv en adgangskode for at kryptere dine data. Du får brug for den til at gendanne filen senere.",
   "unlock_backup_title": "Lås sikkerhedskopi op",
   "import_password_hint": "Filen er adgangskodebeskyttet. Indtast den nøgle, du oprettede, da du eksporterede sikkerhedskopien.",
-
   "default_category_salary": "Løn",
   "default_category_cash": "Kontanter",
   "default_category_card": "Kort",
   "default_category_transport": "Transport",
   "default_category_food": "Mad",
-  "default_category_shopping": "Shopping"
+  "default_category_shopping": "Shopping",
+  "search": "Søg"
 }
