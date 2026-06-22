@@ -13,17 +13,14 @@
   "date": "Dátum",
   "choose_date": "Vybrať dátum",
   "update_date": "Aktualizovať dátum",
-
   "onboarding_title": "Vitajte v LiteBalance!",
   "onboarding_subtitle": "Nastavme si váš profil",
   "language_title": "Jazyk",
   "base_currency_title": "Základná mena",
   "get_started": "Začať",
   "sign_in_with_google": "Prihlásiť sa cez Google",
-
   "expenses": "Výdavky",
   "income": "Príjmy",
-
   "settings": "Nastavenia",
   "profile": "Profil",
   "account": "Účet",
@@ -84,10 +81,53 @@
     "PEN": "Peruánsky sol",
     "EGP": "Egyptská libra",
     "NGN": "Nigérijská naira",
-    "MAD": "Marocký dirham"
+    "MAD": "Marocký dirham",
+    "ALL": "Albánsky lek",
+    "MKD": "Macedónsky denár",
+    "BAM": "Bosniansko-hercegovinská konvertibilná marka",
+    "LBP": "Libanonská libra",
+    "YER": "Jemenský rial",
+    "AZN": "Azerbajdžanský manat",
+    "AMD": "Arménsky dram",
+    "UZS": "Uzbecký sum",
+    "KGS": "Kirgizský som",
+    "TJS": "Tadžické somoni",
+    "PKR": "Pakistanská rupia",
+    "BDT": "Bangladéšska taka",
+    "LKR": "Srílanská rupia",
+    "NPR": "Nepálska rupia",
+    "AFN": "Afganský afgání",
+    "MMK": "Mjanmarský kyat",
+    "KHR": "Kambodžský riel",
+    "LAK": "Laoský kip",
+    "MNT": "Mongolský tugrik",
+    "KES": "Kenský šiling",
+    "GHS": "Ghanské cedi",
+    "TZS": "Tanzánsky šiling",
+    "UGX": "Ugandský šiling",
+    "DZD": "Alžírsky dinár",
+    "ETB": "Etiópsky birr",
+    "ZMW": "Zambijská kwacha",
+    "BWP": "Botswanská pula",
+    "NAD": "Namíbijský dolár",
+    "MZN": "Mozambický metical",
+    "AOA": "Angolská kwanza",
+    "CDF": "Konžský frank",
+    "RWF": "Rwandský frank",
+    "XOF": "Západoafrický frank",
+    "XAF": "Stredoafrický frank",
+    "BOB": "Bolívijské boliviano",
+    "UYU": "Uruguajské peso",
+    "GTQ": "Guatemalský quetzal",
+    "DOP": "Dominikánske peso",
+    "CRC": "Kostarický colón",
+    "HNL": "Honduraská lempira",
+    "NIO": "Nikaragujská córdoba",
+    "JMD": "Jamajský dolár",
+    "PYG": "Paraguajské guaraní",
+    "PGK": "Papuánska kina"
   },
   "language": "Jazyk",
-
   "backup_title": "Záloha a obnovenie",
   "warning_overwrite": "Upozornenie: aktuálne údaje budú prepísané!",
   "backup_success": "Údaje boli úspešne obnovené! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN kód",
   "biometrics": "Biometria / FaceID",
   "haptic_feedback": "Vibrácie",
-
   "interface_theme": "Motív",
   "theme_light": "Svetlý",
   "theme_dark": "Tmavý",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Všetky údaje boli úspešne vymazané",
   "clear_data_cloud_note": "Tvoja kópia na Disku Google bude pri ďalšej synchronizácii tiež prepísaná prázdnymi údajmi.",
   "current_copy": "Aktuálna kópia",
-
   "statistics": "Štatistiky",
   "stats_expenses": "Výdavky",
   "no_expenses_month": "Tento mesiac žiadne výdavky 👏",
@@ -146,7 +184,6 @@
   "average": "Mesačný priemer",
   "savings_rate": "Miera úspor",
   "savings": "Úspory",
-
   "new_category": "Nová kategória",
   "new_income": "Nový príjem",
   "new_account": "Nový účet",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Odchádzajúci prevod",
   "top_up": "Dobitie",
   "base_currency_label": "Základná",
-
   "select_date": "Vybrať dátum",
   "current_month": "Aktuálny mesiac",
   "transfer": "Prevod",
   "today": "Dnes",
   "yesterday": "Včera",
   "tomorrow": "Zajtra",
-
   "regular_payments": "Pravidelné platby",
   "add_subscription": "Pridať predplatné",
   "no_subscriptions": "Zatiaľ nemáte žiadne pravidelné platby",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Nedostatok prostriedkov na účte '{}' 😔",
   "paid_success": "Zaplatené: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Financie a investície",
   "icons_currencies": "Meny",
   "icons_food": "Jedlo a nápoje",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Predplatné a služby",
   "icons_family": "Rodina a domáce zvieratá",
   "icons_other": "Ostatné",
-
   "exchange_rates": "Výmenné kurzy",
   "add_currency": "Pridať menu",
   "all_currencies_added": "Všetky dostupné meny pridané",
@@ -229,7 +262,6 @@
   "rates_update_error": "Aktualizácia zlyhala. Skontrolujte pripojenie!",
   "search_transactions": "Hľadať transakcie...",
   "nothing_found": "Nič sa nenašlo",
-
   "data_management": "Správa údajov",
   "export_csv": "Exportovať do CSV",
   "export_description": "Uložte svoje transakcie ako tabuľku CSV na zobrazenie v Exceli alebo Tabuľkách Google.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Prevod",
   "csv_deleted_category": "Odstránené",
   "csv_export_headers": "Dátum,Typ,Kategória (Z),Suma (Z),Mena (Z),Kategória (Do),Suma (Do),Mena (Do),Komentár",
-
   "filter_settings": "Nastavenia filtra",
   "filter_period": "Obdobie",
   "filter_all_time": "Celé obdobie",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Výdavky",
   "filter_type_transfers": "Prevody",
   "filter_select_period": "Vybrať obdobie",
-
   "week_mo": "po",
   "week_tu": "ut",
   "week_we": "st",
@@ -301,7 +331,6 @@
   "week_fr": "pi",
   "week_sa": "so",
   "week_su": "ne",
-
   "reset": "Obnoviť",
   "trash": "Kôš",
   "trash_empty": "Kôš je prázdny",
@@ -316,7 +345,6 @@
   "transaction": "Transakcia",
   "subscription": "Predplatné",
   "deleted_category": "Odstránená kategória",
-
   "last_backup": "Posledná záloha",
   "no_backups_yet": "Zatiaľ žiadne zálohy",
   "file_backup": "Lokálne súbory",
@@ -334,11 +362,11 @@
   "export_password_hint": "Nastavte heslo na šifrovanie údajov. Budete ho potrebovať na neskoršie obnovenie tohto súboru.",
   "unlock_backup_title": "Odomknúť zálohu",
   "import_password_hint": "Tento súbor je chránený heslom. Zadajte kľúč, ktorý ste vytvorili pri exporte tejto zálohy.",
-
   "default_category_salary": "Mzda",
   "default_category_cash": "Hotovosť",
   "default_category_card": "Karta",
   "default_category_transport": "Doprava",
   "default_category_food": "Jedlo",
-  "default_category_shopping": "Nákupy"
+  "default_category_shopping": "Nákupy",
+  "search": "Hľadať"
 }

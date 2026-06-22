@@ -13,17 +13,14 @@
   "date": "Dátum",
   "choose_date": "Dátum kiválasztása",
   "update_date": "Dátum frissítése",
-
   "onboarding_title": "Üdvözlünk a LiteBalance-ben!",
   "onboarding_subtitle": "Állítsuk be a profilodat",
   "language_title": "Nyelv",
   "base_currency_title": "Alappénznem",
   "get_started": "Kezdés",
   "sign_in_with_google": "Bejelentkezés Google-fiókkal",
-
   "expenses": "Kiadások",
   "income": "Bevételek",
-
   "settings": "Beállítások",
   "profile": "Profil",
   "account": "Fiók",
@@ -84,10 +81,53 @@
     "PEN": "Perui sol",
     "EGP": "Egyiptomi font",
     "NGN": "Nigériai naira",
-    "MAD": "Marokkói dirham"
+    "MAD": "Marokkói dirham",
+    "ALL": "Albán lek",
+    "MKD": "Macedón dénár",
+    "BAM": "Bosznia-hercegovinai konvertibilis márka",
+    "LBP": "Libanoni font",
+    "YER": "Jemeni riál",
+    "AZN": "Azerbajdzsáni manat",
+    "AMD": "Örmény dram",
+    "UZS": "Üzbegisztáni szom",
+    "KGS": "Kirgizisztáni szom",
+    "TJS": "Tádzsikisztáni somoni",
+    "PKR": "Pakisztáni rúpia",
+    "BDT": "Bangladesi taka",
+    "LKR": "Srí Lanka-i rúpia",
+    "NPR": "Nepáli rúpia",
+    "AFN": "Afgán afghani",
+    "MMK": "Mianmari kyat",
+    "KHR": "Kambodzsai riel",
+    "LAK": "Laoszi kip",
+    "MNT": "Mongóliai tugrik",
+    "KES": "Kenyai shilling",
+    "GHS": "Ghánai cedi",
+    "TZS": "Tanzániai shilling",
+    "UGX": "Ugandai shilling",
+    "DZD": "Algériai dínár",
+    "ETB": "Etiópiai birr",
+    "ZMW": "Zambiai kwacha",
+    "BWP": "Botswanai pula",
+    "NAD": "Namíbiai dollár",
+    "MZN": "Mozambiki metikális",
+    "AOA": "Angolai kwanza",
+    "CDF": "Kongói frank",
+    "RWF": "Ruandai frank",
+    "XOF": "CFA frank BCEAO",
+    "XAF": "CFA frank BEAC",
+    "BOB": "Bolíviai boliviano",
+    "UYU": "Uruguayi peso",
+    "GTQ": "Guatemalai quetzal",
+    "DOP": "Dominikai peso",
+    "CRC": "Costa Rica-i colon",
+    "HNL": "Hondurasi lempira",
+    "NIO": "Nicaraguai córdoba",
+    "JMD": "Jamaicai dollár",
+    "PYG": "Paraguayi guarani",
+    "PGK": "Pápua új-guineai kina"
   },
   "language": "Nyelv",
-
   "backup_title": "Biztonsági mentés és visszaállítás",
   "warning_overwrite": "Figyelem: a jelenlegi adatok felülíródnak!",
   "backup_success": "Az adatok sikeresen visszaálltak! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN-kód",
   "biometrics": "Biometria / FaceID",
   "haptic_feedback": "Rezgés",
-
   "interface_theme": "Téma",
   "theme_light": "Világos",
   "theme_dark": "Sötét",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Minden adat sikeresen törölve",
   "clear_data_cloud_note": "A Google Drive-on lévő másolatod is felülíródik üres adatokkal a következő szinkronizáláskor.",
   "current_copy": "Aktuális másolat",
-
   "statistics": "Statisztikák",
   "stats_expenses": "Kiadások",
   "no_expenses_month": "Nincs kiadás ebben a hónapban 👏",
@@ -146,7 +184,6 @@
   "average": "Havi átlag",
   "savings_rate": "Megtakarítási ráta",
   "savings": "Megtakarítások",
-
   "new_category": "Új kategória",
   "new_income": "Új bevétel",
   "new_account": "Új számla",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Kimenő átutalás",
   "top_up": "Feltöltés",
   "base_currency_label": "Alap",
-
   "select_date": "Dátum kiválasztása",
   "current_month": "Aktuális hónap",
   "transfer": "Átutalás",
   "today": "Ma",
   "yesterday": "Tegnap",
   "tomorrow": "Holnap",
-
   "regular_payments": "Rendszeres fizetések",
   "add_subscription": "Előfizetés hozzáadása",
   "no_subscriptions": "Még nincsenek rendszeres fizetéseid",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Nincs elég fedezet a(z) '{}' számlán 😔",
   "paid_success": "Kifizetve: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Pénzügyek és befektetések",
   "icons_currencies": "Pénznemek",
   "icons_food": "Étel és ital",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Előfizetések és szolgáltatások",
   "icons_family": "Család és háziállatok",
   "icons_other": "Egyéb",
-
   "exchange_rates": "Árfolyamok",
   "add_currency": "Pénznem hozzáadása",
   "all_currencies_added": "Minden elérhető pénznem hozzáadva",
@@ -229,7 +262,6 @@
   "rates_update_error": "A frissítés sikertelen. Ellenőrizd a kapcsolatot!",
   "search_transactions": "Tranzakciók keresése...",
   "nothing_found": "Nincs találat",
-
   "data_management": "Adatkezelés",
   "export_csv": "Exportálás CSV-be",
   "export_description": "Mentsd el a tranzakcióidat CSV-táblázatként, hogy megnyithasd Excelben vagy Google Táblázatokban.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Átutalás",
   "csv_deleted_category": "Törölve",
   "csv_export_headers": "Dátum,Típus,Kategória (Honnan),Összeg (Honnan),Pénznem (Honnan),Kategória (Hová),Összeg (Hová),Pénznem (Hová),Megjegyzés",
-
   "filter_settings": "Szűrőbeállítások",
   "filter_period": "Időszak",
   "filter_all_time": "Teljes időszak",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Kiadások",
   "filter_type_transfers": "Átutalások",
   "filter_select_period": "Időszak kiválasztása",
-
   "week_mo": "h",
   "week_tu": "k",
   "week_we": "sze",
@@ -301,7 +331,6 @@
   "week_fr": "p",
   "week_sa": "szo",
   "week_su": "v",
-
   "reset": "Visszaállítás",
   "trash": "Kuka",
   "trash_empty": "A kuka üres",
@@ -316,7 +345,6 @@
   "transaction": "Tranzakció",
   "subscription": "Előfizetés",
   "deleted_category": "Törölt kategória",
-
   "last_backup": "Utolsó biztonsági mentés",
   "no_backups_yet": "Még nincsenek biztonsági mentések",
   "file_backup": "Helyi fájlok",
@@ -334,11 +362,11 @@
   "export_password_hint": "Állíts be jelszót az adataid titkosításához. Szükséged lesz rá a fájl későbbi visszaállításához.",
   "unlock_backup_title": "Biztonsági mentés feloldása",
   "import_password_hint": "Ez a fájl jelszóval védett. Add meg a kulcsot, amelyet a mentés exportálásakor hoztál létre.",
-
   "default_category_salary": "Fizetés",
   "default_category_cash": "Készpénz",
   "default_category_card": "Kártya",
   "default_category_transport": "Közlekedés",
   "default_category_food": "Étel",
-  "default_category_shopping": "Vásárlás"
+  "default_category_shopping": "Vásárlás",
+  "search": "Keresés"
 }

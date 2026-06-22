@@ -13,17 +13,14 @@
   "date": "Datum",
   "choose_date": "Datum auswählen",
   "update_date": "Datum aktualisieren",
-
   "onboarding_title": "Willkommen bei LiteBalance!",
   "onboarding_subtitle": "Lassen Sie uns Ihr Profil einrichten",
   "language_title": "Sprache",
   "base_currency_title": "Basiswährung",
   "get_started": "Loslegen",
   "sign_in_with_google": "Mit Google anmelden",
-
   "expenses": "Ausgaben",
   "income": "Einnahmen",
-
   "settings": "Einstellungen",
   "profile": "Profil",
   "account": "Konto",
@@ -84,10 +81,53 @@
     "PEN": "Peruanischer Sol",
     "EGP": "Ägyptisches Pfund",
     "NGN": "Nigerianischer Naira",
-    "MAD": "Marokkanischer Dirham"
+    "MAD": "Marokkanischer Dirham",
+    "ALL": "Albanischer Lek",
+    "MKD": "Mazedonischer Denar",
+    "BAM": "Konvertible Mark Bosnien und Herzegowina",
+    "LBP": "Libanesisches Pfund",
+    "YER": "Jemen-Rial",
+    "AZN": "Aserbaidschan-Manat",
+    "AMD": "Armenischer Dram",
+    "UZS": "Usbekistan-Sum",
+    "KGS": "Kirgisischer Som",
+    "TJS": "Tadschikistan-Somoni",
+    "PKR": "Pakistanische Rupie",
+    "BDT": "Bangladesch-Taka",
+    "LKR": "Sri-Lanka-Rupie",
+    "NPR": "Nepalesische Rupie",
+    "AFN": "Afghanischer Afghani",
+    "MMK": "Myanmarischer Kyat",
+    "KHR": "Kambodschanischer Riel",
+    "LAK": "Laotischer Kip",
+    "MNT": "Mongolischer Tögrög",
+    "KES": "Kenia-Schilling",
+    "GHS": "Ghanaischer Cedi",
+    "TZS": "Tansania-Schilling",
+    "UGX": "Uganda-Schilling",
+    "DZD": "Algerischer Dinar",
+    "ETB": "Äthiopischer Birr",
+    "ZMW": "Kwacha",
+    "BWP": "Botswanischer Pula",
+    "NAD": "Namibia-Dollar",
+    "MZN": "Mosambikanischer Metical",
+    "AOA": "Angolanischer Kwanza",
+    "CDF": "Kongo-Franc",
+    "RWF": "Ruanda-Franc",
+    "XOF": "CFA-Franc (BCEAO)",
+    "XAF": "CFA-Franc (BEAC)",
+    "BOB": "Bolivianischer Boliviano",
+    "UYU": "Uruguayischer Peso",
+    "GTQ": "Guatemaltekischer Quetzal",
+    "DOP": "Dominikanischer Peso",
+    "CRC": "Costa-Rica-Colón",
+    "HNL": "Honduras-Lempira",
+    "NIO": "Nicaragua-Córdoba",
+    "JMD": "Jamaika-Dollar",
+    "PYG": "Paraguayischer Guaraní",
+    "PGK": "Papua-neuguineischer Kina"
   },
   "language": "Sprache",
-
   "backup_title": "Datensicherung",
   "warning_overwrite": "Achtung: Aktuelle Daten werden überschrieben!",
   "backup_success": "Daten erfolgreich wiederhergestellt! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN-Code",
   "biometrics": "Biometrie / FaceID",
   "haptic_feedback": "Vibration",
-
   "interface_theme": "Design",
   "theme_light": "Hell",
   "theme_dark": "Dunkel",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Alle Daten erfolgreich gelöscht",
   "clear_data_cloud_note": "Deine Google-Drive-Kopie wird bei der nächsten Synchronisierung ebenfalls mit leeren Daten überschrieben.",
   "current_copy": "Aktuelle Kopie",
-
   "statistics": "Statistik",
   "stats_expenses": "Ausgaben",
   "no_expenses_month": "Keine Ausgaben in diesem Monat 👏",
@@ -146,7 +184,6 @@
   "average": "Monatsdurchschnitt",
   "savings_rate": "Sparquote",
   "savings": "Ersparnisse",
-
   "new_category": "Neue Kategorie",
   "new_income": "Neue Einnahme",
   "new_account": "Neues Konto",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Ausgehende Überweisung",
   "top_up": "Aufladung",
   "base_currency_label": "Basis",
-
   "select_date": "Datum wählen",
   "current_month": "Aktueller Monat",
   "transfer": "Überweisung",
   "today": "Heute",
   "yesterday": "Gestern",
   "tomorrow": "Morgen",
-
   "regular_payments": "Regelmäßige Zahlungen",
   "add_subscription": "Abonnement hinzufügen",
   "no_subscriptions": "Sie haben noch keine regelmäßigen Zahlungen",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Nicht genügend Guthaben auf Konto '{}' 😔",
   "paid_success": "Bezahlt: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finanzen & Investitionen",
   "icons_currencies": "Währungen",
   "icons_food": "Essen & Trinken",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abos & Dienste",
   "icons_family": "Familie & Tiere",
   "icons_other": "Sonstiges",
-
   "exchange_rates": "Wechselkurse",
   "add_currency": "Währung hinzufügen",
   "all_currencies_added": "Alle verfügbaren Währungen hinzugefügt",
@@ -229,7 +262,6 @@
   "rates_update_error": "Aktualisierung fehlgeschlagen. Verbindung prüfen!",
   "search_transactions": "Transaktionen suchen...",
   "nothing_found": "Nichts gefunden",
-
   "data_management": "Datenverwaltung",
   "export_csv": "Als CSV exportieren",
   "export_description": "Speichern Sie Ihre Transaktionen als CSV-Tabelle für Excel oder Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Überweisung",
   "csv_deleted_category": "Gelöscht",
   "csv_export_headers": "Datum,Typ,Kategorie (Von),Betrag (Von),Währung (Von),Kategorie (Nach),Betrag (Nach),Währung (Nach),Kommentar",
-
   "filter_settings": "Filtereinstellungen",
   "filter_period": "Zeitraum",
   "filter_all_time": "Gesamte Zeit",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Ausgaben",
   "filter_type_transfers": "Überweisungen",
   "filter_select_period": "Zeitraum wählen",
-
   "week_mo": "mo",
   "week_tu": "di",
   "week_we": "mi",
@@ -301,7 +331,6 @@
   "week_fr": "fr",
   "week_sa": "sa",
   "week_su": "so",
-  
   "reset": "Zurücksetzen",
   "trash": "Papierkorb",
   "trash_empty": "Papierkorb ist leer",
@@ -316,7 +345,6 @@
   "transaction": "Transaktion",
   "subscription": "Abo",
   "deleted_category": "Gelöschte Kategorie",
-  
   "last_backup": "Letzte Sicherung",
   "no_backups_yet": "Noch keine Sicherungen",
   "file_backup": "Lokale Dateien",
@@ -334,11 +362,11 @@
   "export_password_hint": "Legen Sie ein Passwort fest, um Ihre Daten zu verschlüsseln. Sie benötigen es, um die Datei später wiederherzustellen.",
   "unlock_backup_title": "Backup entsperren",
   "import_password_hint": "Diese Datei ist passwortgeschützt. Geben Sie den Schlüssel ein, den Sie beim Exportieren erstellt haben.",
-
   "default_category_salary": "Gehalt",
   "default_category_cash": "Bargeld",
   "default_category_card": "Karte",
   "default_category_transport": "Transport",
   "default_category_food": "Essen",
-  "default_category_shopping": "Einkäufe"
+  "default_category_shopping": "Einkäufe",
+  "search": "Suchen"
 }

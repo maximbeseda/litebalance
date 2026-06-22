@@ -13,17 +13,14 @@
   "date": "Data",
   "choose_date": "Escolher data",
   "update_date": "Atualizar data",
-
   "onboarding_title": "Bem-vindo ao LiteBalance!",
   "onboarding_subtitle": "Vamos configurar o teu perfil",
   "language_title": "Idioma",
   "base_currency_title": "Moeda base",
   "get_started": "Começar",
   "sign_in_with_google": "Entrar com o Google",
-
   "expenses": "Despesas",
   "income": "Receitas",
-
   "settings": "Definições",
   "profile": "Perfil",
   "account": "Conta",
@@ -84,10 +81,53 @@
     "PEN": "Sol peruano",
     "EGP": "Libra egípcia",
     "NGN": "Naira nigeriano",
-    "MAD": "Dirham marroquino"
+    "MAD": "Dirham marroquino",
+    "ALL": "Lek albanês",
+    "MKD": "Dinar macedônio",
+    "BAM": "Marco conversível da Bósnia e Herzegovina",
+    "LBP": "Libra libanesa",
+    "YER": "Rial iemenita",
+    "AZN": "Manat azeri",
+    "AMD": "Dram armênio",
+    "UZS": "Som uzbeque",
+    "KGS": "Som quirguiz",
+    "TJS": "Somoni tadjique",
+    "PKR": "Rupia paquistanesa",
+    "BDT": "Taka bengali",
+    "LKR": "Rupia cingalesa",
+    "NPR": "Rupia nepalesa",
+    "AFN": "Afegane afegão",
+    "MMK": "Quiate mianmarense",
+    "KHR": "Riel cambojano",
+    "LAK": "Kip laosiano",
+    "MNT": "Tugrik mongol",
+    "KES": "Xelim queniano",
+    "GHS": "Cedi ganês",
+    "TZS": "Xelim tanzaniano",
+    "UGX": "Xelim ugandense",
+    "DZD": "Dinar argelino",
+    "ETB": "Birr etíope",
+    "ZMW": "Kwacha zambiano",
+    "BWP": "Pula botsuanesa",
+    "NAD": "Dólar namibiano",
+    "MZN": "Metical moçambicano",
+    "AOA": "Kwanza angolano",
+    "CDF": "Franco congolês",
+    "RWF": "Franco ruandês",
+    "XOF": "Franco CFA de BCEAO",
+    "XAF": "Franco CFA de BEAC",
+    "BOB": "Boliviano da Bolívia",
+    "UYU": "Peso uruguaio",
+    "GTQ": "Quetzal guatemalteco",
+    "DOP": "Peso dominicano",
+    "CRC": "Colón costarriquenho",
+    "HNL": "Lempira hondurenha",
+    "NIO": "Córdoba nicaraguense",
+    "JMD": "Dólar jamaicano",
+    "PYG": "Guarani paraguaio",
+    "PGK": "Kina papuásia"
   },
   "language": "Idioma",
-
   "backup_title": "Cópia de segurança e restauro",
   "warning_overwrite": "Atenção: os dados atuais serão substituídos!",
   "backup_success": "Dados restaurados com sucesso! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Código PIN",
   "biometrics": "Biometria / FaceID",
   "haptic_feedback": "Vibração",
-
   "interface_theme": "Tema",
   "theme_light": "Claro",
   "theme_dark": "Escuro",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Todos os dados foram limpos com sucesso",
   "clear_data_cloud_note": "A tua cópia no Google Drive também será substituída por dados vazios na próxima sincronização.",
   "current_copy": "Cópia atual",
-
   "statistics": "Estatísticas",
   "stats_expenses": "Despesas",
   "no_expenses_month": "Sem despesas este mês 👏",
@@ -146,7 +184,6 @@
   "average": "Média mensal",
   "savings_rate": "Taxa de poupança",
   "savings": "Poupanças",
-
   "new_category": "Nova categoria",
   "new_income": "Nova receita",
   "new_account": "Nova conta",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Transferência de saída",
   "top_up": "Carregamento",
   "base_currency_label": "Base",
-
   "select_date": "Selecionar data",
   "current_month": "Mês atual",
   "transfer": "Transferência",
   "today": "Hoje",
   "yesterday": "Ontem",
   "tomorrow": "Amanhã",
-
   "regular_payments": "Pagamentos regulares",
   "add_subscription": "Adicionar subscrição",
   "no_subscriptions": "Ainda não tens pagamentos regulares",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Fundos insuficientes na conta '{}' 😔",
   "paid_success": "Pago: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finanças e investimentos",
   "icons_currencies": "Moedas",
   "icons_food": "Comida e bebidas",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Subscrições e serviços",
   "icons_family": "Família e animais",
   "icons_other": "Outros",
-
   "exchange_rates": "Taxas de câmbio",
   "add_currency": "Adicionar moeda",
   "all_currencies_added": "Todas as moedas disponíveis adicionadas",
@@ -229,7 +262,6 @@
   "rates_update_error": "Falha na atualização. Verifica a tua ligação!",
   "search_transactions": "Pesquisar transações...",
   "nothing_found": "Nada encontrado",
-
   "data_management": "Gestão de dados",
   "export_csv": "Exportar para CSV",
   "export_description": "Guarda as tuas transações como tabela CSV para abrir no Excel ou Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Transferência",
   "csv_deleted_category": "Eliminado",
   "csv_export_headers": "Data,Tipo,Categoria (De),Valor (De),Moeda (De),Categoria (Para),Valor (Para),Moeda (Para),Comentário",
-
   "filter_settings": "Definições de filtro",
   "filter_period": "Período",
   "filter_all_time": "Todo o período",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Despesas",
   "filter_type_transfers": "Transferências",
   "filter_select_period": "Selecionar período",
-
   "week_mo": "seg",
   "week_tu": "ter",
   "week_we": "qua",
@@ -301,7 +331,6 @@
   "week_fr": "sex",
   "week_sa": "sáb",
   "week_su": "dom",
-
   "reset": "Repor",
   "trash": "Lixo",
   "trash_empty": "O lixo está vazio",
@@ -316,7 +345,6 @@
   "transaction": "Transação",
   "subscription": "Subscrição",
   "deleted_category": "Categoria eliminada",
-
   "last_backup": "Última cópia de segurança",
   "no_backups_yet": "Ainda não há cópias de segurança",
   "file_backup": "Ficheiros locais",
@@ -334,11 +362,11 @@
   "export_password_hint": "Define uma palavra-passe para cifrar os teus dados. Vais precisar dela para restaurar este ficheiro mais tarde.",
   "unlock_backup_title": "Desbloquear cópia de segurança",
   "import_password_hint": "Este ficheiro está protegido por palavra-passe. Introduz a chave que criaste ao exportar esta cópia.",
-
   "default_category_salary": "Salário",
   "default_category_cash": "Dinheiro",
   "default_category_card": "Cartão",
   "default_category_transport": "Transporte",
   "default_category_food": "Alimentação",
-  "default_category_shopping": "Compras"
+  "default_category_shopping": "Compras",
+  "search": "Pesquisar"
 }

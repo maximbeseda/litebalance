@@ -13,17 +13,14 @@
   "date": "Data",
   "choose_date": "Scegli la data",
   "update_date": "Aggiorna la data",
-
   "onboarding_title": "Benvenuto in LiteBalance!",
   "onboarding_subtitle": "Configuriamo il tuo profilo",
   "language_title": "Lingua",
   "base_currency_title": "Valuta di base",
   "get_started": "Inizia",
   "sign_in_with_google": "Accedi con Google",
-
   "expenses": "Spese",
   "income": "Entrate",
-
   "settings": "Impostazioni",
   "profile": "Profilo",
   "account": "Account",
@@ -84,10 +81,53 @@
     "PEN": "Sol peruviano",
     "EGP": "Sterlina egiziana",
     "NGN": "Naira nigeriano",
-    "MAD": "Dirham marocchino"
+    "MAD": "Dirham marocchino",
+    "ALL": "Lek albanese",
+    "MKD": "Dinaro macedone",
+    "BAM": "Marco convertibile della Bosnia-Herzegovina",
+    "LBP": "Lira libanese",
+    "YER": "Riyal yemenita",
+    "AZN": "Manat azero",
+    "AMD": "Dram armeno",
+    "UZS": "Sum uzbeco",
+    "KGS": "Som kirghiso",
+    "TJS": "Somoni tagiko",
+    "PKR": "Rupia pakistana",
+    "BDT": "Taka bangladese",
+    "LKR": "Rupia di Sri Lanka",
+    "NPR": "Rupia nepalese",
+    "AFN": "Afghani",
+    "MMK": "Kyat di Myanmar",
+    "KHR": "Riel cambogiano",
+    "LAK": "Kip laotiano",
+    "MNT": "Tugrik mongolo",
+    "KES": "Scellino keniota",
+    "GHS": "Cedi ghanese",
+    "TZS": "Scellino della Tanzania",
+    "UGX": "Scellino ugandese",
+    "DZD": "Dinaro algerino",
+    "ETB": "Birr etiope",
+    "ZMW": "Kwacha zambiano",
+    "BWP": "Pula del Botswana",
+    "NAD": "Dollaro namibiano",
+    "MZN": "Metical mozambicano",
+    "AOA": "Kwanza angolano",
+    "CDF": "Franco congolese",
+    "RWF": "Franco ruandese",
+    "XOF": "Franco CFA BCEAO",
+    "XAF": "Franco CFA BEAC",
+    "BOB": "Boliviano",
+    "UYU": "Peso uruguayano",
+    "GTQ": "Quetzal guatemalteco",
+    "DOP": "Peso dominicano",
+    "CRC": "Colón costaricano",
+    "HNL": "Lempira honduregna",
+    "NIO": "Córdoba nicaraguense",
+    "JMD": "Dollaro giamaicano",
+    "PYG": "Guaraní paraguayano",
+    "PGK": "Kina papuana"
   },
   "language": "Lingua",
-
   "backup_title": "Backup e ripristino",
   "warning_overwrite": "Attenzione: i dati attuali verranno sovrascritti!",
   "backup_success": "Dati ripristinati con successo! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Codice PIN",
   "biometrics": "Biometria / FaceID",
   "haptic_feedback": "Vibrazione",
-
   "interface_theme": "Tema",
   "theme_light": "Chiaro",
   "theme_dark": "Scuro",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Tutti i dati sono stati cancellati",
   "clear_data_cloud_note": "Anche la tua copia su Google Drive verrà sovrascritta con dati vuoti alla prossima sincronizzazione.",
   "current_copy": "Copia attuale",
-
   "statistics": "Statistiche",
   "stats_expenses": "Spese",
   "no_expenses_month": "Nessuna spesa questo mese 👏",
@@ -146,7 +184,6 @@
   "average": "Media mensile",
   "savings_rate": "Tasso di risparmio",
   "savings": "Risparmi",
-
   "new_category": "Nuova categoria",
   "new_income": "Nuova entrata",
   "new_account": "Nuovo conto",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Trasferimento in uscita",
   "top_up": "Ricarica",
   "base_currency_label": "Base",
-
   "select_date": "Seleziona data",
   "current_month": "Mese corrente",
   "transfer": "Trasferimento",
   "today": "Oggi",
   "yesterday": "Ieri",
   "tomorrow": "Domani",
-
   "regular_payments": "Pagamenti ricorrenti",
   "add_subscription": "Aggiungi abbonamento",
   "no_subscriptions": "Non hai ancora pagamenti ricorrenti",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Fondi insufficienti sul conto '{}' 😔",
   "paid_success": "Pagato: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finanza e investimenti",
   "icons_currencies": "Valute",
   "icons_food": "Cibo e bevande",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abbonamenti e servizi",
   "icons_family": "Famiglia e animali",
   "icons_other": "Altro",
-
   "exchange_rates": "Tassi di cambio",
   "add_currency": "Aggiungi valuta",
   "all_currencies_added": "Tutte le valute disponibili aggiunte",
@@ -229,7 +262,6 @@
   "rates_update_error": "Aggiornamento non riuscito. Controlla la connessione!",
   "search_transactions": "Cerca transazioni...",
   "nothing_found": "Nessun risultato",
-
   "data_management": "Gestione dei dati",
   "export_csv": "Esporta in CSV",
   "export_description": "Salva le tue transazioni come tabella CSV da aprire in Excel o Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Trasferimento",
   "csv_deleted_category": "Eliminato",
   "csv_export_headers": "Data,Tipo,Categoria (Da),Importo (Da),Valuta (Da),Categoria (A),Importo (A),Valuta (A),Commento",
-
   "filter_settings": "Impostazioni filtro",
   "filter_period": "Periodo",
   "filter_all_time": "Tutto il periodo",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Spese",
   "filter_type_transfers": "Trasferimenti",
   "filter_select_period": "Seleziona periodo",
-
   "week_mo": "lu",
   "week_tu": "ma",
   "week_we": "me",
@@ -301,7 +331,6 @@
   "week_fr": "ve",
   "week_sa": "sa",
   "week_su": "do",
-
   "reset": "Reimposta",
   "trash": "Cestino",
   "trash_empty": "Il cestino è vuoto",
@@ -316,7 +345,6 @@
   "transaction": "Transazione",
   "subscription": "Abbonamento",
   "deleted_category": "Categoria eliminata",
-
   "last_backup": "Ultimo backup",
   "no_backups_yet": "Ancora nessun backup",
   "file_backup": "File locali",
@@ -334,11 +362,11 @@
   "export_password_hint": "Imposta una password per crittografare i tuoi dati. Ti servirà per ripristinare questo file in seguito.",
   "unlock_backup_title": "Sblocca backup",
   "import_password_hint": "Questo file è protetto da password. Inserisci la chiave creata durante l'esportazione di questo backup.",
-
   "default_category_salary": "Stipendio",
   "default_category_cash": "Contanti",
   "default_category_card": "Carta",
   "default_category_transport": "Trasporti",
   "default_category_food": "Cibo",
-  "default_category_shopping": "Acquisti"
+  "default_category_shopping": "Acquisti",
+  "search": "Cerca"
 }

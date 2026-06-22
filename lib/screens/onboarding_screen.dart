@@ -234,6 +234,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     AppPickerSheet.show<String>(
       context: context,
       title: 'language_title'.tr(),
+      enableSearch: true,
       selected: context.locale.languageCode,
       options: _supportedLanguages
           .map(
@@ -265,6 +266,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     AppPickerSheet.show<String>(
       context: context,
       title: 'base_currency_title'.tr(),
+      enableSearch: true,
       selected: _selectedCurrencyCode,
       options: AppCurrency.ordered().map((c) {
         return AppPickerOption(

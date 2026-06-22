@@ -13,17 +13,14 @@
   "date": "Date",
   "choose_date": "Choose date",
   "update_date": "Update date",
-
   "onboarding_title": "Welcome to LiteBalance!",
   "onboarding_subtitle": "Let's set up your profile",
   "language_title": "Language",
   "base_currency_title": "Base Currency",
   "get_started": "Get Started",
   "sign_in_with_google": "Sign in with Google",
-
   "expenses": "Expenses",
   "income": "Income",
-
   "settings": "Settings",
   "profile": "Profile",
   "account": "Account",
@@ -84,10 +81,53 @@
     "PEN": "Peruvian Sol",
     "EGP": "Egyptian Pound",
     "NGN": "Nigerian Naira",
-    "MAD": "Moroccan Dirham"
+    "MAD": "Moroccan Dirham",
+    "ALL": "Albanian Lek",
+    "MKD": "Macedonian Denar",
+    "BAM": "Bosnia-Herzegovina Convertible Mark",
+    "LBP": "Lebanese Pound",
+    "YER": "Yemeni Rial",
+    "AZN": "Azerbaijani Manat",
+    "AMD": "Armenian Dram",
+    "UZS": "Uzbekistani Som",
+    "KGS": "Kyrgyz Som",
+    "TJS": "Tajikistani Somoni",
+    "PKR": "Pakistani Rupee",
+    "BDT": "Bangladeshi Taka",
+    "LKR": "Sri Lankan Rupee",
+    "NPR": "Nepalese Rupee",
+    "AFN": "Afghan Afghani",
+    "MMK": "Myanmar Kyat",
+    "KHR": "Cambodian Riel",
+    "LAK": "Laotian Kip",
+    "MNT": "Mongolian Tugrik",
+    "KES": "Kenyan Shilling",
+    "GHS": "Ghanaian Cedi",
+    "TZS": "Tanzanian Shilling",
+    "UGX": "Ugandan Shilling",
+    "DZD": "Algerian Dinar",
+    "ETB": "Ethiopian Birr",
+    "ZMW": "Zambian Kwacha",
+    "BWP": "Botswanan Pula",
+    "NAD": "Namibian Dollar",
+    "MZN": "Mozambican Metical",
+    "AOA": "Angolan Kwanza",
+    "CDF": "Congolese Franc",
+    "RWF": "Rwandan Franc",
+    "XOF": "West African CFA Franc",
+    "XAF": "Central African CFA Franc",
+    "BOB": "Bolivian Boliviano",
+    "UYU": "Uruguayan Peso",
+    "GTQ": "Guatemalan Quetzal",
+    "DOP": "Dominican Peso",
+    "CRC": "Costa Rican Colón",
+    "HNL": "Honduran Lempira",
+    "NIO": "Nicaraguan Córdoba",
+    "JMD": "Jamaican Dollar",
+    "PYG": "Paraguayan Guarani",
+    "PGK": "Papua New Guinean Kina"
   },
   "language": "Language",
-
   "backup_title": "Backup & Restore",
   "warning_overwrite": "Warning: current data will be overwritten!",
   "backup_success": "Data restored successfully! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "PIN Code",
   "biometrics": "Biometrics / FaceID",
   "haptic_feedback": "Vibration",
-
   "interface_theme": "Theme",
   "theme_light": "Light",
   "theme_dark": "Dark",
@@ -129,7 +168,6 @@
   "data_cleared_success": "All data cleared successfully",
   "clear_data_cloud_note": "Your Google Drive copy will also be overwritten with empty data on the next sync.",
   "current_copy": "Current copy",
-
   "statistics": "Statistics",
   "stats_expenses": "Expenses",
   "no_expenses_month": "No expenses this month 👏",
@@ -146,7 +184,6 @@
   "average": "Monthly Average",
   "savings_rate": "Savings Rate",
   "savings": "Savings",
-
   "new_category": "New Category",
   "new_income": "New income",
   "new_account": "New account",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Outgoing Transfer",
   "top_up": "Top-up",
   "base_currency_label": "Base",
-
   "select_date": "Select Date",
   "current_month": "Current Month",
   "transfer": "Transfer",
   "today": "Today",
   "yesterday": "Yesterday",
   "tomorrow": "Tomorrow",
-
   "regular_payments": "Regular Payments",
   "add_subscription": "Add subscription",
   "no_subscriptions": "You have no regular payments yet",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Not enough funds in account '{}' 😔",
   "paid_success": "Paid: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finance & Investments",
   "icons_currencies": "Currencies",
   "icons_food": "Food & Drinks",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Subscriptions & Services",
   "icons_family": "Family & Pets",
   "icons_other": "Other",
-
   "exchange_rates": "Exchange Rates",
   "add_currency": "Add Currency",
   "all_currencies_added": "All available currencies added",
@@ -229,7 +262,6 @@
   "rates_update_error": "Update failed. Check your connection!",
   "search_transactions": "Search transactions...",
   "nothing_found": "Nothing found",
-
   "data_management": "Data Management",
   "export_csv": "Export to CSV",
   "export_description": "Save your transactions as a CSV table to view in Excel or Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Transfer",
   "csv_deleted_category": "Deleted",
   "csv_export_headers": "Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment",
-
   "filter_settings": "Filter Settings",
   "filter_period": "Period",
   "filter_all_time": "All time",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Expenses",
   "filter_type_transfers": "Transfers",
   "filter_select_period": "Select period",
-
   "week_mo": "mo",
   "week_tu": "tu",
   "week_we": "we",
@@ -301,7 +331,6 @@
   "week_fr": "fr",
   "week_sa": "sa",
   "week_su": "su",
-
   "reset": "Reset",
   "trash": "Trash",
   "trash_empty": "Trash is empty",
@@ -316,7 +345,6 @@
   "transaction": "Transaction",
   "subscription": "Subscription",
   "deleted_category": "Deleted category",
-  
   "last_backup": "Last backup",
   "no_backups_yet": "No backups yet",
   "file_backup": "Local Files",
@@ -334,11 +362,11 @@
   "export_password_hint": "Set a password to encrypt your data. You will need it to restore this file later.",
   "unlock_backup_title": "Unlock Backup",
   "import_password_hint": "This file is password protected. Enter the key you created when exporting this backup.",
-
   "default_category_salary": "Salary",
   "default_category_cash": "Cash",
   "default_category_card": "Card",
   "default_category_transport": "Transport",
   "default_category_food": "Food",
-  "default_category_shopping": "Shopping"
+  "default_category_shopping": "Shopping",
+  "search": "Search"
 }

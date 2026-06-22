@@ -13,17 +13,14 @@
   "date": "Dată",
   "choose_date": "Alege data",
   "update_date": "Actualizează data",
-
   "onboarding_title": "Bun venit la LiteBalance!",
   "onboarding_subtitle": "Hai să-ți configurăm profilul",
   "language_title": "Limbă",
   "base_currency_title": "Monedă de bază",
   "get_started": "Începe",
   "sign_in_with_google": "Conectează-te cu Google",
-
   "expenses": "Cheltuieli",
   "income": "Venituri",
-
   "settings": "Setări",
   "profile": "Profil",
   "account": "Cont",
@@ -84,10 +81,53 @@
     "PEN": "Sol peruan",
     "EGP": "Liră egipteană",
     "NGN": "Naira nigeriană",
-    "MAD": "Dirham marocan"
+    "MAD": "Dirham marocan",
+    "ALL": "Lek",
+    "MKD": "Denar",
+    "BAM": "Marcă convertibilă",
+    "LBP": "Liră libaneză",
+    "YER": "Rial yemenit",
+    "AZN": "Manat azer",
+    "AMD": "Dram armenesc",
+    "UZS": "Sum Uzbekistan",
+    "KGS": "Som kârgâz",
+    "TJS": "Somoni tadjic",
+    "PKR": "Rupie pakistaneză",
+    "BDT": "Taka din Bangladesh",
+    "LKR": "Rupie srilankeză",
+    "NPR": "Rupie nepaleză",
+    "AFN": "Afgani afgan",
+    "MMK": "Kyat din Myanmar",
+    "KHR": "Riel cambodgian",
+    "LAK": "Kip laoțian",
+    "MNT": "Tugrik mongol",
+    "KES": "Șiling kenyan",
+    "GHS": "Cedi ghanez",
+    "TZS": "Șiling tanzanian",
+    "UGX": "Șiling ugandez",
+    "DZD": "Dinar algerian",
+    "ETB": "Birr etiopian",
+    "ZMW": "Kwacha zambian",
+    "BWP": "Pula Botswana",
+    "NAD": "Dolar namibian",
+    "MZN": "Metical mozambican",
+    "AOA": "Kwanza angoleză",
+    "CDF": "Franc congolez",
+    "RWF": "Franc rwandez",
+    "XOF": "Franc CFA BCEAO",
+    "XAF": "Franc CFA BEAC",
+    "BOB": "Boliviano",
+    "UYU": "Peso uruguayan",
+    "GTQ": "Quetzal guatemalez",
+    "DOP": "Peso dominican",
+    "CRC": "Colón costarican",
+    "HNL": "Lempira honduriană",
+    "NIO": "Córdoba oro",
+    "JMD": "Dolar jamaican",
+    "PYG": "Guarani",
+    "PGK": "Kina din Papua-Noua Guinee"
   },
   "language": "Limbă",
-
   "backup_title": "Copie de rezervă și restaurare",
   "warning_overwrite": "Atenție: datele actuale vor fi suprascrise!",
   "backup_success": "Date restaurate cu succes! 🎉",
@@ -119,7 +159,6 @@
   "pin_code": "Cod PIN",
   "biometrics": "Biometrie / FaceID",
   "haptic_feedback": "Vibrație",
-
   "interface_theme": "Temă",
   "theme_light": "Deschis",
   "theme_dark": "Întunecat",
@@ -129,7 +168,6 @@
   "data_cleared_success": "Toate datele au fost șterse cu succes",
   "clear_data_cloud_note": "Copia ta de pe Google Drive va fi de asemenea suprascrisă cu date goale la următoarea sincronizare.",
   "current_copy": "Copia curentă",
-
   "statistics": "Statistici",
   "stats_expenses": "Cheltuieli",
   "no_expenses_month": "Nicio cheltuială luna aceasta 👏",
@@ -146,7 +184,6 @@
   "average": "Medie lunară",
   "savings_rate": "Rata de economisire",
   "savings": "Economii",
-
   "new_category": "Categorie nouă",
   "new_income": "Venit nou",
   "new_account": "Cont nou",
@@ -166,14 +203,12 @@
   "outgoing_transfer": "Transfer ieșit",
   "top_up": "Reîncărcare",
   "base_currency_label": "De bază",
-
   "select_date": "Selectează data",
   "current_month": "Luna curentă",
   "transfer": "Transfer",
   "today": "Azi",
   "yesterday": "Ieri",
   "tomorrow": "Mâine",
-
   "regular_payments": "Plăți recurente",
   "add_subscription": "Adaugă abonament",
   "no_subscriptions": "Încă nu ai plăți recurente",
@@ -202,7 +237,6 @@
   "not_enough_funds": "Fonduri insuficiente în contul '{}' 😔",
   "paid_success": "Plătit: {} 🎉",
   "auto_payment_marker": "{} (Auto)",
-
   "icons_finance": "Finanțe și investiții",
   "icons_currencies": "Monede",
   "icons_food": "Mâncare și băuturi",
@@ -214,7 +248,6 @@
   "icons_subscriptions": "Abonamente și servicii",
   "icons_family": "Familie și animale",
   "icons_other": "Altele",
-
   "exchange_rates": "Cursuri valutare",
   "add_currency": "Adaugă monedă",
   "all_currencies_added": "Toate monedele disponibile au fost adăugate",
@@ -229,7 +262,6 @@
   "rates_update_error": "Actualizare eșuată. Verifică conexiunea!",
   "search_transactions": "Caută tranzacții...",
   "nothing_found": "Nu s-a găsit nimic",
-
   "data_management": "Gestionarea datelor",
   "export_csv": "Exportă în CSV",
   "export_description": "Salvează-ți tranzacțiile ca tabel CSV pentru a le deschide în Excel sau Google Sheets.",
@@ -281,7 +313,6 @@
   "csv_type_transfer": "Transfer",
   "csv_deleted_category": "Șters",
   "csv_export_headers": "Dată,Tip,Categorie (Din),Sumă (Din),Monedă (Din),Categorie (Către),Sumă (Către),Monedă (Către),Comentariu",
-
   "filter_settings": "Setări filtru",
   "filter_period": "Perioadă",
   "filter_all_time": "Toată perioada",
@@ -293,7 +324,6 @@
   "filter_type_expenses": "Cheltuieli",
   "filter_type_transfers": "Transferuri",
   "filter_select_period": "Selectează perioada",
-
   "week_mo": "lu",
   "week_tu": "ma",
   "week_we": "mi",
@@ -301,7 +331,6 @@
   "week_fr": "vi",
   "week_sa": "sâ",
   "week_su": "du",
-
   "reset": "Resetează",
   "trash": "Coș de gunoi",
   "trash_empty": "Coșul de gunoi este gol",
@@ -316,7 +345,6 @@
   "transaction": "Tranzacție",
   "subscription": "Abonament",
   "deleted_category": "Categorie ștearsă",
-
   "last_backup": "Ultima copie de rezervă",
   "no_backups_yet": "Încă nu există copii de rezervă",
   "file_backup": "Fișiere locale",
@@ -334,11 +362,11 @@
   "export_password_hint": "Setează o parolă pentru a-ți cripta datele. Vei avea nevoie de ea pentru a restaura acest fișier mai târziu.",
   "unlock_backup_title": "Deblochează copia de rezervă",
   "import_password_hint": "Acest fișier este protejat cu parolă. Introdu cheia creată la exportul acestei copii de rezervă.",
-
   "default_category_salary": "Salariu",
   "default_category_cash": "Numerar",
   "default_category_card": "Card",
   "default_category_transport": "Transport",
   "default_category_food": "Mâncare",
-  "default_category_shopping": "Cumpărături"
+  "default_category_shopping": "Cumpărături",
+  "search": "Căutare"
 }
