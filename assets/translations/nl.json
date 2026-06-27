@@ -368,5 +368,10 @@
   "default_category_transport": "Vervoer",
   "default_category_food": "Eten",
   "default_category_shopping": "Winkelen",
-  "search": "Zoeken"
+  "search": "Zoeken",
+  "auto_lock": "Automatisch vergrendelen",
+  "auto_lock_hint": "Vergrendelen op de achtergrond na",
+  "lock_immediately": "Direct",
+  "unit_min_short": "min",
+  "unit_sec_short": "sec"
 }

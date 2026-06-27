@@ -368,5 +368,10 @@
   "default_category_transport": "Transport",
   "default_category_food": "Mad",
   "default_category_shopping": "Shopping",
-  "search": "Søg"
+  "search": "Søg",
+  "auto_lock": "Automatisk lås",
+  "auto_lock_hint": "Lås i baggrunden efter",
+  "lock_immediately": "Med det samme",
+  "unit_min_short": "min",
+  "unit_sec_short": "sek"
 }

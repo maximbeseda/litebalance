@@ -368,5 +368,10 @@
   "default_category_transport": "Ulaşım",
   "default_category_food": "Yiyecek",
   "default_category_shopping": "Alışveriş",
-  "search": "Ara"
+  "search": "Ara",
+  "auto_lock": "Otomatik kilit",
+  "auto_lock_hint": "Arka planda kilitle",
+  "lock_immediately": "Hemen",
+  "unit_min_short": "dk",
+  "unit_sec_short": "sn"
 }

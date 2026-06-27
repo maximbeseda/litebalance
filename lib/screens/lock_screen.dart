@@ -279,21 +279,15 @@ class _LockScreenState extends State<LockScreen>
                 child: SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: OutlinedButton(
+                  // Акцентна кнопка як «Готово» у транзакціях:
+                  // чорна на світлій темі, біла на темній (стиль із теми).
+                  child: ElevatedButton(
                     onPressed: () => Navigator.pop(context, false),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        color: colors.textSecondary.withValues(alpha: 0.3),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
                     child: Text(
                       'cancel'.tr(),
-                      style: TextStyle(
-                        color: colors.textSecondary,
+                      style: const TextStyle(
                         fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

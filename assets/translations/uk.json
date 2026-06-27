@@ -368,5 +368,10 @@
   "default_category_transport": "Транспорт",
   "default_category_food": "Їжа",
   "default_category_shopping": "Покупки",
-  "search": "Пошук"
+  "search": "Пошук",
+  "auto_lock": "Автоблокування",
+  "auto_lock_hint": "Блокувати у фоні через",
+  "lock_immediately": "Одразу",
+  "unit_min_short": "хв",
+  "unit_sec_short": "с"
 }

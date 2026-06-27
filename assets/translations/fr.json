@@ -368,5 +368,10 @@
   "default_category_transport": "Transport",
   "default_category_food": "Alimentation",
   "default_category_shopping": "Achats",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "auto_lock": "Verrouillage automatique",
+  "auto_lock_hint": "Verrouiller en arrière-plan après",
+  "lock_immediately": "Immédiatement",
+  "unit_min_short": "min",
+  "unit_sec_short": "s"
 }

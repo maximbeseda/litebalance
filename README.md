@@ -14,7 +14,7 @@
   <img alt="Dart" src="https://img.shields.io/badge/Dart-3.11-0175C2?logo=dart&logoColor=white" />
   <img alt="Platforms" src="https://img.shields.io/badge/Platforms-Android%20%7C%20iOS-555" />
   <img alt="Languages" src="https://img.shields.io/badge/Languages-20-2950A0" />
-  <img alt="Currencies" src="https://img.shields.io/badge/Currencies-49-2950A0" />
+  <img alt="Currencies" src="https://img.shields.io/badge/Currencies-93-2950A0" />
   <img alt="State" src="https://img.shields.io/badge/State-Riverpod%203-7C4DFF" />
   <img alt="DB" src="https://img.shields.io/badge/DB-drift%20(SQLite)-44A833" />
 </p>
@@ -32,13 +32,13 @@ SQLite), with optional encrypted backups and Google Drive sync.
 
 - 💸 **Transactions** — income, expenses and transfers between accounts
 - 🗂️ **Categories & accounts** — custom icons, colors and per-category budgets
-- 🌍 **Multi-currency** — **49 currencies** with live exchange rates and historical conversion
-- 🔁 **Subscriptions** — recurring payments with flexible periods and auto-pay reminders
+- 🌍 **Multi-currency** — **93 currencies** with live exchange rates and historical conversion, picked from searchable currency & language sheets (filter by name or ticker)
+- 🔁 **Subscriptions** — recurring payments with flexible periods and auto-pay
 - 📊 **Statistics** — income/expense history, monthly trends and all-time summary (fl_chart)
 - 🗑️ **Trash** — 30-day soft delete with restore
 - 🔄 **Import / Export** — CSV import with a guided column mapper, CSV export
 - ☁️ **Backups** — encrypted local `.cfbak` files **and** Google Drive sync
-- 🔐 **Security** — PIN code and biometric / Face ID lock
+- 🔐 **Security** — PIN code and biometric / Face ID lock, with a configurable auto-lock delay
 - 🎨 **Themes** — refined light & dark modes with a cohesive design system
 - 🌐 **20 languages** — full localization (see below)
 - 📴 **Offline-first** — everything works without a connection

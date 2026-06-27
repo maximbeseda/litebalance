@@ -2,14 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../providers/all_providers.dart';
 import '../../screens/lock_screen.dart';
 import '../../utils/app_lock.dart';
 
 // Публічні константи автоблокування (використовуються тут і в main.dart).
-const int kAutoLockTimeoutMs = 5 * 60 * 1000; // 5 хвилин
+const int kDefaultAutoLockTimeoutMs = 5 * 60 * 1000; // 5 хвилин (дефолт)
 const String kLockBgTimeKey = 'lock_background_time';
+const String kLockTimeoutKey = 'lock_timeout_ms';
+
+/// Обраний користувачем таймаут автоблокування (мс). 0 = блокувати одразу.
+int resolveLockTimeoutMs(SharedPreferences prefs) =>
+    prefs.getInt(kLockTimeoutKey) ?? kDefaultAutoLockTimeoutMs;
 
 /// Воротар автоблокування на рівні застосунку. Тримає екран блокування **прямо
 /// в дереві** (а не пушить маршрут), тож після таймауту у фоні застосунок
@@ -67,7 +73,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate>
       final bgTime = prefs.getInt(kLockBgTimeKey);
       if (bgTime != null &&
           DateTime.now().millisecondsSinceEpoch - bgTime >=
-              kAutoLockTimeoutMs) {
+              resolveLockTimeoutMs(prefs)) {
         unawaited(prefs.remove(kLockBgTimeKey));
         setState(() => _locked = true);
       }
