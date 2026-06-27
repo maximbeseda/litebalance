@@ -368,5 +368,10 @@
   "default_category_transport": "Transport",
   "default_category_food": "Mâncare",
   "default_category_shopping": "Cumpărături",
-  "search": "Căutare"
+  "search": "Căutare",
+  "auto_lock": "Blocare automată",
+  "auto_lock_hint": "Blochează în fundal după",
+  "lock_immediately": "Imediat",
+  "unit_min_short": "min",
+  "unit_sec_short": "sec"
 }

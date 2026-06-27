@@ -368,5 +368,10 @@
   "default_category_transport": "Μεταφορές",
   "default_category_food": "Φαγητό",
   "default_category_shopping": "Αγορές",
-  "search": "Αναζήτηση"
+  "search": "Αναζήτηση",
+  "auto_lock": "Αυτόματο κλείδωμα",
+  "auto_lock_hint": "Κλείδωμα στο παρασκήνιο μετά από",
+  "lock_immediately": "Αμέσως",
+  "unit_min_short": "λεπ",
+  "unit_sec_short": "δευτ"
 }

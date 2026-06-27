@@ -368,5 +368,10 @@
   "default_category_transport": "Doprava",
   "default_category_food": "Jedlo",
   "default_category_shopping": "Nákupy",
-  "search": "Hľadať"
+  "search": "Hľadať",
+  "auto_lock": "Automatické uzamykanie",
+  "auto_lock_hint": "Zamknúť na pozadí po",
+  "lock_immediately": "Okamžite",
+  "unit_min_short": "min",
+  "unit_sec_short": "s"
 }

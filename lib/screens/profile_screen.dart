@@ -14,6 +14,8 @@ import '../utils/app_constants.dart';
 import '../services/security_service.dart';
 import '../services/storage_service.dart';
 import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_lock_gate.dart'
+    show kLockTimeoutKey, kDefaultAutoLockTimeoutMs;
 import '../widgets/common/app_picker_sheet.dart';
 import '../widgets/common/app_pill.dart';
 import '../widgets/common/app_snackbar.dart';
@@ -570,6 +572,18 @@ class _SecuritySettingsSectionState
   bool _isPinSet = false;
   bool _isBiometricsEnabled = false;
   bool _canUseBiometrics = false;
+  int _lockTimeoutMs = kDefaultAutoLockTimeoutMs;
+
+  // Доступні діапазони автоблокування (мс). 0 = одразу.
+  static const List<int> _lockTimeoutOptions = [
+    0,
+    30 * 1000,
+    60 * 1000,
+    2 * 60 * 1000,
+    5 * 60 * 1000,
+    10 * 60 * 1000,
+    30 * 60 * 1000,
+  ];
 
   @override
   void initState() {
@@ -581,14 +595,47 @@ class _SecuritySettingsSectionState
     final isPinSet = await SecurityService.isPinSet();
     final isBioEnabled = await SecurityService.isBiometricsEnabled();
     final canUseBio = await SecurityService.canUseBiometrics();
+    final timeout =
+        ref.read(sharedPreferencesProvider).getInt(kLockTimeoutKey) ??
+        kDefaultAutoLockTimeoutMs;
 
     if (mounted) {
       setState(() {
         _isPinSet = isPinSet;
         _isBiometricsEnabled = isBioEnabled;
         _canUseBiometrics = canUseBio;
+        _lockTimeoutMs = timeout;
       });
     }
+  }
+
+  /// Підпис діапазону: «Одразу» або «N сек» / «N хв» (скорочення локалізовані).
+  String _lockTimeoutLabel(int ms) {
+    if (ms <= 0) return 'lock_immediately'.tr();
+    if (ms < 60 * 1000) return '${ms ~/ 1000} ${'unit_sec_short'.tr()}';
+    return '${ms ~/ (60 * 1000)} ${'unit_min_short'.tr()}';
+  }
+
+  void _openLockTimeoutPicker() {
+    final colors = Theme.of(context).extension<AppColorsExtension>()!;
+    AppPickerSheet.show<int>(
+      context: context,
+      title: 'auto_lock'.tr(),
+      selected: _lockTimeoutMs,
+      onSelected: (ms) async {
+        await ref.read(sharedPreferencesProvider).setInt(kLockTimeoutKey, ms);
+        if (mounted) setState(() => _lockTimeoutMs = ms);
+      },
+      options: _lockTimeoutOptions
+          .map(
+            (ms) => AppPickerOption<int>(
+              value: ms,
+              label: _lockTimeoutLabel(ms),
+              color: colors.accent,
+            ),
+          )
+          .toList(),
+    );
   }
 
   Future<void> _togglePin(bool enable) async {
@@ -663,6 +710,44 @@ class _SecuritySettingsSectionState
               await SecurityService.setBiometricsEnabled(val);
               await _loadSecuritySettings();
             },
+          ),
+        if (_isPinSet)
+          ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            visualDensity: const VisualDensity(vertical: -2),
+            leading: Icon(Icons.timer_outlined, color: colors.accent),
+            title: Text(
+              'auto_lock'.tr(),
+              style: TextStyle(
+                color: colors.textMain,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
+              ),
+            ),
+            subtitle: Text(
+              'auto_lock_hint'.tr(),
+              style: TextStyle(color: colors.textSecondary, fontSize: 12),
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  _lockTimeoutLabel(_lockTimeoutMs),
+                  style: TextStyle(
+                    color: colors.accent,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  color: colors.textSecondary,
+                  size: 20,
+                ),
+              ],
+            ),
+            onTap: _openLockTimeoutPicker,
           ),
       ],
     );

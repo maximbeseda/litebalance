@@ -368,5 +368,10 @@
   "default_category_transport": "Транспорт",
   "default_category_food": "Храна",
   "default_category_shopping": "Пазаруване",
-  "search": "Търсене"
+  "search": "Търсене",
+  "auto_lock": "Автоматично заключване",
+  "auto_lock_hint": "Заключване на заден план след",
+  "lock_immediately": "Незабавно",
+  "unit_min_short": "мин",
+  "unit_sec_short": "сек"
 }

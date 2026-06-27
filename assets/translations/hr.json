@@ -368,5 +368,10 @@
   "default_category_transport": "Prijevoz",
   "default_category_food": "Hrana",
   "default_category_shopping": "Kupnja",
-  "search": "Pretraži"
+  "search": "Pretraži",
+  "auto_lock": "Automatsko zaključavanje",
+  "auto_lock_hint": "Zaključaj u pozadini nakon",
+  "lock_immediately": "Odmah",
+  "unit_min_short": "min",
+  "unit_sec_short": "s"
 }

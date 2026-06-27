@@ -17,7 +17,7 @@ import 'services/security_service.dart';
 import 'utils/currency_formatter.dart';
 import 'widgets/common/sync_lifecycle_observer.dart' show SyncLifecycleObserver;
 import 'widgets/common/app_lock_gate.dart'
-    show AppLockGate, kAutoLockTimeoutMs, kLockBgTimeKey;
+    show AppLockGate, resolveLockTimeoutMs, kLockBgTimeKey;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +61,7 @@ void main() async {
       requirePin = true;
     } else {
       final elapsed = DateTime.now().millisecondsSinceEpoch - bgTime;
-      requirePin = elapsed >= kAutoLockTimeoutMs;
+      requirePin = elapsed >= resolveLockTimeoutMs(prefs);
     }
   }
 
