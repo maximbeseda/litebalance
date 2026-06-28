@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -133,6 +134,7 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
+    await initializeDateFormatting();
   });
 
   setUp(() {
@@ -372,7 +374,8 @@ void main() {
         scaffoldKey.currentState!.openDrawer();
         await tester.pumpAndSettle();
 
-        expect(find.text('01.04.2026 15:30'), findsOneWidget);
+        // Locale is 'en' here → locale-aware short date (M/d/yyyy + AM/PM).
+        expect(find.textContaining('4/1/2026'), findsOneWidget);
         expect(find.byIcon(Icons.sync_rounded), findsOneWidget);
       },
     );

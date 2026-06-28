@@ -154,7 +154,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
           Icon(Icons.access_time, size: 14, color: colors.textSecondary),
           const SizedBox(width: 8),
           Text(
-            '${'last_update'.tr()}: ${DateFormatter.formatWithTime(settingsState.lastRatesUpdate!)}',
+            '${'last_update'.tr()}: ${DateFormatter.formatWithTime(settingsState.lastRatesUpdate!, Localizations.maybeLocaleOf(context)?.languageCode ?? 'en')}',
             style: TextStyle(fontSize: 12, color: colors.textSecondary),
           ),
         ],

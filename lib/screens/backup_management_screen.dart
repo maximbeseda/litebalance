@@ -201,7 +201,9 @@ class _BackupManagementScreenState
     }
 
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
-    final df = DateFormat('dd.MM.yyyy HH:mm');
+    final df = DateFormat.yMd(
+      Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
+    ).add_jm();
 
     final selected = await showModalBottomSheet<CloudBackupInfo>(
       context: context,
@@ -387,7 +389,9 @@ class _BackupManagementScreenState
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final SettingsState settings = ref.watch(settingsProvider);
-    final df = DateFormat('dd.MM.yyyy HH:mm');
+    final df = DateFormat.yMd(
+      Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
+    ).add_jm();
 
     return PopScope(
       canPop: !_isLoading,

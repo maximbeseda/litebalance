@@ -13,7 +13,7 @@
   <img alt="Flutter" src="https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white" />
   <img alt="Dart" src="https://img.shields.io/badge/Dart-3.11-0175C2?logo=dart&logoColor=white" />
   <img alt="Platforms" src="https://img.shields.io/badge/Platforms-Android%20%7C%20iOS-555" />
-  <img alt="Languages" src="https://img.shields.io/badge/Languages-20-2950A0" />
+  <img alt="Languages" src="https://img.shields.io/badge/Languages-50-2950A0" />
   <img alt="Currencies" src="https://img.shields.io/badge/Currencies-93-2950A0" />
   <img alt="State" src="https://img.shields.io/badge/State-Riverpod%203-7C4DFF" />
   <img alt="DB" src="https://img.shields.io/badge/DB-drift%20(SQLite)-44A833" />
@@ -40,7 +40,7 @@ SQLite), with optional encrypted backups and Google Drive sync.
 - ☁️ **Backups** — encrypted local `.cfbak` files **and** Google Drive sync
 - 🔐 **Security** — PIN code and biometric / Face ID lock, with a configurable auto-lock delay
 - 🎨 **Themes** — refined light & dark modes with a cohesive design system
-- 🌐 **20 languages** — full localization (see below)
+- 🌐 **50 languages** — full localization incl. right-to-left (Arabic, Hebrew, Persian, Urdu); see below
 - 📴 **Offline-first** — everything works without a connection
 
 ## 🖼️ Screenshots
@@ -62,15 +62,30 @@ SQLite), with optional encrypted backups and Google Drive sync.
 
 ## 🌐 Localization
 
-20 languages, fully translated (UI + currency names):
+50 languages, fully translated (UI + all 93 currency names, sourced from Unicode CLDR):
 
+**Europe**
 🇺🇦 Українська · 🇬🇧 English · 🇩🇪 Deutsch · 🇵🇱 Polski · 🇪🇸 Español · 🇫🇷 Français ·
 🇮🇹 Italiano · 🇵🇹 Português · 🇳🇱 Nederlands · 🇹🇷 Türkçe · 🇨🇿 Čeština · 🇷🇴 Română ·
 🇭🇺 Magyar · 🇸🇰 Slovenčina · 🇬🇷 Ελληνικά · 🇧🇬 Български · 🇸🇪 Svenska · 🇩🇰 Dansk ·
-🇫🇮 Suomi · 🇭🇷 Hrvatski
+🇫🇮 Suomi · 🇭🇷 Hrvatski · 🇦🇱 Shqip · 🇧🇦 Bosanski · 🇷🇸 Српски · 🇲🇰 Македонски
 
-Translations live in [`assets/translations/`](assets/translations) (one JSON per locale,
-powered by [`easy_localization`](https://pub.dev/packages/easy_localization)).
+**Asia & Pacific**
+🇨🇳 简体中文 · 🇯🇵 日本語 · 🇰🇷 한국어 · 🇮🇩 Bahasa Indonesia · 🇲🇾 Bahasa Melayu ·
+🇻🇳 Tiếng Việt · 🇵🇭 Filipino · 🇹🇭 ไทย · 🇮🇳 हिन्दी · 🇧🇩 বাংলা · 🇳🇵 नेपाली ·
+🇱🇰 සිංහල · 🇲🇲 မြန်မာ · 🇰🇭 ខ្មែរ · 🇱🇦 ລາວ · 🇲🇳 Монгол · 🇰🇿 Қазақ ·
+🇦🇿 Azərbaycan · 🇦🇲 Հայերեն · 🇬🇪 ქართული
+
+**Africa**
+🇰🇪 Kiswahili · 🇪🇹 አማርኛ
+
+**Right-to-left (RTL)**
+🇸🇦 العربية · 🇮🇱 עברית · 🇮🇷 فارسی · 🇵🇰 اردو
+
+RTL locales mirror the whole interface; amounts stay left-to-right and the calendar's
+first day of week follows each locale (Mon / Sun / Sat). Translations live in
+[`assets/translations/`](assets/translations) (one JSON per locale, powered by
+[`easy_localization`](https://pub.dev/packages/easy_localization)).
 
 ## 🛠️ Tech Stack
 
@@ -79,7 +94,7 @@ powered by [`easy_localization`](https://pub.dev/packages/easy_localization)).
 | Framework | Flutter (Dart 3.11) |
 | State management | Riverpod 3 |
 | Local database | drift (SQLite) |
-| Localization | easy_localization (20 locales) |
+| Localization | easy_localization (50 locales, incl. RTL) |
 | Charts | fl_chart |
 | Security | local_auth + flutter_secure_storage (encrypted) |
 | Cloud backup | google_sign_in + googleapis (Drive) |
@@ -141,7 +156,7 @@ lib/
 ├── theme/                   # Colors, light/dark themes
 └── utils/                   # Helpers (haptics, formatters, constants)
 assets/
-├── translations/            # 20 locale JSON files
+├── translations/            # 50 locale JSON files
 ├── fonts/                   # Quicksand (OFL)
 └── branding/                # Logo / icon / splash source PNGs
 ```

@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:litebalance/screens/backup_management_screen.dart';
 import 'package:litebalance/theme/app_colors_extension.dart';
@@ -80,6 +81,10 @@ void main() {
   late MockDriveBackupService mockDriveBackup;
   late MockAppDatabase mockDb;
 
+  setUpAll(() async {
+    await initializeDateFormatting();
+  });
+
   setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
@@ -147,7 +152,8 @@ void main() {
       expect(find.textContaining('current_copy'), findsOneWidget);
 
       // Тап по версії → діалог підтвердження відновлення.
-      await tester.tap(find.text('01.06.2026 12:00'));
+      // Формат дати локале-залежний, тож шукаємо за роком (єдиний текст з 2026).
+      await tester.tap(find.textContaining('2026'));
       await tester.pumpAndSettle();
 
       expect(find.text('cloud_restore_confirm'), findsOneWidget);
