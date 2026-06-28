@@ -150,6 +150,9 @@ class SummaryHeader extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
+                        // Цифри суми — окремі віджети в Row; у RTL-локалях Row
+                        // реверсує дітей, тож фіксуємо порядок зліва направо.
+                        textDirection: TextDirection.ltr,
                         children: [
                           for (int i = 0; i < formattedAmount.length; i++)
                             RollingDigit(

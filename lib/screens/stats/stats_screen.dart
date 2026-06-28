@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -437,6 +439,9 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
+      // Цифри суми — окремі віджети в Row; у RTL-локалях Row реверсує дітей,
+      // тож фіксуємо порядок зліва направо.
+      textDirection: ui.TextDirection.ltr,
       children: [
         for (int i = 0; i < formatted.length; i++)
           RollingDigit(char: formatted[i], style: style),

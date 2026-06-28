@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -703,6 +704,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                 ),
                 softWrap: false,
                 overflow: TextOverflow.visible,
+                // Сума+значок — LTR-контент, інакше в RTL bidi переставляє їх.
+                textDirection: ui.TextDirection.ltr,
                 style: TextStyle(
                   fontSize: isActive ? 56 : 42,
                   fontWeight: FontWeight.w800,
@@ -726,6 +729,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                   formatWithSpaces(expression),
                   softWrap: false,
                   overflow: TextOverflow.visible,
+                  // Математичний вираз — LTR-контент.
+                  textDirection: ui.TextDirection.ltr,
                   style: TextStyle(
                     fontSize: 22,
                     color: colors.textSecondary.withValues(
@@ -822,6 +827,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                       rateText,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      // Формула курсу «1 USD = 36,5 UAH» — LTR-контент.
+                      textDirection: ui.TextDirection.ltr,
                     ),
                   ),
                 ),

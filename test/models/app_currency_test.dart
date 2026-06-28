@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:litebalance/models/app_currency.dart';
+import 'package:litebalance/utils/app_constants.dart';
 
 void main() {
   group('AppCurrency Model Tests', () {
@@ -49,8 +50,8 @@ void main() {
         .where((f) => f.path.endsWith('.json'))
         .toList();
 
-    test('знайдено всі 20 файлів перекладу', () {
-      expect(translationFiles.length, 20);
+    test('к-сть файлів перекладу збігається зі списком мов застосунку', () {
+      expect(translationFiles.length, AppConstants.languages.length);
     });
 
     for (final file in translationFiles) {

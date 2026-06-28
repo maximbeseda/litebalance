@@ -493,7 +493,12 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
                       false,
                     );
 
-                    return Stack(
+                    return Directionality(
+                      // Графік інтерентно LTR (час зліва направо, осі й підписи
+                      // значень). Без цього в RTL fl_chart дзеркалить полотно та
+                      // горизонтальний скрол, і підписи сум зникають за канвою.
+                      textDirection: ui.TextDirection.ltr,
+                      child: Stack(
                       children: [
                         Positioned.fill(
                           child: SingleChildScrollView(
@@ -688,6 +693,7 @@ class _TrendCardWidgetState extends State<_TrendCardWidget> {
                           ),
                         ),
                       ],
+                      ),
                     );
                   },
                 ),
