@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -602,6 +604,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     return TextField(
       controller: controller,
       maxLength: isNumber ? null : maxLength,
+      // Сума — LTR-контент; у RTL-локалях без цього цифри, розділювачі та
+      // значок валюти (suffix) дзеркаляться й показуються неправильно.
+      textDirection: isNumber ? ui.TextDirection.ltr : null,
       keyboardType: isNumber
           ? const TextInputType.numberWithOptions(decimal: true)
           : TextInputType.text,

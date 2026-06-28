@@ -67,6 +67,10 @@ class AmountText extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow ?? TextOverflow.clip,
+      // Суми — це завжди LTR-контент (цифри, розділювачі, знак «-», значок
+      // валюти). Без цього в RTL-локалях (ar/he/fa/ur) алгоритм bidi
+      // переставляє число та значок місцями й ламає вигляд.
+      textDirection: TextDirection.ltr,
     );
   }
 }

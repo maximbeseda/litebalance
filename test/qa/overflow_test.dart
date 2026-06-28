@@ -25,6 +25,13 @@ const supported = <Locale>[
   Locale('fr'), Locale('it'), Locale('pt'), Locale('nl'), Locale('tr'),
   Locale('cs'), Locale('ro'), Locale('hu'), Locale('sk'), Locale('el'),
   Locale('bg'), Locale('sv'), Locale('da'), Locale('fi'), Locale('hr'),
+  Locale('zh'), Locale('id'), Locale('ms'), Locale('vi'), Locale('fil'),
+  Locale('hi'), Locale('bn'), Locale('th'), Locale('ja'), Locale('ko'),
+  Locale('sw'), Locale('az'), Locale('sq'),
+  Locale('bs'), Locale('sr'), Locale('mk'), Locale('kk'), Locale('mn'),
+  Locale('hy'), Locale('ka'), Locale('ne'), Locale('am'),
+  Locale('si'), Locale('my'), Locale('km'), Locale('lo'),
+  Locale('ar'), Locale('fa'), Locale('ur'), Locale('he'),
 ];
 
 // Worst-case long names to stress the category coin layout (longer than any
