@@ -1,14 +1,14 @@
 import 'package:intl/intl.dart';
 
 class DateFormatter {
-  /// Основний формат: 22.03.2026
-  static String formatFull(DateTime date) {
-    return DateFormat('dd.MM.yyyy').format(date);
+  /// Коротка дата у форматі локалі (uk: 22.03.2026, en_US: 3/22/2026).
+  static String formatFull(DateTime date, String locale) {
+    return DateFormat.yMd(locale).format(date);
   }
 
-  /// Формат з часом: 22.03.2026 21:05 (для оновлення курсів)
-  static String formatWithTime(DateTime date) {
-    return DateFormat('dd.MM.yyyy HH:mm').format(date);
+  /// Дата + час, обидва за локаллю (24h або AM/PM залежно від мови).
+  static String formatWithTime(DateTime date, String locale) {
+    return DateFormat.yMd(locale).add_jm().format(date);
   }
 
   /// Назва місяця та рік: Березень 2026

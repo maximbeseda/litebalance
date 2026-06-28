@@ -189,7 +189,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   }
 
   void _updateDateText(DateTime date) {
-    _dateCtrl.text = DateFormatter.formatFull(date);
+    _dateCtrl.text = DateFormatter.formatFull(
+      date,
+      Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
+    );
   }
 
   // 👇 ОНОВЛЕНО ДЛЯ КОНСИСТЕНТНОСТІ З КАТЕГОРІЯМИ

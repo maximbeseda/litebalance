@@ -253,6 +253,10 @@ class SubscriptionsScreen extends ConsumerWidget {
                                                     child: Text(
                                                       DateFormatter.formatFull(
                                                         sub.nextPaymentDate,
+                                                        Localizations.maybeLocaleOf(
+                                                                  context,
+                                                                )?.languageCode ??
+                                                            'en',
                                                       ),
                                                       style: TextStyle(
                                                         fontSize: 13,
