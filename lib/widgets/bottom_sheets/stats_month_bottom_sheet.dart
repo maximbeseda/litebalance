@@ -73,12 +73,9 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
     _fetchData();
   }
 
-  String _fastDateFormat(DateTime d) {
-    final day = d.day.toString().padLeft(2, '0');
-    final month = d.month.toString().padLeft(2, '0');
-    final hour = d.hour.toString().padLeft(2, '0');
-    final minute = d.minute.toString().padLeft(2, '0');
-    return '$day.$month.${d.year} $hour:$minute';
+  String _fastDateFormat(BuildContext context, DateTime d) {
+    final locale = Localizations.maybeLocaleOf(context)?.languageCode ?? 'en';
+    return DateFormatter.formatWithTime(d, locale);
   }
 
   @override
@@ -446,7 +443,7 @@ class _StatsMonthBottomSheetState extends ConsumerState<StatsMonthBottomSheet> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      _fastDateFormat(tx.date),
+                                      _fastDateFormat(context, tx.date),
                                       style: TextStyle(
                                         color: colors.textSecondary,
                                         fontSize: 12,

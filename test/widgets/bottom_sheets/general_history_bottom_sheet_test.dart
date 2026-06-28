@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:litebalance/widgets/bottom_sheets/general_history_bottom_sheet.dart'; // Перевірте шлях!
 import 'package:litebalance/database/app_database.dart';
 import '../../helpers/test_wrapper.dart';
@@ -9,6 +10,7 @@ import '../../helpers/test_wrapper.dart';
 void main() {
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
+    await initializeDateFormatting();
   });
 
   // Тестові дані

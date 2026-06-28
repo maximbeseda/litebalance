@@ -11,6 +11,7 @@ import '../../screens/import_export_screen.dart';
 import '../../screens/backup_management_screen.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../utils/app_page_route.dart';
+import '../../utils/date_formatter.dart';
 import 'category_halo_icon.dart';
 
 import '../../providers/all_providers.dart';
@@ -250,7 +251,10 @@ class SettingsDrawer extends ConsumerWidget {
     final settings = ref.watch(settingsProvider);
     final lastSyncDate = settings.lastCloudBackup;
     final lastSyncStr = lastSyncDate != null
-        ? DateFormat('dd.MM.yyyy HH:mm').format(lastSyncDate)
+        ? DateFormatter.formatWithTime(
+            lastSyncDate,
+            Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
+          )
         : 'never'.tr();
 
     // Підключаємо реальний стан

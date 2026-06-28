@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/app_currency.dart';
 import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
+import '../../utils/date_formatter.dart';
 import '../../theme/app_colors_extension.dart';
 import '../../providers/all_providers.dart';
 import '../../utils/icon_helper.dart';
@@ -76,12 +77,9 @@ class _GeneralHistoryBottomSheetState
     super.dispose();
   }
 
-  String _fastDateFormat(DateTime d) {
-    final day = d.day.toString().padLeft(2, '0');
-    final month = d.month.toString().padLeft(2, '0');
-    final hour = d.hour.toString().padLeft(2, '0');
-    final minute = d.minute.toString().padLeft(2, '0');
-    return '$day.$month.${d.year} $hour:$minute';
+  String _fastDateFormat(BuildContext context, DateTime d) {
+    final locale = Localizations.maybeLocaleOf(context)?.languageCode ?? 'en';
+    return DateFormatter.formatWithTime(d, locale);
   }
 
   @override
@@ -367,7 +365,7 @@ class _GeneralHistoryBottomSheetState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _fastDateFormat(t.date),
+                                    _fastDateFormat(context, t.date),
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: colors.textSecondary,

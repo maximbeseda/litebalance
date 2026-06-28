@@ -388,7 +388,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
                                   child: Text(
                                     _exportDateRange == null
                                         ? 'filter_all_time'.tr()
-                                        : "${DateFormat('dd.MM.yyyy').format(_exportDateRange!.start)} - ${DateFormat('dd.MM.yyyy').format(_exportDateRange!.end)}",
+                                        : "${DateFormat.yMd(Localizations.maybeLocaleOf(context)?.languageCode ?? 'en').format(_exportDateRange!.start)} - ${DateFormat.yMd(Localizations.maybeLocaleOf(context)?.languageCode ?? 'en').format(_exportDateRange!.end)}",
                                     style: TextStyle(
                                       color: colors.textMain,
                                       fontSize: 16,
