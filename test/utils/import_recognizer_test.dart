@@ -79,6 +79,68 @@ void main() {
           CategoryType.expense,
         );
       });
+
+      // Регресія: розширення мовних ключів НЕ повинно ламати наявні
+      // англ. категорії (напр. "Utilities" не має стати рахунком через
+      // випадковий збіг підрядка).
+      test('Регресія: англійські категорії семпла класифікуються вірно', () {
+        const accounts = ['Bank Card', 'Monobank', 'Cash', 'Savings Account'];
+        for (final n in accounts) {
+          expect(
+            ImportRecognizer.guessType(n, isFrom: true),
+            CategoryType.account,
+            reason: '"$n" має бути рахунком',
+          );
+        }
+
+        const incomes = ['Salary', 'Dividends', 'Gifts'];
+        for (final n in incomes) {
+          expect(
+            ImportRecognizer.guessType(n, isFrom: false),
+            CategoryType.income,
+            reason: '"$n" має бути доходом',
+          );
+        }
+
+        // Найризикованіший кейс: "Utilities" (містив би fi 'tili').
+        const expenses = [
+          'Utilities',
+          'Rent',
+          'Groceries',
+          'Shopping',
+          'Transport',
+          'Entertainment',
+          'Internet',
+          'Restaurants',
+          'Subscriptions',
+        ];
+        for (final n in expenses) {
+          expect(
+            ImportRecognizer.guessType(n, isFrom: false),
+            CategoryType.expense,
+            reason: '"$n" має бути витратою',
+          );
+        }
+      });
+
+      test('Розпізнає доходи/рахунки різними мовами', () {
+        // Доходи (localized "salary")
+        for (final n in ['Gehalt', 'Salaire', 'Salário', '給料', '급여', 'راتب', 'משכורת', 'Maaş', 'Wynagrodzenie']) {
+          expect(
+            ImportRecognizer.guessType(n, isFrom: false),
+            CategoryType.income,
+            reason: '"$n" має бути доходом',
+          );
+        }
+        // Рахунки (localized "cash"/"card"/"bank")
+        for (final n in ['Contanti', 'Gotówka', '現金', '현금', 'نقد', 'מזומן', 'Nakit', 'Tunai', 'Käteinen']) {
+          expect(
+            ImportRecognizer.guessType(n, isFrom: false),
+            CategoryType.account,
+            reason: '"$n" має бути рахунком',
+          );
+        }
+      });
     });
 
     group('3. Розпізнавання колонок CSV', () {
