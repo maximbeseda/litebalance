@@ -51,6 +51,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     if (state == AppLifecycleState.resumed) {
       if (mounted) {
         ref.read(subscriptionProvider.notifier).refreshOnAppResume();
+        // Якщо додаток провисів у фоні через межу місяця — оновлюємо місяць,
+        // щоб суми доходів/витрат обнулилися без повного перезапуску.
+        ref.read(transactionProvider.notifier).syncSelectedMonthToCurrent();
       }
     }
   }

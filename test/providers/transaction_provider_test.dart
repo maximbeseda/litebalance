@@ -174,6 +174,32 @@ void main() {
         );
       },
     );
+
+    test(
+      'syncSelectedMonthToCurrent повертає місяць на поточний (фікс межі місяця)',
+      () async {
+        final notifier = await getSafeNotifier();
+        final now = DateTime.now();
+        final currentMonth = DateTime(now.year, now.month, 1);
+
+        // Імітуємо застряглий у фоні минулий місяць.
+        notifier.setMonth(DateTime(2022, 5, 1));
+        expect(
+          container.read(transactionProvider).value!.isCurrentMonth,
+          false,
+        );
+
+        notifier.syncSelectedMonthToCurrent();
+        expect(
+          container.read(transactionProvider).value!.selectedMonth,
+          currentMonth,
+        );
+        expect(
+          container.read(transactionProvider).value!.isCurrentMonth,
+          true,
+        );
+      },
+    );
   });
 
   group('TransactionNotifier - Core Operations & Edge Cases', () {
