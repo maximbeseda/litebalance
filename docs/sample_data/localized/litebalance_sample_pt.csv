@@ -1,0 +1,258 @@
+﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
+01.01.2026 09:00,Expense,Cartão do banco,2400.00,BRL,Aluguel,2400.00,BRL,Aluguel do apê
+01.01.2026 09:03,Expense,Nubank,46.60,BRL,Café,46.60,BRL,Café
+01.01.2026 10:15,Expense,Nubank,10.60,BRL,Transporte,10.60,BRL,
+02.01.2026 13:41,Expense,Dinheiro,119.20,BRL,Mercado,119.20,BRL,Extra
+02.01.2026 17:08,Expense,Dinheiro,204.60,BRL,Mercado,204.60,BRL,Carrefour
+02.01.2026 18:00,Expense,Cartão do banco,490.40,BRL,Roupas,490.40,BRL,
+02.01.2026 18:36,Expense,Nubank,124.80,BRL,Mercado,124.80,BRL,Pão de Açúcar
+02.01.2026 20:54,Expense,Nubank,38.20,BRL,Café,38.20,BRL,Café
+03.01.2026 09:30,Expense,Cartão do banco,459.20,BRL,Faturas,459.20,BRL,
+04.01.2026 09:00,Expense,Nubank,60.00,BRL,Internet,60.00,BRL,
+04.01.2026 09:05,Expense,Nubank,50.00,BRL,Celular,50.00,BRL,
+04.01.2026 11:19,Expense,Nubank,465.20,BRL,Combustível,465.20,BRL,
+04.01.2026 13:19,Expense,Dinheiro,9.20,BRL,Transporte,9.20,BRL,
+05.01.2026 10:34,Expense,Dinheiro,27.60,BRL,Transporte,27.60,BRL,
+05.01.2026 10:39,Income,Salário,8812.60,BRL,Nubank,8812.60,BRL,Salário mensal
+05.01.2026 21:00,Expense,Nubank,104.80,BRL,Lazer,104.80,BRL,
+06.01.2026 08:00,Expense,Nubank,120.00,BRL,Assinaturas,120.00,BRL,Netflix + Spotify
+06.01.2026 08:18,Expense,Dinheiro,227.60,BRL,Mercado,227.60,BRL,Extra
+06.01.2026 17:13,Expense,Nubank,171.00,BRL,Mercado,171.00,BRL,Assaí
+07.01.2026 11:00,Transfer,Nubank,1963.60,BRL,Conta poupança,1963.60,BRL,Poupança mensal
+07.01.2026 17:00,Expense,Nubank,693.60,BRL,Saúde,693.60,BRL,
+09.01.2026 09:42,Expense,Nubank,21.00,BRL,Café,21.00,BRL,Café
+09.01.2026 16:08,Expense,Nubank,188.80,BRL,Mercado,188.80,BRL,Carrefour
+09.01.2026 18:00,Expense,Nubank,193.40,BRL,Lazer,193.40,BRL,
+09.01.2026 21:34,Expense,Nubank,325.80,BRL,Restaurantes,325.80,BRL,
+12.01.2026 09:05,Expense,Dinheiro,226.80,BRL,Mercado,226.80,BRL,Carrefour
+12.01.2026 11:30,Expense,Nubank,226.40,BRL,Mercado,226.40,BRL,Carrefour
+12.01.2026 12:00,Income,Dividendos,810.00,BRL,Conta poupança,810.00,BRL,Dividendos trimestrais
+12.01.2026 17:02,Expense,Nubank,34.40,BRL,Café,34.40,BRL,Café
+13.01.2026 09:58,Expense,Nubank,326.60,BRL,Combustível,326.60,BRL,
+14.01.2026 09:47,Expense,Nubank,37.20,BRL,Café,37.20,BRL,Café
+14.01.2026 17:00,Transfer,Nubank,577.80,BRL,Dinheiro,577.80,BRL,Saque no caixa
+14.01.2026 19:31,Expense,Nubank,232.00,BRL,Restaurantes,232.00,BRL,
+16.01.2026 15:00,Expense,Nubank,54.40,BRL,Café,54.40,BRL,Café
+17.01.2026 18:44,Expense,Nubank,106.80,BRL,Mercado,106.80,BRL,Extra
+18.01.2026 15:30,Income,Renda freelance,1903.00,BRL,Nubank,1903.00,BRL,Projeto extra
+19.01.2026 11:00,Expense,Nubank,65.60,BRL,Farmácia,65.60,BRL,
+22.01.2026 13:00,Expense,Nubank,203.40,BRL,Lazer,203.40,BRL,
+23.01.2026 16:42,Expense,Nubank,18.00,BRL,Transporte,18.00,BRL,
+26.01.2026 12:00,Expense,Dinheiro,128.80,BRL,Farmácia,128.80,BRL,
+27.01.2026 20:19,Expense,Dinheiro,9.40,BRL,Transporte,9.40,BRL,
+30.01.2026 16:01,Expense,Nubank,26.40,BRL,Transporte,26.40,BRL,
+01.02.2026 09:00,Expense,Cartão do banco,2400.00,BRL,Aluguel,2400.00,BRL,Aluguel do apê
+01.02.2026 19:24,Expense,Dinheiro,20.40,BRL,Transporte,20.40,BRL,
+02.02.2026 16:00,Expense,Nubank,160.80,BRL,Lazer,160.80,BRL,
+03.02.2026 08:10,Expense,Dinheiro,209.60,BRL,Mercado,209.60,BRL,Assaí
+03.02.2026 09:30,Expense,Cartão do banco,478.20,BRL,Faturas,478.20,BRL,
+03.02.2026 20:10,Expense,Dinheiro,10.20,BRL,Transporte,10.20,BRL,
+04.02.2026 09:00,Expense,Nubank,60.00,BRL,Internet,60.00,BRL,
+04.02.2026 09:05,Expense,Nubank,50.00,BRL,Celular,50.00,BRL,
+05.02.2026 10:27,Income,Salário,9134.40,BRL,Nubank,9134.40,BRL,Salário mensal
+05.02.2026 12:31,Expense,Dinheiro,249.60,BRL,Mercado,249.60,BRL,Pão de Açúcar
+06.02.2026 08:00,Expense,Nubank,120.00,BRL,Assinaturas,120.00,BRL,Netflix + Spotify
+07.02.2026 11:00,Transfer,Nubank,1953.00,BRL,Conta poupança,1953.00,BRL,Poupança mensal
+09.02.2026 11:17,Expense,Nubank,29.80,BRL,Café,29.80,BRL,Café
+09.02.2026 15:00,Transfer,Nubank,562.40,BRL,Dinheiro,562.40,BRL,Saque no caixa
+10.02.2026 11:12,Expense,Dinheiro,20.00,BRL,Transporte,20.00,BRL,
+10.02.2026 15:42,Expense,Nubank,26.80,BRL,Café,26.80,BRL,Café
+10.02.2026 16:02,Expense,Dinheiro,17.40,BRL,Transporte,17.40,BRL,
+12.02.2026 13:11,Expense,Nubank,473.80,BRL,Combustível,473.80,BRL,
+13.02.2026 20:18,Expense,Nubank,377.40,BRL,Restaurantes,377.40,BRL,
+15.02.2026 17:00,Expense,Nubank,447.80,BRL,Compras,447.80,BRL,
+15.02.2026 19:34,Expense,Nubank,26.60,BRL,Café,26.60,BRL,Café
+16.02.2026 10:37,Expense,Dinheiro,207.40,BRL,Mercado,207.40,BRL,Extra
+16.02.2026 11:09,Expense,Nubank,20.00,BRL,Transporte,20.00,BRL,
+16.02.2026 13:07,Expense,Dinheiro,253.40,BRL,Mercado,253.40,BRL,Pão de Açúcar
+17.02.2026 11:39,Expense,Nubank,8.80,BRL,Transporte,8.80,BRL,
+17.02.2026 15:56,Expense,Nubank,141.80,BRL,Restaurantes,141.80,BRL,
+18.02.2026 09:24,Expense,Dinheiro,238.40,BRL,Mercado,238.40,BRL,Pão de Açúcar
+18.02.2026 18:21,Expense,Nubank,435.20,BRL,Combustível,435.20,BRL,
+19.02.2026 11:00,Expense,Nubank,115.60,BRL,Farmácia,115.60,BRL,
+21.02.2026 11:20,Expense,Dinheiro,224.60,BRL,Mercado,224.60,BRL,Extra
+21.02.2026 17:58,Expense,Nubank,33.60,BRL,Café,33.60,BRL,Café
+22.02.2026 16:00,Expense,Nubank,122.40,BRL,Farmácia,122.40,BRL,
+23.02.2026 11:57,Expense,Nubank,6.00,BRL,Transporte,6.00,BRL,
+24.02.2026 13:10,Expense,Nubank,59.20,BRL,Café,59.20,BRL,Café
+24.02.2026 15:21,Expense,Nubank,37.80,BRL,Café,37.80,BRL,Café
+24.02.2026 16:11,Expense,Nubank,121.00,BRL,Mercado,121.00,BRL,Pão de Açúcar
+24.02.2026 20:00,Expense,Nubank,203.40,BRL,Restaurantes,203.40,BRL,
+26.02.2026 09:03,Expense,Nubank,27.40,BRL,Café,27.40,BRL,Café
+26.02.2026 20:27,Expense,Dinheiro,254.40,BRL,Mercado,254.40,BRL,Extra
+27.02.2026 11:55,Expense,Dinheiro,6.60,BRL,Transporte,6.60,BRL,
+27.02.2026 17:00,Expense,Nubank,266.20,BRL,Lazer,266.20,BRL,
+01.03.2026 09:00,Expense,Cartão do banco,2400.00,BRL,Aluguel,2400.00,BRL,Aluguel do apê
+02.03.2026 08:38,Expense,Nubank,175.40,BRL,Mercado,175.40,BRL,Pão de Açúcar
+02.03.2026 09:53,Expense,Dinheiro,245.40,BRL,Mercado,245.40,BRL,Carrefour
+02.03.2026 18:26,Expense,Dinheiro,23.20,BRL,Transporte,23.20,BRL,
+02.03.2026 20:20,Expense,Nubank,55.40,BRL,Café,55.40,BRL,Café
+03.03.2026 09:30,Expense,Cartão do banco,341.40,BRL,Faturas,341.40,BRL,
+04.03.2026 09:00,Expense,Nubank,60.00,BRL,Internet,60.00,BRL,
+04.03.2026 09:05,Expense,Nubank,50.00,BRL,Celular,50.00,BRL,
+05.03.2026 10:27,Income,Salário,8947.00,BRL,Nubank,8947.00,BRL,Salário mensal
+05.03.2026 12:07,Expense,Nubank,99.60,BRL,Mercado,99.60,BRL,Extra
+06.03.2026 08:00,Expense,Nubank,120.00,BRL,Assinaturas,120.00,BRL,Netflix + Spotify
+07.03.2026 11:00,Transfer,Nubank,1985.40,BRL,Conta poupança,1985.40,BRL,Poupança mensal
+09.03.2026 12:08,Expense,Nubank,8.40,BRL,Transporte,8.40,BRL,
+09.03.2026 19:54,Expense,Dinheiro,27.20,BRL,Transporte,27.20,BRL,
+10.03.2026 10:24,Expense,Dinheiro,25.00,BRL,Transporte,25.00,BRL,
+11.03.2026 12:00,Expense,Nubank,97.20,BRL,Farmácia,97.20,BRL,
+11.03.2026 16:54,Expense,Nubank,58.20,BRL,Café,58.20,BRL,Café
+12.03.2026 10:57,Expense,Nubank,23.80,BRL,Café,23.80,BRL,Café
+12.03.2026 15:07,Expense,Dinheiro,131.80,BRL,Mercado,131.80,BRL,Carrefour
+12.03.2026 17:57,Expense,Nubank,318.60,BRL,Restaurantes,318.60,BRL,
+13.03.2026 19:46,Expense,Dinheiro,249.40,BRL,Mercado,249.40,BRL,Pão de Açúcar
+13.03.2026 21:00,Expense,Nubank,86.60,BRL,Lazer,86.60,BRL,
+14.03.2026 19:55,Expense,Dinheiro,117.40,BRL,Mercado,117.40,BRL,Pão de Açúcar
+15.03.2026 14:00,Expense,Nubank,223.60,BRL,Lazer,223.60,BRL,
+16.03.2026 12:27,Expense,Nubank,450.60,BRL,Combustível,450.60,BRL,
+16.03.2026 17:53,Expense,Dinheiro,240.00,BRL,Mercado,240.00,BRL,Assaí
+17.03.2026 10:00,Expense,Nubank,169.60,BRL,Farmácia,169.60,BRL,
+17.03.2026 17:18,Expense,Nubank,23.60,BRL,Café,23.60,BRL,Café
+18.03.2026 15:42,Income,Renda freelance,2345.20,BRL,Nubank,2345.20,BRL,Projeto extra
+19.03.2026 13:00,Transfer,Nubank,616.60,BRL,Dinheiro,616.60,BRL,Saque no caixa
+19.03.2026 13:45,Expense,Nubank,20.80,BRL,Transporte,20.80,BRL,
+19.03.2026 17:00,Expense,Nubank,407.20,BRL,Compras,407.20,BRL,
+20.03.2026 08:13,Expense,Dinheiro,228.80,BRL,Mercado,228.80,BRL,Pão de Açúcar
+20.03.2026 09:47,Expense,Dinheiro,232.60,BRL,Mercado,232.60,BRL,Extra
+20.03.2026 18:00,Income,Presentes,228.60,BRL,Dinheiro,228.60,BRL,Presente
+23.03.2026 13:09,Expense,Nubank,250.00,BRL,Restaurantes,250.00,BRL,
+23.03.2026 14:00,Expense,Nubank,438.80,BRL,Saúde,438.80,BRL,
+27.03.2026 10:51,Expense,Nubank,19.60,BRL,Transporte,19.60,BRL,
+27.03.2026 15:57,Expense,Nubank,19.20,BRL,Café,19.20,BRL,Café
+27.03.2026 16:37,Expense,Dinheiro,170.80,BRL,Mercado,170.80,BRL,Assaí
+28.03.2026 11:15,Expense,Nubank,54.00,BRL,Café,54.00,BRL,Café
+29.03.2026 13:00,Expense,Nubank,130.60,BRL,Lazer,130.60,BRL,
+29.03.2026 19:48,Expense,Nubank,37.40,BRL,Café,37.40,BRL,Café
+30.03.2026 13:36,Expense,Dinheiro,6.80,BRL,Transporte,6.80,BRL,
+01.04.2026 09:00,Expense,Cartão do banco,2400.00,BRL,Aluguel,2400.00,BRL,Aluguel do apê
+01.04.2026 12:13,Expense,Dinheiro,15.80,BRL,Transporte,15.80,BRL,
+01.04.2026 15:00,Expense,Nubank,822.40,BRL,Compras,822.40,BRL,
+01.04.2026 18:00,Expense,Nubank,288.20,BRL,Lazer,288.20,BRL,
+01.04.2026 19:31,Expense,Nubank,18.80,BRL,Transporte,18.80,BRL,
+02.04.2026 19:02,Expense,Nubank,182.60,BRL,Mercado,182.60,BRL,Carrefour
+03.04.2026 09:14,Expense,Nubank,196.60,BRL,Mercado,196.60,BRL,Carrefour
+03.04.2026 09:30,Expense,Cartão do banco,445.40,BRL,Faturas,445.40,BRL,
+03.04.2026 09:58,Expense,Nubank,102.20,BRL,Mercado,102.20,BRL,Assaí
+04.04.2026 09:00,Expense,Nubank,60.00,BRL,Internet,60.00,BRL,
+04.04.2026 09:05,Expense,Nubank,50.00,BRL,Celular,50.00,BRL,
+04.04.2026 20:50,Expense,Nubank,38.20,BRL,Café,38.20,BRL,Café
+05.04.2026 10:09,Income,Salário,9203.40,BRL,Nubank,9203.40,BRL,Salário mensal
+05.04.2026 12:24,Expense,Dinheiro,12.80,BRL,Transporte,12.80,BRL,
+06.04.2026 08:00,Expense,Nubank,120.00,BRL,Assinaturas,120.00,BRL,Netflix + Spotify
+06.04.2026 09:02,Expense,Nubank,28.20,BRL,Café,28.20,BRL,Café
+06.04.2026 10:00,Expense,Dinheiro,115.20,BRL,Farmácia,115.20,BRL,
+06.04.2026 14:02,Expense,Nubank,111.00,BRL,Mercado,111.00,BRL,Extra
+07.04.2026 11:00,Transfer,Nubank,1103.20,BRL,Conta poupança,1103.20,BRL,Poupança mensal
+07.04.2026 17:21,Expense,Dinheiro,86.20,BRL,Mercado,86.20,BRL,Assaí
+11.04.2026 12:10,Expense,Nubank,315.40,BRL,Restaurantes,315.40,BRL,
+11.04.2026 13:27,Expense,Nubank,454.20,BRL,Combustível,454.20,BRL,
+11.04.2026 14:29,Expense,Nubank,250.40,BRL,Mercado,250.40,BRL,Assaí
+12.04.2026 12:00,Income,Dividendos,861.40,BRL,Conta poupança,861.40,BRL,Dividendos trimestrais
+13.04.2026 09:30,Expense,Dinheiro,239.20,BRL,Mercado,239.20,BRL,Carrefour
+13.04.2026 18:28,Expense,Nubank,25.00,BRL,Café,25.00,BRL,Café
+14.04.2026 13:57,Expense,Dinheiro,11.60,BRL,Transporte,11.60,BRL,
+16.04.2026 10:00,Transfer,Nubank,571.20,BRL,Dinheiro,571.20,BRL,Saque no caixa
+18.04.2026 15:28,Income,Renda freelance,2544.60,BRL,Nubank,2544.60,BRL,Projeto extra
+19.04.2026 19:00,Expense,Dinheiro,92.20,BRL,Farmácia,92.20,BRL,
+19.04.2026 21:00,Expense,Nubank,164.60,BRL,Lazer,164.60,BRL,
+20.04.2026 15:49,Expense,Nubank,7.60,BRL,Transporte,7.60,BRL,
+21.04.2026 10:00,Expense,Cartão do banco,2125.00,BRL,Viagens,2125.00,BRL,Viagem de fim de semana
+22.04.2026 15:11,Expense,Dinheiro,27.00,BRL,Transporte,27.00,BRL,
+24.04.2026 12:36,Expense,Nubank,43.40,BRL,Café,43.40,BRL,Café
+24.04.2026 17:23,Expense,Nubank,23.80,BRL,Transporte,23.80,BRL,
+26.04.2026 11:52,Expense,Nubank,27.20,BRL,Café,27.20,BRL,Café
+26.04.2026 19:02,Expense,Dinheiro,242.40,BRL,Mercado,242.40,BRL,Pão de Açúcar
+27.04.2026 07:02,Expense,Nubank,6.60,BRL,Transporte,6.60,BRL,
+27.04.2026 16:05,Expense,Nubank,53.60,BRL,Café,53.60,BRL,Café
+29.04.2026 16:12,Expense,Nubank,236.20,BRL,Restaurantes,236.20,BRL,
+01.05.2026 09:00,Expense,Cartão do banco,2400.00,BRL,Aluguel,2400.00,BRL,Aluguel do apê
+01.05.2026 09:24,Expense,Dinheiro,86.20,BRL,Mercado,86.20,BRL,Carrefour
+02.05.2026 13:06,Expense,Dinheiro,124.40,BRL,Mercado,124.40,BRL,Extra
+02.05.2026 13:48,Expense,Nubank,395.80,BRL,Combustível,395.80,BRL,
+02.05.2026 18:07,Expense,Dinheiro,177.40,BRL,Mercado,177.40,BRL,Assaí
+02.05.2026 18:29,Expense,Nubank,12.80,BRL,Transporte,12.80,BRL,
+03.05.2026 09:30,Expense,Cartão do banco,510.20,BRL,Faturas,510.20,BRL,
+04.05.2026 09:00,Expense,Nubank,60.00,BRL,Internet,60.00,BRL,
+04.05.2026 09:05,Expense,Nubank,50.00,BRL,Celular,50.00,BRL,
+05.05.2026 10:53,Income,Salário,9341.40,BRL,Nubank,9341.40,BRL,Salário mensal
+05.05.2026 13:57,Expense,Nubank,267.40,BRL,Restaurantes,267.40,BRL,
+05.05.2026 15:00,Expense,Nubank,147.20,BRL,Farmácia,147.20,BRL,
+05.05.2026 18:39,Expense,Nubank,45.00,BRL,Café,45.00,BRL,Café
+06.05.2026 08:00,Expense,Nubank,120.00,BRL,Assinaturas,120.00,BRL,Netflix + Spotify
+06.05.2026 11:35,Expense,Nubank,15.00,BRL,Transporte,15.00,BRL,
+08.05.2026 19:29,Expense,Nubank,22.80,BRL,Café,22.80,BRL,Café
+08.05.2026 20:07,Expense,Nubank,311.00,BRL,Restaurantes,311.00,BRL,
+10.05.2026 20:21,Expense,Nubank,19.40,BRL,Café,19.40,BRL,Café
+11.05.2026 08:41,Expense,Nubank,24.40,BRL,Transporte,24.40,BRL,
+12.05.2026 12:09,Expense,Nubank,19.00,BRL,Transporte,19.00,BRL,
+13.05.2026 16:18,Expense,Nubank,81.80,BRL,Mercado,81.80,BRL,Carrefour
+13.05.2026 20:27,Expense,Nubank,47.20,BRL,Café,47.20,BRL,Café
+14.05.2026 10:20,Expense,Nubank,20.20,BRL,Transporte,20.20,BRL,
+15.05.2026 18:26,Expense,Nubank,399.20,BRL,Restaurantes,399.20,BRL,
+16.05.2026 15:00,Expense,Nubank,799.20,BRL,Compras,799.20,BRL,
+17.05.2026 10:00,Expense,Cartão do banco,2104.40,BRL,Viagens,2104.40,BRL,Viagem de fim de semana
+18.05.2026 17:05,Expense,Nubank,352.20,BRL,Restaurantes,352.20,BRL,
+20.05.2026 11:00,Transfer,Nubank,712.40,BRL,Dinheiro,712.40,BRL,Saque no caixa
+20.05.2026 18:14,Expense,Nubank,156.40,BRL,Mercado,156.40,BRL,Extra
+21.05.2026 11:16,Expense,Nubank,47.40,BRL,Café,47.40,BRL,Café
+22.05.2026 10:41,Expense,Nubank,33.40,BRL,Café,33.40,BRL,Café
+22.05.2026 18:12,Expense,Nubank,59.00,BRL,Café,59.00,BRL,Café
+23.05.2026 17:58,Expense,Dinheiro,207.60,BRL,Mercado,207.60,BRL,Pão de Açúcar
+25.05.2026 17:54,Expense,Dinheiro,252.00,BRL,Mercado,252.00,BRL,Pão de Açúcar
+26.05.2026 12:04,Expense,Nubank,11.00,BRL,Transporte,11.00,BRL,
+26.05.2026 13:00,Expense,Nubank,250.00,BRL,Lazer,250.00,BRL,
+26.05.2026 19:00,Expense,Nubank,75.20,BRL,Lazer,75.20,BRL,
+27.05.2026 20:33,Expense,Nubank,87.40,BRL,Mercado,87.40,BRL,Pão de Açúcar
+28.05.2026 10:00,Expense,Dinheiro,98.40,BRL,Farmácia,98.40,BRL,
+28.05.2026 10:26,Expense,Nubank,119.00,BRL,Mercado,119.00,BRL,Pão de Açúcar
+30.05.2026 12:21,Expense,Nubank,237.00,BRL,Mercado,237.00,BRL,Carrefour
+30.05.2026 14:41,Expense,Nubank,10.40,BRL,Transporte,10.40,BRL,
+30.05.2026 16:00,Expense,Cartão do banco,827.40,BRL,Roupas,827.40,BRL,
+01.06.2026 07:51,Expense,Nubank,10.60,BRL,Transporte,10.60,BRL,
+01.06.2026 09:00,Expense,Cartão do banco,2400.00,BRL,Aluguel,2400.00,BRL,Aluguel do apê
+01.06.2026 12:07,Expense,Nubank,61.40,BRL,Café,61.40,BRL,Café
+01.06.2026 13:21,Expense,Dinheiro,84.80,BRL,Mercado,84.80,BRL,Pão de Açúcar
+01.06.2026 13:34,Expense,Nubank,163.40,BRL,Mercado,163.40,BRL,Carrefour
+01.06.2026 17:00,Expense,Nubank,236.80,BRL,Lazer,236.80,BRL,
+02.06.2026 10:34,Expense,Nubank,240.40,BRL,Mercado,240.40,BRL,Pão de Açúcar
+02.06.2026 15:00,Expense,Dinheiro,166.40,BRL,Farmácia,166.40,BRL,
+02.06.2026 16:13,Expense,Nubank,475.60,BRL,Combustível,475.60,BRL,
+02.06.2026 20:45,Expense,Nubank,251.20,BRL,Restaurantes,251.20,BRL,
+03.06.2026 07:18,Expense,Dinheiro,26.40,BRL,Transporte,26.40,BRL,
+03.06.2026 09:30,Expense,Cartão do banco,331.40,BRL,Faturas,331.40,BRL,
+03.06.2026 17:02,Expense,Nubank,92.40,BRL,Mercado,92.40,BRL,Pão de Açúcar
+04.06.2026 08:39,Expense,Dinheiro,170.40,BRL,Mercado,170.40,BRL,Pão de Açúcar
+04.06.2026 09:00,Expense,Nubank,60.00,BRL,Internet,60.00,BRL,
+04.06.2026 09:05,Expense,Nubank,50.00,BRL,Celular,50.00,BRL,
+04.06.2026 09:39,Expense,Nubank,413.40,BRL,Combustível,413.40,BRL,
+04.06.2026 11:57,Expense,Dinheiro,10.80,BRL,Transporte,10.80,BRL,
+04.06.2026 13:09,Expense,Nubank,386.80,BRL,Restaurantes,386.80,BRL,
+04.06.2026 13:33,Expense,Nubank,24.60,BRL,Café,24.60,BRL,Café
+04.06.2026 14:00,Expense,Nubank,214.80,BRL,Lazer,214.80,BRL,
+04.06.2026 14:47,Expense,Nubank,56.80,BRL,Café,56.80,BRL,Café
+04.06.2026 18:00,Expense,Nubank,571.40,BRL,Compras,571.40,BRL,
+05.06.2026 10:14,Income,Salário,9186.80,BRL,Nubank,9186.80,BRL,Salário mensal
+05.06.2026 18:00,Expense,Cartão do banco,921.20,BRL,Roupas,921.20,BRL,
+05.06.2026 18:16,Expense,Dinheiro,93.00,BRL,Mercado,93.00,BRL,Extra
+05.06.2026 18:52,Expense,Nubank,50.40,BRL,Café,50.40,BRL,Café
+05.06.2026 18:53,Expense,Dinheiro,19.20,BRL,Transporte,19.20,BRL,
+05.06.2026 20:32,Expense,Nubank,18.20,BRL,Transporte,18.20,BRL,
+05.06.2026 22:00,Expense,Nubank,79.60,BRL,Lazer,79.60,BRL,
+06.06.2026 08:00,Expense,Nubank,120.00,BRL,Assinaturas,120.00,BRL,Netflix + Spotify
+06.06.2026 13:24,Expense,Nubank,32.80,BRL,Café,32.80,BRL,Café
+06.06.2026 13:55,Expense,Nubank,20.80,BRL,Transporte,20.80,BRL,
+06.06.2026 13:56,Expense,Nubank,14.60,BRL,Transporte,14.60,BRL,
+06.06.2026 16:46,Expense,Nubank,249.00,BRL,Mercado,249.00,BRL,Pão de Açúcar
+07.06.2026 11:00,Transfer,Nubank,1336.20,BRL,Conta poupança,1336.20,BRL,Poupança mensal
+07.06.2026 11:28,Expense,Nubank,92.60,BRL,Mercado,92.60,BRL,Carrefour
+07.06.2026 15:11,Expense,Nubank,125.40,BRL,Restaurantes,125.40,BRL,
+07.06.2026 15:13,Expense,Dinheiro,180.40,BRL,Mercado,180.40,BRL,Carrefour
+07.06.2026 20:36,Expense,Nubank,123.20,BRL,Restaurantes,123.20,BRL,
+08.06.2026 10:00,Expense,Nubank,634.80,BRL,Saúde,634.80,BRL,
+08.06.2026 11:21,Expense,Dinheiro,132.80,BRL,Mercado,132.80,BRL,Extra
+08.06.2026 20:45,Expense,Nubank,33.00,BRL,Café,33.00,BRL,Café
+09.06.2026 11:00,Transfer,Nubank,733.20,BRL,Dinheiro,733.20,BRL,Saque no caixa
+09.06.2026 15:48,Income,Renda freelance,2599.20,BRL,Nubank,2599.20,BRL,Projeto extra
+09.06.2026 18:00,Income,Presentes,438.00,BRL,Dinheiro,438.00,BRL,Presente
