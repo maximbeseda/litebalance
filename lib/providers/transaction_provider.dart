@@ -151,6 +151,20 @@ class TransactionNotifier extends _$TransactionNotifier {
     );
   }
 
+  /// Підганяє місяць головного екрана під реальний поточний.
+  /// Місяць фіксується під час build() як поточний, але додаток може провисіти
+  /// у фоні через межу місяця — тоді на resume суми лишалися б за старий місяць
+  /// до повного перезапуску. Викликається з обробника resume.
+  void syncSelectedMonthToCurrent() {
+    final now = DateTime.now();
+    _updateState((s) {
+      final bool alreadyCurrent =
+          s.selectedMonth.year == now.year && s.selectedMonth.month == now.month;
+      if (alreadyCurrent) return s;
+      return s.copyWith(selectedMonth: DateTime(now.year, now.month, 1));
+    });
+  }
+
   Future<int> _calculateBaseAmountAsync(
     int amount,
     String currency,

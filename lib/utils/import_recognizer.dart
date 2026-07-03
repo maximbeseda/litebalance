@@ -97,6 +97,76 @@ class ImportRecognizer {
     'ingreso',
     'regalo',
     'intereses',
+    // --- Розширене мовне покриття (авто-класифікація при імпорті) ---
+    // pt
+    'salário', 'renda', 'rendimento', 'presente', 'dividendo',
+    // it
+    'stipendio', 'reddito', 'entrata', 'dividendi',
+    // nl
+    'salaris', 'inkomen', 'cadeau',
+    // pl
+    'pensja', 'wynagrodzenie', 'dochód', 'wypłata', 'prezent',
+    // cs / sk
+    'mzda', 'příjem', 'dárek', 'príjem', 'darček',
+    // ro
+    'salariu', 'venit', 'cadou',
+    // hu
+    'fizetés', 'jövedelem', 'bér', 'ajándék',
+    // el
+    'μισθός', 'εισόδημα', 'δώρο',
+    // bg
+    'заплата', 'доход', 'приход', 'подарък',
+    // sv / da
+    'lön', 'inkomst', 'løn', 'indkomst', 'gave',
+    // fi
+    'palkka', 'tulot', 'lahja',
+    // hr / bs / sr / mk
+    'plaća', 'prihod', 'dohodak', 'poklon', 'plata', 'подарок',
+    // tr / az
+    'maaş', 'gelir', 'ücret', 'hediye', 'gəlir', 'hədiyyə',
+    // zh
+    '工资', '薪水', '收入', '礼物', '分红',
+    // ja
+    '給料', '給与', '収入', '賞与', 'ボーナス',
+    // ko
+    '급여', '월급', '소득', '수입', '보너스',
+    // id / ms
+    'gaji', 'pendapatan', 'upah', 'hadiah',
+    // vi
+    'lương', 'thu nhập', 'quà',
+    // fil
+    'sahod', 'suweldo', 'kita', 'regalo',
+    // hi / ne
+    'वेतन', 'आय', 'तनख्वाह', 'उपहार', 'तलब', 'आम्दानी',
+    // bn
+    'বেতন', 'আয়', 'উপহার',
+    // th
+    'เงินเดือน', 'รายได้', 'ของขวัญ',
+    // sw
+    'mshahara', 'mapato', 'zawadi',
+    // sq
+    'paga', 'të ardhura', 'dhuratë',
+    // kk / mn
+    'жалақы', 'табыс', 'сыйлық', 'цалин', 'орлого', 'бэлэг',
+    // hy
+    'աշխատավարձ', 'եկամուտ', 'նվեր',
+    // ka
+    'ხელფასი', 'შემოსავალი', 'საჩუქარი',
+    // am
+    'ደሞዝ', 'ገቢ', 'ስጦታ',
+    // si
+    'වැටුප', 'ආදායම', 'තෑග්ග',
+    // my
+    'လစာ', 'ဝင်ငွေ', 'လက်ဆောင်',
+    // km
+    'ប្រាក់ខែ', 'ចំណូល', 'អំណោយ',
+    // lo
+    'ເງິນເດືອນ', 'ລາຍຮັບ', 'ຂອງຂວັນ',
+    // ar / fa / ur / he (RTL)
+    'راتب', 'دخل', 'أجر', 'هدية', 'حقوق', 'درآمد', 'هدیه',
+    'تنخواہ', 'آمدنی', 'تحفہ', 'משכורת', 'הכנסה', 'מתנה',
+    // Додаткові форми (мн. / інші правописи), виявлені при валідації семплів.
+    'dividen', 'dywidend', '贈り物', 'أرباح', 'هدايا',
   ];
 
   static const List<String> _accountKeywords = [
@@ -128,6 +198,80 @@ class ImportRecognizer {
     'efectivo',
     'tarjeta',
     'banco',
+    // --- Розширене мовне покриття (авто-класифікація при імпорті) ---
+    // pt
+    'dinheiro', 'cartão', 'conta', 'poupança', 'carteira',
+    // it
+    'contanti', 'carta', 'banca', 'conto', 'risparmi', 'portafoglio',
+    // nl
+    'contant', 'kaart', 'rekening', 'spaar', 'portemonnee',
+    // pl
+    'gotówka', 'karta', 'konto', 'oszczędności', 'portfel',
+    // cs / sk
+    'hotovost', 'banka', 'účet', 'spoření', 'peněženka', 'hotovosť',
+    'úspory', 'peňaženka',
+    // ro
+    'numerar', 'card', 'bancă', 'cont', 'economii', 'portofel',
+    // hu
+    'készpénz', 'kártya', 'számla', 'megtakarítás',
+    // el
+    'μετρητά', 'κάρτα', 'τράπεζα', 'λογαριασμός', 'αποταμίευση',
+    // bg
+    'кеш', 'сметка', 'спестявания',
+    // sv / da
+    'kontanter', 'kort', 'sparande', 'plånbok', 'opsparing', 'pung',
+    // fi (без 'tili' — збігається з "utilities")
+    'käteinen', 'kortti', 'pankki', 'säästö', 'lompakko',
+    // hr / bs / sr / mk
+    'gotovina', 'kartica', 'račun', 'štednja', 'novčanik',
+    'готовина', 'картица', 'рачун', 'штедња', 'новчаник',
+    'картичка', 'штедење', 'паричник',
+    // tr / az
+    'nakit', 'kart', 'hesap', 'tasarruf', 'cüzdan', 'nağd', 'əmanət',
+    // zh (без одиночного '卡')
+    '现金', '银行卡', '信用卡', '账户', '储蓄', '钱包',
+    // ja
+    '現金', 'カード', '銀行', '口座', '貯金', '財布',
+    // ko
+    '현금', '카드', '은행', '계좌', '저축', '지갑',
+    // id / ms
+    'tunai', 'kartu', 'rekening', 'tabungan', 'dompet', 'akaun', 'simpanan',
+    // vi
+    'tiền mặt', 'thẻ', 'ngân hàng', 'tài khoản', 'tiết kiệm',
+    // fil (без 'pera' — збігається з "opera")
+    'kard', 'bangko', 'ipon', 'pitaka',
+    // hi / ne
+    'नकद', 'कार्ड', 'बैंक', 'खाता', 'बचत', 'बटुआ', 'नगद',
+    // bn
+    'নগদ', 'কার্ড', 'ব্যাংক', 'অ্যাকাউন্ট', 'সঞ্চয়',
+    // th
+    'เงินสด', 'บัตร', 'ธนาคาร', 'บัญชี', 'เงินออม',
+    // sw
+    'taslimu', 'kadi', 'benki', 'akaunti', 'akiba',
+    // sq (без 'para' — збігається з "propaganda"/"para")
+    'kartë', 'bankë', 'llogari', 'kursim', 'portofol',
+    // kk / mn
+    'қолма-қол', 'жинақ', 'әмиян', 'бэлэн', 'данс', 'хадгаламж', 'түрийвч',
+    // hy
+    'կանխիկ', 'քարտ', 'բանկ', 'հաշիվ', 'խնայողություն', 'դրամապանակ',
+    // ka
+    'ნაღდი', 'ბარათი', 'ბანკი', 'ანგარიში', 'დანაზოგი', 'საფულე',
+    // am
+    'ካርድ', 'ባንክ', 'ሒሳብ', 'ቁጠባ',
+    // si
+    'මුදල්', 'කාඩ්', 'බැංකු', 'ගිණුම', 'ඉතුරුම්',
+    // my
+    'ငွေသား', 'ကတ်', 'ဘဏ်', 'အကောင့်', 'စုငွေ',
+    // km
+    'សាច់ប្រាក់', 'កាត', 'ធនាគារ', 'គណនី', 'សន្សំ',
+    // lo
+    'ເງິນສົດ', 'ບັດ', 'ທະນາຄານ', 'ບັນຊີ', 'ເງິນຝາກ',
+    // ar / fa / ur / he (RTL)
+    'نقد', 'بطاقة', 'بنك', 'حساب', 'ادخار', 'محفظة', 'کارت', 'بانک',
+    'پس‌انداز', 'کارڈ', 'بینک', 'اکاؤنٹ', 'بچت', 'بٹوہ',
+    'מזומן', 'כרטיס', 'בנק', 'חשבון', 'חיסכון', 'ארנק',
+    // Додаткові форми, виявлені при валідації семплів.
+    'compte', 'épargne', 'cuenta', 'ahorro', '银行',
   ];
 
   static const List<String> _expenseKeywords = [
