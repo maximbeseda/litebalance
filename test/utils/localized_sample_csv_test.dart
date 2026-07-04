@@ -13,6 +13,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:litebalance/database/app_database.dart';
 import 'package:litebalance/utils/import_recognizer.dart';
@@ -59,6 +60,15 @@ void main() {
           if (got != type) wrong.add('"$name": expected $type, got $got');
         });
         expect(wrong, isEmpty, reason: wrong.join('\n'));
+
+        // Every category should also resolve to a real icon (not the default
+        // Icons.category), so imported categories don't look blank.
+        final noIcon = expected.keys
+            .where((n) =>
+                ImportRecognizer.getIconForName(n) == Icons.category.codePoint)
+            .toList();
+        expect(noIcon, isEmpty,
+            reason: 'no icon matched for: ${noIcon.join(", ")}');
       });
     }
   });

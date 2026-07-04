@@ -8,24 +8,32 @@ import 'package:litebalance/utils/import_recognizer.dart';
 void main() {
   group('ImportRecognizer Tests', () {
     group('1. Розпізнавання іконок (getIconForName)', () {
-      test('Повинен знаходити правильну іконку для їжі', () {
-        // Очікуємо код іконки Icons.restaurant (0xe532)
-        expect(ImportRecognizer.getIconForName('кафе'), 0xe532);
-        expect(
-          ImportRecognizer.getIconForName('Моє улюблене КАФЕ'),
-          0xe532,
-        ); // Перевірка регістру
-        expect(ImportRecognizer.getIconForName('dinner'), 0xe532);
+      test('Ресторан/їжа -> Icons.restaurant', () {
+        expect(ImportRecognizer.getIconForName('ресторан'), Icons.restaurant.codePoint);
+        expect(ImportRecognizer.getIconForName('Best DINNER'), Icons.restaurant.codePoint);
       });
 
-      test('Повинен знаходити правильну іконку для транспорту', () {
-        // Очікуємо код іконки Icons.directions_car (0xe1d7)
-        expect(ImportRecognizer.getIconForName('Таксі Uklon'), 0xe1d7);
-        expect(ImportRecognizer.getIconForName('бензин на окко'), 0xe1d7);
+      test('Кафе -> Icons.coffee (окремий концепт)', () {
+        expect(ImportRecognizer.getIconForName('Моє улюблене КАФЕ'), Icons.coffee.codePoint);
       });
 
-      test('Повинен повертати дефолтну іконку, якщо слово невідоме', () {
-        // Очікуємо код іконки Icons.category
+      test('Транспорт vs пальне — різні іконки', () {
+        expect(ImportRecognizer.getIconForName('Таксі Uklon'), Icons.directions_car.codePoint);
+        expect(ImportRecognizer.getIconForName('бензин на окко'), Icons.local_gas_station.codePoint);
+      });
+
+      // Регресія: коди мають відповідати ПОТОЧНИМ Material Icons. Старі
+      // хардкоди «поплили» після міграції шрифту (0xe4a1 став pets тощо).
+      test('Коди концептів = поточні Icons.* (не застарілі гліфи)', () {
+        expect(ImportRecognizer.getIconForName('Miete'), Icons.home.codePoint);
+        expect(ImportRecognizer.getIconForName('Gehalt'), Icons.payments.codePoint);
+        expect(ImportRecognizer.getIconForName('Lebensmittel'), Icons.shopping_cart.codePoint);
+        expect(ImportRecognizer.getIconForName('Apotheke'), Icons.medication.codePoint);
+        expect(ImportRecognizer.getIconForName('Sparkonto'), Icons.savings.codePoint);
+        expect(ImportRecognizer.getIconForName('银行卡'), Icons.credit_card.codePoint);
+      });
+
+      test('Невідоме слово -> дефолтна Icons.category', () {
         expect(
           ImportRecognizer.getIconForName('Якесь незрозуміле слово'),
           Icons.category.codePoint,
