@@ -106,6 +106,9 @@ class _CoinWidgetState extends State<CoinWidget> {
               bottom: 6,
               child: Text(
                 CurrencyFormatter.formatBudget(widget.category.budget!),
+                // Сума бюджету — LTR-контент; у RTL-локалях без цього
+                // цифри/розділювачі/суфікс «M» дзеркаляться.
+                textDirection: TextDirection.ltr,
                 style: TextStyle(
                   fontSize: 8,
                   color: catIconColor.withValues(alpha: 0.7),
