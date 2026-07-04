@@ -50,3 +50,7 @@ app.*.map.json
 /android/app/release
 
 .VSCodeCounter/
+
+# Localized store screenshots — raw marketing captures (~60MB), kept local only.
+# Final captioned frames are generated outside the repo.
+docs/screenshots/localized/
