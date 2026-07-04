@@ -18,7 +18,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:litebalance/database/app_database.dart';
 import 'package:litebalance/utils/import_recognizer.dart';
 
-const _locales = ['de', 'fr', 'es', 'pt', 'pl', 'tr', 'id', 'ja', 'hi', 'ar', 'zh'];
+const _locales = [
+  'en', 'uk', 'de', 'fr', 'es', 'pt', 'pl', 'tr', 'id', 'ja', 'hi', 'ar', 'zh',
+];
 
 void main() {
   group('Localized sample CSVs classify cleanly', () {

@@ -61,7 +61,7 @@ class ImportRecognizer {
     ],
     0xe13e: [
       // Icons.card_giftcard — подарунки
-      'подарунок', 'gift', 'geschenk', 'cadeau', 'regalo', 'presente',
+      'подарунк', 'gift', 'geschenk', 'cadeau', 'regalo', 'presente',
       'prezent', 'hediye', 'hadiah', '贈り物', 'उपहार', 'هدية', 'هدايا', '礼物',
     ],
     0xf079: [
@@ -173,7 +173,7 @@ class ImportRecognizer {
     'дохід',
     'премія',
     'пай',
-    'подарунок',
+    'подарунк',
     'відсотки',
     'salary',
     'income',
@@ -268,6 +268,7 @@ class ImportRecognizer {
     'تنخواہ', 'آمدنی', 'تحفہ', 'משכורת', 'הכנסה', 'מתנה',
     // Додаткові форми (мн. / інші правописи), виявлені при валідації семплів.
     'dividen', 'dywidend', '贈り物', 'أرباح', 'هدايا',
+    'freelance', 'фріланс', 'дивіденд',
   ];
 
   static const List<String> _accountKeywords = [
