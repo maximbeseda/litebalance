@@ -1,258 +1,258 @@
 ﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
-01.01.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
-01.01.2026 09:03,Expense,Ziraat Bankası,396.10,TRY,Kafe,396.10,TRY,Kahve
-01.01.2026 10:15,Expense,Ziraat Bankası,90.10,TRY,Ulaşım,90.10,TRY,
-02.01.2026 13:41,Expense,Nakit,1013.20,TRY,Market,1013.20,TRY,A101
-02.01.2026 17:08,Expense,Nakit,1739.10,TRY,Market,1739.10,TRY,BİM
-02.01.2026 18:00,Expense,Banka kartı,4168.40,TRY,Giyim,4168.40,TRY,
-02.01.2026 18:36,Expense,Ziraat Bankası,1060.80,TRY,Market,1060.80,TRY,Migros
-02.01.2026 20:54,Expense,Ziraat Bankası,324.70,TRY,Kafe,324.70,TRY,Kahve
-03.01.2026 09:30,Expense,Banka kartı,3903.20,TRY,Faturalar,3903.20,TRY,
-04.01.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
-04.01.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
-04.01.2026 11:19,Expense,Ziraat Bankası,3954.20,TRY,Yakıt,3954.20,TRY,
-04.01.2026 13:19,Expense,Nakit,78.20,TRY,Ulaşım,78.20,TRY,
-05.01.2026 10:34,Expense,Nakit,234.60,TRY,Ulaşım,234.60,TRY,
-05.01.2026 10:39,Income,Maaş,74907.10,TRY,Ziraat Bankası,74907.10,TRY,Aylık maaş
-05.01.2026 21:00,Expense,Ziraat Bankası,890.80,TRY,Eğlence,890.80,TRY,
-06.01.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
-06.01.2026 08:18,Expense,Nakit,1934.60,TRY,Market,1934.60,TRY,A101
-06.01.2026 17:13,Expense,Ziraat Bankası,1453.50,TRY,Market,1453.50,TRY,CarrefourSA
-07.01.2026 11:00,Transfer,Ziraat Bankası,16690.60,TRY,Tasarruf hesabı,16690.60,TRY,Aylık tasarruf
-07.01.2026 17:00,Expense,Ziraat Bankası,5895.60,TRY,Sağlık,5895.60,TRY,
-09.01.2026 09:42,Expense,Ziraat Bankası,178.50,TRY,Kafe,178.50,TRY,Kahve
-09.01.2026 16:08,Expense,Ziraat Bankası,1604.80,TRY,Market,1604.80,TRY,BİM
-09.01.2026 18:00,Expense,Ziraat Bankası,1643.90,TRY,Eğlence,1643.90,TRY,
-09.01.2026 21:34,Expense,Ziraat Bankası,2769.30,TRY,Restoranlar,2769.30,TRY,
-12.01.2026 09:05,Expense,Nakit,1927.80,TRY,Market,1927.80,TRY,BİM
-12.01.2026 11:30,Expense,Ziraat Bankası,1924.40,TRY,Market,1924.40,TRY,BİM
-12.01.2026 12:00,Income,Temettü geliri,6885.00,TRY,Tasarruf hesabı,6885.00,TRY,Üç aylık temettü
-12.01.2026 17:02,Expense,Ziraat Bankası,292.40,TRY,Kafe,292.40,TRY,Kahve
-13.01.2026 09:58,Expense,Ziraat Bankası,2776.10,TRY,Yakıt,2776.10,TRY,
-14.01.2026 09:47,Expense,Ziraat Bankası,316.20,TRY,Kafe,316.20,TRY,Kahve
-14.01.2026 17:00,Transfer,Ziraat Bankası,4911.30,TRY,Nakit,4911.30,TRY,ATM'den çekim
-14.01.2026 19:31,Expense,Ziraat Bankası,1972.00,TRY,Restoranlar,1972.00,TRY,
-16.01.2026 15:00,Expense,Ziraat Bankası,462.40,TRY,Kafe,462.40,TRY,Kahve
-17.01.2026 18:44,Expense,Ziraat Bankası,907.80,TRY,Market,907.80,TRY,A101
-18.01.2026 15:30,Income,Serbest gelir,16175.50,TRY,Ziraat Bankası,16175.50,TRY,Yan proje
-19.01.2026 11:00,Expense,Ziraat Bankası,557.60,TRY,Eczane,557.60,TRY,
-22.01.2026 13:00,Expense,Ziraat Bankası,1728.90,TRY,Eğlence,1728.90,TRY,
-23.01.2026 16:42,Expense,Ziraat Bankası,153.00,TRY,Ulaşım,153.00,TRY,
-26.01.2026 12:00,Expense,Nakit,1094.80,TRY,Eczane,1094.80,TRY,
-27.01.2026 20:19,Expense,Nakit,79.90,TRY,Ulaşım,79.90,TRY,
-30.01.2026 16:01,Expense,Ziraat Bankası,224.40,TRY,Ulaşım,224.40,TRY,
 01.02.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
-01.02.2026 19:24,Expense,Nakit,173.40,TRY,Ulaşım,173.40,TRY,
-02.02.2026 16:00,Expense,Ziraat Bankası,1366.80,TRY,Eğlence,1366.80,TRY,
-03.02.2026 08:10,Expense,Nakit,1781.60,TRY,Market,1781.60,TRY,CarrefourSA
-03.02.2026 09:30,Expense,Banka kartı,4064.70,TRY,Faturalar,4064.70,TRY,
-03.02.2026 20:10,Expense,Nakit,86.70,TRY,Ulaşım,86.70,TRY,
+01.02.2026 09:03,Expense,Ziraat Bankası,396.10,TRY,Kafe,396.10,TRY,Kahve
+01.02.2026 10:15,Expense,Ziraat Bankası,90.10,TRY,Ulaşım,90.10,TRY,
+02.02.2026 13:41,Expense,Nakit,1013.20,TRY,Market,1013.20,TRY,A101
+02.02.2026 17:08,Expense,Nakit,1739.10,TRY,Market,1739.10,TRY,BİM
+02.02.2026 18:00,Expense,Banka kartı,4168.40,TRY,Giyim,4168.40,TRY,
+02.02.2026 18:36,Expense,Ziraat Bankası,1060.80,TRY,Market,1060.80,TRY,Migros
+02.02.2026 20:54,Expense,Ziraat Bankası,324.70,TRY,Kafe,324.70,TRY,Kahve
+03.02.2026 09:30,Expense,Banka kartı,3903.20,TRY,Faturalar,3903.20,TRY,
 04.02.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
 04.02.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
-05.02.2026 10:27,Income,Maaş,77642.40,TRY,Ziraat Bankası,77642.40,TRY,Aylık maaş
-05.02.2026 12:31,Expense,Nakit,2121.60,TRY,Market,2121.60,TRY,Migros
+04.02.2026 11:19,Expense,Ziraat Bankası,3954.20,TRY,Yakıt,3954.20,TRY,
+04.02.2026 13:19,Expense,Nakit,78.20,TRY,Ulaşım,78.20,TRY,
+05.02.2026 10:34,Expense,Nakit,234.60,TRY,Ulaşım,234.60,TRY,
+05.02.2026 10:39,Income,Maaş,74907.10,TRY,Ziraat Bankası,74907.10,TRY,Aylık maaş
+05.02.2026 21:00,Expense,Ziraat Bankası,890.80,TRY,Eğlence,890.80,TRY,
 06.02.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
-07.02.2026 11:00,Transfer,Ziraat Bankası,16600.50,TRY,Tasarruf hesabı,16600.50,TRY,Aylık tasarruf
-09.02.2026 11:17,Expense,Ziraat Bankası,253.30,TRY,Kafe,253.30,TRY,Kahve
-09.02.2026 15:00,Transfer,Ziraat Bankası,4780.40,TRY,Nakit,4780.40,TRY,ATM'den çekim
-10.02.2026 11:12,Expense,Nakit,170.00,TRY,Ulaşım,170.00,TRY,
-10.02.2026 15:42,Expense,Ziraat Bankası,227.80,TRY,Kafe,227.80,TRY,Kahve
-10.02.2026 16:02,Expense,Nakit,147.90,TRY,Ulaşım,147.90,TRY,
-12.02.2026 13:11,Expense,Ziraat Bankası,4027.30,TRY,Yakıt,4027.30,TRY,
-13.02.2026 20:18,Expense,Ziraat Bankası,3207.90,TRY,Restoranlar,3207.90,TRY,
-15.02.2026 17:00,Expense,Ziraat Bankası,3806.30,TRY,Alışveriş,3806.30,TRY,
-15.02.2026 19:34,Expense,Ziraat Bankası,226.10,TRY,Kafe,226.10,TRY,Kahve
-16.02.2026 10:37,Expense,Nakit,1762.90,TRY,Market,1762.90,TRY,A101
-16.02.2026 11:09,Expense,Ziraat Bankası,170.00,TRY,Ulaşım,170.00,TRY,
-16.02.2026 13:07,Expense,Nakit,2153.90,TRY,Market,2153.90,TRY,Migros
-17.02.2026 11:39,Expense,Ziraat Bankası,74.80,TRY,Ulaşım,74.80,TRY,
-17.02.2026 15:56,Expense,Ziraat Bankası,1205.30,TRY,Restoranlar,1205.30,TRY,
-18.02.2026 09:24,Expense,Nakit,2026.40,TRY,Market,2026.40,TRY,Migros
-18.02.2026 18:21,Expense,Ziraat Bankası,3699.20,TRY,Yakıt,3699.20,TRY,
-19.02.2026 11:00,Expense,Ziraat Bankası,982.60,TRY,Eczane,982.60,TRY,
-21.02.2026 11:20,Expense,Nakit,1909.10,TRY,Market,1909.10,TRY,A101
-21.02.2026 17:58,Expense,Ziraat Bankası,285.60,TRY,Kafe,285.60,TRY,Kahve
-22.02.2026 16:00,Expense,Ziraat Bankası,1040.40,TRY,Eczane,1040.40,TRY,
-23.02.2026 11:57,Expense,Ziraat Bankası,51.00,TRY,Ulaşım,51.00,TRY,
-24.02.2026 13:10,Expense,Ziraat Bankası,503.20,TRY,Kafe,503.20,TRY,Kahve
-24.02.2026 15:21,Expense,Ziraat Bankası,321.30,TRY,Kafe,321.30,TRY,Kahve
-24.02.2026 16:11,Expense,Ziraat Bankası,1028.50,TRY,Market,1028.50,TRY,Migros
-24.02.2026 20:00,Expense,Ziraat Bankası,1728.90,TRY,Restoranlar,1728.90,TRY,
-26.02.2026 09:03,Expense,Ziraat Bankası,232.90,TRY,Kafe,232.90,TRY,Kahve
-26.02.2026 20:27,Expense,Nakit,2162.40,TRY,Market,2162.40,TRY,A101
-27.02.2026 11:55,Expense,Nakit,56.10,TRY,Ulaşım,56.10,TRY,
-27.02.2026 17:00,Expense,Ziraat Bankası,2262.70,TRY,Eğlence,2262.70,TRY,
+06.02.2026 08:18,Expense,Nakit,1934.60,TRY,Market,1934.60,TRY,A101
+06.02.2026 17:13,Expense,Ziraat Bankası,1453.50,TRY,Market,1453.50,TRY,CarrefourSA
+07.02.2026 11:00,Transfer,Ziraat Bankası,16690.60,TRY,Tasarruf hesabı,16690.60,TRY,Aylık tasarruf
+07.02.2026 17:00,Expense,Ziraat Bankası,5895.60,TRY,Sağlık,5895.60,TRY,
+09.02.2026 09:42,Expense,Ziraat Bankası,178.50,TRY,Kafe,178.50,TRY,Kahve
+09.02.2026 16:08,Expense,Ziraat Bankası,1604.80,TRY,Market,1604.80,TRY,BİM
+09.02.2026 18:00,Expense,Ziraat Bankası,1643.90,TRY,Eğlence,1643.90,TRY,
+09.02.2026 21:34,Expense,Ziraat Bankası,2769.30,TRY,Restoranlar,2769.30,TRY,
+12.02.2026 09:05,Expense,Nakit,1927.80,TRY,Market,1927.80,TRY,BİM
+12.02.2026 11:30,Expense,Ziraat Bankası,1924.40,TRY,Market,1924.40,TRY,BİM
+12.02.2026 12:00,Income,Temettü geliri,6885.00,TRY,Tasarruf hesabı,6885.00,TRY,Üç aylık temettü
+12.02.2026 17:02,Expense,Ziraat Bankası,292.40,TRY,Kafe,292.40,TRY,Kahve
+13.02.2026 09:58,Expense,Ziraat Bankası,2776.10,TRY,Yakıt,2776.10,TRY,
+14.02.2026 09:47,Expense,Ziraat Bankası,316.20,TRY,Kafe,316.20,TRY,Kahve
+14.02.2026 17:00,Transfer,Ziraat Bankası,4911.30,TRY,Nakit,4911.30,TRY,ATM'den çekim
+14.02.2026 19:31,Expense,Ziraat Bankası,1972.00,TRY,Restoranlar,1972.00,TRY,
+16.02.2026 15:00,Expense,Ziraat Bankası,462.40,TRY,Kafe,462.40,TRY,Kahve
+17.02.2026 18:44,Expense,Ziraat Bankası,907.80,TRY,Market,907.80,TRY,A101
+18.02.2026 15:30,Income,Serbest gelir,16175.50,TRY,Ziraat Bankası,16175.50,TRY,Yan proje
+19.02.2026 11:00,Expense,Ziraat Bankası,557.60,TRY,Eczane,557.60,TRY,
+22.02.2026 13:00,Expense,Ziraat Bankası,1728.90,TRY,Eğlence,1728.90,TRY,
+23.02.2026 16:42,Expense,Ziraat Bankası,153.00,TRY,Ulaşım,153.00,TRY,
+26.02.2026 12:00,Expense,Nakit,1094.80,TRY,Eczane,1094.80,TRY,
+27.02.2026 20:19,Expense,Nakit,79.90,TRY,Ulaşım,79.90,TRY,
+28.02.2026 16:01,Expense,Ziraat Bankası,224.40,TRY,Ulaşım,224.40,TRY,
 01.03.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
-02.03.2026 08:38,Expense,Ziraat Bankası,1490.90,TRY,Market,1490.90,TRY,Migros
-02.03.2026 09:53,Expense,Nakit,2085.90,TRY,Market,2085.90,TRY,BİM
-02.03.2026 18:26,Expense,Nakit,197.20,TRY,Ulaşım,197.20,TRY,
-02.03.2026 20:20,Expense,Ziraat Bankası,470.90,TRY,Kafe,470.90,TRY,Kahve
-03.03.2026 09:30,Expense,Banka kartı,2901.90,TRY,Faturalar,2901.90,TRY,
+01.03.2026 19:24,Expense,Nakit,173.40,TRY,Ulaşım,173.40,TRY,
+02.03.2026 16:00,Expense,Ziraat Bankası,1366.80,TRY,Eğlence,1366.80,TRY,
+03.03.2026 08:10,Expense,Nakit,1781.60,TRY,Market,1781.60,TRY,CarrefourSA
+03.03.2026 09:30,Expense,Banka kartı,4064.70,TRY,Faturalar,4064.70,TRY,
+03.03.2026 20:10,Expense,Nakit,86.70,TRY,Ulaşım,86.70,TRY,
 04.03.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
 04.03.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
-05.03.2026 10:27,Income,Maaş,76049.50,TRY,Ziraat Bankası,76049.50,TRY,Aylık maaş
-05.03.2026 12:07,Expense,Ziraat Bankası,846.60,TRY,Market,846.60,TRY,A101
+05.03.2026 10:27,Income,Maaş,77642.40,TRY,Ziraat Bankası,77642.40,TRY,Aylık maaş
+05.03.2026 12:31,Expense,Nakit,2121.60,TRY,Market,2121.60,TRY,Migros
 06.03.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
-07.03.2026 11:00,Transfer,Ziraat Bankası,16875.90,TRY,Tasarruf hesabı,16875.90,TRY,Aylık tasarruf
-09.03.2026 12:08,Expense,Ziraat Bankası,71.40,TRY,Ulaşım,71.40,TRY,
-09.03.2026 19:54,Expense,Nakit,231.20,TRY,Ulaşım,231.20,TRY,
-10.03.2026 10:24,Expense,Nakit,212.50,TRY,Ulaşım,212.50,TRY,
-11.03.2026 12:00,Expense,Ziraat Bankası,826.20,TRY,Eczane,826.20,TRY,
-11.03.2026 16:54,Expense,Ziraat Bankası,494.70,TRY,Kafe,494.70,TRY,Kahve
-12.03.2026 10:57,Expense,Ziraat Bankası,202.30,TRY,Kafe,202.30,TRY,Kahve
-12.03.2026 15:07,Expense,Nakit,1120.30,TRY,Market,1120.30,TRY,BİM
-12.03.2026 17:57,Expense,Ziraat Bankası,2708.10,TRY,Restoranlar,2708.10,TRY,
-13.03.2026 19:46,Expense,Nakit,2119.90,TRY,Market,2119.90,TRY,Migros
-13.03.2026 21:00,Expense,Ziraat Bankası,736.10,TRY,Eğlence,736.10,TRY,
-14.03.2026 19:55,Expense,Nakit,997.90,TRY,Market,997.90,TRY,Migros
-15.03.2026 14:00,Expense,Ziraat Bankası,1900.60,TRY,Eğlence,1900.60,TRY,
-16.03.2026 12:27,Expense,Ziraat Bankası,3830.10,TRY,Yakıt,3830.10,TRY,
-16.03.2026 17:53,Expense,Nakit,2040.00,TRY,Market,2040.00,TRY,CarrefourSA
-17.03.2026 10:00,Expense,Ziraat Bankası,1441.60,TRY,Eczane,1441.60,TRY,
-17.03.2026 17:18,Expense,Ziraat Bankası,200.60,TRY,Kafe,200.60,TRY,Kahve
-18.03.2026 15:42,Income,Serbest gelir,19934.20,TRY,Ziraat Bankası,19934.20,TRY,Yan proje
-19.03.2026 13:00,Transfer,Ziraat Bankası,5241.10,TRY,Nakit,5241.10,TRY,ATM'den çekim
-19.03.2026 13:45,Expense,Ziraat Bankası,176.80,TRY,Ulaşım,176.80,TRY,
-19.03.2026 17:00,Expense,Ziraat Bankası,3461.20,TRY,Alışveriş,3461.20,TRY,
-20.03.2026 08:13,Expense,Nakit,1944.80,TRY,Market,1944.80,TRY,Migros
-20.03.2026 09:47,Expense,Nakit,1977.10,TRY,Market,1977.10,TRY,A101
-20.03.2026 18:00,Income,Hediyeler,1943.10,TRY,Nakit,1943.10,TRY,Hediye
-23.03.2026 13:09,Expense,Ziraat Bankası,2125.00,TRY,Restoranlar,2125.00,TRY,
-23.03.2026 14:00,Expense,Ziraat Bankası,3729.80,TRY,Sağlık,3729.80,TRY,
-27.03.2026 10:51,Expense,Ziraat Bankası,166.60,TRY,Ulaşım,166.60,TRY,
-27.03.2026 15:57,Expense,Ziraat Bankası,163.20,TRY,Kafe,163.20,TRY,Kahve
-27.03.2026 16:37,Expense,Nakit,1451.80,TRY,Market,1451.80,TRY,CarrefourSA
-28.03.2026 11:15,Expense,Ziraat Bankası,459.00,TRY,Kafe,459.00,TRY,Kahve
-29.03.2026 13:00,Expense,Ziraat Bankası,1110.10,TRY,Eğlence,1110.10,TRY,
-29.03.2026 19:48,Expense,Ziraat Bankası,317.90,TRY,Kafe,317.90,TRY,Kahve
-30.03.2026 13:36,Expense,Nakit,57.80,TRY,Ulaşım,57.80,TRY,
+07.03.2026 11:00,Transfer,Ziraat Bankası,16600.50,TRY,Tasarruf hesabı,16600.50,TRY,Aylık tasarruf
+09.03.2026 11:17,Expense,Ziraat Bankası,253.30,TRY,Kafe,253.30,TRY,Kahve
+09.03.2026 15:00,Transfer,Ziraat Bankası,4780.40,TRY,Nakit,4780.40,TRY,ATM'den çekim
+10.03.2026 11:12,Expense,Nakit,170.00,TRY,Ulaşım,170.00,TRY,
+10.03.2026 15:42,Expense,Ziraat Bankası,227.80,TRY,Kafe,227.80,TRY,Kahve
+10.03.2026 16:02,Expense,Nakit,147.90,TRY,Ulaşım,147.90,TRY,
+12.03.2026 13:11,Expense,Ziraat Bankası,4027.30,TRY,Yakıt,4027.30,TRY,
+13.03.2026 20:18,Expense,Ziraat Bankası,3207.90,TRY,Restoranlar,3207.90,TRY,
+15.03.2026 17:00,Expense,Ziraat Bankası,3806.30,TRY,Alışveriş,3806.30,TRY,
+15.03.2026 19:34,Expense,Ziraat Bankası,226.10,TRY,Kafe,226.10,TRY,Kahve
+16.03.2026 10:37,Expense,Nakit,1762.90,TRY,Market,1762.90,TRY,A101
+16.03.2026 11:09,Expense,Ziraat Bankası,170.00,TRY,Ulaşım,170.00,TRY,
+16.03.2026 13:07,Expense,Nakit,2153.90,TRY,Market,2153.90,TRY,Migros
+17.03.2026 11:39,Expense,Ziraat Bankası,74.80,TRY,Ulaşım,74.80,TRY,
+17.03.2026 15:56,Expense,Ziraat Bankası,1205.30,TRY,Restoranlar,1205.30,TRY,
+18.03.2026 09:24,Expense,Nakit,2026.40,TRY,Market,2026.40,TRY,Migros
+18.03.2026 18:21,Expense,Ziraat Bankası,3699.20,TRY,Yakıt,3699.20,TRY,
+19.03.2026 11:00,Expense,Ziraat Bankası,982.60,TRY,Eczane,982.60,TRY,
+21.03.2026 11:20,Expense,Nakit,1909.10,TRY,Market,1909.10,TRY,A101
+21.03.2026 17:58,Expense,Ziraat Bankası,285.60,TRY,Kafe,285.60,TRY,Kahve
+22.03.2026 16:00,Expense,Ziraat Bankası,1040.40,TRY,Eczane,1040.40,TRY,
+23.03.2026 11:57,Expense,Ziraat Bankası,51.00,TRY,Ulaşım,51.00,TRY,
+24.03.2026 13:10,Expense,Ziraat Bankası,503.20,TRY,Kafe,503.20,TRY,Kahve
+24.03.2026 15:21,Expense,Ziraat Bankası,321.30,TRY,Kafe,321.30,TRY,Kahve
+24.03.2026 16:11,Expense,Ziraat Bankası,1028.50,TRY,Market,1028.50,TRY,Migros
+24.03.2026 20:00,Expense,Ziraat Bankası,1728.90,TRY,Restoranlar,1728.90,TRY,
+26.03.2026 09:03,Expense,Ziraat Bankası,232.90,TRY,Kafe,232.90,TRY,Kahve
+26.03.2026 20:27,Expense,Nakit,2162.40,TRY,Market,2162.40,TRY,A101
+27.03.2026 11:55,Expense,Nakit,56.10,TRY,Ulaşım,56.10,TRY,
+27.03.2026 17:00,Expense,Ziraat Bankası,2262.70,TRY,Eğlence,2262.70,TRY,
 01.04.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
-01.04.2026 12:13,Expense,Nakit,134.30,TRY,Ulaşım,134.30,TRY,
-01.04.2026 15:00,Expense,Ziraat Bankası,6990.40,TRY,Alışveriş,6990.40,TRY,
-01.04.2026 18:00,Expense,Ziraat Bankası,2449.70,TRY,Eğlence,2449.70,TRY,
-01.04.2026 19:31,Expense,Ziraat Bankası,159.80,TRY,Ulaşım,159.80,TRY,
-02.04.2026 19:02,Expense,Ziraat Bankası,1552.10,TRY,Market,1552.10,TRY,BİM
-03.04.2026 09:14,Expense,Ziraat Bankası,1671.10,TRY,Market,1671.10,TRY,BİM
-03.04.2026 09:30,Expense,Banka kartı,3785.90,TRY,Faturalar,3785.90,TRY,
-03.04.2026 09:58,Expense,Ziraat Bankası,868.70,TRY,Market,868.70,TRY,CarrefourSA
+02.04.2026 08:38,Expense,Ziraat Bankası,1490.90,TRY,Market,1490.90,TRY,Migros
+02.04.2026 09:53,Expense,Nakit,2085.90,TRY,Market,2085.90,TRY,BİM
+02.04.2026 18:26,Expense,Nakit,197.20,TRY,Ulaşım,197.20,TRY,
+02.04.2026 20:20,Expense,Ziraat Bankası,470.90,TRY,Kafe,470.90,TRY,Kahve
+03.04.2026 09:30,Expense,Banka kartı,2901.90,TRY,Faturalar,2901.90,TRY,
 04.04.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
 04.04.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
-04.04.2026 20:50,Expense,Ziraat Bankası,324.70,TRY,Kafe,324.70,TRY,Kahve
-05.04.2026 10:09,Income,Maaş,78228.90,TRY,Ziraat Bankası,78228.90,TRY,Aylık maaş
-05.04.2026 12:24,Expense,Nakit,108.80,TRY,Ulaşım,108.80,TRY,
+05.04.2026 10:27,Income,Maaş,76049.50,TRY,Ziraat Bankası,76049.50,TRY,Aylık maaş
+05.04.2026 12:07,Expense,Ziraat Bankası,846.60,TRY,Market,846.60,TRY,A101
 06.04.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
-06.04.2026 09:02,Expense,Ziraat Bankası,239.70,TRY,Kafe,239.70,TRY,Kahve
-06.04.2026 10:00,Expense,Nakit,979.20,TRY,Eczane,979.20,TRY,
-06.04.2026 14:02,Expense,Ziraat Bankası,943.50,TRY,Market,943.50,TRY,A101
-07.04.2026 11:00,Transfer,Ziraat Bankası,9377.20,TRY,Tasarruf hesabı,9377.20,TRY,Aylık tasarruf
-07.04.2026 17:21,Expense,Nakit,732.70,TRY,Market,732.70,TRY,CarrefourSA
-11.04.2026 12:10,Expense,Ziraat Bankası,2680.90,TRY,Restoranlar,2680.90,TRY,
-11.04.2026 13:27,Expense,Ziraat Bankası,3860.70,TRY,Yakıt,3860.70,TRY,
-11.04.2026 14:29,Expense,Ziraat Bankası,2128.40,TRY,Market,2128.40,TRY,CarrefourSA
-12.04.2026 12:00,Income,Temettü geliri,7321.90,TRY,Tasarruf hesabı,7321.90,TRY,Üç aylık temettü
-13.04.2026 09:30,Expense,Nakit,2033.20,TRY,Market,2033.20,TRY,BİM
-13.04.2026 18:28,Expense,Ziraat Bankası,212.50,TRY,Kafe,212.50,TRY,Kahve
-14.04.2026 13:57,Expense,Nakit,98.60,TRY,Ulaşım,98.60,TRY,
-16.04.2026 10:00,Transfer,Ziraat Bankası,4855.20,TRY,Nakit,4855.20,TRY,ATM'den çekim
-18.04.2026 15:28,Income,Serbest gelir,21629.10,TRY,Ziraat Bankası,21629.10,TRY,Yan proje
-19.04.2026 19:00,Expense,Nakit,783.70,TRY,Eczane,783.70,TRY,
-19.04.2026 21:00,Expense,Ziraat Bankası,1399.10,TRY,Eğlence,1399.10,TRY,
-20.04.2026 15:49,Expense,Ziraat Bankası,64.60,TRY,Ulaşım,64.60,TRY,
-21.04.2026 10:00,Expense,Banka kartı,18062.50,TRY,Seyahat,18062.50,TRY,Hafta sonu gezisi
-22.04.2026 15:11,Expense,Nakit,229.50,TRY,Ulaşım,229.50,TRY,
-24.04.2026 12:36,Expense,Ziraat Bankası,368.90,TRY,Kafe,368.90,TRY,Kahve
-24.04.2026 17:23,Expense,Ziraat Bankası,202.30,TRY,Ulaşım,202.30,TRY,
-26.04.2026 11:52,Expense,Ziraat Bankası,231.20,TRY,Kafe,231.20,TRY,Kahve
-26.04.2026 19:02,Expense,Nakit,2060.40,TRY,Market,2060.40,TRY,Migros
-27.04.2026 07:02,Expense,Ziraat Bankası,56.10,TRY,Ulaşım,56.10,TRY,
-27.04.2026 16:05,Expense,Ziraat Bankası,455.60,TRY,Kafe,455.60,TRY,Kahve
-29.04.2026 16:12,Expense,Ziraat Bankası,2007.70,TRY,Restoranlar,2007.70,TRY,
+07.04.2026 11:00,Transfer,Ziraat Bankası,16875.90,TRY,Tasarruf hesabı,16875.90,TRY,Aylık tasarruf
+09.04.2026 12:08,Expense,Ziraat Bankası,71.40,TRY,Ulaşım,71.40,TRY,
+09.04.2026 19:54,Expense,Nakit,231.20,TRY,Ulaşım,231.20,TRY,
+10.04.2026 10:24,Expense,Nakit,212.50,TRY,Ulaşım,212.50,TRY,
+11.04.2026 12:00,Expense,Ziraat Bankası,826.20,TRY,Eczane,826.20,TRY,
+11.04.2026 16:54,Expense,Ziraat Bankası,494.70,TRY,Kafe,494.70,TRY,Kahve
+12.04.2026 10:57,Expense,Ziraat Bankası,202.30,TRY,Kafe,202.30,TRY,Kahve
+12.04.2026 15:07,Expense,Nakit,1120.30,TRY,Market,1120.30,TRY,BİM
+12.04.2026 17:57,Expense,Ziraat Bankası,2708.10,TRY,Restoranlar,2708.10,TRY,
+13.04.2026 19:46,Expense,Nakit,2119.90,TRY,Market,2119.90,TRY,Migros
+13.04.2026 21:00,Expense,Ziraat Bankası,736.10,TRY,Eğlence,736.10,TRY,
+14.04.2026 19:55,Expense,Nakit,997.90,TRY,Market,997.90,TRY,Migros
+15.04.2026 14:00,Expense,Ziraat Bankası,1900.60,TRY,Eğlence,1900.60,TRY,
+16.04.2026 12:27,Expense,Ziraat Bankası,3830.10,TRY,Yakıt,3830.10,TRY,
+16.04.2026 17:53,Expense,Nakit,2040.00,TRY,Market,2040.00,TRY,CarrefourSA
+17.04.2026 10:00,Expense,Ziraat Bankası,1441.60,TRY,Eczane,1441.60,TRY,
+17.04.2026 17:18,Expense,Ziraat Bankası,200.60,TRY,Kafe,200.60,TRY,Kahve
+18.04.2026 15:42,Income,Serbest gelir,19934.20,TRY,Ziraat Bankası,19934.20,TRY,Yan proje
+19.04.2026 13:00,Transfer,Ziraat Bankası,5241.10,TRY,Nakit,5241.10,TRY,ATM'den çekim
+19.04.2026 13:45,Expense,Ziraat Bankası,176.80,TRY,Ulaşım,176.80,TRY,
+19.04.2026 17:00,Expense,Ziraat Bankası,3461.20,TRY,Alışveriş,3461.20,TRY,
+20.04.2026 08:13,Expense,Nakit,1944.80,TRY,Market,1944.80,TRY,Migros
+20.04.2026 09:47,Expense,Nakit,1977.10,TRY,Market,1977.10,TRY,A101
+20.04.2026 18:00,Income,Hediyeler,1943.10,TRY,Nakit,1943.10,TRY,Hediye
+23.04.2026 13:09,Expense,Ziraat Bankası,2125.00,TRY,Restoranlar,2125.00,TRY,
+23.04.2026 14:00,Expense,Ziraat Bankası,3729.80,TRY,Sağlık,3729.80,TRY,
+27.04.2026 10:51,Expense,Ziraat Bankası,166.60,TRY,Ulaşım,166.60,TRY,
+27.04.2026 15:57,Expense,Ziraat Bankası,163.20,TRY,Kafe,163.20,TRY,Kahve
+27.04.2026 16:37,Expense,Nakit,1451.80,TRY,Market,1451.80,TRY,CarrefourSA
+28.04.2026 11:15,Expense,Ziraat Bankası,459.00,TRY,Kafe,459.00,TRY,Kahve
+29.04.2026 13:00,Expense,Ziraat Bankası,1110.10,TRY,Eğlence,1110.10,TRY,
+29.04.2026 19:48,Expense,Ziraat Bankası,317.90,TRY,Kafe,317.90,TRY,Kahve
+30.04.2026 13:36,Expense,Nakit,57.80,TRY,Ulaşım,57.80,TRY,
 01.05.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
-01.05.2026 09:24,Expense,Nakit,732.70,TRY,Market,732.70,TRY,BİM
-02.05.2026 13:06,Expense,Nakit,1057.40,TRY,Market,1057.40,TRY,A101
-02.05.2026 13:48,Expense,Ziraat Bankası,3364.30,TRY,Yakıt,3364.30,TRY,
-02.05.2026 18:07,Expense,Nakit,1507.90,TRY,Market,1507.90,TRY,CarrefourSA
-02.05.2026 18:29,Expense,Ziraat Bankası,108.80,TRY,Ulaşım,108.80,TRY,
-03.05.2026 09:30,Expense,Banka kartı,4336.70,TRY,Faturalar,4336.70,TRY,
+01.05.2026 12:13,Expense,Nakit,134.30,TRY,Ulaşım,134.30,TRY,
+01.05.2026 15:00,Expense,Ziraat Bankası,6990.40,TRY,Alışveriş,6990.40,TRY,
+01.05.2026 18:00,Expense,Ziraat Bankası,2449.70,TRY,Eğlence,2449.70,TRY,
+01.05.2026 19:31,Expense,Ziraat Bankası,159.80,TRY,Ulaşım,159.80,TRY,
+02.05.2026 19:02,Expense,Ziraat Bankası,1552.10,TRY,Market,1552.10,TRY,BİM
+03.05.2026 09:14,Expense,Ziraat Bankası,1671.10,TRY,Market,1671.10,TRY,BİM
+03.05.2026 09:30,Expense,Banka kartı,3785.90,TRY,Faturalar,3785.90,TRY,
+03.05.2026 09:58,Expense,Ziraat Bankası,868.70,TRY,Market,868.70,TRY,CarrefourSA
 04.05.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
 04.05.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
-05.05.2026 10:53,Income,Maaş,79401.90,TRY,Ziraat Bankası,79401.90,TRY,Aylık maaş
-05.05.2026 13:57,Expense,Ziraat Bankası,2272.90,TRY,Restoranlar,2272.90,TRY,
-05.05.2026 15:00,Expense,Ziraat Bankası,1251.20,TRY,Eczane,1251.20,TRY,
-05.05.2026 18:39,Expense,Ziraat Bankası,382.50,TRY,Kafe,382.50,TRY,Kahve
+04.05.2026 20:50,Expense,Ziraat Bankası,324.70,TRY,Kafe,324.70,TRY,Kahve
+05.05.2026 10:09,Income,Maaş,78228.90,TRY,Ziraat Bankası,78228.90,TRY,Aylık maaş
+05.05.2026 12:24,Expense,Nakit,108.80,TRY,Ulaşım,108.80,TRY,
 06.05.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
-06.05.2026 11:35,Expense,Ziraat Bankası,127.50,TRY,Ulaşım,127.50,TRY,
-08.05.2026 19:29,Expense,Ziraat Bankası,193.80,TRY,Kafe,193.80,TRY,Kahve
-08.05.2026 20:07,Expense,Ziraat Bankası,2643.50,TRY,Restoranlar,2643.50,TRY,
-10.05.2026 20:21,Expense,Ziraat Bankası,164.90,TRY,Kafe,164.90,TRY,Kahve
-11.05.2026 08:41,Expense,Ziraat Bankası,207.40,TRY,Ulaşım,207.40,TRY,
-12.05.2026 12:09,Expense,Ziraat Bankası,161.50,TRY,Ulaşım,161.50,TRY,
-13.05.2026 16:18,Expense,Ziraat Bankası,695.30,TRY,Market,695.30,TRY,BİM
-13.05.2026 20:27,Expense,Ziraat Bankası,401.20,TRY,Kafe,401.20,TRY,Kahve
-14.05.2026 10:20,Expense,Ziraat Bankası,171.70,TRY,Ulaşım,171.70,TRY,
-15.05.2026 18:26,Expense,Ziraat Bankası,3393.20,TRY,Restoranlar,3393.20,TRY,
-16.05.2026 15:00,Expense,Ziraat Bankası,6793.20,TRY,Alışveriş,6793.20,TRY,
-17.05.2026 10:00,Expense,Banka kartı,17887.40,TRY,Seyahat,17887.40,TRY,Hafta sonu gezisi
-18.05.2026 17:05,Expense,Ziraat Bankası,2993.70,TRY,Restoranlar,2993.70,TRY,
-20.05.2026 11:00,Transfer,Ziraat Bankası,6055.40,TRY,Nakit,6055.40,TRY,ATM'den çekim
-20.05.2026 18:14,Expense,Ziraat Bankası,1329.40,TRY,Market,1329.40,TRY,A101
-21.05.2026 11:16,Expense,Ziraat Bankası,402.90,TRY,Kafe,402.90,TRY,Kahve
-22.05.2026 10:41,Expense,Ziraat Bankası,283.90,TRY,Kafe,283.90,TRY,Kahve
-22.05.2026 18:12,Expense,Ziraat Bankası,501.50,TRY,Kafe,501.50,TRY,Kahve
-23.05.2026 17:58,Expense,Nakit,1764.60,TRY,Market,1764.60,TRY,Migros
-25.05.2026 17:54,Expense,Nakit,2142.00,TRY,Market,2142.00,TRY,Migros
-26.05.2026 12:04,Expense,Ziraat Bankası,93.50,TRY,Ulaşım,93.50,TRY,
-26.05.2026 13:00,Expense,Ziraat Bankası,2125.00,TRY,Eğlence,2125.00,TRY,
-26.05.2026 19:00,Expense,Ziraat Bankası,639.20,TRY,Eğlence,639.20,TRY,
-27.05.2026 20:33,Expense,Ziraat Bankası,742.90,TRY,Market,742.90,TRY,Migros
-28.05.2026 10:00,Expense,Nakit,836.40,TRY,Eczane,836.40,TRY,
-28.05.2026 10:26,Expense,Ziraat Bankası,1011.50,TRY,Market,1011.50,TRY,Migros
-30.05.2026 12:21,Expense,Ziraat Bankası,2014.50,TRY,Market,2014.50,TRY,BİM
-30.05.2026 14:41,Expense,Ziraat Bankası,88.40,TRY,Ulaşım,88.40,TRY,
-30.05.2026 16:00,Expense,Banka kartı,7032.90,TRY,Giyim,7032.90,TRY,
-01.06.2026 07:51,Expense,Ziraat Bankası,90.10,TRY,Ulaşım,90.10,TRY,
+06.05.2026 09:02,Expense,Ziraat Bankası,239.70,TRY,Kafe,239.70,TRY,Kahve
+06.05.2026 10:00,Expense,Nakit,979.20,TRY,Eczane,979.20,TRY,
+06.05.2026 14:02,Expense,Ziraat Bankası,943.50,TRY,Market,943.50,TRY,A101
+07.05.2026 11:00,Transfer,Ziraat Bankası,9377.20,TRY,Tasarruf hesabı,9377.20,TRY,Aylık tasarruf
+07.05.2026 17:21,Expense,Nakit,732.70,TRY,Market,732.70,TRY,CarrefourSA
+11.05.2026 12:10,Expense,Ziraat Bankası,2680.90,TRY,Restoranlar,2680.90,TRY,
+11.05.2026 13:27,Expense,Ziraat Bankası,3860.70,TRY,Yakıt,3860.70,TRY,
+11.05.2026 14:29,Expense,Ziraat Bankası,2128.40,TRY,Market,2128.40,TRY,CarrefourSA
+12.05.2026 12:00,Income,Temettü geliri,7321.90,TRY,Tasarruf hesabı,7321.90,TRY,Üç aylık temettü
+13.05.2026 09:30,Expense,Nakit,2033.20,TRY,Market,2033.20,TRY,BİM
+13.05.2026 18:28,Expense,Ziraat Bankası,212.50,TRY,Kafe,212.50,TRY,Kahve
+14.05.2026 13:57,Expense,Nakit,98.60,TRY,Ulaşım,98.60,TRY,
+16.05.2026 10:00,Transfer,Ziraat Bankası,4855.20,TRY,Nakit,4855.20,TRY,ATM'den çekim
+18.05.2026 15:28,Income,Serbest gelir,21629.10,TRY,Ziraat Bankası,21629.10,TRY,Yan proje
+19.05.2026 19:00,Expense,Nakit,783.70,TRY,Eczane,783.70,TRY,
+19.05.2026 21:00,Expense,Ziraat Bankası,1399.10,TRY,Eğlence,1399.10,TRY,
+20.05.2026 15:49,Expense,Ziraat Bankası,64.60,TRY,Ulaşım,64.60,TRY,
+21.05.2026 10:00,Expense,Banka kartı,18062.50,TRY,Seyahat,18062.50,TRY,Hafta sonu gezisi
+22.05.2026 15:11,Expense,Nakit,229.50,TRY,Ulaşım,229.50,TRY,
+24.05.2026 12:36,Expense,Ziraat Bankası,368.90,TRY,Kafe,368.90,TRY,Kahve
+24.05.2026 17:23,Expense,Ziraat Bankası,202.30,TRY,Ulaşım,202.30,TRY,
+26.05.2026 11:52,Expense,Ziraat Bankası,231.20,TRY,Kafe,231.20,TRY,Kahve
+26.05.2026 19:02,Expense,Nakit,2060.40,TRY,Market,2060.40,TRY,Migros
+27.05.2026 07:02,Expense,Ziraat Bankası,56.10,TRY,Ulaşım,56.10,TRY,
+27.05.2026 16:05,Expense,Ziraat Bankası,455.60,TRY,Kafe,455.60,TRY,Kahve
+29.05.2026 16:12,Expense,Ziraat Bankası,2007.70,TRY,Restoranlar,2007.70,TRY,
 01.06.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
-01.06.2026 12:07,Expense,Ziraat Bankası,521.90,TRY,Kafe,521.90,TRY,Kahve
-01.06.2026 13:21,Expense,Nakit,720.80,TRY,Market,720.80,TRY,Migros
-01.06.2026 13:34,Expense,Ziraat Bankası,1388.90,TRY,Market,1388.90,TRY,BİM
-01.06.2026 17:00,Expense,Ziraat Bankası,2012.80,TRY,Eğlence,2012.80,TRY,
-02.06.2026 10:34,Expense,Ziraat Bankası,2043.40,TRY,Market,2043.40,TRY,Migros
-02.06.2026 15:00,Expense,Nakit,1414.40,TRY,Eczane,1414.40,TRY,
-02.06.2026 16:13,Expense,Ziraat Bankası,4042.60,TRY,Yakıt,4042.60,TRY,
-02.06.2026 20:45,Expense,Ziraat Bankası,2135.20,TRY,Restoranlar,2135.20,TRY,
-03.06.2026 07:18,Expense,Nakit,224.40,TRY,Ulaşım,224.40,TRY,
-03.06.2026 09:30,Expense,Banka kartı,2816.90,TRY,Faturalar,2816.90,TRY,
-03.06.2026 17:02,Expense,Ziraat Bankası,785.40,TRY,Market,785.40,TRY,Migros
-04.06.2026 08:39,Expense,Nakit,1448.40,TRY,Market,1448.40,TRY,Migros
+01.06.2026 09:24,Expense,Nakit,732.70,TRY,Market,732.70,TRY,BİM
+02.06.2026 13:06,Expense,Nakit,1057.40,TRY,Market,1057.40,TRY,A101
+02.06.2026 13:48,Expense,Ziraat Bankası,3364.30,TRY,Yakıt,3364.30,TRY,
+02.06.2026 18:07,Expense,Nakit,1507.90,TRY,Market,1507.90,TRY,CarrefourSA
+02.06.2026 18:29,Expense,Ziraat Bankası,108.80,TRY,Ulaşım,108.80,TRY,
+03.06.2026 09:30,Expense,Banka kartı,4336.70,TRY,Faturalar,4336.70,TRY,
 04.06.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
 04.06.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
-04.06.2026 09:39,Expense,Ziraat Bankası,3513.90,TRY,Yakıt,3513.90,TRY,
-04.06.2026 11:57,Expense,Nakit,91.80,TRY,Ulaşım,91.80,TRY,
-04.06.2026 13:09,Expense,Ziraat Bankası,3287.80,TRY,Restoranlar,3287.80,TRY,
-04.06.2026 13:33,Expense,Ziraat Bankası,209.10,TRY,Kafe,209.10,TRY,Kahve
-04.06.2026 14:00,Expense,Ziraat Bankası,1825.80,TRY,Eğlence,1825.80,TRY,
-04.06.2026 14:47,Expense,Ziraat Bankası,482.80,TRY,Kafe,482.80,TRY,Kahve
-04.06.2026 18:00,Expense,Ziraat Bankası,4856.90,TRY,Alışveriş,4856.90,TRY,
-05.06.2026 10:14,Income,Maaş,78087.80,TRY,Ziraat Bankası,78087.80,TRY,Aylık maaş
-05.06.2026 18:00,Expense,Banka kartı,7830.20,TRY,Giyim,7830.20,TRY,
-05.06.2026 18:16,Expense,Nakit,790.50,TRY,Market,790.50,TRY,A101
-05.06.2026 18:52,Expense,Ziraat Bankası,428.40,TRY,Kafe,428.40,TRY,Kahve
-05.06.2026 18:53,Expense,Nakit,163.20,TRY,Ulaşım,163.20,TRY,
-05.06.2026 20:32,Expense,Ziraat Bankası,154.70,TRY,Ulaşım,154.70,TRY,
-05.06.2026 22:00,Expense,Ziraat Bankası,676.60,TRY,Eğlence,676.60,TRY,
+05.06.2026 10:53,Income,Maaş,79401.90,TRY,Ziraat Bankası,79401.90,TRY,Aylık maaş
+05.06.2026 13:57,Expense,Ziraat Bankası,2272.90,TRY,Restoranlar,2272.90,TRY,
+05.06.2026 15:00,Expense,Ziraat Bankası,1251.20,TRY,Eczane,1251.20,TRY,
+05.06.2026 18:39,Expense,Ziraat Bankası,382.50,TRY,Kafe,382.50,TRY,Kahve
 06.06.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
-06.06.2026 13:24,Expense,Ziraat Bankası,278.80,TRY,Kafe,278.80,TRY,Kahve
-06.06.2026 13:55,Expense,Ziraat Bankası,176.80,TRY,Ulaşım,176.80,TRY,
-06.06.2026 13:56,Expense,Ziraat Bankası,124.10,TRY,Ulaşım,124.10,TRY,
-06.06.2026 16:46,Expense,Ziraat Bankası,2116.50,TRY,Market,2116.50,TRY,Migros
-07.06.2026 11:00,Transfer,Ziraat Bankası,11357.70,TRY,Tasarruf hesabı,11357.70,TRY,Aylık tasarruf
-07.06.2026 11:28,Expense,Ziraat Bankası,787.10,TRY,Market,787.10,TRY,BİM
-07.06.2026 15:11,Expense,Ziraat Bankası,1065.90,TRY,Restoranlar,1065.90,TRY,
-07.06.2026 15:13,Expense,Nakit,1533.40,TRY,Market,1533.40,TRY,BİM
-07.06.2026 20:36,Expense,Ziraat Bankası,1047.20,TRY,Restoranlar,1047.20,TRY,
-08.06.2026 10:00,Expense,Ziraat Bankası,5395.80,TRY,Sağlık,5395.80,TRY,
-08.06.2026 11:21,Expense,Nakit,1128.80,TRY,Market,1128.80,TRY,A101
-08.06.2026 20:45,Expense,Ziraat Bankası,280.50,TRY,Kafe,280.50,TRY,Kahve
-09.06.2026 11:00,Transfer,Ziraat Bankası,6232.20,TRY,Nakit,6232.20,TRY,ATM'den çekim
-09.06.2026 15:48,Income,Serbest gelir,22093.20,TRY,Ziraat Bankası,22093.20,TRY,Yan proje
-09.06.2026 18:00,Income,Hediyeler,3723.00,TRY,Nakit,3723.00,TRY,Hediye
+06.06.2026 11:35,Expense,Ziraat Bankası,127.50,TRY,Ulaşım,127.50,TRY,
+08.06.2026 19:29,Expense,Ziraat Bankası,193.80,TRY,Kafe,193.80,TRY,Kahve
+08.06.2026 20:07,Expense,Ziraat Bankası,2643.50,TRY,Restoranlar,2643.50,TRY,
+10.06.2026 20:21,Expense,Ziraat Bankası,164.90,TRY,Kafe,164.90,TRY,Kahve
+11.06.2026 08:41,Expense,Ziraat Bankası,207.40,TRY,Ulaşım,207.40,TRY,
+12.06.2026 12:09,Expense,Ziraat Bankası,161.50,TRY,Ulaşım,161.50,TRY,
+13.06.2026 16:18,Expense,Ziraat Bankası,695.30,TRY,Market,695.30,TRY,BİM
+13.06.2026 20:27,Expense,Ziraat Bankası,401.20,TRY,Kafe,401.20,TRY,Kahve
+14.06.2026 10:20,Expense,Ziraat Bankası,171.70,TRY,Ulaşım,171.70,TRY,
+15.06.2026 18:26,Expense,Ziraat Bankası,3393.20,TRY,Restoranlar,3393.20,TRY,
+16.06.2026 15:00,Expense,Ziraat Bankası,6793.20,TRY,Alışveriş,6793.20,TRY,
+17.06.2026 10:00,Expense,Banka kartı,17887.40,TRY,Seyahat,17887.40,TRY,Hafta sonu gezisi
+18.06.2026 17:05,Expense,Ziraat Bankası,2993.70,TRY,Restoranlar,2993.70,TRY,
+20.06.2026 11:00,Transfer,Ziraat Bankası,6055.40,TRY,Nakit,6055.40,TRY,ATM'den çekim
+20.06.2026 18:14,Expense,Ziraat Bankası,1329.40,TRY,Market,1329.40,TRY,A101
+21.06.2026 11:16,Expense,Ziraat Bankası,402.90,TRY,Kafe,402.90,TRY,Kahve
+22.06.2026 10:41,Expense,Ziraat Bankası,283.90,TRY,Kafe,283.90,TRY,Kahve
+22.06.2026 18:12,Expense,Ziraat Bankası,501.50,TRY,Kafe,501.50,TRY,Kahve
+23.06.2026 17:58,Expense,Nakit,1764.60,TRY,Market,1764.60,TRY,Migros
+25.06.2026 17:54,Expense,Nakit,2142.00,TRY,Market,2142.00,TRY,Migros
+26.06.2026 12:04,Expense,Ziraat Bankası,93.50,TRY,Ulaşım,93.50,TRY,
+26.06.2026 13:00,Expense,Ziraat Bankası,2125.00,TRY,Eğlence,2125.00,TRY,
+26.06.2026 19:00,Expense,Ziraat Bankası,639.20,TRY,Eğlence,639.20,TRY,
+27.06.2026 20:33,Expense,Ziraat Bankası,742.90,TRY,Market,742.90,TRY,Migros
+28.06.2026 10:00,Expense,Nakit,836.40,TRY,Eczane,836.40,TRY,
+28.06.2026 10:26,Expense,Ziraat Bankası,1011.50,TRY,Market,1011.50,TRY,Migros
+30.06.2026 12:21,Expense,Ziraat Bankası,2014.50,TRY,Market,2014.50,TRY,BİM
+30.06.2026 14:41,Expense,Ziraat Bankası,88.40,TRY,Ulaşım,88.40,TRY,
+30.06.2026 16:00,Expense,Banka kartı,7032.90,TRY,Giyim,7032.90,TRY,
+01.07.2026 07:51,Expense,Ziraat Bankası,90.10,TRY,Ulaşım,90.10,TRY,
+01.07.2026 09:00,Expense,Banka kartı,20400.00,TRY,Kira,20400.00,TRY,Ev kirası
+01.07.2026 12:07,Expense,Ziraat Bankası,521.90,TRY,Kafe,521.90,TRY,Kahve
+01.07.2026 13:21,Expense,Nakit,720.80,TRY,Market,720.80,TRY,Migros
+01.07.2026 13:34,Expense,Ziraat Bankası,1388.90,TRY,Market,1388.90,TRY,BİM
+01.07.2026 17:00,Expense,Ziraat Bankası,2012.80,TRY,Eğlence,2012.80,TRY,
+02.07.2026 10:34,Expense,Ziraat Bankası,2043.40,TRY,Market,2043.40,TRY,Migros
+02.07.2026 15:00,Expense,Nakit,1414.40,TRY,Eczane,1414.40,TRY,
+02.07.2026 16:13,Expense,Ziraat Bankası,4042.60,TRY,Yakıt,4042.60,TRY,
+02.07.2026 20:45,Expense,Ziraat Bankası,2135.20,TRY,Restoranlar,2135.20,TRY,
+03.07.2026 07:18,Expense,Nakit,224.40,TRY,Ulaşım,224.40,TRY,
+03.07.2026 09:30,Expense,Banka kartı,2816.90,TRY,Faturalar,2816.90,TRY,
+03.07.2026 17:02,Expense,Ziraat Bankası,785.40,TRY,Market,785.40,TRY,Migros
+04.07.2026 08:39,Expense,Nakit,1448.40,TRY,Market,1448.40,TRY,Migros
+04.07.2026 09:00,Expense,Ziraat Bankası,510.00,TRY,İnternet,510.00,TRY,
+04.07.2026 09:05,Expense,Ziraat Bankası,425.00,TRY,Telefon,425.00,TRY,
+04.07.2026 09:39,Expense,Ziraat Bankası,3513.90,TRY,Yakıt,3513.90,TRY,
+04.07.2026 11:57,Expense,Nakit,91.80,TRY,Ulaşım,91.80,TRY,
+04.07.2026 13:09,Expense,Ziraat Bankası,3287.80,TRY,Restoranlar,3287.80,TRY,
+04.07.2026 13:33,Expense,Ziraat Bankası,209.10,TRY,Kafe,209.10,TRY,Kahve
+04.07.2026 14:00,Expense,Ziraat Bankası,1825.80,TRY,Eğlence,1825.80,TRY,
+04.07.2026 14:47,Expense,Ziraat Bankası,482.80,TRY,Kafe,482.80,TRY,Kahve
+04.07.2026 18:00,Expense,Ziraat Bankası,4856.90,TRY,Alışveriş,4856.90,TRY,
+05.07.2026 10:14,Income,Maaş,78087.80,TRY,Ziraat Bankası,78087.80,TRY,Aylık maaş
+05.07.2026 18:00,Expense,Banka kartı,7830.20,TRY,Giyim,7830.20,TRY,
+05.07.2026 18:16,Expense,Nakit,790.50,TRY,Market,790.50,TRY,A101
+05.07.2026 18:52,Expense,Ziraat Bankası,428.40,TRY,Kafe,428.40,TRY,Kahve
+05.07.2026 18:53,Expense,Nakit,163.20,TRY,Ulaşım,163.20,TRY,
+05.07.2026 20:32,Expense,Ziraat Bankası,154.70,TRY,Ulaşım,154.70,TRY,
+05.07.2026 22:00,Expense,Ziraat Bankası,676.60,TRY,Eğlence,676.60,TRY,
+06.07.2026 08:00,Expense,Ziraat Bankası,1020.00,TRY,Abonelikler,1020.00,TRY,Netflix + Spotify
+06.07.2026 13:24,Expense,Ziraat Bankası,278.80,TRY,Kafe,278.80,TRY,Kahve
+06.07.2026 13:55,Expense,Ziraat Bankası,176.80,TRY,Ulaşım,176.80,TRY,
+06.07.2026 13:56,Expense,Ziraat Bankası,124.10,TRY,Ulaşım,124.10,TRY,
+06.07.2026 16:46,Expense,Ziraat Bankası,2116.50,TRY,Market,2116.50,TRY,Migros
+07.07.2026 11:00,Transfer,Ziraat Bankası,11357.70,TRY,Tasarruf hesabı,11357.70,TRY,Aylık tasarruf
+07.07.2026 11:28,Expense,Ziraat Bankası,787.10,TRY,Market,787.10,TRY,BİM
+07.07.2026 15:11,Expense,Ziraat Bankası,1065.90,TRY,Restoranlar,1065.90,TRY,
+07.07.2026 15:13,Expense,Nakit,1533.40,TRY,Market,1533.40,TRY,BİM
+07.07.2026 20:36,Expense,Ziraat Bankası,1047.20,TRY,Restoranlar,1047.20,TRY,
+08.07.2026 10:00,Expense,Ziraat Bankası,5395.80,TRY,Sağlık,5395.80,TRY,
+08.07.2026 11:21,Expense,Nakit,1128.80,TRY,Market,1128.80,TRY,A101
+08.07.2026 20:45,Expense,Ziraat Bankası,280.50,TRY,Kafe,280.50,TRY,Kahve
+09.07.2026 11:00,Transfer,Ziraat Bankası,6232.20,TRY,Nakit,6232.20,TRY,ATM'den çekim
+09.07.2026 15:48,Income,Serbest gelir,22093.20,TRY,Ziraat Bankası,22093.20,TRY,Yan proje
+09.07.2026 18:00,Income,Hediyeler,3723.00,TRY,Nakit,3723.00,TRY,Hediye

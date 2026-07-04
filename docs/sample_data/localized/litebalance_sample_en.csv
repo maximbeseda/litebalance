@@ -1,0 +1,258 @@
+﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
+01.02.2026 09:00,Expense,Bank Card,1800.00,USD,Rent,1800.00,USD,Apartment rent
+01.02.2026 09:03,Expense,Chase Bank,34.95,USD,Cafe,34.95,USD,Coffee
+01.02.2026 10:15,Expense,Chase Bank,7.95,USD,Transport,7.95,USD,
+02.02.2026 13:41,Expense,Cash,89.40,USD,Groceries,89.40,USD,Costco
+02.02.2026 17:08,Expense,Cash,153.45,USD,Groceries,153.45,USD,Target
+02.02.2026 18:00,Expense,Bank Card,367.80,USD,Clothing,367.80,USD,
+02.02.2026 18:36,Expense,Chase Bank,93.60,USD,Groceries,93.60,USD,Walmart
+02.02.2026 20:54,Expense,Chase Bank,28.65,USD,Cafe,28.65,USD,Coffee
+03.02.2026 09:30,Expense,Bank Card,344.40,USD,Utilities,344.40,USD,
+04.02.2026 09:00,Expense,Chase Bank,45.00,USD,Internet,45.00,USD,
+04.02.2026 09:05,Expense,Chase Bank,37.50,USD,Mobile,37.50,USD,
+04.02.2026 11:19,Expense,Chase Bank,348.90,USD,Fuel,348.90,USD,
+04.02.2026 13:19,Expense,Cash,6.90,USD,Transport,6.90,USD,
+05.02.2026 10:34,Expense,Cash,20.70,USD,Transport,20.70,USD,
+05.02.2026 10:39,Income,Salary,6609.45,USD,Chase Bank,6609.45,USD,Monthly salary
+05.02.2026 21:00,Expense,Chase Bank,78.60,USD,Entertainment,78.60,USD,
+06.02.2026 08:00,Expense,Chase Bank,90.00,USD,Subscriptions,90.00,USD,Netflix + Spotify
+06.02.2026 08:18,Expense,Cash,170.70,USD,Groceries,170.70,USD,Costco
+06.02.2026 17:13,Expense,Chase Bank,128.25,USD,Groceries,128.25,USD,Trader Joe's
+07.02.2026 11:00,Transfer,Chase Bank,1472.70,USD,Savings Account,1472.70,USD,Monthly savings
+07.02.2026 17:00,Expense,Chase Bank,520.20,USD,Health,520.20,USD,
+09.02.2026 09:42,Expense,Chase Bank,15.75,USD,Cafe,15.75,USD,Coffee
+09.02.2026 16:08,Expense,Chase Bank,141.60,USD,Groceries,141.60,USD,Target
+09.02.2026 18:00,Expense,Chase Bank,145.05,USD,Entertainment,145.05,USD,
+09.02.2026 21:34,Expense,Chase Bank,244.35,USD,Restaurants,244.35,USD,
+12.02.2026 09:05,Expense,Cash,170.10,USD,Groceries,170.10,USD,Target
+12.02.2026 11:30,Expense,Chase Bank,169.80,USD,Groceries,169.80,USD,Target
+12.02.2026 12:00,Income,Dividends,607.50,USD,Savings Account,607.50,USD,Quarterly dividends
+12.02.2026 17:02,Expense,Chase Bank,25.80,USD,Cafe,25.80,USD,Coffee
+13.02.2026 09:58,Expense,Chase Bank,244.95,USD,Fuel,244.95,USD,
+14.02.2026 09:47,Expense,Chase Bank,27.90,USD,Cafe,27.90,USD,Coffee
+14.02.2026 17:00,Transfer,Chase Bank,433.35,USD,Cash,433.35,USD,ATM withdrawal
+14.02.2026 19:31,Expense,Chase Bank,174.00,USD,Restaurants,174.00,USD,
+16.02.2026 15:00,Expense,Chase Bank,40.80,USD,Cafe,40.80,USD,Coffee
+17.02.2026 18:44,Expense,Chase Bank,80.10,USD,Groceries,80.10,USD,Costco
+18.02.2026 15:30,Income,Freelance,1427.25,USD,Chase Bank,1427.25,USD,Side project
+19.02.2026 11:00,Expense,Chase Bank,49.20,USD,Pharmacy,49.20,USD,
+22.02.2026 13:00,Expense,Chase Bank,152.55,USD,Entertainment,152.55,USD,
+23.02.2026 16:42,Expense,Chase Bank,13.50,USD,Transport,13.50,USD,
+26.02.2026 12:00,Expense,Cash,96.60,USD,Pharmacy,96.60,USD,
+27.02.2026 20:19,Expense,Cash,7.05,USD,Transport,7.05,USD,
+28.02.2026 16:01,Expense,Chase Bank,19.80,USD,Transport,19.80,USD,
+01.03.2026 09:00,Expense,Bank Card,1800.00,USD,Rent,1800.00,USD,Apartment rent
+01.03.2026 19:24,Expense,Cash,15.30,USD,Transport,15.30,USD,
+02.03.2026 16:00,Expense,Chase Bank,120.60,USD,Entertainment,120.60,USD,
+03.03.2026 08:10,Expense,Cash,157.20,USD,Groceries,157.20,USD,Trader Joe's
+03.03.2026 09:30,Expense,Bank Card,358.65,USD,Utilities,358.65,USD,
+03.03.2026 20:10,Expense,Cash,7.65,USD,Transport,7.65,USD,
+04.03.2026 09:00,Expense,Chase Bank,45.00,USD,Internet,45.00,USD,
+04.03.2026 09:05,Expense,Chase Bank,37.50,USD,Mobile,37.50,USD,
+05.03.2026 10:27,Income,Salary,6850.80,USD,Chase Bank,6850.80,USD,Monthly salary
+05.03.2026 12:31,Expense,Cash,187.20,USD,Groceries,187.20,USD,Walmart
+06.03.2026 08:00,Expense,Chase Bank,90.00,USD,Subscriptions,90.00,USD,Netflix + Spotify
+07.03.2026 11:00,Transfer,Chase Bank,1464.75,USD,Savings Account,1464.75,USD,Monthly savings
+09.03.2026 11:17,Expense,Chase Bank,22.35,USD,Cafe,22.35,USD,Coffee
+09.03.2026 15:00,Transfer,Chase Bank,421.80,USD,Cash,421.80,USD,ATM withdrawal
+10.03.2026 11:12,Expense,Cash,15.00,USD,Transport,15.00,USD,
+10.03.2026 15:42,Expense,Chase Bank,20.10,USD,Cafe,20.10,USD,Coffee
+10.03.2026 16:02,Expense,Cash,13.05,USD,Transport,13.05,USD,
+12.03.2026 13:11,Expense,Chase Bank,355.35,USD,Fuel,355.35,USD,
+13.03.2026 20:18,Expense,Chase Bank,283.05,USD,Restaurants,283.05,USD,
+15.03.2026 17:00,Expense,Chase Bank,335.85,USD,Shopping,335.85,USD,
+15.03.2026 19:34,Expense,Chase Bank,19.95,USD,Cafe,19.95,USD,Coffee
+16.03.2026 10:37,Expense,Cash,155.55,USD,Groceries,155.55,USD,Costco
+16.03.2026 11:09,Expense,Chase Bank,15.00,USD,Transport,15.00,USD,
+16.03.2026 13:07,Expense,Cash,190.05,USD,Groceries,190.05,USD,Walmart
+17.03.2026 11:39,Expense,Chase Bank,6.60,USD,Transport,6.60,USD,
+17.03.2026 15:56,Expense,Chase Bank,106.35,USD,Restaurants,106.35,USD,
+18.03.2026 09:24,Expense,Cash,178.80,USD,Groceries,178.80,USD,Walmart
+18.03.2026 18:21,Expense,Chase Bank,326.40,USD,Fuel,326.40,USD,
+19.03.2026 11:00,Expense,Chase Bank,86.70,USD,Pharmacy,86.70,USD,
+21.03.2026 11:20,Expense,Cash,168.45,USD,Groceries,168.45,USD,Costco
+21.03.2026 17:58,Expense,Chase Bank,25.20,USD,Cafe,25.20,USD,Coffee
+22.03.2026 16:00,Expense,Chase Bank,91.80,USD,Pharmacy,91.80,USD,
+23.03.2026 11:57,Expense,Chase Bank,4.50,USD,Transport,4.50,USD,
+24.03.2026 13:10,Expense,Chase Bank,44.40,USD,Cafe,44.40,USD,Coffee
+24.03.2026 15:21,Expense,Chase Bank,28.35,USD,Cafe,28.35,USD,Coffee
+24.03.2026 16:11,Expense,Chase Bank,90.75,USD,Groceries,90.75,USD,Walmart
+24.03.2026 20:00,Expense,Chase Bank,152.55,USD,Restaurants,152.55,USD,
+26.03.2026 09:03,Expense,Chase Bank,20.55,USD,Cafe,20.55,USD,Coffee
+26.03.2026 20:27,Expense,Cash,190.80,USD,Groceries,190.80,USD,Costco
+27.03.2026 11:55,Expense,Cash,4.95,USD,Transport,4.95,USD,
+27.03.2026 17:00,Expense,Chase Bank,199.65,USD,Entertainment,199.65,USD,
+01.04.2026 09:00,Expense,Bank Card,1800.00,USD,Rent,1800.00,USD,Apartment rent
+02.04.2026 08:38,Expense,Chase Bank,131.55,USD,Groceries,131.55,USD,Walmart
+02.04.2026 09:53,Expense,Cash,184.05,USD,Groceries,184.05,USD,Target
+02.04.2026 18:26,Expense,Cash,17.40,USD,Transport,17.40,USD,
+02.04.2026 20:20,Expense,Chase Bank,41.55,USD,Cafe,41.55,USD,Coffee
+03.04.2026 09:30,Expense,Bank Card,256.05,USD,Utilities,256.05,USD,
+04.04.2026 09:00,Expense,Chase Bank,45.00,USD,Internet,45.00,USD,
+04.04.2026 09:05,Expense,Chase Bank,37.50,USD,Mobile,37.50,USD,
+05.04.2026 10:27,Income,Salary,6710.25,USD,Chase Bank,6710.25,USD,Monthly salary
+05.04.2026 12:07,Expense,Chase Bank,74.70,USD,Groceries,74.70,USD,Costco
+06.04.2026 08:00,Expense,Chase Bank,90.00,USD,Subscriptions,90.00,USD,Netflix + Spotify
+07.04.2026 11:00,Transfer,Chase Bank,1489.05,USD,Savings Account,1489.05,USD,Monthly savings
+09.04.2026 12:08,Expense,Chase Bank,6.30,USD,Transport,6.30,USD,
+09.04.2026 19:54,Expense,Cash,20.40,USD,Transport,20.40,USD,
+10.04.2026 10:24,Expense,Cash,18.75,USD,Transport,18.75,USD,
+11.04.2026 12:00,Expense,Chase Bank,72.90,USD,Pharmacy,72.90,USD,
+11.04.2026 16:54,Expense,Chase Bank,43.65,USD,Cafe,43.65,USD,Coffee
+12.04.2026 10:57,Expense,Chase Bank,17.85,USD,Cafe,17.85,USD,Coffee
+12.04.2026 15:07,Expense,Cash,98.85,USD,Groceries,98.85,USD,Target
+12.04.2026 17:57,Expense,Chase Bank,238.95,USD,Restaurants,238.95,USD,
+13.04.2026 19:46,Expense,Cash,187.05,USD,Groceries,187.05,USD,Walmart
+13.04.2026 21:00,Expense,Chase Bank,64.95,USD,Entertainment,64.95,USD,
+14.04.2026 19:55,Expense,Cash,88.05,USD,Groceries,88.05,USD,Walmart
+15.04.2026 14:00,Expense,Chase Bank,167.70,USD,Entertainment,167.70,USD,
+16.04.2026 12:27,Expense,Chase Bank,337.95,USD,Fuel,337.95,USD,
+16.04.2026 17:53,Expense,Cash,180.00,USD,Groceries,180.00,USD,Trader Joe's
+17.04.2026 10:00,Expense,Chase Bank,127.20,USD,Pharmacy,127.20,USD,
+17.04.2026 17:18,Expense,Chase Bank,17.70,USD,Cafe,17.70,USD,Coffee
+18.04.2026 15:42,Income,Freelance,1758.90,USD,Chase Bank,1758.90,USD,Side project
+19.04.2026 13:00,Transfer,Chase Bank,462.45,USD,Cash,462.45,USD,ATM withdrawal
+19.04.2026 13:45,Expense,Chase Bank,15.60,USD,Transport,15.60,USD,
+19.04.2026 17:00,Expense,Chase Bank,305.40,USD,Shopping,305.40,USD,
+20.04.2026 08:13,Expense,Cash,171.60,USD,Groceries,171.60,USD,Walmart
+20.04.2026 09:47,Expense,Cash,174.45,USD,Groceries,174.45,USD,Costco
+20.04.2026 18:00,Income,Gifts,171.45,USD,Cash,171.45,USD,Gift
+23.04.2026 13:09,Expense,Chase Bank,187.50,USD,Restaurants,187.50,USD,
+23.04.2026 14:00,Expense,Chase Bank,329.10,USD,Health,329.10,USD,
+27.04.2026 10:51,Expense,Chase Bank,14.70,USD,Transport,14.70,USD,
+27.04.2026 15:57,Expense,Chase Bank,14.40,USD,Cafe,14.40,USD,Coffee
+27.04.2026 16:37,Expense,Cash,128.10,USD,Groceries,128.10,USD,Trader Joe's
+28.04.2026 11:15,Expense,Chase Bank,40.50,USD,Cafe,40.50,USD,Coffee
+29.04.2026 13:00,Expense,Chase Bank,97.95,USD,Entertainment,97.95,USD,
+29.04.2026 19:48,Expense,Chase Bank,28.05,USD,Cafe,28.05,USD,Coffee
+30.04.2026 13:36,Expense,Cash,5.10,USD,Transport,5.10,USD,
+01.05.2026 09:00,Expense,Bank Card,1800.00,USD,Rent,1800.00,USD,Apartment rent
+01.05.2026 12:13,Expense,Cash,11.85,USD,Transport,11.85,USD,
+01.05.2026 15:00,Expense,Chase Bank,616.80,USD,Shopping,616.80,USD,
+01.05.2026 18:00,Expense,Chase Bank,216.15,USD,Entertainment,216.15,USD,
+01.05.2026 19:31,Expense,Chase Bank,14.10,USD,Transport,14.10,USD,
+02.05.2026 19:02,Expense,Chase Bank,136.95,USD,Groceries,136.95,USD,Target
+03.05.2026 09:14,Expense,Chase Bank,147.45,USD,Groceries,147.45,USD,Target
+03.05.2026 09:30,Expense,Bank Card,334.05,USD,Utilities,334.05,USD,
+03.05.2026 09:58,Expense,Chase Bank,76.65,USD,Groceries,76.65,USD,Trader Joe's
+04.05.2026 09:00,Expense,Chase Bank,45.00,USD,Internet,45.00,USD,
+04.05.2026 09:05,Expense,Chase Bank,37.50,USD,Mobile,37.50,USD,
+04.05.2026 20:50,Expense,Chase Bank,28.65,USD,Cafe,28.65,USD,Coffee
+05.05.2026 10:09,Income,Salary,6902.55,USD,Chase Bank,6902.55,USD,Monthly salary
+05.05.2026 12:24,Expense,Cash,9.60,USD,Transport,9.60,USD,
+06.05.2026 08:00,Expense,Chase Bank,90.00,USD,Subscriptions,90.00,USD,Netflix + Spotify
+06.05.2026 09:02,Expense,Chase Bank,21.15,USD,Cafe,21.15,USD,Coffee
+06.05.2026 10:00,Expense,Cash,86.40,USD,Pharmacy,86.40,USD,
+06.05.2026 14:02,Expense,Chase Bank,83.25,USD,Groceries,83.25,USD,Costco
+07.05.2026 11:00,Transfer,Chase Bank,827.40,USD,Savings Account,827.40,USD,Monthly savings
+07.05.2026 17:21,Expense,Cash,64.65,USD,Groceries,64.65,USD,Trader Joe's
+11.05.2026 12:10,Expense,Chase Bank,236.55,USD,Restaurants,236.55,USD,
+11.05.2026 13:27,Expense,Chase Bank,340.65,USD,Fuel,340.65,USD,
+11.05.2026 14:29,Expense,Chase Bank,187.80,USD,Groceries,187.80,USD,Trader Joe's
+12.05.2026 12:00,Income,Dividends,646.05,USD,Savings Account,646.05,USD,Quarterly dividends
+13.05.2026 09:30,Expense,Cash,179.40,USD,Groceries,179.40,USD,Target
+13.05.2026 18:28,Expense,Chase Bank,18.75,USD,Cafe,18.75,USD,Coffee
+14.05.2026 13:57,Expense,Cash,8.70,USD,Transport,8.70,USD,
+16.05.2026 10:00,Transfer,Chase Bank,428.40,USD,Cash,428.40,USD,ATM withdrawal
+18.05.2026 15:28,Income,Freelance,1908.45,USD,Chase Bank,1908.45,USD,Side project
+19.05.2026 19:00,Expense,Cash,69.15,USD,Pharmacy,69.15,USD,
+19.05.2026 21:00,Expense,Chase Bank,123.45,USD,Entertainment,123.45,USD,
+20.05.2026 15:49,Expense,Chase Bank,5.70,USD,Transport,5.70,USD,
+21.05.2026 10:00,Expense,Bank Card,1593.75,USD,Travel,1593.75,USD,Weekend trip
+22.05.2026 15:11,Expense,Cash,20.25,USD,Transport,20.25,USD,
+24.05.2026 12:36,Expense,Chase Bank,32.55,USD,Cafe,32.55,USD,Coffee
+24.05.2026 17:23,Expense,Chase Bank,17.85,USD,Transport,17.85,USD,
+26.05.2026 11:52,Expense,Chase Bank,20.40,USD,Cafe,20.40,USD,Coffee
+26.05.2026 19:02,Expense,Cash,181.80,USD,Groceries,181.80,USD,Walmart
+27.05.2026 07:02,Expense,Chase Bank,4.95,USD,Transport,4.95,USD,
+27.05.2026 16:05,Expense,Chase Bank,40.20,USD,Cafe,40.20,USD,Coffee
+29.05.2026 16:12,Expense,Chase Bank,177.15,USD,Restaurants,177.15,USD,
+01.06.2026 09:00,Expense,Bank Card,1800.00,USD,Rent,1800.00,USD,Apartment rent
+01.06.2026 09:24,Expense,Cash,64.65,USD,Groceries,64.65,USD,Target
+02.06.2026 13:06,Expense,Cash,93.30,USD,Groceries,93.30,USD,Costco
+02.06.2026 13:48,Expense,Chase Bank,296.85,USD,Fuel,296.85,USD,
+02.06.2026 18:07,Expense,Cash,133.05,USD,Groceries,133.05,USD,Trader Joe's
+02.06.2026 18:29,Expense,Chase Bank,9.60,USD,Transport,9.60,USD,
+03.06.2026 09:30,Expense,Bank Card,382.65,USD,Utilities,382.65,USD,
+04.06.2026 09:00,Expense,Chase Bank,45.00,USD,Internet,45.00,USD,
+04.06.2026 09:05,Expense,Chase Bank,37.50,USD,Mobile,37.50,USD,
+05.06.2026 10:53,Income,Salary,7006.05,USD,Chase Bank,7006.05,USD,Monthly salary
+05.06.2026 13:57,Expense,Chase Bank,200.55,USD,Restaurants,200.55,USD,
+05.06.2026 15:00,Expense,Chase Bank,110.40,USD,Pharmacy,110.40,USD,
+05.06.2026 18:39,Expense,Chase Bank,33.75,USD,Cafe,33.75,USD,Coffee
+06.06.2026 08:00,Expense,Chase Bank,90.00,USD,Subscriptions,90.00,USD,Netflix + Spotify
+06.06.2026 11:35,Expense,Chase Bank,11.25,USD,Transport,11.25,USD,
+08.06.2026 19:29,Expense,Chase Bank,17.10,USD,Cafe,17.10,USD,Coffee
+08.06.2026 20:07,Expense,Chase Bank,233.25,USD,Restaurants,233.25,USD,
+10.06.2026 20:21,Expense,Chase Bank,14.55,USD,Cafe,14.55,USD,Coffee
+11.06.2026 08:41,Expense,Chase Bank,18.30,USD,Transport,18.30,USD,
+12.06.2026 12:09,Expense,Chase Bank,14.25,USD,Transport,14.25,USD,
+13.06.2026 16:18,Expense,Chase Bank,61.35,USD,Groceries,61.35,USD,Target
+13.06.2026 20:27,Expense,Chase Bank,35.40,USD,Cafe,35.40,USD,Coffee
+14.06.2026 10:20,Expense,Chase Bank,15.15,USD,Transport,15.15,USD,
+15.06.2026 18:26,Expense,Chase Bank,299.40,USD,Restaurants,299.40,USD,
+16.06.2026 15:00,Expense,Chase Bank,599.40,USD,Shopping,599.40,USD,
+17.06.2026 10:00,Expense,Bank Card,1578.30,USD,Travel,1578.30,USD,Weekend trip
+18.06.2026 17:05,Expense,Chase Bank,264.15,USD,Restaurants,264.15,USD,
+20.06.2026 11:00,Transfer,Chase Bank,534.30,USD,Cash,534.30,USD,ATM withdrawal
+20.06.2026 18:14,Expense,Chase Bank,117.30,USD,Groceries,117.30,USD,Costco
+21.06.2026 11:16,Expense,Chase Bank,35.55,USD,Cafe,35.55,USD,Coffee
+22.06.2026 10:41,Expense,Chase Bank,25.05,USD,Cafe,25.05,USD,Coffee
+22.06.2026 18:12,Expense,Chase Bank,44.25,USD,Cafe,44.25,USD,Coffee
+23.06.2026 17:58,Expense,Cash,155.70,USD,Groceries,155.70,USD,Walmart
+25.06.2026 17:54,Expense,Cash,189.00,USD,Groceries,189.00,USD,Walmart
+26.06.2026 12:04,Expense,Chase Bank,8.25,USD,Transport,8.25,USD,
+26.06.2026 13:00,Expense,Chase Bank,187.50,USD,Entertainment,187.50,USD,
+26.06.2026 19:00,Expense,Chase Bank,56.40,USD,Entertainment,56.40,USD,
+27.06.2026 20:33,Expense,Chase Bank,65.55,USD,Groceries,65.55,USD,Walmart
+28.06.2026 10:00,Expense,Cash,73.80,USD,Pharmacy,73.80,USD,
+28.06.2026 10:26,Expense,Chase Bank,89.25,USD,Groceries,89.25,USD,Walmart
+30.06.2026 12:21,Expense,Chase Bank,177.75,USD,Groceries,177.75,USD,Target
+30.06.2026 14:41,Expense,Chase Bank,7.80,USD,Transport,7.80,USD,
+30.06.2026 16:00,Expense,Bank Card,620.55,USD,Clothing,620.55,USD,
+01.07.2026 07:51,Expense,Chase Bank,7.95,USD,Transport,7.95,USD,
+01.07.2026 09:00,Expense,Bank Card,1800.00,USD,Rent,1800.00,USD,Apartment rent
+01.07.2026 12:07,Expense,Chase Bank,46.05,USD,Cafe,46.05,USD,Coffee
+01.07.2026 13:21,Expense,Cash,63.60,USD,Groceries,63.60,USD,Walmart
+01.07.2026 13:34,Expense,Chase Bank,122.55,USD,Groceries,122.55,USD,Target
+01.07.2026 17:00,Expense,Chase Bank,177.60,USD,Entertainment,177.60,USD,
+02.07.2026 10:34,Expense,Chase Bank,180.30,USD,Groceries,180.30,USD,Walmart
+02.07.2026 15:00,Expense,Cash,124.80,USD,Pharmacy,124.80,USD,
+02.07.2026 16:13,Expense,Chase Bank,356.70,USD,Fuel,356.70,USD,
+02.07.2026 20:45,Expense,Chase Bank,188.40,USD,Restaurants,188.40,USD,
+03.07.2026 07:18,Expense,Cash,19.80,USD,Transport,19.80,USD,
+03.07.2026 09:30,Expense,Bank Card,248.55,USD,Utilities,248.55,USD,
+03.07.2026 17:02,Expense,Chase Bank,69.30,USD,Groceries,69.30,USD,Walmart
+04.07.2026 08:39,Expense,Cash,127.80,USD,Groceries,127.80,USD,Walmart
+04.07.2026 09:00,Expense,Chase Bank,45.00,USD,Internet,45.00,USD,
+04.07.2026 09:05,Expense,Chase Bank,37.50,USD,Mobile,37.50,USD,
+04.07.2026 09:39,Expense,Chase Bank,310.05,USD,Fuel,310.05,USD,
+04.07.2026 11:57,Expense,Cash,8.10,USD,Transport,8.10,USD,
+04.07.2026 13:09,Expense,Chase Bank,290.10,USD,Restaurants,290.10,USD,
+04.07.2026 13:33,Expense,Chase Bank,18.45,USD,Cafe,18.45,USD,Coffee
+04.07.2026 14:00,Expense,Chase Bank,161.10,USD,Entertainment,161.10,USD,
+04.07.2026 14:47,Expense,Chase Bank,42.60,USD,Cafe,42.60,USD,Coffee
+04.07.2026 18:00,Expense,Chase Bank,428.55,USD,Shopping,428.55,USD,
+05.07.2026 10:14,Income,Salary,6890.10,USD,Chase Bank,6890.10,USD,Monthly salary
+05.07.2026 18:00,Expense,Bank Card,690.90,USD,Clothing,690.90,USD,
+05.07.2026 18:16,Expense,Cash,69.75,USD,Groceries,69.75,USD,Costco
+05.07.2026 18:52,Expense,Chase Bank,37.80,USD,Cafe,37.80,USD,Coffee
+05.07.2026 18:53,Expense,Cash,14.40,USD,Transport,14.40,USD,
+05.07.2026 20:32,Expense,Chase Bank,13.65,USD,Transport,13.65,USD,
+05.07.2026 22:00,Expense,Chase Bank,59.70,USD,Entertainment,59.70,USD,
+06.07.2026 08:00,Expense,Chase Bank,90.00,USD,Subscriptions,90.00,USD,Netflix + Spotify
+06.07.2026 13:24,Expense,Chase Bank,24.60,USD,Cafe,24.60,USD,Coffee
+06.07.2026 13:55,Expense,Chase Bank,15.60,USD,Transport,15.60,USD,
+06.07.2026 13:56,Expense,Chase Bank,10.95,USD,Transport,10.95,USD,
+06.07.2026 16:46,Expense,Chase Bank,186.75,USD,Groceries,186.75,USD,Walmart
+07.07.2026 11:00,Transfer,Chase Bank,1002.15,USD,Savings Account,1002.15,USD,Monthly savings
+07.07.2026 11:28,Expense,Chase Bank,69.45,USD,Groceries,69.45,USD,Target
+07.07.2026 15:11,Expense,Chase Bank,94.05,USD,Restaurants,94.05,USD,
+07.07.2026 15:13,Expense,Cash,135.30,USD,Groceries,135.30,USD,Target
+07.07.2026 20:36,Expense,Chase Bank,92.40,USD,Restaurants,92.40,USD,
+08.07.2026 10:00,Expense,Chase Bank,476.10,USD,Health,476.10,USD,
+08.07.2026 11:21,Expense,Cash,99.60,USD,Groceries,99.60,USD,Costco
+08.07.2026 20:45,Expense,Chase Bank,24.75,USD,Cafe,24.75,USD,Coffee
+09.07.2026 11:00,Transfer,Chase Bank,549.90,USD,Cash,549.90,USD,ATM withdrawal
+09.07.2026 15:48,Income,Freelance,1949.40,USD,Chase Bank,1949.40,USD,Side project
+09.07.2026 18:00,Income,Gifts,328.50,USD,Cash,328.50,USD,Gift

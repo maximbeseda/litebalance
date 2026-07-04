@@ -6,51 +6,152 @@ class ImportRecognizer {
   // ==========================================
   // 1. СЛОВНИКИ ДЛЯ РОЗПІЗНАВАННЯ ІКОНОК
   // ==========================================
+  // ВАЖЛИВО: коди мають збігатися з поточними Material Icons (як у пікері
+  // app_constants.groupedIcons). Старі коди «поплили» після міграції шрифту
+  // Material Icons (напр. 0xe4a1 тепер = pets, 0xe314 = history), тож тут —
+  // актуальні. Порядок має значення: перший збіг перемагає, тому специфічні
+  // концепти йдуть раніше за загальні.
   static const Map<int, List<String>> _iconKeywords = {
+    0xe178: [
+      // Icons.coffee — кафе
+      'кафе', 'кава', 'cafe', 'café', 'kafe', 'coffee', 'kaffee', 'kawiarnia',
+      'kahve', 'カフェ', 'コーヒー', 'कैफे', 'مقهى', 'قهوة', '咖啡',
+    ],
     0xe532: [
-      // Icons.restaurant
-      'кафе', 'ресторан', 'їжа', 'харчування', 'food', 'cafe', 'dining',
-      'meal', 'lunch', 'dinner', 'restaurant', 'essen', 'kaffee',
-      'nourriture', 'repas', 'comida', 'cena', 'pranzo',
+      // Icons.restaurant — ресторани / їжа
+      'ресторан', 'їжа', 'харчування', 'food', 'dining', 'meal', 'lunch',
+      'dinner', 'restaurant', 'restaurante', 'restoran', 'restauracje',
+      'essen', 'comida', 'repas',
+      'レストラン', 'रेस्तरां', 'مطاعم', 'مطعم', '餐厅', '餐饮',
+    ],
+    0xe59c: [
+      // Icons.shopping_cart — продукти
+      'продукти', 'маркет', 'сільпо', 'атб', 'ашан', 'groceries', 'supermarket',
+      'lebensmittel', 'courses', 'supermercado', 'mercado', 'market',
+      'spożywcze', 'belanja harian', '食料品', 'किराना', 'البقالة', '日用杂货',
+    ],
+    0xe394: [
+      // Icons.local_gas_station — пальне
+      'пальне', 'бензин', 'fuel', 'gas', 'benzin', 'tanken', 'essence',
+      'gasolina', 'combustível', 'paliwo', 'yakıt', 'bensin', 'ガソリン',
+      'ईंधन', 'الوقود', '油费',
     ],
     0xe1d7: [
-      // Icons.directions_car
-      'авто', 'таксі', 'транспорт', 'пальне', 'бензин', 'car', 'taxi',
-      'uber', 'lyft', 'gas', 'fuel', 'transit', 'transport', 'benzin',
-      'tanken', 'auto', 'voiture', 'essence', 'coche', 'gasolina',
+      // Icons.directions_car — транспорт
+      'авто', 'таксі', 'транспорт', 'car', 'taxi', 'transit', 'transport',
+      'transporte', 'ulaşım', 'transportasi', '交通', '交通費', 'परिवहन',
+      'المواصلات', 'مواصلات',
     ],
-    0xe4a1: [
-      // Icons.payments
-      'зарплата', 'премія', 'аванс', 'бонус', 'salary', 'income', 'wage',
-      'bonus', 'paycheck', 'gehalt', 'lohn', 'einkommen', 'salaire',
-      'paie', 'salario', 'sueldo', 'ingreso',
+    0xe11c: [
+      // Icons.business_center — фріланс / підробіток
+      'фріланс', 'freelanc', 'freiberuf', 'serbest', 'side project', 'nebenproje',
+      'nebeneinkommen', '副業', '自由职业', 'फ्रीलांस', 'دخل حر', 'مشروع جانبي',
     ],
-    0xe5c3: [
-      // Icons.shopping_basket
-      'продукти', 'маркет', 'сільпо', 'атб', 'ашан', 'магазин', 'покупки',
-      'groceries', 'shop', 'store', 'market', 'supermarket', 'lebensmittel',
-      'supermarkt', 'einkaufen', 'courses', 'supermarché', 'compras',
-      'supermercado',
+    0xe67f: [
+      // Icons.trending_up — інвестиції / дивіденди
+      'дивіденд', 'відсотки', 'dividend', 'dividen', 'dividende', 'dividendo',
+      'dywidend', 'temettü', '配当', '股息', 'लाभांश', 'أرباح', 'invest',
     ],
-    0xe3ed: [
-      // Icons.medical_services
-      'здоров', 'аптека', 'лікар', 'медицина', 'health', 'doctor',
-      'pharmacy', 'medicine', 'hospital', 'gesundheit', 'arzt',
-      'apotheke', 'medizin', 'santé', 'médecin', 'pharmacie',
-      'salud', 'médico', 'farmacia',
+    0xe482: [
+      // Icons.payments — зарплата / дохід
+      'зарплата', 'премія', 'дохід', 'salary', 'income', 'wage', 'paycheck',
+      'gehalt', 'lohn', 'einkommen', 'salaire', 'revenu', 'salario', 'sueldo',
+      'ingreso', 'salário', 'renda', 'pensja', 'maaş', 'gelir', 'gaji',
+      '給料', '給与', '収入', '工资', '月薪', 'वेतन', 'आय', 'راتب', 'دخل',
+    ],
+    0xe13e: [
+      // Icons.card_giftcard — подарунки
+      'подарунк', 'gift', 'geschenk', 'cadeau', 'regalo', 'presente',
+      'prezent', 'hediye', 'hadiah', '贈り物', 'उपहार', 'هدية', 'هدايا', '礼物',
+    ],
+    0xf079: [
+      // Icons.electric_bolt — комуналка / рахунки
+      'комунал', 'utilities', 'bills', 'nebenkosten', 'factures', 'facturas',
+      'faturas', 'faturalar', 'rachunki', 'tagihan', '光熱費', 'बिल',
+      'الفواتير', '水电费', 'strom',
+    ],
+    0xe318: [
+      // Icons.home — оренда / житло
+      'дім', 'квартира', 'оренда', 'home', 'rent', 'house', 'miete', 'loyer',
+      'alquiler', 'aluguel', 'czynsz', 'kira', 'sewa', 'maison', 'casa',
+      '家賃', 'किराया', 'الإيجار', 'إيجار', '房租', '房屋',
+    ],
+    0xe6e7: [
+      // Icons.wifi — інтернет
+      'інтернет', 'internet', 'wifi', 'インターネット', 'इंटरनेट', 'الإنترنت',
+      'إنترنت', '网络', '宽带',
+    ],
+    0xe5c6: [
+      // Icons.smartphone — мобільний звʼязок
+      'мобільний', 'mobile', 'handy', 'móvil', 'celular', 'telefon', 'ponsel',
+      '携帯', 'モバイル', 'मोबाइल', 'الهاتف', 'هاتف', '手机',
+    ],
+    0xe15d: [
+      // Icons.checkroom — одяг
+      'одяг', 'clothing', 'clothes', 'kleidung', 'vêtements', 'ropa', 'roupas',
+      'odzież', 'giyim', 'pakaian', '衣類', 'कपड़े', 'الملابس', 'ملابس', '服装',
+    ],
+    0xe39a: [
+      // Icons.local_mall — покупки (після продуктів, щоб pl «Zakupy
+      // spożywcze» / id «Belanja harian» лишились продуктами)
+      'покупки', 'shopping', 'einkaufen', 'achats', 'compras', 'zakupy',
+      'alışveriş', 'belanja', '買い物', 'खरीदारी', 'التسوق', 'تسوق', '购物',
+    ],
+    0xe297: [
+      // Icons.flight — подорожі
+      'подорож', 'travel', 'trip', 'reisen', 'voyage', 'viaje', 'viagem',
+      'viagens', 'viajes', 'podróże', 'seyahat', 'perjalanan', '旅行', 'यात्रा',
+      'السفر', 'سفر',
+    ],
+    0xe654: [
+      // Icons.theater_comedy — розваги
+      'розваги', 'entertainment', 'unterhaltung', 'loisirs', 'ocio', 'lazer',
+      'rozrywka', 'eğlence', 'hiburan', '娯楽', 'मनोरंजन', 'الترفيه', 'ترفيه',
+      '娱乐',
+    ],
+    0xe618: [
+      // Icons.subscriptions — підписки
+      'підписк', 'subscription', 'abos', 'abonnement', 'suscripcion',
+      'assinatura', 'subskrypcje', 'abonelik', 'langganan', 'サブスク',
+      'सदस्यता', 'الاشتراكات', 'اشتراك', '订阅', 'netflix', 'spotify',
+    ],
+    0xe3d9: [
+      // Icons.medication — аптека
+      'аптека', 'pharmacy', 'apotheke', 'pharmacie', 'farmacia', 'farmácia',
+      'apteka', 'eczane', 'apotek', '薬局', 'फार्मेसी', 'الصيدلية', 'صيدلية',
+      '药店',
+    ],
+    0xe3d8: [
+      // Icons.medical_services — здоровʼя
+      'здоров', 'лікар', 'медицина', 'health', 'doctor', 'gesundheit', 'santé',
+      'salud', 'saúde', 'zdrowie', 'sağlık', 'kesehatan', '健康', 'स्वास्थ्य',
+      'الصحة', 'صحة',
+    ],
+    0xe553: [
+      // Icons.savings — заощадження
+      'ощад', 'заощадж', 'savings', 'sparkonto', 'épargne', 'ahorro',
+      'poupança', 'oszczędno', 'tasarruf', 'tabungan', '貯金', 'बचत', 'توفير',
+      'ادخار', '储蓄',
+    ],
+    0xe19f: [
+      // Icons.credit_card — картка (перед банком, щоб «银行卡» → картка)
+      'картка', 'card', 'karte', 'carte', 'tarjeta', 'cartão', 'karta', 'kart',
+      'kartu', 'カード', 'कार्ड', 'بطاقة', '银行卡', '信用卡',
+    ],
+    0xe040: [
+      // Icons.account_balance — банк
+      'банк', 'приват', 'моно', 'bank', 'banque', 'banco', 'banka', 'bankası',
+      '銀行', 'बैंक', 'بنك', '银行',
+    ],
+    0xe3f8: [
+      // Icons.money — готівка
+      'готівка', 'cash', 'bargeld', 'espèces', 'efectivo', 'dinheiro',
+      'gotówka', 'nakit', 'tunai', '現金', 'नकद', 'نقد', '现金',
     ],
     0xe041: [
-      // Icons.account_balance_wallet
-      'картка', 'банк', 'приват', 'моно', 'ощад', 'готівка', 'гаманець',
-      'wallet', 'cash', 'card', 'bank', 'account', 'atm', 'bargeld',
-      'karte', 'konto', 'brieftasche', 'espèces', 'carte', 'banque',
-      'efectivo', 'tarjeta', 'banco',
-    ],
-    0xe314: [
-      // Icons.home
-      'комунал', 'дім', 'квартира', 'оренда', 'ремонт', 'home', 'rent',
-      'house', 'utilities', 'bills', 'miete', 'haus', 'wohnung',
-      'strom', 'maison', 'loyer', 'casa', 'alquiler', 'luz', 'agua',
+      // Icons.account_balance_wallet — загальний рахунок / гаманець
+      'гаманець', 'рахунок', 'wallet', 'account', 'konto', 'rekening', 'hesap',
+      'compte', 'cuenta', 'conta', '口座', 'खाता', 'حساب', '账户',
     ],
   };
 
@@ -72,7 +173,7 @@ class ImportRecognizer {
     'дохід',
     'премія',
     'пай',
-    'подарунок',
+    'подарунк',
     'відсотки',
     'salary',
     'income',
@@ -167,6 +268,7 @@ class ImportRecognizer {
     'تنخواہ', 'آمدنی', 'تحفہ', 'משכורת', 'הכנסה', 'מתנה',
     // Додаткові форми (мн. / інші правописи), виявлені при валідації семплів.
     'dividen', 'dywidend', '贈り物', 'أرباح', 'هدايا',
+    'freelance', 'фріланс', 'дивіденд',
   ];
 
   static const List<String> _accountKeywords = [

@@ -1,258 +1,258 @@
 ﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
-01.01.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
-01.01.2026 09:03,Expense,Banco Santander,23.30,EUR,Cafetería,23.30,EUR,Café
-01.01.2026 10:15,Expense,Banco Santander,5.30,EUR,Transporte,5.30,EUR,
-02.01.2026 13:41,Expense,Efectivo,59.60,EUR,Supermercado,59.60,EUR,Lidl
-02.01.2026 17:08,Expense,Efectivo,102.30,EUR,Supermercado,102.30,EUR,Carrefour
-02.01.2026 18:00,Expense,Tarjeta bancaria,245.20,EUR,Ropa,245.20,EUR,
-02.01.2026 18:36,Expense,Banco Santander,62.40,EUR,Supermercado,62.40,EUR,Mercadona
-02.01.2026 20:54,Expense,Banco Santander,19.10,EUR,Cafetería,19.10,EUR,Café
-03.01.2026 09:30,Expense,Tarjeta bancaria,229.60,EUR,Facturas,229.60,EUR,
-04.01.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
-04.01.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
-04.01.2026 11:19,Expense,Banco Santander,232.60,EUR,Gasolina,232.60,EUR,
-04.01.2026 13:19,Expense,Efectivo,4.60,EUR,Transporte,4.60,EUR,
-05.01.2026 10:34,Expense,Efectivo,13.80,EUR,Transporte,13.80,EUR,
-05.01.2026 10:39,Income,Salario,4406.30,EUR,Banco Santander,4406.30,EUR,Salario mensual
-05.01.2026 21:00,Expense,Banco Santander,52.40,EUR,Ocio,52.40,EUR,
-06.01.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
-06.01.2026 08:18,Expense,Efectivo,113.80,EUR,Supermercado,113.80,EUR,Lidl
-06.01.2026 17:13,Expense,Banco Santander,85.50,EUR,Supermercado,85.50,EUR,Dia
-07.01.2026 11:00,Transfer,Banco Santander,981.80,EUR,Cuenta de ahorro,981.80,EUR,Ahorro mensual
-07.01.2026 17:00,Expense,Banco Santander,346.80,EUR,Salud,346.80,EUR,
-09.01.2026 09:42,Expense,Banco Santander,10.50,EUR,Cafetería,10.50,EUR,Café
-09.01.2026 16:08,Expense,Banco Santander,94.40,EUR,Supermercado,94.40,EUR,Carrefour
-09.01.2026 18:00,Expense,Banco Santander,96.70,EUR,Ocio,96.70,EUR,
-09.01.2026 21:34,Expense,Banco Santander,162.90,EUR,Restaurantes,162.90,EUR,
-12.01.2026 09:05,Expense,Efectivo,113.40,EUR,Supermercado,113.40,EUR,Carrefour
-12.01.2026 11:30,Expense,Banco Santander,113.20,EUR,Supermercado,113.20,EUR,Carrefour
-12.01.2026 12:00,Income,Dividendos,405.00,EUR,Cuenta de ahorro,405.00,EUR,Dividendos trimestrales
-12.01.2026 17:02,Expense,Banco Santander,17.20,EUR,Cafetería,17.20,EUR,Café
-13.01.2026 09:58,Expense,Banco Santander,163.30,EUR,Gasolina,163.30,EUR,
-14.01.2026 09:47,Expense,Banco Santander,18.60,EUR,Cafetería,18.60,EUR,Café
-14.01.2026 17:00,Transfer,Banco Santander,288.90,EUR,Efectivo,288.90,EUR,Retiro cajero
-14.01.2026 19:31,Expense,Banco Santander,116.00,EUR,Restaurantes,116.00,EUR,
-16.01.2026 15:00,Expense,Banco Santander,27.20,EUR,Cafetería,27.20,EUR,Café
-17.01.2026 18:44,Expense,Banco Santander,53.40,EUR,Supermercado,53.40,EUR,Lidl
-18.01.2026 15:30,Income,Ingreso freelance,951.50,EUR,Banco Santander,951.50,EUR,Proyecto propio
-19.01.2026 11:00,Expense,Banco Santander,32.80,EUR,Farmacia,32.80,EUR,
-22.01.2026 13:00,Expense,Banco Santander,101.70,EUR,Ocio,101.70,EUR,
-23.01.2026 16:42,Expense,Banco Santander,9.00,EUR,Transporte,9.00,EUR,
-26.01.2026 12:00,Expense,Efectivo,64.40,EUR,Farmacia,64.40,EUR,
-27.01.2026 20:19,Expense,Efectivo,4.70,EUR,Transporte,4.70,EUR,
-30.01.2026 16:01,Expense,Banco Santander,13.20,EUR,Transporte,13.20,EUR,
 01.02.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
-01.02.2026 19:24,Expense,Efectivo,10.20,EUR,Transporte,10.20,EUR,
-02.02.2026 16:00,Expense,Banco Santander,80.40,EUR,Ocio,80.40,EUR,
-03.02.2026 08:10,Expense,Efectivo,104.80,EUR,Supermercado,104.80,EUR,Dia
-03.02.2026 09:30,Expense,Tarjeta bancaria,239.10,EUR,Facturas,239.10,EUR,
-03.02.2026 20:10,Expense,Efectivo,5.10,EUR,Transporte,5.10,EUR,
+01.02.2026 09:03,Expense,Banco Santander,23.30,EUR,Cafetería,23.30,EUR,Café
+01.02.2026 10:15,Expense,Banco Santander,5.30,EUR,Transporte,5.30,EUR,
+02.02.2026 13:41,Expense,Efectivo,59.60,EUR,Supermercado,59.60,EUR,Lidl
+02.02.2026 17:08,Expense,Efectivo,102.30,EUR,Supermercado,102.30,EUR,Carrefour
+02.02.2026 18:00,Expense,Tarjeta bancaria,245.20,EUR,Ropa,245.20,EUR,
+02.02.2026 18:36,Expense,Banco Santander,62.40,EUR,Supermercado,62.40,EUR,Mercadona
+02.02.2026 20:54,Expense,Banco Santander,19.10,EUR,Cafetería,19.10,EUR,Café
+03.02.2026 09:30,Expense,Tarjeta bancaria,229.60,EUR,Facturas,229.60,EUR,
 04.02.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
 04.02.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
-05.02.2026 10:27,Income,Salario,4567.20,EUR,Banco Santander,4567.20,EUR,Salario mensual
-05.02.2026 12:31,Expense,Efectivo,124.80,EUR,Supermercado,124.80,EUR,Mercadona
+04.02.2026 11:19,Expense,Banco Santander,232.60,EUR,Gasolina,232.60,EUR,
+04.02.2026 13:19,Expense,Efectivo,4.60,EUR,Transporte,4.60,EUR,
+05.02.2026 10:34,Expense,Efectivo,13.80,EUR,Transporte,13.80,EUR,
+05.02.2026 10:39,Income,Salario,4406.30,EUR,Banco Santander,4406.30,EUR,Salario mensual
+05.02.2026 21:00,Expense,Banco Santander,52.40,EUR,Ocio,52.40,EUR,
 06.02.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
-07.02.2026 11:00,Transfer,Banco Santander,976.50,EUR,Cuenta de ahorro,976.50,EUR,Ahorro mensual
-09.02.2026 11:17,Expense,Banco Santander,14.90,EUR,Cafetería,14.90,EUR,Café
-09.02.2026 15:00,Transfer,Banco Santander,281.20,EUR,Efectivo,281.20,EUR,Retiro cajero
-10.02.2026 11:12,Expense,Efectivo,10.00,EUR,Transporte,10.00,EUR,
-10.02.2026 15:42,Expense,Banco Santander,13.40,EUR,Cafetería,13.40,EUR,Café
-10.02.2026 16:02,Expense,Efectivo,8.70,EUR,Transporte,8.70,EUR,
-12.02.2026 13:11,Expense,Banco Santander,236.90,EUR,Gasolina,236.90,EUR,
-13.02.2026 20:18,Expense,Banco Santander,188.70,EUR,Restaurantes,188.70,EUR,
-15.02.2026 17:00,Expense,Banco Santander,223.90,EUR,Compras,223.90,EUR,
-15.02.2026 19:34,Expense,Banco Santander,13.30,EUR,Cafetería,13.30,EUR,Café
-16.02.2026 10:37,Expense,Efectivo,103.70,EUR,Supermercado,103.70,EUR,Lidl
-16.02.2026 11:09,Expense,Banco Santander,10.00,EUR,Transporte,10.00,EUR,
-16.02.2026 13:07,Expense,Efectivo,126.70,EUR,Supermercado,126.70,EUR,Mercadona
-17.02.2026 11:39,Expense,Banco Santander,4.40,EUR,Transporte,4.40,EUR,
-17.02.2026 15:56,Expense,Banco Santander,70.90,EUR,Restaurantes,70.90,EUR,
-18.02.2026 09:24,Expense,Efectivo,119.20,EUR,Supermercado,119.20,EUR,Mercadona
-18.02.2026 18:21,Expense,Banco Santander,217.60,EUR,Gasolina,217.60,EUR,
-19.02.2026 11:00,Expense,Banco Santander,57.80,EUR,Farmacia,57.80,EUR,
-21.02.2026 11:20,Expense,Efectivo,112.30,EUR,Supermercado,112.30,EUR,Lidl
-21.02.2026 17:58,Expense,Banco Santander,16.80,EUR,Cafetería,16.80,EUR,Café
-22.02.2026 16:00,Expense,Banco Santander,61.20,EUR,Farmacia,61.20,EUR,
-23.02.2026 11:57,Expense,Banco Santander,3.00,EUR,Transporte,3.00,EUR,
-24.02.2026 13:10,Expense,Banco Santander,29.60,EUR,Cafetería,29.60,EUR,Café
-24.02.2026 15:21,Expense,Banco Santander,18.90,EUR,Cafetería,18.90,EUR,Café
-24.02.2026 16:11,Expense,Banco Santander,60.50,EUR,Supermercado,60.50,EUR,Mercadona
-24.02.2026 20:00,Expense,Banco Santander,101.70,EUR,Restaurantes,101.70,EUR,
-26.02.2026 09:03,Expense,Banco Santander,13.70,EUR,Cafetería,13.70,EUR,Café
-26.02.2026 20:27,Expense,Efectivo,127.20,EUR,Supermercado,127.20,EUR,Lidl
-27.02.2026 11:55,Expense,Efectivo,3.30,EUR,Transporte,3.30,EUR,
-27.02.2026 17:00,Expense,Banco Santander,133.10,EUR,Ocio,133.10,EUR,
+06.02.2026 08:18,Expense,Efectivo,113.80,EUR,Supermercado,113.80,EUR,Lidl
+06.02.2026 17:13,Expense,Banco Santander,85.50,EUR,Supermercado,85.50,EUR,Dia
+07.02.2026 11:00,Transfer,Banco Santander,981.80,EUR,Cuenta de ahorro,981.80,EUR,Ahorro mensual
+07.02.2026 17:00,Expense,Banco Santander,346.80,EUR,Salud,346.80,EUR,
+09.02.2026 09:42,Expense,Banco Santander,10.50,EUR,Cafetería,10.50,EUR,Café
+09.02.2026 16:08,Expense,Banco Santander,94.40,EUR,Supermercado,94.40,EUR,Carrefour
+09.02.2026 18:00,Expense,Banco Santander,96.70,EUR,Ocio,96.70,EUR,
+09.02.2026 21:34,Expense,Banco Santander,162.90,EUR,Restaurantes,162.90,EUR,
+12.02.2026 09:05,Expense,Efectivo,113.40,EUR,Supermercado,113.40,EUR,Carrefour
+12.02.2026 11:30,Expense,Banco Santander,113.20,EUR,Supermercado,113.20,EUR,Carrefour
+12.02.2026 12:00,Income,Dividendos,405.00,EUR,Cuenta de ahorro,405.00,EUR,Dividendos trimestrales
+12.02.2026 17:02,Expense,Banco Santander,17.20,EUR,Cafetería,17.20,EUR,Café
+13.02.2026 09:58,Expense,Banco Santander,163.30,EUR,Gasolina,163.30,EUR,
+14.02.2026 09:47,Expense,Banco Santander,18.60,EUR,Cafetería,18.60,EUR,Café
+14.02.2026 17:00,Transfer,Banco Santander,288.90,EUR,Efectivo,288.90,EUR,Retiro cajero
+14.02.2026 19:31,Expense,Banco Santander,116.00,EUR,Restaurantes,116.00,EUR,
+16.02.2026 15:00,Expense,Banco Santander,27.20,EUR,Cafetería,27.20,EUR,Café
+17.02.2026 18:44,Expense,Banco Santander,53.40,EUR,Supermercado,53.40,EUR,Lidl
+18.02.2026 15:30,Income,Ingreso freelance,951.50,EUR,Banco Santander,951.50,EUR,Proyecto propio
+19.02.2026 11:00,Expense,Banco Santander,32.80,EUR,Farmacia,32.80,EUR,
+22.02.2026 13:00,Expense,Banco Santander,101.70,EUR,Ocio,101.70,EUR,
+23.02.2026 16:42,Expense,Banco Santander,9.00,EUR,Transporte,9.00,EUR,
+26.02.2026 12:00,Expense,Efectivo,64.40,EUR,Farmacia,64.40,EUR,
+27.02.2026 20:19,Expense,Efectivo,4.70,EUR,Transporte,4.70,EUR,
+28.02.2026 16:01,Expense,Banco Santander,13.20,EUR,Transporte,13.20,EUR,
 01.03.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
-02.03.2026 08:38,Expense,Banco Santander,87.70,EUR,Supermercado,87.70,EUR,Mercadona
-02.03.2026 09:53,Expense,Efectivo,122.70,EUR,Supermercado,122.70,EUR,Carrefour
-02.03.2026 18:26,Expense,Efectivo,11.60,EUR,Transporte,11.60,EUR,
-02.03.2026 20:20,Expense,Banco Santander,27.70,EUR,Cafetería,27.70,EUR,Café
-03.03.2026 09:30,Expense,Tarjeta bancaria,170.70,EUR,Facturas,170.70,EUR,
+01.03.2026 19:24,Expense,Efectivo,10.20,EUR,Transporte,10.20,EUR,
+02.03.2026 16:00,Expense,Banco Santander,80.40,EUR,Ocio,80.40,EUR,
+03.03.2026 08:10,Expense,Efectivo,104.80,EUR,Supermercado,104.80,EUR,Dia
+03.03.2026 09:30,Expense,Tarjeta bancaria,239.10,EUR,Facturas,239.10,EUR,
+03.03.2026 20:10,Expense,Efectivo,5.10,EUR,Transporte,5.10,EUR,
 04.03.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
 04.03.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
-05.03.2026 10:27,Income,Salario,4473.50,EUR,Banco Santander,4473.50,EUR,Salario mensual
-05.03.2026 12:07,Expense,Banco Santander,49.80,EUR,Supermercado,49.80,EUR,Lidl
+05.03.2026 10:27,Income,Salario,4567.20,EUR,Banco Santander,4567.20,EUR,Salario mensual
+05.03.2026 12:31,Expense,Efectivo,124.80,EUR,Supermercado,124.80,EUR,Mercadona
 06.03.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
-07.03.2026 11:00,Transfer,Banco Santander,992.70,EUR,Cuenta de ahorro,992.70,EUR,Ahorro mensual
-09.03.2026 12:08,Expense,Banco Santander,4.20,EUR,Transporte,4.20,EUR,
-09.03.2026 19:54,Expense,Efectivo,13.60,EUR,Transporte,13.60,EUR,
-10.03.2026 10:24,Expense,Efectivo,12.50,EUR,Transporte,12.50,EUR,
-11.03.2026 12:00,Expense,Banco Santander,48.60,EUR,Farmacia,48.60,EUR,
-11.03.2026 16:54,Expense,Banco Santander,29.10,EUR,Cafetería,29.10,EUR,Café
-12.03.2026 10:57,Expense,Banco Santander,11.90,EUR,Cafetería,11.90,EUR,Café
-12.03.2026 15:07,Expense,Efectivo,65.90,EUR,Supermercado,65.90,EUR,Carrefour
-12.03.2026 17:57,Expense,Banco Santander,159.30,EUR,Restaurantes,159.30,EUR,
-13.03.2026 19:46,Expense,Efectivo,124.70,EUR,Supermercado,124.70,EUR,Mercadona
-13.03.2026 21:00,Expense,Banco Santander,43.30,EUR,Ocio,43.30,EUR,
-14.03.2026 19:55,Expense,Efectivo,58.70,EUR,Supermercado,58.70,EUR,Mercadona
-15.03.2026 14:00,Expense,Banco Santander,111.80,EUR,Ocio,111.80,EUR,
-16.03.2026 12:27,Expense,Banco Santander,225.30,EUR,Gasolina,225.30,EUR,
-16.03.2026 17:53,Expense,Efectivo,120.00,EUR,Supermercado,120.00,EUR,Dia
-17.03.2026 10:00,Expense,Banco Santander,84.80,EUR,Farmacia,84.80,EUR,
-17.03.2026 17:18,Expense,Banco Santander,11.80,EUR,Cafetería,11.80,EUR,Café
-18.03.2026 15:42,Income,Ingreso freelance,1172.60,EUR,Banco Santander,1172.60,EUR,Proyecto propio
-19.03.2026 13:00,Transfer,Banco Santander,308.30,EUR,Efectivo,308.30,EUR,Retiro cajero
-19.03.2026 13:45,Expense,Banco Santander,10.40,EUR,Transporte,10.40,EUR,
-19.03.2026 17:00,Expense,Banco Santander,203.60,EUR,Compras,203.60,EUR,
-20.03.2026 08:13,Expense,Efectivo,114.40,EUR,Supermercado,114.40,EUR,Mercadona
-20.03.2026 09:47,Expense,Efectivo,116.30,EUR,Supermercado,116.30,EUR,Lidl
-20.03.2026 18:00,Income,Regalos,114.30,EUR,Efectivo,114.30,EUR,Regalo
-23.03.2026 13:09,Expense,Banco Santander,125.00,EUR,Restaurantes,125.00,EUR,
-23.03.2026 14:00,Expense,Banco Santander,219.40,EUR,Salud,219.40,EUR,
-27.03.2026 10:51,Expense,Banco Santander,9.80,EUR,Transporte,9.80,EUR,
-27.03.2026 15:57,Expense,Banco Santander,9.60,EUR,Cafetería,9.60,EUR,Café
-27.03.2026 16:37,Expense,Efectivo,85.40,EUR,Supermercado,85.40,EUR,Dia
-28.03.2026 11:15,Expense,Banco Santander,27.00,EUR,Cafetería,27.00,EUR,Café
-29.03.2026 13:00,Expense,Banco Santander,65.30,EUR,Ocio,65.30,EUR,
-29.03.2026 19:48,Expense,Banco Santander,18.70,EUR,Cafetería,18.70,EUR,Café
-30.03.2026 13:36,Expense,Efectivo,3.40,EUR,Transporte,3.40,EUR,
+07.03.2026 11:00,Transfer,Banco Santander,976.50,EUR,Cuenta de ahorro,976.50,EUR,Ahorro mensual
+09.03.2026 11:17,Expense,Banco Santander,14.90,EUR,Cafetería,14.90,EUR,Café
+09.03.2026 15:00,Transfer,Banco Santander,281.20,EUR,Efectivo,281.20,EUR,Retiro cajero
+10.03.2026 11:12,Expense,Efectivo,10.00,EUR,Transporte,10.00,EUR,
+10.03.2026 15:42,Expense,Banco Santander,13.40,EUR,Cafetería,13.40,EUR,Café
+10.03.2026 16:02,Expense,Efectivo,8.70,EUR,Transporte,8.70,EUR,
+12.03.2026 13:11,Expense,Banco Santander,236.90,EUR,Gasolina,236.90,EUR,
+13.03.2026 20:18,Expense,Banco Santander,188.70,EUR,Restaurantes,188.70,EUR,
+15.03.2026 17:00,Expense,Banco Santander,223.90,EUR,Compras,223.90,EUR,
+15.03.2026 19:34,Expense,Banco Santander,13.30,EUR,Cafetería,13.30,EUR,Café
+16.03.2026 10:37,Expense,Efectivo,103.70,EUR,Supermercado,103.70,EUR,Lidl
+16.03.2026 11:09,Expense,Banco Santander,10.00,EUR,Transporte,10.00,EUR,
+16.03.2026 13:07,Expense,Efectivo,126.70,EUR,Supermercado,126.70,EUR,Mercadona
+17.03.2026 11:39,Expense,Banco Santander,4.40,EUR,Transporte,4.40,EUR,
+17.03.2026 15:56,Expense,Banco Santander,70.90,EUR,Restaurantes,70.90,EUR,
+18.03.2026 09:24,Expense,Efectivo,119.20,EUR,Supermercado,119.20,EUR,Mercadona
+18.03.2026 18:21,Expense,Banco Santander,217.60,EUR,Gasolina,217.60,EUR,
+19.03.2026 11:00,Expense,Banco Santander,57.80,EUR,Farmacia,57.80,EUR,
+21.03.2026 11:20,Expense,Efectivo,112.30,EUR,Supermercado,112.30,EUR,Lidl
+21.03.2026 17:58,Expense,Banco Santander,16.80,EUR,Cafetería,16.80,EUR,Café
+22.03.2026 16:00,Expense,Banco Santander,61.20,EUR,Farmacia,61.20,EUR,
+23.03.2026 11:57,Expense,Banco Santander,3.00,EUR,Transporte,3.00,EUR,
+24.03.2026 13:10,Expense,Banco Santander,29.60,EUR,Cafetería,29.60,EUR,Café
+24.03.2026 15:21,Expense,Banco Santander,18.90,EUR,Cafetería,18.90,EUR,Café
+24.03.2026 16:11,Expense,Banco Santander,60.50,EUR,Supermercado,60.50,EUR,Mercadona
+24.03.2026 20:00,Expense,Banco Santander,101.70,EUR,Restaurantes,101.70,EUR,
+26.03.2026 09:03,Expense,Banco Santander,13.70,EUR,Cafetería,13.70,EUR,Café
+26.03.2026 20:27,Expense,Efectivo,127.20,EUR,Supermercado,127.20,EUR,Lidl
+27.03.2026 11:55,Expense,Efectivo,3.30,EUR,Transporte,3.30,EUR,
+27.03.2026 17:00,Expense,Banco Santander,133.10,EUR,Ocio,133.10,EUR,
 01.04.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
-01.04.2026 12:13,Expense,Efectivo,7.90,EUR,Transporte,7.90,EUR,
-01.04.2026 15:00,Expense,Banco Santander,411.20,EUR,Compras,411.20,EUR,
-01.04.2026 18:00,Expense,Banco Santander,144.10,EUR,Ocio,144.10,EUR,
-01.04.2026 19:31,Expense,Banco Santander,9.40,EUR,Transporte,9.40,EUR,
-02.04.2026 19:02,Expense,Banco Santander,91.30,EUR,Supermercado,91.30,EUR,Carrefour
-03.04.2026 09:14,Expense,Banco Santander,98.30,EUR,Supermercado,98.30,EUR,Carrefour
-03.04.2026 09:30,Expense,Tarjeta bancaria,222.70,EUR,Facturas,222.70,EUR,
-03.04.2026 09:58,Expense,Banco Santander,51.10,EUR,Supermercado,51.10,EUR,Dia
+02.04.2026 08:38,Expense,Banco Santander,87.70,EUR,Supermercado,87.70,EUR,Mercadona
+02.04.2026 09:53,Expense,Efectivo,122.70,EUR,Supermercado,122.70,EUR,Carrefour
+02.04.2026 18:26,Expense,Efectivo,11.60,EUR,Transporte,11.60,EUR,
+02.04.2026 20:20,Expense,Banco Santander,27.70,EUR,Cafetería,27.70,EUR,Café
+03.04.2026 09:30,Expense,Tarjeta bancaria,170.70,EUR,Facturas,170.70,EUR,
 04.04.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
 04.04.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
-04.04.2026 20:50,Expense,Banco Santander,19.10,EUR,Cafetería,19.10,EUR,Café
-05.04.2026 10:09,Income,Salario,4601.70,EUR,Banco Santander,4601.70,EUR,Salario mensual
-05.04.2026 12:24,Expense,Efectivo,6.40,EUR,Transporte,6.40,EUR,
+05.04.2026 10:27,Income,Salario,4473.50,EUR,Banco Santander,4473.50,EUR,Salario mensual
+05.04.2026 12:07,Expense,Banco Santander,49.80,EUR,Supermercado,49.80,EUR,Lidl
 06.04.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
-06.04.2026 09:02,Expense,Banco Santander,14.10,EUR,Cafetería,14.10,EUR,Café
-06.04.2026 10:00,Expense,Efectivo,57.60,EUR,Farmacia,57.60,EUR,
-06.04.2026 14:02,Expense,Banco Santander,55.50,EUR,Supermercado,55.50,EUR,Lidl
-07.04.2026 11:00,Transfer,Banco Santander,551.60,EUR,Cuenta de ahorro,551.60,EUR,Ahorro mensual
-07.04.2026 17:21,Expense,Efectivo,43.10,EUR,Supermercado,43.10,EUR,Dia
-11.04.2026 12:10,Expense,Banco Santander,157.70,EUR,Restaurantes,157.70,EUR,
-11.04.2026 13:27,Expense,Banco Santander,227.10,EUR,Gasolina,227.10,EUR,
-11.04.2026 14:29,Expense,Banco Santander,125.20,EUR,Supermercado,125.20,EUR,Dia
-12.04.2026 12:00,Income,Dividendos,430.70,EUR,Cuenta de ahorro,430.70,EUR,Dividendos trimestrales
-13.04.2026 09:30,Expense,Efectivo,119.60,EUR,Supermercado,119.60,EUR,Carrefour
-13.04.2026 18:28,Expense,Banco Santander,12.50,EUR,Cafetería,12.50,EUR,Café
-14.04.2026 13:57,Expense,Efectivo,5.80,EUR,Transporte,5.80,EUR,
-16.04.2026 10:00,Transfer,Banco Santander,285.60,EUR,Efectivo,285.60,EUR,Retiro cajero
-18.04.2026 15:28,Income,Ingreso freelance,1272.30,EUR,Banco Santander,1272.30,EUR,Proyecto propio
-19.04.2026 19:00,Expense,Efectivo,46.10,EUR,Farmacia,46.10,EUR,
-19.04.2026 21:00,Expense,Banco Santander,82.30,EUR,Ocio,82.30,EUR,
-20.04.2026 15:49,Expense,Banco Santander,3.80,EUR,Transporte,3.80,EUR,
-21.04.2026 10:00,Expense,Tarjeta bancaria,1062.50,EUR,Viajes,1062.50,EUR,Escapada
-22.04.2026 15:11,Expense,Efectivo,13.50,EUR,Transporte,13.50,EUR,
-24.04.2026 12:36,Expense,Banco Santander,21.70,EUR,Cafetería,21.70,EUR,Café
-24.04.2026 17:23,Expense,Banco Santander,11.90,EUR,Transporte,11.90,EUR,
-26.04.2026 11:52,Expense,Banco Santander,13.60,EUR,Cafetería,13.60,EUR,Café
-26.04.2026 19:02,Expense,Efectivo,121.20,EUR,Supermercado,121.20,EUR,Mercadona
-27.04.2026 07:02,Expense,Banco Santander,3.30,EUR,Transporte,3.30,EUR,
-27.04.2026 16:05,Expense,Banco Santander,26.80,EUR,Cafetería,26.80,EUR,Café
-29.04.2026 16:12,Expense,Banco Santander,118.10,EUR,Restaurantes,118.10,EUR,
+07.04.2026 11:00,Transfer,Banco Santander,992.70,EUR,Cuenta de ahorro,992.70,EUR,Ahorro mensual
+09.04.2026 12:08,Expense,Banco Santander,4.20,EUR,Transporte,4.20,EUR,
+09.04.2026 19:54,Expense,Efectivo,13.60,EUR,Transporte,13.60,EUR,
+10.04.2026 10:24,Expense,Efectivo,12.50,EUR,Transporte,12.50,EUR,
+11.04.2026 12:00,Expense,Banco Santander,48.60,EUR,Farmacia,48.60,EUR,
+11.04.2026 16:54,Expense,Banco Santander,29.10,EUR,Cafetería,29.10,EUR,Café
+12.04.2026 10:57,Expense,Banco Santander,11.90,EUR,Cafetería,11.90,EUR,Café
+12.04.2026 15:07,Expense,Efectivo,65.90,EUR,Supermercado,65.90,EUR,Carrefour
+12.04.2026 17:57,Expense,Banco Santander,159.30,EUR,Restaurantes,159.30,EUR,
+13.04.2026 19:46,Expense,Efectivo,124.70,EUR,Supermercado,124.70,EUR,Mercadona
+13.04.2026 21:00,Expense,Banco Santander,43.30,EUR,Ocio,43.30,EUR,
+14.04.2026 19:55,Expense,Efectivo,58.70,EUR,Supermercado,58.70,EUR,Mercadona
+15.04.2026 14:00,Expense,Banco Santander,111.80,EUR,Ocio,111.80,EUR,
+16.04.2026 12:27,Expense,Banco Santander,225.30,EUR,Gasolina,225.30,EUR,
+16.04.2026 17:53,Expense,Efectivo,120.00,EUR,Supermercado,120.00,EUR,Dia
+17.04.2026 10:00,Expense,Banco Santander,84.80,EUR,Farmacia,84.80,EUR,
+17.04.2026 17:18,Expense,Banco Santander,11.80,EUR,Cafetería,11.80,EUR,Café
+18.04.2026 15:42,Income,Ingreso freelance,1172.60,EUR,Banco Santander,1172.60,EUR,Proyecto propio
+19.04.2026 13:00,Transfer,Banco Santander,308.30,EUR,Efectivo,308.30,EUR,Retiro cajero
+19.04.2026 13:45,Expense,Banco Santander,10.40,EUR,Transporte,10.40,EUR,
+19.04.2026 17:00,Expense,Banco Santander,203.60,EUR,Compras,203.60,EUR,
+20.04.2026 08:13,Expense,Efectivo,114.40,EUR,Supermercado,114.40,EUR,Mercadona
+20.04.2026 09:47,Expense,Efectivo,116.30,EUR,Supermercado,116.30,EUR,Lidl
+20.04.2026 18:00,Income,Regalos,114.30,EUR,Efectivo,114.30,EUR,Regalo
+23.04.2026 13:09,Expense,Banco Santander,125.00,EUR,Restaurantes,125.00,EUR,
+23.04.2026 14:00,Expense,Banco Santander,219.40,EUR,Salud,219.40,EUR,
+27.04.2026 10:51,Expense,Banco Santander,9.80,EUR,Transporte,9.80,EUR,
+27.04.2026 15:57,Expense,Banco Santander,9.60,EUR,Cafetería,9.60,EUR,Café
+27.04.2026 16:37,Expense,Efectivo,85.40,EUR,Supermercado,85.40,EUR,Dia
+28.04.2026 11:15,Expense,Banco Santander,27.00,EUR,Cafetería,27.00,EUR,Café
+29.04.2026 13:00,Expense,Banco Santander,65.30,EUR,Ocio,65.30,EUR,
+29.04.2026 19:48,Expense,Banco Santander,18.70,EUR,Cafetería,18.70,EUR,Café
+30.04.2026 13:36,Expense,Efectivo,3.40,EUR,Transporte,3.40,EUR,
 01.05.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
-01.05.2026 09:24,Expense,Efectivo,43.10,EUR,Supermercado,43.10,EUR,Carrefour
-02.05.2026 13:06,Expense,Efectivo,62.20,EUR,Supermercado,62.20,EUR,Lidl
-02.05.2026 13:48,Expense,Banco Santander,197.90,EUR,Gasolina,197.90,EUR,
-02.05.2026 18:07,Expense,Efectivo,88.70,EUR,Supermercado,88.70,EUR,Dia
-02.05.2026 18:29,Expense,Banco Santander,6.40,EUR,Transporte,6.40,EUR,
-03.05.2026 09:30,Expense,Tarjeta bancaria,255.10,EUR,Facturas,255.10,EUR,
+01.05.2026 12:13,Expense,Efectivo,7.90,EUR,Transporte,7.90,EUR,
+01.05.2026 15:00,Expense,Banco Santander,411.20,EUR,Compras,411.20,EUR,
+01.05.2026 18:00,Expense,Banco Santander,144.10,EUR,Ocio,144.10,EUR,
+01.05.2026 19:31,Expense,Banco Santander,9.40,EUR,Transporte,9.40,EUR,
+02.05.2026 19:02,Expense,Banco Santander,91.30,EUR,Supermercado,91.30,EUR,Carrefour
+03.05.2026 09:14,Expense,Banco Santander,98.30,EUR,Supermercado,98.30,EUR,Carrefour
+03.05.2026 09:30,Expense,Tarjeta bancaria,222.70,EUR,Facturas,222.70,EUR,
+03.05.2026 09:58,Expense,Banco Santander,51.10,EUR,Supermercado,51.10,EUR,Dia
 04.05.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
 04.05.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
-05.05.2026 10:53,Income,Salario,4670.70,EUR,Banco Santander,4670.70,EUR,Salario mensual
-05.05.2026 13:57,Expense,Banco Santander,133.70,EUR,Restaurantes,133.70,EUR,
-05.05.2026 15:00,Expense,Banco Santander,73.60,EUR,Farmacia,73.60,EUR,
-05.05.2026 18:39,Expense,Banco Santander,22.50,EUR,Cafetería,22.50,EUR,Café
+04.05.2026 20:50,Expense,Banco Santander,19.10,EUR,Cafetería,19.10,EUR,Café
+05.05.2026 10:09,Income,Salario,4601.70,EUR,Banco Santander,4601.70,EUR,Salario mensual
+05.05.2026 12:24,Expense,Efectivo,6.40,EUR,Transporte,6.40,EUR,
 06.05.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
-06.05.2026 11:35,Expense,Banco Santander,7.50,EUR,Transporte,7.50,EUR,
-08.05.2026 19:29,Expense,Banco Santander,11.40,EUR,Cafetería,11.40,EUR,Café
-08.05.2026 20:07,Expense,Banco Santander,155.50,EUR,Restaurantes,155.50,EUR,
-10.05.2026 20:21,Expense,Banco Santander,9.70,EUR,Cafetería,9.70,EUR,Café
-11.05.2026 08:41,Expense,Banco Santander,12.20,EUR,Transporte,12.20,EUR,
-12.05.2026 12:09,Expense,Banco Santander,9.50,EUR,Transporte,9.50,EUR,
-13.05.2026 16:18,Expense,Banco Santander,40.90,EUR,Supermercado,40.90,EUR,Carrefour
-13.05.2026 20:27,Expense,Banco Santander,23.60,EUR,Cafetería,23.60,EUR,Café
-14.05.2026 10:20,Expense,Banco Santander,10.10,EUR,Transporte,10.10,EUR,
-15.05.2026 18:26,Expense,Banco Santander,199.60,EUR,Restaurantes,199.60,EUR,
-16.05.2026 15:00,Expense,Banco Santander,399.60,EUR,Compras,399.60,EUR,
-17.05.2026 10:00,Expense,Tarjeta bancaria,1052.20,EUR,Viajes,1052.20,EUR,Escapada
-18.05.2026 17:05,Expense,Banco Santander,176.10,EUR,Restaurantes,176.10,EUR,
-20.05.2026 11:00,Transfer,Banco Santander,356.20,EUR,Efectivo,356.20,EUR,Retiro cajero
-20.05.2026 18:14,Expense,Banco Santander,78.20,EUR,Supermercado,78.20,EUR,Lidl
-21.05.2026 11:16,Expense,Banco Santander,23.70,EUR,Cafetería,23.70,EUR,Café
-22.05.2026 10:41,Expense,Banco Santander,16.70,EUR,Cafetería,16.70,EUR,Café
-22.05.2026 18:12,Expense,Banco Santander,29.50,EUR,Cafetería,29.50,EUR,Café
-23.05.2026 17:58,Expense,Efectivo,103.80,EUR,Supermercado,103.80,EUR,Mercadona
-25.05.2026 17:54,Expense,Efectivo,126.00,EUR,Supermercado,126.00,EUR,Mercadona
-26.05.2026 12:04,Expense,Banco Santander,5.50,EUR,Transporte,5.50,EUR,
-26.05.2026 13:00,Expense,Banco Santander,125.00,EUR,Ocio,125.00,EUR,
-26.05.2026 19:00,Expense,Banco Santander,37.60,EUR,Ocio,37.60,EUR,
-27.05.2026 20:33,Expense,Banco Santander,43.70,EUR,Supermercado,43.70,EUR,Mercadona
-28.05.2026 10:00,Expense,Efectivo,49.20,EUR,Farmacia,49.20,EUR,
-28.05.2026 10:26,Expense,Banco Santander,59.50,EUR,Supermercado,59.50,EUR,Mercadona
-30.05.2026 12:21,Expense,Banco Santander,118.50,EUR,Supermercado,118.50,EUR,Carrefour
-30.05.2026 14:41,Expense,Banco Santander,5.20,EUR,Transporte,5.20,EUR,
-30.05.2026 16:00,Expense,Tarjeta bancaria,413.70,EUR,Ropa,413.70,EUR,
-01.06.2026 07:51,Expense,Banco Santander,5.30,EUR,Transporte,5.30,EUR,
+06.05.2026 09:02,Expense,Banco Santander,14.10,EUR,Cafetería,14.10,EUR,Café
+06.05.2026 10:00,Expense,Efectivo,57.60,EUR,Farmacia,57.60,EUR,
+06.05.2026 14:02,Expense,Banco Santander,55.50,EUR,Supermercado,55.50,EUR,Lidl
+07.05.2026 11:00,Transfer,Banco Santander,551.60,EUR,Cuenta de ahorro,551.60,EUR,Ahorro mensual
+07.05.2026 17:21,Expense,Efectivo,43.10,EUR,Supermercado,43.10,EUR,Dia
+11.05.2026 12:10,Expense,Banco Santander,157.70,EUR,Restaurantes,157.70,EUR,
+11.05.2026 13:27,Expense,Banco Santander,227.10,EUR,Gasolina,227.10,EUR,
+11.05.2026 14:29,Expense,Banco Santander,125.20,EUR,Supermercado,125.20,EUR,Dia
+12.05.2026 12:00,Income,Dividendos,430.70,EUR,Cuenta de ahorro,430.70,EUR,Dividendos trimestrales
+13.05.2026 09:30,Expense,Efectivo,119.60,EUR,Supermercado,119.60,EUR,Carrefour
+13.05.2026 18:28,Expense,Banco Santander,12.50,EUR,Cafetería,12.50,EUR,Café
+14.05.2026 13:57,Expense,Efectivo,5.80,EUR,Transporte,5.80,EUR,
+16.05.2026 10:00,Transfer,Banco Santander,285.60,EUR,Efectivo,285.60,EUR,Retiro cajero
+18.05.2026 15:28,Income,Ingreso freelance,1272.30,EUR,Banco Santander,1272.30,EUR,Proyecto propio
+19.05.2026 19:00,Expense,Efectivo,46.10,EUR,Farmacia,46.10,EUR,
+19.05.2026 21:00,Expense,Banco Santander,82.30,EUR,Ocio,82.30,EUR,
+20.05.2026 15:49,Expense,Banco Santander,3.80,EUR,Transporte,3.80,EUR,
+21.05.2026 10:00,Expense,Tarjeta bancaria,1062.50,EUR,Viajes,1062.50,EUR,Escapada
+22.05.2026 15:11,Expense,Efectivo,13.50,EUR,Transporte,13.50,EUR,
+24.05.2026 12:36,Expense,Banco Santander,21.70,EUR,Cafetería,21.70,EUR,Café
+24.05.2026 17:23,Expense,Banco Santander,11.90,EUR,Transporte,11.90,EUR,
+26.05.2026 11:52,Expense,Banco Santander,13.60,EUR,Cafetería,13.60,EUR,Café
+26.05.2026 19:02,Expense,Efectivo,121.20,EUR,Supermercado,121.20,EUR,Mercadona
+27.05.2026 07:02,Expense,Banco Santander,3.30,EUR,Transporte,3.30,EUR,
+27.05.2026 16:05,Expense,Banco Santander,26.80,EUR,Cafetería,26.80,EUR,Café
+29.05.2026 16:12,Expense,Banco Santander,118.10,EUR,Restaurantes,118.10,EUR,
 01.06.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
-01.06.2026 12:07,Expense,Banco Santander,30.70,EUR,Cafetería,30.70,EUR,Café
-01.06.2026 13:21,Expense,Efectivo,42.40,EUR,Supermercado,42.40,EUR,Mercadona
-01.06.2026 13:34,Expense,Banco Santander,81.70,EUR,Supermercado,81.70,EUR,Carrefour
-01.06.2026 17:00,Expense,Banco Santander,118.40,EUR,Ocio,118.40,EUR,
-02.06.2026 10:34,Expense,Banco Santander,120.20,EUR,Supermercado,120.20,EUR,Mercadona
-02.06.2026 15:00,Expense,Efectivo,83.20,EUR,Farmacia,83.20,EUR,
-02.06.2026 16:13,Expense,Banco Santander,237.80,EUR,Gasolina,237.80,EUR,
-02.06.2026 20:45,Expense,Banco Santander,125.60,EUR,Restaurantes,125.60,EUR,
-03.06.2026 07:18,Expense,Efectivo,13.20,EUR,Transporte,13.20,EUR,
-03.06.2026 09:30,Expense,Tarjeta bancaria,165.70,EUR,Facturas,165.70,EUR,
-03.06.2026 17:02,Expense,Banco Santander,46.20,EUR,Supermercado,46.20,EUR,Mercadona
-04.06.2026 08:39,Expense,Efectivo,85.20,EUR,Supermercado,85.20,EUR,Mercadona
+01.06.2026 09:24,Expense,Efectivo,43.10,EUR,Supermercado,43.10,EUR,Carrefour
+02.06.2026 13:06,Expense,Efectivo,62.20,EUR,Supermercado,62.20,EUR,Lidl
+02.06.2026 13:48,Expense,Banco Santander,197.90,EUR,Gasolina,197.90,EUR,
+02.06.2026 18:07,Expense,Efectivo,88.70,EUR,Supermercado,88.70,EUR,Dia
+02.06.2026 18:29,Expense,Banco Santander,6.40,EUR,Transporte,6.40,EUR,
+03.06.2026 09:30,Expense,Tarjeta bancaria,255.10,EUR,Facturas,255.10,EUR,
 04.06.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
 04.06.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
-04.06.2026 09:39,Expense,Banco Santander,206.70,EUR,Gasolina,206.70,EUR,
-04.06.2026 11:57,Expense,Efectivo,5.40,EUR,Transporte,5.40,EUR,
-04.06.2026 13:09,Expense,Banco Santander,193.40,EUR,Restaurantes,193.40,EUR,
-04.06.2026 13:33,Expense,Banco Santander,12.30,EUR,Cafetería,12.30,EUR,Café
-04.06.2026 14:00,Expense,Banco Santander,107.40,EUR,Ocio,107.40,EUR,
-04.06.2026 14:47,Expense,Banco Santander,28.40,EUR,Cafetería,28.40,EUR,Café
-04.06.2026 18:00,Expense,Banco Santander,285.70,EUR,Compras,285.70,EUR,
-05.06.2026 10:14,Income,Salario,4593.40,EUR,Banco Santander,4593.40,EUR,Salario mensual
-05.06.2026 18:00,Expense,Tarjeta bancaria,460.60,EUR,Ropa,460.60,EUR,
-05.06.2026 18:16,Expense,Efectivo,46.50,EUR,Supermercado,46.50,EUR,Lidl
-05.06.2026 18:52,Expense,Banco Santander,25.20,EUR,Cafetería,25.20,EUR,Café
-05.06.2026 18:53,Expense,Efectivo,9.60,EUR,Transporte,9.60,EUR,
-05.06.2026 20:32,Expense,Banco Santander,9.10,EUR,Transporte,9.10,EUR,
-05.06.2026 22:00,Expense,Banco Santander,39.80,EUR,Ocio,39.80,EUR,
+05.06.2026 10:53,Income,Salario,4670.70,EUR,Banco Santander,4670.70,EUR,Salario mensual
+05.06.2026 13:57,Expense,Banco Santander,133.70,EUR,Restaurantes,133.70,EUR,
+05.06.2026 15:00,Expense,Banco Santander,73.60,EUR,Farmacia,73.60,EUR,
+05.06.2026 18:39,Expense,Banco Santander,22.50,EUR,Cafetería,22.50,EUR,Café
 06.06.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
-06.06.2026 13:24,Expense,Banco Santander,16.40,EUR,Cafetería,16.40,EUR,Café
-06.06.2026 13:55,Expense,Banco Santander,10.40,EUR,Transporte,10.40,EUR,
-06.06.2026 13:56,Expense,Banco Santander,7.30,EUR,Transporte,7.30,EUR,
-06.06.2026 16:46,Expense,Banco Santander,124.50,EUR,Supermercado,124.50,EUR,Mercadona
-07.06.2026 11:00,Transfer,Banco Santander,668.10,EUR,Cuenta de ahorro,668.10,EUR,Ahorro mensual
-07.06.2026 11:28,Expense,Banco Santander,46.30,EUR,Supermercado,46.30,EUR,Carrefour
-07.06.2026 15:11,Expense,Banco Santander,62.70,EUR,Restaurantes,62.70,EUR,
-07.06.2026 15:13,Expense,Efectivo,90.20,EUR,Supermercado,90.20,EUR,Carrefour
-07.06.2026 20:36,Expense,Banco Santander,61.60,EUR,Restaurantes,61.60,EUR,
-08.06.2026 10:00,Expense,Banco Santander,317.40,EUR,Salud,317.40,EUR,
-08.06.2026 11:21,Expense,Efectivo,66.40,EUR,Supermercado,66.40,EUR,Lidl
-08.06.2026 20:45,Expense,Banco Santander,16.50,EUR,Cafetería,16.50,EUR,Café
-09.06.2026 11:00,Transfer,Banco Santander,366.60,EUR,Efectivo,366.60,EUR,Retiro cajero
-09.06.2026 15:48,Income,Ingreso freelance,1299.60,EUR,Banco Santander,1299.60,EUR,Proyecto propio
-09.06.2026 18:00,Income,Regalos,219.00,EUR,Efectivo,219.00,EUR,Regalo
+06.06.2026 11:35,Expense,Banco Santander,7.50,EUR,Transporte,7.50,EUR,
+08.06.2026 19:29,Expense,Banco Santander,11.40,EUR,Cafetería,11.40,EUR,Café
+08.06.2026 20:07,Expense,Banco Santander,155.50,EUR,Restaurantes,155.50,EUR,
+10.06.2026 20:21,Expense,Banco Santander,9.70,EUR,Cafetería,9.70,EUR,Café
+11.06.2026 08:41,Expense,Banco Santander,12.20,EUR,Transporte,12.20,EUR,
+12.06.2026 12:09,Expense,Banco Santander,9.50,EUR,Transporte,9.50,EUR,
+13.06.2026 16:18,Expense,Banco Santander,40.90,EUR,Supermercado,40.90,EUR,Carrefour
+13.06.2026 20:27,Expense,Banco Santander,23.60,EUR,Cafetería,23.60,EUR,Café
+14.06.2026 10:20,Expense,Banco Santander,10.10,EUR,Transporte,10.10,EUR,
+15.06.2026 18:26,Expense,Banco Santander,199.60,EUR,Restaurantes,199.60,EUR,
+16.06.2026 15:00,Expense,Banco Santander,399.60,EUR,Compras,399.60,EUR,
+17.06.2026 10:00,Expense,Tarjeta bancaria,1052.20,EUR,Viajes,1052.20,EUR,Escapada
+18.06.2026 17:05,Expense,Banco Santander,176.10,EUR,Restaurantes,176.10,EUR,
+20.06.2026 11:00,Transfer,Banco Santander,356.20,EUR,Efectivo,356.20,EUR,Retiro cajero
+20.06.2026 18:14,Expense,Banco Santander,78.20,EUR,Supermercado,78.20,EUR,Lidl
+21.06.2026 11:16,Expense,Banco Santander,23.70,EUR,Cafetería,23.70,EUR,Café
+22.06.2026 10:41,Expense,Banco Santander,16.70,EUR,Cafetería,16.70,EUR,Café
+22.06.2026 18:12,Expense,Banco Santander,29.50,EUR,Cafetería,29.50,EUR,Café
+23.06.2026 17:58,Expense,Efectivo,103.80,EUR,Supermercado,103.80,EUR,Mercadona
+25.06.2026 17:54,Expense,Efectivo,126.00,EUR,Supermercado,126.00,EUR,Mercadona
+26.06.2026 12:04,Expense,Banco Santander,5.50,EUR,Transporte,5.50,EUR,
+26.06.2026 13:00,Expense,Banco Santander,125.00,EUR,Ocio,125.00,EUR,
+26.06.2026 19:00,Expense,Banco Santander,37.60,EUR,Ocio,37.60,EUR,
+27.06.2026 20:33,Expense,Banco Santander,43.70,EUR,Supermercado,43.70,EUR,Mercadona
+28.06.2026 10:00,Expense,Efectivo,49.20,EUR,Farmacia,49.20,EUR,
+28.06.2026 10:26,Expense,Banco Santander,59.50,EUR,Supermercado,59.50,EUR,Mercadona
+30.06.2026 12:21,Expense,Banco Santander,118.50,EUR,Supermercado,118.50,EUR,Carrefour
+30.06.2026 14:41,Expense,Banco Santander,5.20,EUR,Transporte,5.20,EUR,
+30.06.2026 16:00,Expense,Tarjeta bancaria,413.70,EUR,Ropa,413.70,EUR,
+01.07.2026 07:51,Expense,Banco Santander,5.30,EUR,Transporte,5.30,EUR,
+01.07.2026 09:00,Expense,Tarjeta bancaria,1200.00,EUR,Alquiler,1200.00,EUR,Alquiler piso
+01.07.2026 12:07,Expense,Banco Santander,30.70,EUR,Cafetería,30.70,EUR,Café
+01.07.2026 13:21,Expense,Efectivo,42.40,EUR,Supermercado,42.40,EUR,Mercadona
+01.07.2026 13:34,Expense,Banco Santander,81.70,EUR,Supermercado,81.70,EUR,Carrefour
+01.07.2026 17:00,Expense,Banco Santander,118.40,EUR,Ocio,118.40,EUR,
+02.07.2026 10:34,Expense,Banco Santander,120.20,EUR,Supermercado,120.20,EUR,Mercadona
+02.07.2026 15:00,Expense,Efectivo,83.20,EUR,Farmacia,83.20,EUR,
+02.07.2026 16:13,Expense,Banco Santander,237.80,EUR,Gasolina,237.80,EUR,
+02.07.2026 20:45,Expense,Banco Santander,125.60,EUR,Restaurantes,125.60,EUR,
+03.07.2026 07:18,Expense,Efectivo,13.20,EUR,Transporte,13.20,EUR,
+03.07.2026 09:30,Expense,Tarjeta bancaria,165.70,EUR,Facturas,165.70,EUR,
+03.07.2026 17:02,Expense,Banco Santander,46.20,EUR,Supermercado,46.20,EUR,Mercadona
+04.07.2026 08:39,Expense,Efectivo,85.20,EUR,Supermercado,85.20,EUR,Mercadona
+04.07.2026 09:00,Expense,Banco Santander,30.00,EUR,Internet,30.00,EUR,
+04.07.2026 09:05,Expense,Banco Santander,25.00,EUR,Móvil,25.00,EUR,
+04.07.2026 09:39,Expense,Banco Santander,206.70,EUR,Gasolina,206.70,EUR,
+04.07.2026 11:57,Expense,Efectivo,5.40,EUR,Transporte,5.40,EUR,
+04.07.2026 13:09,Expense,Banco Santander,193.40,EUR,Restaurantes,193.40,EUR,
+04.07.2026 13:33,Expense,Banco Santander,12.30,EUR,Cafetería,12.30,EUR,Café
+04.07.2026 14:00,Expense,Banco Santander,107.40,EUR,Ocio,107.40,EUR,
+04.07.2026 14:47,Expense,Banco Santander,28.40,EUR,Cafetería,28.40,EUR,Café
+04.07.2026 18:00,Expense,Banco Santander,285.70,EUR,Compras,285.70,EUR,
+05.07.2026 10:14,Income,Salario,4593.40,EUR,Banco Santander,4593.40,EUR,Salario mensual
+05.07.2026 18:00,Expense,Tarjeta bancaria,460.60,EUR,Ropa,460.60,EUR,
+05.07.2026 18:16,Expense,Efectivo,46.50,EUR,Supermercado,46.50,EUR,Lidl
+05.07.2026 18:52,Expense,Banco Santander,25.20,EUR,Cafetería,25.20,EUR,Café
+05.07.2026 18:53,Expense,Efectivo,9.60,EUR,Transporte,9.60,EUR,
+05.07.2026 20:32,Expense,Banco Santander,9.10,EUR,Transporte,9.10,EUR,
+05.07.2026 22:00,Expense,Banco Santander,39.80,EUR,Ocio,39.80,EUR,
+06.07.2026 08:00,Expense,Banco Santander,60.00,EUR,Suscripciones,60.00,EUR,Netflix + Spotify
+06.07.2026 13:24,Expense,Banco Santander,16.40,EUR,Cafetería,16.40,EUR,Café
+06.07.2026 13:55,Expense,Banco Santander,10.40,EUR,Transporte,10.40,EUR,
+06.07.2026 13:56,Expense,Banco Santander,7.30,EUR,Transporte,7.30,EUR,
+06.07.2026 16:46,Expense,Banco Santander,124.50,EUR,Supermercado,124.50,EUR,Mercadona
+07.07.2026 11:00,Transfer,Banco Santander,668.10,EUR,Cuenta de ahorro,668.10,EUR,Ahorro mensual
+07.07.2026 11:28,Expense,Banco Santander,46.30,EUR,Supermercado,46.30,EUR,Carrefour
+07.07.2026 15:11,Expense,Banco Santander,62.70,EUR,Restaurantes,62.70,EUR,
+07.07.2026 15:13,Expense,Efectivo,90.20,EUR,Supermercado,90.20,EUR,Carrefour
+07.07.2026 20:36,Expense,Banco Santander,61.60,EUR,Restaurantes,61.60,EUR,
+08.07.2026 10:00,Expense,Banco Santander,317.40,EUR,Salud,317.40,EUR,
+08.07.2026 11:21,Expense,Efectivo,66.40,EUR,Supermercado,66.40,EUR,Lidl
+08.07.2026 20:45,Expense,Banco Santander,16.50,EUR,Cafetería,16.50,EUR,Café
+09.07.2026 11:00,Transfer,Banco Santander,366.60,EUR,Efectivo,366.60,EUR,Retiro cajero
+09.07.2026 15:48,Income,Ingreso freelance,1299.60,EUR,Banco Santander,1299.60,EUR,Proyecto propio
+09.07.2026 18:00,Income,Regalos,219.00,EUR,Efectivo,219.00,EUR,Regalo
