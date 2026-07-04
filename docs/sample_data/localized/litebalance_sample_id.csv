@@ -1,258 +1,258 @@
 ﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
-01.01.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
-01.01.2026 09:03,Expense,Bank Mandiri,87500.00,IDR,Kafe,87500.00,IDR,Kopi
-01.01.2026 10:15,Expense,Bank Mandiri,20000.00,IDR,Transportasi,20000.00,IDR,
-02.01.2026 13:41,Expense,Tunai,223500.00,IDR,Belanja harian,223500.00,IDR,Superindo
-02.01.2026 17:08,Expense,Tunai,383500.00,IDR,Belanja harian,383500.00,IDR,Alfamart
-02.01.2026 18:00,Expense,Kartu bank,919500.00,IDR,Pakaian,919500.00,IDR,
-02.01.2026 18:36,Expense,Bank Mandiri,234000.00,IDR,Belanja harian,234000.00,IDR,Indomaret
-02.01.2026 20:54,Expense,Bank Mandiri,71500.00,IDR,Kafe,71500.00,IDR,Kopi
-03.01.2026 09:30,Expense,Kartu bank,861000.00,IDR,Tagihan,861000.00,IDR,
-04.01.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
-04.01.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
-04.01.2026 11:19,Expense,Bank Mandiri,872500.00,IDR,Bensin,872500.00,IDR,
-04.01.2026 13:19,Expense,Tunai,17500.00,IDR,Transportasi,17500.00,IDR,
-05.01.2026 10:34,Expense,Tunai,52000.00,IDR,Transportasi,52000.00,IDR,
-05.01.2026 10:39,Income,Gaji,16523500.00,IDR,Bank Mandiri,16523500.00,IDR,Gaji bulanan
-05.01.2026 21:00,Expense,Bank Mandiri,196500.00,IDR,Hiburan,196500.00,IDR,
-06.01.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
-06.01.2026 08:18,Expense,Tunai,427000.00,IDR,Belanja harian,427000.00,IDR,Superindo
-06.01.2026 17:13,Expense,Bank Mandiri,320500.00,IDR,Belanja harian,320500.00,IDR,Hypermart
-07.01.2026 11:00,Transfer,Bank Mandiri,3682000.00,IDR,Rekening tabungan,3682000.00,IDR,Tabungan bulanan
-07.01.2026 17:00,Expense,Bank Mandiri,1300500.00,IDR,Kesehatan,1300500.00,IDR,
-09.01.2026 09:42,Expense,Bank Mandiri,39500.00,IDR,Kafe,39500.00,IDR,Kopi
-09.01.2026 16:08,Expense,Bank Mandiri,354000.00,IDR,Belanja harian,354000.00,IDR,Alfamart
-09.01.2026 18:00,Expense,Bank Mandiri,362500.00,IDR,Hiburan,362500.00,IDR,
-09.01.2026 21:34,Expense,Bank Mandiri,611000.00,IDR,Restoran,611000.00,IDR,
-12.01.2026 09:05,Expense,Tunai,425500.00,IDR,Belanja harian,425500.00,IDR,Alfamart
-12.01.2026 11:30,Expense,Bank Mandiri,424500.00,IDR,Belanja harian,424500.00,IDR,Alfamart
-12.01.2026 12:00,Income,Dividen,1519000.00,IDR,Rekening tabungan,1519000.00,IDR,Dividen kuartalan
-12.01.2026 17:02,Expense,Bank Mandiri,64500.00,IDR,Kafe,64500.00,IDR,Kopi
-13.01.2026 09:58,Expense,Bank Mandiri,612500.00,IDR,Bensin,612500.00,IDR,
-14.01.2026 09:47,Expense,Bank Mandiri,70000.00,IDR,Kafe,70000.00,IDR,Kopi
-14.01.2026 17:00,Transfer,Bank Mandiri,1083500.00,IDR,Tunai,1083500.00,IDR,Tarik tunai ATM
-14.01.2026 19:31,Expense,Bank Mandiri,435000.00,IDR,Restoran,435000.00,IDR,
-16.01.2026 15:00,Expense,Bank Mandiri,102000.00,IDR,Kafe,102000.00,IDR,Kopi
-17.01.2026 18:44,Expense,Bank Mandiri,200500.00,IDR,Belanja harian,200500.00,IDR,Superindo
-18.01.2026 15:30,Income,Pendapatan freelance,3568000.00,IDR,Bank Mandiri,3568000.00,IDR,Proyek sampingan
-19.01.2026 11:00,Expense,Bank Mandiri,123000.00,IDR,Apotek,123000.00,IDR,
-22.01.2026 13:00,Expense,Bank Mandiri,381500.00,IDR,Hiburan,381500.00,IDR,
-23.01.2026 16:42,Expense,Bank Mandiri,34000.00,IDR,Transportasi,34000.00,IDR,
-26.01.2026 12:00,Expense,Tunai,241500.00,IDR,Apotek,241500.00,IDR,
-27.01.2026 20:19,Expense,Tunai,17500.00,IDR,Transportasi,17500.00,IDR,
-30.01.2026 16:01,Expense,Bank Mandiri,49500.00,IDR,Transportasi,49500.00,IDR,
 01.02.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
-01.02.2026 19:24,Expense,Tunai,38500.00,IDR,Transportasi,38500.00,IDR,
-02.02.2026 16:00,Expense,Bank Mandiri,301500.00,IDR,Hiburan,301500.00,IDR,
-03.02.2026 08:10,Expense,Tunai,393000.00,IDR,Belanja harian,393000.00,IDR,Hypermart
-03.02.2026 09:30,Expense,Kartu bank,896500.00,IDR,Tagihan,896500.00,IDR,
-03.02.2026 20:10,Expense,Tunai,19000.00,IDR,Transportasi,19000.00,IDR,
+01.02.2026 09:03,Expense,Bank Mandiri,87500.00,IDR,Kafe,87500.00,IDR,Kopi
+01.02.2026 10:15,Expense,Bank Mandiri,20000.00,IDR,Transportasi,20000.00,IDR,
+02.02.2026 13:41,Expense,Tunai,223500.00,IDR,Belanja harian,223500.00,IDR,Superindo
+02.02.2026 17:08,Expense,Tunai,383500.00,IDR,Belanja harian,383500.00,IDR,Alfamart
+02.02.2026 18:00,Expense,Kartu bank,919500.00,IDR,Pakaian,919500.00,IDR,
+02.02.2026 18:36,Expense,Bank Mandiri,234000.00,IDR,Belanja harian,234000.00,IDR,Indomaret
+02.02.2026 20:54,Expense,Bank Mandiri,71500.00,IDR,Kafe,71500.00,IDR,Kopi
+03.02.2026 09:30,Expense,Kartu bank,861000.00,IDR,Tagihan,861000.00,IDR,
 04.02.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
 04.02.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
-05.02.2026 10:27,Income,Gaji,17127000.00,IDR,Bank Mandiri,17127000.00,IDR,Gaji bulanan
-05.02.2026 12:31,Expense,Tunai,468000.00,IDR,Belanja harian,468000.00,IDR,Indomaret
+04.02.2026 11:19,Expense,Bank Mandiri,872500.00,IDR,Bensin,872500.00,IDR,
+04.02.2026 13:19,Expense,Tunai,17500.00,IDR,Transportasi,17500.00,IDR,
+05.02.2026 10:34,Expense,Tunai,52000.00,IDR,Transportasi,52000.00,IDR,
+05.02.2026 10:39,Income,Gaji,16523500.00,IDR,Bank Mandiri,16523500.00,IDR,Gaji bulanan
+05.02.2026 21:00,Expense,Bank Mandiri,196500.00,IDR,Hiburan,196500.00,IDR,
 06.02.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
-07.02.2026 11:00,Transfer,Bank Mandiri,3662000.00,IDR,Rekening tabungan,3662000.00,IDR,Tabungan bulanan
-09.02.2026 11:17,Expense,Bank Mandiri,56000.00,IDR,Kafe,56000.00,IDR,Kopi
-09.02.2026 15:00,Transfer,Bank Mandiri,1054500.00,IDR,Tunai,1054500.00,IDR,Tarik tunai ATM
-10.02.2026 11:12,Expense,Tunai,37500.00,IDR,Transportasi,37500.00,IDR,
-10.02.2026 15:42,Expense,Bank Mandiri,50500.00,IDR,Kafe,50500.00,IDR,Kopi
-10.02.2026 16:02,Expense,Tunai,32500.00,IDR,Transportasi,32500.00,IDR,
-12.02.2026 13:11,Expense,Bank Mandiri,888500.00,IDR,Bensin,888500.00,IDR,
-13.02.2026 20:18,Expense,Bank Mandiri,707500.00,IDR,Restoran,707500.00,IDR,
-15.02.2026 17:00,Expense,Bank Mandiri,839500.00,IDR,Belanja,839500.00,IDR,
-15.02.2026 19:34,Expense,Bank Mandiri,50000.00,IDR,Kafe,50000.00,IDR,Kopi
-16.02.2026 10:37,Expense,Tunai,389000.00,IDR,Belanja harian,389000.00,IDR,Superindo
-16.02.2026 11:09,Expense,Bank Mandiri,37500.00,IDR,Transportasi,37500.00,IDR,
-16.02.2026 13:07,Expense,Tunai,475000.00,IDR,Belanja harian,475000.00,IDR,Indomaret
-17.02.2026 11:39,Expense,Bank Mandiri,16500.00,IDR,Transportasi,16500.00,IDR,
-17.02.2026 15:56,Expense,Bank Mandiri,266000.00,IDR,Restoran,266000.00,IDR,
-18.02.2026 09:24,Expense,Tunai,447000.00,IDR,Belanja harian,447000.00,IDR,Indomaret
-18.02.2026 18:21,Expense,Bank Mandiri,816000.00,IDR,Bensin,816000.00,IDR,
-19.02.2026 11:00,Expense,Bank Mandiri,217000.00,IDR,Apotek,217000.00,IDR,
-21.02.2026 11:20,Expense,Tunai,421000.00,IDR,Belanja harian,421000.00,IDR,Superindo
-21.02.2026 17:58,Expense,Bank Mandiri,63000.00,IDR,Kafe,63000.00,IDR,Kopi
-22.02.2026 16:00,Expense,Bank Mandiri,229500.00,IDR,Apotek,229500.00,IDR,
-23.02.2026 11:57,Expense,Bank Mandiri,11500.00,IDR,Transportasi,11500.00,IDR,
-24.02.2026 13:10,Expense,Bank Mandiri,111000.00,IDR,Kafe,111000.00,IDR,Kopi
-24.02.2026 15:21,Expense,Bank Mandiri,71000.00,IDR,Kafe,71000.00,IDR,Kopi
-24.02.2026 16:11,Expense,Bank Mandiri,227000.00,IDR,Belanja harian,227000.00,IDR,Indomaret
-24.02.2026 20:00,Expense,Bank Mandiri,381500.00,IDR,Restoran,381500.00,IDR,
-26.02.2026 09:03,Expense,Bank Mandiri,51500.00,IDR,Kafe,51500.00,IDR,Kopi
-26.02.2026 20:27,Expense,Tunai,477000.00,IDR,Belanja harian,477000.00,IDR,Superindo
-27.02.2026 11:55,Expense,Tunai,12500.00,IDR,Transportasi,12500.00,IDR,
-27.02.2026 17:00,Expense,Bank Mandiri,499000.00,IDR,Hiburan,499000.00,IDR,
+06.02.2026 08:18,Expense,Tunai,427000.00,IDR,Belanja harian,427000.00,IDR,Superindo
+06.02.2026 17:13,Expense,Bank Mandiri,320500.00,IDR,Belanja harian,320500.00,IDR,Hypermart
+07.02.2026 11:00,Transfer,Bank Mandiri,3682000.00,IDR,Rekening tabungan,3682000.00,IDR,Tabungan bulanan
+07.02.2026 17:00,Expense,Bank Mandiri,1300500.00,IDR,Kesehatan,1300500.00,IDR,
+09.02.2026 09:42,Expense,Bank Mandiri,39500.00,IDR,Kafe,39500.00,IDR,Kopi
+09.02.2026 16:08,Expense,Bank Mandiri,354000.00,IDR,Belanja harian,354000.00,IDR,Alfamart
+09.02.2026 18:00,Expense,Bank Mandiri,362500.00,IDR,Hiburan,362500.00,IDR,
+09.02.2026 21:34,Expense,Bank Mandiri,611000.00,IDR,Restoran,611000.00,IDR,
+12.02.2026 09:05,Expense,Tunai,425500.00,IDR,Belanja harian,425500.00,IDR,Alfamart
+12.02.2026 11:30,Expense,Bank Mandiri,424500.00,IDR,Belanja harian,424500.00,IDR,Alfamart
+12.02.2026 12:00,Income,Dividen,1519000.00,IDR,Rekening tabungan,1519000.00,IDR,Dividen kuartalan
+12.02.2026 17:02,Expense,Bank Mandiri,64500.00,IDR,Kafe,64500.00,IDR,Kopi
+13.02.2026 09:58,Expense,Bank Mandiri,612500.00,IDR,Bensin,612500.00,IDR,
+14.02.2026 09:47,Expense,Bank Mandiri,70000.00,IDR,Kafe,70000.00,IDR,Kopi
+14.02.2026 17:00,Transfer,Bank Mandiri,1083500.00,IDR,Tunai,1083500.00,IDR,Tarik tunai ATM
+14.02.2026 19:31,Expense,Bank Mandiri,435000.00,IDR,Restoran,435000.00,IDR,
+16.02.2026 15:00,Expense,Bank Mandiri,102000.00,IDR,Kafe,102000.00,IDR,Kopi
+17.02.2026 18:44,Expense,Bank Mandiri,200500.00,IDR,Belanja harian,200500.00,IDR,Superindo
+18.02.2026 15:30,Income,Pendapatan freelance,3568000.00,IDR,Bank Mandiri,3568000.00,IDR,Proyek sampingan
+19.02.2026 11:00,Expense,Bank Mandiri,123000.00,IDR,Apotek,123000.00,IDR,
+22.02.2026 13:00,Expense,Bank Mandiri,381500.00,IDR,Hiburan,381500.00,IDR,
+23.02.2026 16:42,Expense,Bank Mandiri,34000.00,IDR,Transportasi,34000.00,IDR,
+26.02.2026 12:00,Expense,Tunai,241500.00,IDR,Apotek,241500.00,IDR,
+27.02.2026 20:19,Expense,Tunai,17500.00,IDR,Transportasi,17500.00,IDR,
+28.02.2026 16:01,Expense,Bank Mandiri,49500.00,IDR,Transportasi,49500.00,IDR,
 01.03.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
-02.03.2026 08:38,Expense,Bank Mandiri,329000.00,IDR,Belanja harian,329000.00,IDR,Indomaret
-02.03.2026 09:53,Expense,Tunai,460000.00,IDR,Belanja harian,460000.00,IDR,Alfamart
-02.03.2026 18:26,Expense,Tunai,43500.00,IDR,Transportasi,43500.00,IDR,
-02.03.2026 20:20,Expense,Bank Mandiri,104000.00,IDR,Kafe,104000.00,IDR,Kopi
-03.03.2026 09:30,Expense,Kartu bank,640000.00,IDR,Tagihan,640000.00,IDR,
+01.03.2026 19:24,Expense,Tunai,38500.00,IDR,Transportasi,38500.00,IDR,
+02.03.2026 16:00,Expense,Bank Mandiri,301500.00,IDR,Hiburan,301500.00,IDR,
+03.03.2026 08:10,Expense,Tunai,393000.00,IDR,Belanja harian,393000.00,IDR,Hypermart
+03.03.2026 09:30,Expense,Kartu bank,896500.00,IDR,Tagihan,896500.00,IDR,
+03.03.2026 20:10,Expense,Tunai,19000.00,IDR,Transportasi,19000.00,IDR,
 04.03.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
 04.03.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
-05.03.2026 10:27,Income,Gaji,16775500.00,IDR,Bank Mandiri,16775500.00,IDR,Gaji bulanan
-05.03.2026 12:07,Expense,Bank Mandiri,187000.00,IDR,Belanja harian,187000.00,IDR,Superindo
+05.03.2026 10:27,Income,Gaji,17127000.00,IDR,Bank Mandiri,17127000.00,IDR,Gaji bulanan
+05.03.2026 12:31,Expense,Tunai,468000.00,IDR,Belanja harian,468000.00,IDR,Indomaret
 06.03.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
-07.03.2026 11:00,Transfer,Bank Mandiri,3722500.00,IDR,Rekening tabungan,3722500.00,IDR,Tabungan bulanan
-09.03.2026 12:08,Expense,Bank Mandiri,16000.00,IDR,Transportasi,16000.00,IDR,
-09.03.2026 19:54,Expense,Tunai,51000.00,IDR,Transportasi,51000.00,IDR,
-10.03.2026 10:24,Expense,Tunai,47000.00,IDR,Transportasi,47000.00,IDR,
-11.03.2026 12:00,Expense,Bank Mandiri,182500.00,IDR,Apotek,182500.00,IDR,
-11.03.2026 16:54,Expense,Bank Mandiri,109000.00,IDR,Kafe,109000.00,IDR,Kopi
-12.03.2026 10:57,Expense,Bank Mandiri,44500.00,IDR,Kafe,44500.00,IDR,Kopi
-12.03.2026 15:07,Expense,Tunai,247000.00,IDR,Belanja harian,247000.00,IDR,Alfamart
-12.03.2026 17:57,Expense,Bank Mandiri,597500.00,IDR,Restoran,597500.00,IDR,
-13.03.2026 19:46,Expense,Tunai,467500.00,IDR,Belanja harian,467500.00,IDR,Indomaret
-13.03.2026 21:00,Expense,Bank Mandiri,162500.00,IDR,Hiburan,162500.00,IDR,
-14.03.2026 19:55,Expense,Tunai,220000.00,IDR,Belanja harian,220000.00,IDR,Indomaret
-15.03.2026 14:00,Expense,Bank Mandiri,419500.00,IDR,Hiburan,419500.00,IDR,
-16.03.2026 12:27,Expense,Bank Mandiri,845000.00,IDR,Bensin,845000.00,IDR,
-16.03.2026 17:53,Expense,Tunai,450000.00,IDR,Belanja harian,450000.00,IDR,Hypermart
-17.03.2026 10:00,Expense,Bank Mandiri,318000.00,IDR,Apotek,318000.00,IDR,
-17.03.2026 17:18,Expense,Bank Mandiri,44500.00,IDR,Kafe,44500.00,IDR,Kopi
-18.03.2026 15:42,Income,Pendapatan freelance,4397500.00,IDR,Bank Mandiri,4397500.00,IDR,Proyek sampingan
-19.03.2026 13:00,Transfer,Bank Mandiri,1156000.00,IDR,Tunai,1156000.00,IDR,Tarik tunai ATM
-19.03.2026 13:45,Expense,Bank Mandiri,39000.00,IDR,Transportasi,39000.00,IDR,
-19.03.2026 17:00,Expense,Bank Mandiri,763500.00,IDR,Belanja,763500.00,IDR,
-20.03.2026 08:13,Expense,Tunai,429000.00,IDR,Belanja harian,429000.00,IDR,Indomaret
-20.03.2026 09:47,Expense,Tunai,436000.00,IDR,Belanja harian,436000.00,IDR,Superindo
-20.03.2026 18:00,Income,Hadiah,428500.00,IDR,Tunai,428500.00,IDR,Hadiah
-23.03.2026 13:09,Expense,Bank Mandiri,469000.00,IDR,Restoran,469000.00,IDR,
-23.03.2026 14:00,Expense,Bank Mandiri,823000.00,IDR,Kesehatan,823000.00,IDR,
-27.03.2026 10:51,Expense,Bank Mandiri,37000.00,IDR,Transportasi,37000.00,IDR,
-27.03.2026 15:57,Expense,Bank Mandiri,36000.00,IDR,Kafe,36000.00,IDR,Kopi
-27.03.2026 16:37,Expense,Tunai,320500.00,IDR,Belanja harian,320500.00,IDR,Hypermart
-28.03.2026 11:15,Expense,Bank Mandiri,101500.00,IDR,Kafe,101500.00,IDR,Kopi
-29.03.2026 13:00,Expense,Bank Mandiri,245000.00,IDR,Hiburan,245000.00,IDR,
-29.03.2026 19:48,Expense,Bank Mandiri,70000.00,IDR,Kafe,70000.00,IDR,Kopi
-30.03.2026 13:36,Expense,Tunai,13000.00,IDR,Transportasi,13000.00,IDR,
+07.03.2026 11:00,Transfer,Bank Mandiri,3662000.00,IDR,Rekening tabungan,3662000.00,IDR,Tabungan bulanan
+09.03.2026 11:17,Expense,Bank Mandiri,56000.00,IDR,Kafe,56000.00,IDR,Kopi
+09.03.2026 15:00,Transfer,Bank Mandiri,1054500.00,IDR,Tunai,1054500.00,IDR,Tarik tunai ATM
+10.03.2026 11:12,Expense,Tunai,37500.00,IDR,Transportasi,37500.00,IDR,
+10.03.2026 15:42,Expense,Bank Mandiri,50500.00,IDR,Kafe,50500.00,IDR,Kopi
+10.03.2026 16:02,Expense,Tunai,32500.00,IDR,Transportasi,32500.00,IDR,
+12.03.2026 13:11,Expense,Bank Mandiri,888500.00,IDR,Bensin,888500.00,IDR,
+13.03.2026 20:18,Expense,Bank Mandiri,707500.00,IDR,Restoran,707500.00,IDR,
+15.03.2026 17:00,Expense,Bank Mandiri,839500.00,IDR,Belanja,839500.00,IDR,
+15.03.2026 19:34,Expense,Bank Mandiri,50000.00,IDR,Kafe,50000.00,IDR,Kopi
+16.03.2026 10:37,Expense,Tunai,389000.00,IDR,Belanja harian,389000.00,IDR,Superindo
+16.03.2026 11:09,Expense,Bank Mandiri,37500.00,IDR,Transportasi,37500.00,IDR,
+16.03.2026 13:07,Expense,Tunai,475000.00,IDR,Belanja harian,475000.00,IDR,Indomaret
+17.03.2026 11:39,Expense,Bank Mandiri,16500.00,IDR,Transportasi,16500.00,IDR,
+17.03.2026 15:56,Expense,Bank Mandiri,266000.00,IDR,Restoran,266000.00,IDR,
+18.03.2026 09:24,Expense,Tunai,447000.00,IDR,Belanja harian,447000.00,IDR,Indomaret
+18.03.2026 18:21,Expense,Bank Mandiri,816000.00,IDR,Bensin,816000.00,IDR,
+19.03.2026 11:00,Expense,Bank Mandiri,217000.00,IDR,Apotek,217000.00,IDR,
+21.03.2026 11:20,Expense,Tunai,421000.00,IDR,Belanja harian,421000.00,IDR,Superindo
+21.03.2026 17:58,Expense,Bank Mandiri,63000.00,IDR,Kafe,63000.00,IDR,Kopi
+22.03.2026 16:00,Expense,Bank Mandiri,229500.00,IDR,Apotek,229500.00,IDR,
+23.03.2026 11:57,Expense,Bank Mandiri,11500.00,IDR,Transportasi,11500.00,IDR,
+24.03.2026 13:10,Expense,Bank Mandiri,111000.00,IDR,Kafe,111000.00,IDR,Kopi
+24.03.2026 15:21,Expense,Bank Mandiri,71000.00,IDR,Kafe,71000.00,IDR,Kopi
+24.03.2026 16:11,Expense,Bank Mandiri,227000.00,IDR,Belanja harian,227000.00,IDR,Indomaret
+24.03.2026 20:00,Expense,Bank Mandiri,381500.00,IDR,Restoran,381500.00,IDR,
+26.03.2026 09:03,Expense,Bank Mandiri,51500.00,IDR,Kafe,51500.00,IDR,Kopi
+26.03.2026 20:27,Expense,Tunai,477000.00,IDR,Belanja harian,477000.00,IDR,Superindo
+27.03.2026 11:55,Expense,Tunai,12500.00,IDR,Transportasi,12500.00,IDR,
+27.03.2026 17:00,Expense,Bank Mandiri,499000.00,IDR,Hiburan,499000.00,IDR,
 01.04.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
-01.04.2026 12:13,Expense,Tunai,29500.00,IDR,Transportasi,29500.00,IDR,
-01.04.2026 15:00,Expense,Bank Mandiri,1542000.00,IDR,Belanja,1542000.00,IDR,
-01.04.2026 18:00,Expense,Bank Mandiri,540500.00,IDR,Hiburan,540500.00,IDR,
-01.04.2026 19:31,Expense,Bank Mandiri,35500.00,IDR,Transportasi,35500.00,IDR,
-02.04.2026 19:02,Expense,Bank Mandiri,342500.00,IDR,Belanja harian,342500.00,IDR,Alfamart
-03.04.2026 09:14,Expense,Bank Mandiri,368500.00,IDR,Belanja harian,368500.00,IDR,Alfamart
-03.04.2026 09:30,Expense,Kartu bank,835000.00,IDR,Tagihan,835000.00,IDR,
-03.04.2026 09:58,Expense,Bank Mandiri,191500.00,IDR,Belanja harian,191500.00,IDR,Hypermart
+02.04.2026 08:38,Expense,Bank Mandiri,329000.00,IDR,Belanja harian,329000.00,IDR,Indomaret
+02.04.2026 09:53,Expense,Tunai,460000.00,IDR,Belanja harian,460000.00,IDR,Alfamart
+02.04.2026 18:26,Expense,Tunai,43500.00,IDR,Transportasi,43500.00,IDR,
+02.04.2026 20:20,Expense,Bank Mandiri,104000.00,IDR,Kafe,104000.00,IDR,Kopi
+03.04.2026 09:30,Expense,Kartu bank,640000.00,IDR,Tagihan,640000.00,IDR,
 04.04.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
 04.04.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
-04.04.2026 20:50,Expense,Bank Mandiri,71500.00,IDR,Kafe,71500.00,IDR,Kopi
-05.04.2026 10:09,Income,Gaji,17256500.00,IDR,Bank Mandiri,17256500.00,IDR,Gaji bulanan
-05.04.2026 12:24,Expense,Tunai,24000.00,IDR,Transportasi,24000.00,IDR,
+05.04.2026 10:27,Income,Gaji,16775500.00,IDR,Bank Mandiri,16775500.00,IDR,Gaji bulanan
+05.04.2026 12:07,Expense,Bank Mandiri,187000.00,IDR,Belanja harian,187000.00,IDR,Superindo
 06.04.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
-06.04.2026 09:02,Expense,Bank Mandiri,53000.00,IDR,Kafe,53000.00,IDR,Kopi
-06.04.2026 10:00,Expense,Tunai,216000.00,IDR,Apotek,216000.00,IDR,
-06.04.2026 14:02,Expense,Bank Mandiri,208000.00,IDR,Belanja harian,208000.00,IDR,Superindo
-07.04.2026 11:00,Transfer,Bank Mandiri,2068500.00,IDR,Rekening tabungan,2068500.00,IDR,Tabungan bulanan
-07.04.2026 17:21,Expense,Tunai,161500.00,IDR,Belanja harian,161500.00,IDR,Hypermart
-11.04.2026 12:10,Expense,Bank Mandiri,591500.00,IDR,Restoran,591500.00,IDR,
-11.04.2026 13:27,Expense,Bank Mandiri,851500.00,IDR,Bensin,851500.00,IDR,
-11.04.2026 14:29,Expense,Bank Mandiri,469500.00,IDR,Belanja harian,469500.00,IDR,Hypermart
-12.04.2026 12:00,Income,Dividen,1615000.00,IDR,Rekening tabungan,1615000.00,IDR,Dividen kuartalan
-13.04.2026 09:30,Expense,Tunai,448500.00,IDR,Belanja harian,448500.00,IDR,Alfamart
-13.04.2026 18:28,Expense,Bank Mandiri,47000.00,IDR,Kafe,47000.00,IDR,Kopi
-14.04.2026 13:57,Expense,Tunai,22000.00,IDR,Transportasi,22000.00,IDR,
-16.04.2026 10:00,Transfer,Bank Mandiri,1071000.00,IDR,Tunai,1071000.00,IDR,Tarik tunai ATM
-18.04.2026 15:28,Income,Pendapatan freelance,4771000.00,IDR,Bank Mandiri,4771000.00,IDR,Proyek sampingan
-19.04.2026 19:00,Expense,Tunai,173000.00,IDR,Apotek,173000.00,IDR,
-19.04.2026 21:00,Expense,Bank Mandiri,308500.00,IDR,Hiburan,308500.00,IDR,
-20.04.2026 15:49,Expense,Bank Mandiri,14500.00,IDR,Transportasi,14500.00,IDR,
-21.04.2026 10:00,Expense,Kartu bank,3984500.00,IDR,Perjalanan,3984500.00,IDR,Liburan akhir pekan
-22.04.2026 15:11,Expense,Tunai,50500.00,IDR,Transportasi,50500.00,IDR,
-24.04.2026 12:36,Expense,Bank Mandiri,81500.00,IDR,Kafe,81500.00,IDR,Kopi
-24.04.2026 17:23,Expense,Bank Mandiri,44500.00,IDR,Transportasi,44500.00,IDR,
-26.04.2026 11:52,Expense,Bank Mandiri,51000.00,IDR,Kafe,51000.00,IDR,Kopi
-26.04.2026 19:02,Expense,Tunai,454500.00,IDR,Belanja harian,454500.00,IDR,Indomaret
-27.04.2026 07:02,Expense,Bank Mandiri,12500.00,IDR,Transportasi,12500.00,IDR,
-27.04.2026 16:05,Expense,Bank Mandiri,100500.00,IDR,Kafe,100500.00,IDR,Kopi
-29.04.2026 16:12,Expense,Bank Mandiri,443000.00,IDR,Restoran,443000.00,IDR,
+07.04.2026 11:00,Transfer,Bank Mandiri,3722500.00,IDR,Rekening tabungan,3722500.00,IDR,Tabungan bulanan
+09.04.2026 12:08,Expense,Bank Mandiri,16000.00,IDR,Transportasi,16000.00,IDR,
+09.04.2026 19:54,Expense,Tunai,51000.00,IDR,Transportasi,51000.00,IDR,
+10.04.2026 10:24,Expense,Tunai,47000.00,IDR,Transportasi,47000.00,IDR,
+11.04.2026 12:00,Expense,Bank Mandiri,182500.00,IDR,Apotek,182500.00,IDR,
+11.04.2026 16:54,Expense,Bank Mandiri,109000.00,IDR,Kafe,109000.00,IDR,Kopi
+12.04.2026 10:57,Expense,Bank Mandiri,44500.00,IDR,Kafe,44500.00,IDR,Kopi
+12.04.2026 15:07,Expense,Tunai,247000.00,IDR,Belanja harian,247000.00,IDR,Alfamart
+12.04.2026 17:57,Expense,Bank Mandiri,597500.00,IDR,Restoran,597500.00,IDR,
+13.04.2026 19:46,Expense,Tunai,467500.00,IDR,Belanja harian,467500.00,IDR,Indomaret
+13.04.2026 21:00,Expense,Bank Mandiri,162500.00,IDR,Hiburan,162500.00,IDR,
+14.04.2026 19:55,Expense,Tunai,220000.00,IDR,Belanja harian,220000.00,IDR,Indomaret
+15.04.2026 14:00,Expense,Bank Mandiri,419500.00,IDR,Hiburan,419500.00,IDR,
+16.04.2026 12:27,Expense,Bank Mandiri,845000.00,IDR,Bensin,845000.00,IDR,
+16.04.2026 17:53,Expense,Tunai,450000.00,IDR,Belanja harian,450000.00,IDR,Hypermart
+17.04.2026 10:00,Expense,Bank Mandiri,318000.00,IDR,Apotek,318000.00,IDR,
+17.04.2026 17:18,Expense,Bank Mandiri,44500.00,IDR,Kafe,44500.00,IDR,Kopi
+18.04.2026 15:42,Income,Pendapatan freelance,4397500.00,IDR,Bank Mandiri,4397500.00,IDR,Proyek sampingan
+19.04.2026 13:00,Transfer,Bank Mandiri,1156000.00,IDR,Tunai,1156000.00,IDR,Tarik tunai ATM
+19.04.2026 13:45,Expense,Bank Mandiri,39000.00,IDR,Transportasi,39000.00,IDR,
+19.04.2026 17:00,Expense,Bank Mandiri,763500.00,IDR,Belanja,763500.00,IDR,
+20.04.2026 08:13,Expense,Tunai,429000.00,IDR,Belanja harian,429000.00,IDR,Indomaret
+20.04.2026 09:47,Expense,Tunai,436000.00,IDR,Belanja harian,436000.00,IDR,Superindo
+20.04.2026 18:00,Income,Hadiah,428500.00,IDR,Tunai,428500.00,IDR,Hadiah
+23.04.2026 13:09,Expense,Bank Mandiri,469000.00,IDR,Restoran,469000.00,IDR,
+23.04.2026 14:00,Expense,Bank Mandiri,823000.00,IDR,Kesehatan,823000.00,IDR,
+27.04.2026 10:51,Expense,Bank Mandiri,37000.00,IDR,Transportasi,37000.00,IDR,
+27.04.2026 15:57,Expense,Bank Mandiri,36000.00,IDR,Kafe,36000.00,IDR,Kopi
+27.04.2026 16:37,Expense,Tunai,320500.00,IDR,Belanja harian,320500.00,IDR,Hypermart
+28.04.2026 11:15,Expense,Bank Mandiri,101500.00,IDR,Kafe,101500.00,IDR,Kopi
+29.04.2026 13:00,Expense,Bank Mandiri,245000.00,IDR,Hiburan,245000.00,IDR,
+29.04.2026 19:48,Expense,Bank Mandiri,70000.00,IDR,Kafe,70000.00,IDR,Kopi
+30.04.2026 13:36,Expense,Tunai,13000.00,IDR,Transportasi,13000.00,IDR,
 01.05.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
-01.05.2026 09:24,Expense,Tunai,161500.00,IDR,Belanja harian,161500.00,IDR,Alfamart
-02.05.2026 13:06,Expense,Tunai,233500.00,IDR,Belanja harian,233500.00,IDR,Superindo
-02.05.2026 13:48,Expense,Bank Mandiri,742000.00,IDR,Bensin,742000.00,IDR,
-02.05.2026 18:07,Expense,Tunai,332500.00,IDR,Belanja harian,332500.00,IDR,Hypermart
-02.05.2026 18:29,Expense,Bank Mandiri,24000.00,IDR,Transportasi,24000.00,IDR,
-03.05.2026 09:30,Expense,Kartu bank,956500.00,IDR,Tagihan,956500.00,IDR,
+01.05.2026 12:13,Expense,Tunai,29500.00,IDR,Transportasi,29500.00,IDR,
+01.05.2026 15:00,Expense,Bank Mandiri,1542000.00,IDR,Belanja,1542000.00,IDR,
+01.05.2026 18:00,Expense,Bank Mandiri,540500.00,IDR,Hiburan,540500.00,IDR,
+01.05.2026 19:31,Expense,Bank Mandiri,35500.00,IDR,Transportasi,35500.00,IDR,
+02.05.2026 19:02,Expense,Bank Mandiri,342500.00,IDR,Belanja harian,342500.00,IDR,Alfamart
+03.05.2026 09:14,Expense,Bank Mandiri,368500.00,IDR,Belanja harian,368500.00,IDR,Alfamart
+03.05.2026 09:30,Expense,Kartu bank,835000.00,IDR,Tagihan,835000.00,IDR,
+03.05.2026 09:58,Expense,Bank Mandiri,191500.00,IDR,Belanja harian,191500.00,IDR,Hypermart
 04.05.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
 04.05.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
-05.05.2026 10:53,Income,Gaji,17515000.00,IDR,Bank Mandiri,17515000.00,IDR,Gaji bulanan
-05.05.2026 13:57,Expense,Bank Mandiri,501500.00,IDR,Restoran,501500.00,IDR,
-05.05.2026 15:00,Expense,Bank Mandiri,276000.00,IDR,Apotek,276000.00,IDR,
-05.05.2026 18:39,Expense,Bank Mandiri,84500.00,IDR,Kafe,84500.00,IDR,Kopi
+04.05.2026 20:50,Expense,Bank Mandiri,71500.00,IDR,Kafe,71500.00,IDR,Kopi
+05.05.2026 10:09,Income,Gaji,17256500.00,IDR,Bank Mandiri,17256500.00,IDR,Gaji bulanan
+05.05.2026 12:24,Expense,Tunai,24000.00,IDR,Transportasi,24000.00,IDR,
 06.05.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
-06.05.2026 11:35,Expense,Bank Mandiri,28000.00,IDR,Transportasi,28000.00,IDR,
-08.05.2026 19:29,Expense,Bank Mandiri,43000.00,IDR,Kafe,43000.00,IDR,Kopi
-08.05.2026 20:07,Expense,Bank Mandiri,583000.00,IDR,Restoran,583000.00,IDR,
-10.05.2026 20:21,Expense,Bank Mandiri,36500.00,IDR,Kafe,36500.00,IDR,Kopi
-11.05.2026 08:41,Expense,Bank Mandiri,46000.00,IDR,Transportasi,46000.00,IDR,
-12.05.2026 12:09,Expense,Bank Mandiri,35500.00,IDR,Transportasi,35500.00,IDR,
-13.05.2026 16:18,Expense,Bank Mandiri,153500.00,IDR,Belanja harian,153500.00,IDR,Alfamart
-13.05.2026 20:27,Expense,Bank Mandiri,88500.00,IDR,Kafe,88500.00,IDR,Kopi
-14.05.2026 10:20,Expense,Bank Mandiri,38000.00,IDR,Transportasi,38000.00,IDR,
-15.05.2026 18:26,Expense,Bank Mandiri,748500.00,IDR,Restoran,748500.00,IDR,
-16.05.2026 15:00,Expense,Bank Mandiri,1498500.00,IDR,Belanja,1498500.00,IDR,
-17.05.2026 10:00,Expense,Kartu bank,3946000.00,IDR,Perjalanan,3946000.00,IDR,Liburan akhir pekan
-18.05.2026 17:05,Expense,Bank Mandiri,660500.00,IDR,Restoran,660500.00,IDR,
-20.05.2026 11:00,Transfer,Bank Mandiri,1336000.00,IDR,Tunai,1336000.00,IDR,Tarik tunai ATM
-20.05.2026 18:14,Expense,Bank Mandiri,293500.00,IDR,Belanja harian,293500.00,IDR,Superindo
-21.05.2026 11:16,Expense,Bank Mandiri,89000.00,IDR,Kafe,89000.00,IDR,Kopi
-22.05.2026 10:41,Expense,Bank Mandiri,62500.00,IDR,Kafe,62500.00,IDR,Kopi
-22.05.2026 18:12,Expense,Bank Mandiri,110500.00,IDR,Kafe,110500.00,IDR,Kopi
-23.05.2026 17:58,Expense,Tunai,389500.00,IDR,Belanja harian,389500.00,IDR,Indomaret
-25.05.2026 17:54,Expense,Tunai,472500.00,IDR,Belanja harian,472500.00,IDR,Indomaret
-26.05.2026 12:04,Expense,Bank Mandiri,20500.00,IDR,Transportasi,20500.00,IDR,
-26.05.2026 13:00,Expense,Bank Mandiri,469000.00,IDR,Hiburan,469000.00,IDR,
-26.05.2026 19:00,Expense,Bank Mandiri,141000.00,IDR,Hiburan,141000.00,IDR,
-27.05.2026 20:33,Expense,Bank Mandiri,164000.00,IDR,Belanja harian,164000.00,IDR,Indomaret
-28.05.2026 10:00,Expense,Tunai,184500.00,IDR,Apotek,184500.00,IDR,
-28.05.2026 10:26,Expense,Bank Mandiri,223000.00,IDR,Belanja harian,223000.00,IDR,Indomaret
-30.05.2026 12:21,Expense,Bank Mandiri,444500.00,IDR,Belanja harian,444500.00,IDR,Alfamart
-30.05.2026 14:41,Expense,Bank Mandiri,19500.00,IDR,Transportasi,19500.00,IDR,
-30.05.2026 16:00,Expense,Kartu bank,1551500.00,IDR,Pakaian,1551500.00,IDR,
-01.06.2026 07:51,Expense,Bank Mandiri,20000.00,IDR,Transportasi,20000.00,IDR,
+06.05.2026 09:02,Expense,Bank Mandiri,53000.00,IDR,Kafe,53000.00,IDR,Kopi
+06.05.2026 10:00,Expense,Tunai,216000.00,IDR,Apotek,216000.00,IDR,
+06.05.2026 14:02,Expense,Bank Mandiri,208000.00,IDR,Belanja harian,208000.00,IDR,Superindo
+07.05.2026 11:00,Transfer,Bank Mandiri,2068500.00,IDR,Rekening tabungan,2068500.00,IDR,Tabungan bulanan
+07.05.2026 17:21,Expense,Tunai,161500.00,IDR,Belanja harian,161500.00,IDR,Hypermart
+11.05.2026 12:10,Expense,Bank Mandiri,591500.00,IDR,Restoran,591500.00,IDR,
+11.05.2026 13:27,Expense,Bank Mandiri,851500.00,IDR,Bensin,851500.00,IDR,
+11.05.2026 14:29,Expense,Bank Mandiri,469500.00,IDR,Belanja harian,469500.00,IDR,Hypermart
+12.05.2026 12:00,Income,Dividen,1615000.00,IDR,Rekening tabungan,1615000.00,IDR,Dividen kuartalan
+13.05.2026 09:30,Expense,Tunai,448500.00,IDR,Belanja harian,448500.00,IDR,Alfamart
+13.05.2026 18:28,Expense,Bank Mandiri,47000.00,IDR,Kafe,47000.00,IDR,Kopi
+14.05.2026 13:57,Expense,Tunai,22000.00,IDR,Transportasi,22000.00,IDR,
+16.05.2026 10:00,Transfer,Bank Mandiri,1071000.00,IDR,Tunai,1071000.00,IDR,Tarik tunai ATM
+18.05.2026 15:28,Income,Pendapatan freelance,4771000.00,IDR,Bank Mandiri,4771000.00,IDR,Proyek sampingan
+19.05.2026 19:00,Expense,Tunai,173000.00,IDR,Apotek,173000.00,IDR,
+19.05.2026 21:00,Expense,Bank Mandiri,308500.00,IDR,Hiburan,308500.00,IDR,
+20.05.2026 15:49,Expense,Bank Mandiri,14500.00,IDR,Transportasi,14500.00,IDR,
+21.05.2026 10:00,Expense,Kartu bank,3984500.00,IDR,Perjalanan,3984500.00,IDR,Liburan akhir pekan
+22.05.2026 15:11,Expense,Tunai,50500.00,IDR,Transportasi,50500.00,IDR,
+24.05.2026 12:36,Expense,Bank Mandiri,81500.00,IDR,Kafe,81500.00,IDR,Kopi
+24.05.2026 17:23,Expense,Bank Mandiri,44500.00,IDR,Transportasi,44500.00,IDR,
+26.05.2026 11:52,Expense,Bank Mandiri,51000.00,IDR,Kafe,51000.00,IDR,Kopi
+26.05.2026 19:02,Expense,Tunai,454500.00,IDR,Belanja harian,454500.00,IDR,Indomaret
+27.05.2026 07:02,Expense,Bank Mandiri,12500.00,IDR,Transportasi,12500.00,IDR,
+27.05.2026 16:05,Expense,Bank Mandiri,100500.00,IDR,Kafe,100500.00,IDR,Kopi
+29.05.2026 16:12,Expense,Bank Mandiri,443000.00,IDR,Restoran,443000.00,IDR,
 01.06.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
-01.06.2026 12:07,Expense,Bank Mandiri,115000.00,IDR,Kafe,115000.00,IDR,Kopi
-01.06.2026 13:21,Expense,Tunai,159000.00,IDR,Belanja harian,159000.00,IDR,Indomaret
-01.06.2026 13:34,Expense,Bank Mandiri,306500.00,IDR,Belanja harian,306500.00,IDR,Alfamart
-01.06.2026 17:00,Expense,Bank Mandiri,444000.00,IDR,Hiburan,444000.00,IDR,
-02.06.2026 10:34,Expense,Bank Mandiri,451000.00,IDR,Belanja harian,451000.00,IDR,Indomaret
-02.06.2026 15:00,Expense,Tunai,312000.00,IDR,Apotek,312000.00,IDR,
-02.06.2026 16:13,Expense,Bank Mandiri,892000.00,IDR,Bensin,892000.00,IDR,
-02.06.2026 20:45,Expense,Bank Mandiri,471000.00,IDR,Restoran,471000.00,IDR,
-03.06.2026 07:18,Expense,Tunai,49500.00,IDR,Transportasi,49500.00,IDR,
-03.06.2026 09:30,Expense,Kartu bank,621500.00,IDR,Tagihan,621500.00,IDR,
-03.06.2026 17:02,Expense,Bank Mandiri,173500.00,IDR,Belanja harian,173500.00,IDR,Indomaret
-04.06.2026 08:39,Expense,Tunai,319500.00,IDR,Belanja harian,319500.00,IDR,Indomaret
+01.06.2026 09:24,Expense,Tunai,161500.00,IDR,Belanja harian,161500.00,IDR,Alfamart
+02.06.2026 13:06,Expense,Tunai,233500.00,IDR,Belanja harian,233500.00,IDR,Superindo
+02.06.2026 13:48,Expense,Bank Mandiri,742000.00,IDR,Bensin,742000.00,IDR,
+02.06.2026 18:07,Expense,Tunai,332500.00,IDR,Belanja harian,332500.00,IDR,Hypermart
+02.06.2026 18:29,Expense,Bank Mandiri,24000.00,IDR,Transportasi,24000.00,IDR,
+03.06.2026 09:30,Expense,Kartu bank,956500.00,IDR,Tagihan,956500.00,IDR,
 04.06.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
 04.06.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
-04.06.2026 09:39,Expense,Bank Mandiri,775000.00,IDR,Bensin,775000.00,IDR,
-04.06.2026 11:57,Expense,Tunai,20500.00,IDR,Transportasi,20500.00,IDR,
-04.06.2026 13:09,Expense,Bank Mandiri,725500.00,IDR,Restoran,725500.00,IDR,
-04.06.2026 13:33,Expense,Bank Mandiri,46000.00,IDR,Kafe,46000.00,IDR,Kopi
-04.06.2026 14:00,Expense,Bank Mandiri,403000.00,IDR,Hiburan,403000.00,IDR,
-04.06.2026 14:47,Expense,Bank Mandiri,106500.00,IDR,Kafe,106500.00,IDR,Kopi
-04.06.2026 18:00,Expense,Bank Mandiri,1071500.00,IDR,Belanja,1071500.00,IDR,
-05.06.2026 10:14,Income,Gaji,17225500.00,IDR,Bank Mandiri,17225500.00,IDR,Gaji bulanan
-05.06.2026 18:00,Expense,Kartu bank,1727500.00,IDR,Pakaian,1727500.00,IDR,
-05.06.2026 18:16,Expense,Tunai,174500.00,IDR,Belanja harian,174500.00,IDR,Superindo
-05.06.2026 18:52,Expense,Bank Mandiri,94500.00,IDR,Kafe,94500.00,IDR,Kopi
-05.06.2026 18:53,Expense,Tunai,36000.00,IDR,Transportasi,36000.00,IDR,
-05.06.2026 20:32,Expense,Bank Mandiri,34000.00,IDR,Transportasi,34000.00,IDR,
-05.06.2026 22:00,Expense,Bank Mandiri,149500.00,IDR,Hiburan,149500.00,IDR,
+05.06.2026 10:53,Income,Gaji,17515000.00,IDR,Bank Mandiri,17515000.00,IDR,Gaji bulanan
+05.06.2026 13:57,Expense,Bank Mandiri,501500.00,IDR,Restoran,501500.00,IDR,
+05.06.2026 15:00,Expense,Bank Mandiri,276000.00,IDR,Apotek,276000.00,IDR,
+05.06.2026 18:39,Expense,Bank Mandiri,84500.00,IDR,Kafe,84500.00,IDR,Kopi
 06.06.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
-06.06.2026 13:24,Expense,Bank Mandiri,61500.00,IDR,Kafe,61500.00,IDR,Kopi
-06.06.2026 13:55,Expense,Bank Mandiri,39000.00,IDR,Transportasi,39000.00,IDR,
-06.06.2026 13:56,Expense,Bank Mandiri,27500.00,IDR,Transportasi,27500.00,IDR,
-06.06.2026 16:46,Expense,Bank Mandiri,467000.00,IDR,Belanja harian,467000.00,IDR,Indomaret
-07.06.2026 11:00,Transfer,Bank Mandiri,2505500.00,IDR,Rekening tabungan,2505500.00,IDR,Tabungan bulanan
-07.06.2026 11:28,Expense,Bank Mandiri,173500.00,IDR,Belanja harian,173500.00,IDR,Alfamart
-07.06.2026 15:11,Expense,Bank Mandiri,235000.00,IDR,Restoran,235000.00,IDR,
-07.06.2026 15:13,Expense,Tunai,338500.00,IDR,Belanja harian,338500.00,IDR,Alfamart
-07.06.2026 20:36,Expense,Bank Mandiri,231000.00,IDR,Restoran,231000.00,IDR,
-08.06.2026 10:00,Expense,Bank Mandiri,1190500.00,IDR,Kesehatan,1190500.00,IDR,
-08.06.2026 11:21,Expense,Tunai,249000.00,IDR,Belanja harian,249000.00,IDR,Superindo
-08.06.2026 20:45,Expense,Bank Mandiri,62000.00,IDR,Kafe,62000.00,IDR,Kopi
-09.06.2026 11:00,Transfer,Bank Mandiri,1375000.00,IDR,Tunai,1375000.00,IDR,Tarik tunai ATM
-09.06.2026 15:48,Income,Pendapatan freelance,4873500.00,IDR,Bank Mandiri,4873500.00,IDR,Proyek sampingan
-09.06.2026 18:00,Income,Hadiah,821500.00,IDR,Tunai,821500.00,IDR,Hadiah
+06.06.2026 11:35,Expense,Bank Mandiri,28000.00,IDR,Transportasi,28000.00,IDR,
+08.06.2026 19:29,Expense,Bank Mandiri,43000.00,IDR,Kafe,43000.00,IDR,Kopi
+08.06.2026 20:07,Expense,Bank Mandiri,583000.00,IDR,Restoran,583000.00,IDR,
+10.06.2026 20:21,Expense,Bank Mandiri,36500.00,IDR,Kafe,36500.00,IDR,Kopi
+11.06.2026 08:41,Expense,Bank Mandiri,46000.00,IDR,Transportasi,46000.00,IDR,
+12.06.2026 12:09,Expense,Bank Mandiri,35500.00,IDR,Transportasi,35500.00,IDR,
+13.06.2026 16:18,Expense,Bank Mandiri,153500.00,IDR,Belanja harian,153500.00,IDR,Alfamart
+13.06.2026 20:27,Expense,Bank Mandiri,88500.00,IDR,Kafe,88500.00,IDR,Kopi
+14.06.2026 10:20,Expense,Bank Mandiri,38000.00,IDR,Transportasi,38000.00,IDR,
+15.06.2026 18:26,Expense,Bank Mandiri,748500.00,IDR,Restoran,748500.00,IDR,
+16.06.2026 15:00,Expense,Bank Mandiri,1498500.00,IDR,Belanja,1498500.00,IDR,
+17.06.2026 10:00,Expense,Kartu bank,3946000.00,IDR,Perjalanan,3946000.00,IDR,Liburan akhir pekan
+18.06.2026 17:05,Expense,Bank Mandiri,660500.00,IDR,Restoran,660500.00,IDR,
+20.06.2026 11:00,Transfer,Bank Mandiri,1336000.00,IDR,Tunai,1336000.00,IDR,Tarik tunai ATM
+20.06.2026 18:14,Expense,Bank Mandiri,293500.00,IDR,Belanja harian,293500.00,IDR,Superindo
+21.06.2026 11:16,Expense,Bank Mandiri,89000.00,IDR,Kafe,89000.00,IDR,Kopi
+22.06.2026 10:41,Expense,Bank Mandiri,62500.00,IDR,Kafe,62500.00,IDR,Kopi
+22.06.2026 18:12,Expense,Bank Mandiri,110500.00,IDR,Kafe,110500.00,IDR,Kopi
+23.06.2026 17:58,Expense,Tunai,389500.00,IDR,Belanja harian,389500.00,IDR,Indomaret
+25.06.2026 17:54,Expense,Tunai,472500.00,IDR,Belanja harian,472500.00,IDR,Indomaret
+26.06.2026 12:04,Expense,Bank Mandiri,20500.00,IDR,Transportasi,20500.00,IDR,
+26.06.2026 13:00,Expense,Bank Mandiri,469000.00,IDR,Hiburan,469000.00,IDR,
+26.06.2026 19:00,Expense,Bank Mandiri,141000.00,IDR,Hiburan,141000.00,IDR,
+27.06.2026 20:33,Expense,Bank Mandiri,164000.00,IDR,Belanja harian,164000.00,IDR,Indomaret
+28.06.2026 10:00,Expense,Tunai,184500.00,IDR,Apotek,184500.00,IDR,
+28.06.2026 10:26,Expense,Bank Mandiri,223000.00,IDR,Belanja harian,223000.00,IDR,Indomaret
+30.06.2026 12:21,Expense,Bank Mandiri,444500.00,IDR,Belanja harian,444500.00,IDR,Alfamart
+30.06.2026 14:41,Expense,Bank Mandiri,19500.00,IDR,Transportasi,19500.00,IDR,
+30.06.2026 16:00,Expense,Kartu bank,1551500.00,IDR,Pakaian,1551500.00,IDR,
+01.07.2026 07:51,Expense,Bank Mandiri,20000.00,IDR,Transportasi,20000.00,IDR,
+01.07.2026 09:00,Expense,Kartu bank,4500000.00,IDR,Sewa,4500000.00,IDR,Sewa apartemen
+01.07.2026 12:07,Expense,Bank Mandiri,115000.00,IDR,Kafe,115000.00,IDR,Kopi
+01.07.2026 13:21,Expense,Tunai,159000.00,IDR,Belanja harian,159000.00,IDR,Indomaret
+01.07.2026 13:34,Expense,Bank Mandiri,306500.00,IDR,Belanja harian,306500.00,IDR,Alfamart
+01.07.2026 17:00,Expense,Bank Mandiri,444000.00,IDR,Hiburan,444000.00,IDR,
+02.07.2026 10:34,Expense,Bank Mandiri,451000.00,IDR,Belanja harian,451000.00,IDR,Indomaret
+02.07.2026 15:00,Expense,Tunai,312000.00,IDR,Apotek,312000.00,IDR,
+02.07.2026 16:13,Expense,Bank Mandiri,892000.00,IDR,Bensin,892000.00,IDR,
+02.07.2026 20:45,Expense,Bank Mandiri,471000.00,IDR,Restoran,471000.00,IDR,
+03.07.2026 07:18,Expense,Tunai,49500.00,IDR,Transportasi,49500.00,IDR,
+03.07.2026 09:30,Expense,Kartu bank,621500.00,IDR,Tagihan,621500.00,IDR,
+03.07.2026 17:02,Expense,Bank Mandiri,173500.00,IDR,Belanja harian,173500.00,IDR,Indomaret
+04.07.2026 08:39,Expense,Tunai,319500.00,IDR,Belanja harian,319500.00,IDR,Indomaret
+04.07.2026 09:00,Expense,Bank Mandiri,112500.00,IDR,Internet,112500.00,IDR,
+04.07.2026 09:05,Expense,Bank Mandiri,94000.00,IDR,Ponsel,94000.00,IDR,
+04.07.2026 09:39,Expense,Bank Mandiri,775000.00,IDR,Bensin,775000.00,IDR,
+04.07.2026 11:57,Expense,Tunai,20500.00,IDR,Transportasi,20500.00,IDR,
+04.07.2026 13:09,Expense,Bank Mandiri,725500.00,IDR,Restoran,725500.00,IDR,
+04.07.2026 13:33,Expense,Bank Mandiri,46000.00,IDR,Kafe,46000.00,IDR,Kopi
+04.07.2026 14:00,Expense,Bank Mandiri,403000.00,IDR,Hiburan,403000.00,IDR,
+04.07.2026 14:47,Expense,Bank Mandiri,106500.00,IDR,Kafe,106500.00,IDR,Kopi
+04.07.2026 18:00,Expense,Bank Mandiri,1071500.00,IDR,Belanja,1071500.00,IDR,
+05.07.2026 10:14,Income,Gaji,17225500.00,IDR,Bank Mandiri,17225500.00,IDR,Gaji bulanan
+05.07.2026 18:00,Expense,Kartu bank,1727500.00,IDR,Pakaian,1727500.00,IDR,
+05.07.2026 18:16,Expense,Tunai,174500.00,IDR,Belanja harian,174500.00,IDR,Superindo
+05.07.2026 18:52,Expense,Bank Mandiri,94500.00,IDR,Kafe,94500.00,IDR,Kopi
+05.07.2026 18:53,Expense,Tunai,36000.00,IDR,Transportasi,36000.00,IDR,
+05.07.2026 20:32,Expense,Bank Mandiri,34000.00,IDR,Transportasi,34000.00,IDR,
+05.07.2026 22:00,Expense,Bank Mandiri,149500.00,IDR,Hiburan,149500.00,IDR,
+06.07.2026 08:00,Expense,Bank Mandiri,225000.00,IDR,Langganan,225000.00,IDR,Netflix + Spotify
+06.07.2026 13:24,Expense,Bank Mandiri,61500.00,IDR,Kafe,61500.00,IDR,Kopi
+06.07.2026 13:55,Expense,Bank Mandiri,39000.00,IDR,Transportasi,39000.00,IDR,
+06.07.2026 13:56,Expense,Bank Mandiri,27500.00,IDR,Transportasi,27500.00,IDR,
+06.07.2026 16:46,Expense,Bank Mandiri,467000.00,IDR,Belanja harian,467000.00,IDR,Indomaret
+07.07.2026 11:00,Transfer,Bank Mandiri,2505500.00,IDR,Rekening tabungan,2505500.00,IDR,Tabungan bulanan
+07.07.2026 11:28,Expense,Bank Mandiri,173500.00,IDR,Belanja harian,173500.00,IDR,Alfamart
+07.07.2026 15:11,Expense,Bank Mandiri,235000.00,IDR,Restoran,235000.00,IDR,
+07.07.2026 15:13,Expense,Tunai,338500.00,IDR,Belanja harian,338500.00,IDR,Alfamart
+07.07.2026 20:36,Expense,Bank Mandiri,231000.00,IDR,Restoran,231000.00,IDR,
+08.07.2026 10:00,Expense,Bank Mandiri,1190500.00,IDR,Kesehatan,1190500.00,IDR,
+08.07.2026 11:21,Expense,Tunai,249000.00,IDR,Belanja harian,249000.00,IDR,Superindo
+08.07.2026 20:45,Expense,Bank Mandiri,62000.00,IDR,Kafe,62000.00,IDR,Kopi
+09.07.2026 11:00,Transfer,Bank Mandiri,1375000.00,IDR,Tunai,1375000.00,IDR,Tarik tunai ATM
+09.07.2026 15:48,Income,Pendapatan freelance,4873500.00,IDR,Bank Mandiri,4873500.00,IDR,Proyek sampingan
+09.07.2026 18:00,Income,Hadiah,821500.00,IDR,Tunai,821500.00,IDR,Hadiah
