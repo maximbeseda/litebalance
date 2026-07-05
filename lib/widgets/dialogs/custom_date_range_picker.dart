@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/rendering.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/calendar_utils.dart';
 
 // Сигнальний об'єкт для скидання фільтра
 class ResetRangeSignal {}
@@ -44,6 +46,10 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
   final List<dynamic> _flatItems = [];
   late DateFormat _monthFormat;
 
+  /// Перший день тижня за локаллю (0=Нд…6=Сб). Встановлюється у
+  /// didChangeDependencies перед генерацією сітки.
+  int _firstDow = 1;
+
   Color get highlightColor => widget.colors.accent;
 
   int _dateToInt(DateTime d) => d.year * 10000 + d.month * 100 + d.day;
@@ -68,6 +74,7 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
     final localeCode =
         Localizations.maybeLocaleOf(context)?.languageCode ?? 'en';
     _monthFormat = DateFormat('LLLL yyyy', localeCode);
+    _firstDow = CalendarUtils.firstDayOfWeekIndex(context);
 
     if (_flatItems.isEmpty) {
       _generateFlatItems();
@@ -81,7 +88,7 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
       for (int m = mStart; m >= 1; m--) {
         final DateTime monthDate = DateTime(y, m, 1);
         final int daysInMonth = DateUtils.getDaysInMonth(y, m);
-        final int offset = monthDate.weekday - 1;
+        final int offset = CalendarUtils.leadingOffset(monthDate, _firstDow);
 
         final List<List<_DayModel?>> monthWeeks = [];
         List<_DayModel?> currentWeek = List.filled(
@@ -243,15 +250,8 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children:
-                  [
-                        'week_mo'.tr(),
-                        'week_tu'.tr(),
-                        'week_we'.tr(),
-                        'week_th'.tr(),
-                        'week_fr'.tr(),
-                        'week_sa'.tr(),
-                        'week_su'.tr(),
-                      ]
+                  CalendarUtils.orderedWeekdayKeys(_firstDow)
+                      .map((k) => k.tr())
                       .map(
                         (d) => SizedBox(
                           width: cellWidth,
@@ -278,11 +278,11 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
 
           Expanded(
             child: ListView.builder(
+              scrollCacheExtent: const ScrollCacheExtent.pixels(1000),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: _flatItems.length,
               reverse: true,
               physics: const BouncingScrollPhysics(),
-              cacheExtent: 1000,
               itemBuilder: (context, index) {
                 final item = _flatItems[index];
                 if (item is String) {

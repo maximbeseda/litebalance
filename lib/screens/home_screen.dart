@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:coin_flow/theme/category_defaults.dart';
+import 'package:litebalance/theme/category_defaults.dart';
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:uuid/uuid.dart';
@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:collection/collection.dart';
 
-import '../database/app_database.dart';
 import '../widgets/bottom_sheets/history_bottom_sheet.dart';
 import '../widgets/common/summary_header.dart';
 import '../widgets/bottom_sheets/general_history_bottom_sheet.dart';
@@ -52,6 +51,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     if (state == AppLifecycleState.resumed) {
       if (mounted) {
         ref.read(subscriptionProvider.notifier).refreshOnAppResume();
+        // Якщо додаток провисів у фоні через межу місяця — оновлюємо місяць,
+        // щоб суми доходів/витрат обнулилися без повного перезапуску.
+        ref.read(transactionProvider.notifier).syncSelectedMonthToCurrent();
       }
     }
   }
@@ -129,7 +131,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ? comment.trim()
           : '${'transfer'.tr()} ${source.name} ➡️ ${target.name}';
 
-      final int baseAmt = settingsNotifier.convertToBase(amount, source.currency);
+      final int baseAmt = settingsNotifier.convertToBase(
+        amount,
+        source.currency,
+      );
 
       final newTx = Transaction(
         id: const Uuid().v4(),
@@ -158,7 +163,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final Category? sourceCat = allCategories.firstWhereOrNull(
       (c) => c.id == t.fromId,
     );
-    final Category? targetCat = allCategories.firstWhereOrNull((c) => c.id == t.toId);
+    final Category? targetCat = allCategories.firstWhereOrNull(
+      (c) => c.id == t.toId,
+    );
 
     if (sourceCat == null || targetCat == null) return;
 
@@ -359,7 +366,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       }
     });
 
-    if (catState.isLoading || txAsync.isLoading || txState == null) {
+    // Показуємо скелетон тільки якщо даних ВЗАГАЛІ немає.
+    // Якщо дані вже є (наприклад, під час фонової синхронізації), ми ігноруємо isLoading.
+    final hasCategories =
+        catState.incomes.isNotEmpty ||
+        catState.accounts.isNotEmpty ||
+        catState.expenses.isNotEmpty;
+
+    if ((catState.isLoading && !hasCategories) ||
+        (txAsync.isLoading && !txAsync.hasValue) ||
+        txState == null) {
       return Scaffold(
         backgroundColor: colors.bgGradientStart,
         body: const HomeScreenSkeleton(),
@@ -421,6 +437,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: const SettingsDrawer(),
+      // Відкриваємо лише кнопкою: edge-свайп drawer'а конфліктував із системним
+      // жестом «назад» і давав білий проблиск збоку.
+      endDrawerEnableOpenDragGesture: false,
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,

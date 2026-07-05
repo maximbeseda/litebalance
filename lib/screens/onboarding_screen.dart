@@ -6,8 +6,15 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
 import '../services/storage_service.dart';
+import '../services/default_categories_service.dart';
 import '../models/app_currency.dart';
+import '../utils/app_constants.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_picker_sheet.dart';
+import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/app_logo.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -25,10 +32,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   bool _isSaving = false;
   bool _isInitialized = false;
 
+  // Єдине джерело мов — [AppConstants.languages]. «short» — це код у верхньому
+  // регістрі (UK, EN, …), тож не дублюємо назви тут.
   final List<Map<String, String>> _supportedLanguages = [
-    {'code': 'uk', 'name': 'Українська', 'short': 'UK'},
-    {'code': 'en', 'name': 'English', 'short': 'EN'},
-    {'code': 'de', 'name': 'Deutsch', 'short': 'DE'},
+    for (final e in AppConstants.languages.entries)
+      {'code': e.key, 'name': e.value, 'short': e.key.toUpperCase()},
   ];
 
   @override
@@ -98,7 +106,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     }
 
     _selectedCurrencyCode = initialCurrency;
-    _currencyCtrl.text = initialCurrency;
+    _currencyCtrl.text = 'currency_names.$initialCurrency'.tr();
     _languageCtrl.text = initialLang['name']!;
 
     if (context.locale.languageCode != initialLang['code']) {
@@ -118,14 +126,27 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     super.dispose();
   }
 
+  // Завершення онбордингу та перехід на головний екран
   void _finishOnboarding() async {
     setState(() => _isSaving = true);
 
-    final settingsNotifier = ref.read(settingsProvider.notifier);
+    // Отримуємо languageCode з context ДО будь-яких await
+    final languageCode = context.locale.languageCode;
 
+    final settingsNotifier = ref.read(settingsProvider.notifier);
     await settingsNotifier.setBaseCurrency(_selectedCurrencyCode);
 
-    // 👇 ОНОВЛЕНО: Викликаємо completeOnboarding через екземпляр StorageService
+    // 👇 ДОДАНО: Створюємо базові категорії якщо база порожня
+    final db = ref.read(appDatabaseProvider);
+    await DefaultCategoriesService.createDefaultCategories(
+      db,
+      languageCode,
+      _selectedCurrencyCode,
+    );
+
+    // Інвалідуємо categoryProvider щоб HomeScreen підтягнув нові категорії
+    ref.invalidate(categoryProvider);
+
     final storage = StorageService(ref.read(sharedPreferencesProvider));
     await storage.completeOnboarding();
 
@@ -139,209 +160,128 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
+  // 👇 ОНОВЛЕНО: Використовуємо AuthController замість прямого сервісу
+  Future<void> _signInWithGoogle() async {
+    setState(() => _isSaving = true);
+    try {
+      final authNotifier = ref.read(authControllerProvider.notifier);
+
+      // 👇 ФІКС 1: Отримуємо акаунт напряму і миттєво, без очікування стріму
+      final account = await authNotifier.signIn();
+
+      if (account != null) {
+        if (!mounted) return;
+
+        final wantToRestore = await _showRestorePromptDialog();
+
+        if (wantToRestore) {
+          setState(() => _isSaving = true);
+
+          try {
+            final driveService = ref.read(driveBackupServiceProvider);
+            final db = ref.read(appDatabaseProvider);
+
+            final restoreSuccess = await driveService.restoreDatabase(db);
+
+            if (restoreSuccess) {
+              // 👇 ФІКС 2: КРИТИЧНО! База була закрита сервісом. Її треба інвалідувати,
+              // щоб HomeScreen створив абсолютно нове підключення до нового файлу!
+              ref.invalidate(appDatabaseProvider);
+
+              ref.invalidate(transactionProvider);
+              ref.invalidate(categoryProvider);
+              ref.invalidate(subscriptionProvider);
+              ref.invalidate(statsProvider);
+
+              _finishOnboarding();
+            } else {
+              if (mounted) {
+                setState(() => _isSaving = false);
+                AppSnackbar.error(context, 'restore_error'.tr());
+              }
+            }
+          } catch (e) {
+            if (mounted) {
+              setState(() => _isSaving = false);
+              AppSnackbar.error(context, 'restore_error'.tr());
+            }
+          }
+        } else {
+          _finishOnboarding();
+        }
+      } else {
+        if (mounted) setState(() => _isSaving = false);
+      }
+    } catch (e) {
+      if (mounted) setState(() => _isSaving = false);
+    }
+  }
+
+  Future<bool> _showRestorePromptDialog() {
+    return AppDialog.confirm(
+      context,
+      title: 'account_connected'.tr(),
+      message: 'restore_prompt_message'.tr(),
+      icon: Icons.cloud_download_rounded,
+      confirmText: 'restore'.tr(),
+      cancelText: 'skip'.tr(),
+      barrierDismissible: false,
+    );
+  }
+
   void _openLanguagePicker(AppColorsExtension colors) {
     FocusScope.of(context).unfocus();
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
+      title: 'language_title'.tr(),
+      enableSearch: true,
+      selected: context.locale.languageCode,
+      options: _supportedLanguages
+          .map(
+            (lang) => AppPickerOption(
+              value: lang['code']!,
+              label: lang['name']!,
+              leading: AppPill(
+                text: lang['short']!,
+                color: colors.accent,
+                width: 48,
               ),
-              const SizedBox(height: 20),
-              Text(
-                'language_title'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _supportedLanguages.length,
-                  itemBuilder: (context, index) {
-                    final lang = _supportedLanguages[index];
-                    final bool isSelected =
-                        context.locale.languageCode == lang['code'];
-
-                    return ListTile(
-                      onTap: () async {
-                        await context.setLocale(Locale(lang['code']!));
-
-                        if (!ctx.mounted) return;
-                        Navigator.pop(ctx);
-
-                        if (!mounted) return;
-                        setState(() {
-                          _languageCtrl.text = lang['name']!;
-                        });
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? colors.textMain
-                            : colors.iconBg,
-                        child: Text(
-                          lang['short']!,
-                          style: TextStyle(
-                            color: isSelected ? colors.cardBg : colors.textMain,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        lang['name']!,
-                        style: TextStyle(
-                          color: colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check, color: colors.textMain)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              color: colors.accent,
+            ),
+          )
+          .toList(),
+      onSelected: (code) async {
+        await context.setLocale(Locale(code));
+        if (!mounted) return;
+        final lang = _supportedLanguages.firstWhere(
+          (l) => l['code'] == code,
+        );
+        setState(() => _languageCtrl.text = lang['name']!);
+      },
     );
   }
 
   void _openCurrencyPicker(AppColorsExtension colors) {
     FocusScope.of(context).unfocus();
-    final List<String> availableCurrencies = AppCurrency.supportedCurrencies
-        .map((c) => c.code)
-        .toList();
-
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'base_currency_title'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = availableCurrencies[index];
-                    final curr = AppCurrency.fromCode(code);
-                    final bool isSelected = _selectedCurrencyCode == code;
-
-                    return ListTile(
-                      onTap: () {
-                        setState(() {
-                          _selectedCurrencyCode = code;
-                          _currencyCtrl.text = code;
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? colors.textMain
-                            : colors.iconBg,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.center,
-                            child: Text(
-                              curr.symbol.trim(),
-                              style: TextStyle(
-                                color: isSelected
-                                    ? colors.cardBg
-                                    : colors.textMain,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        curr.code,
-                        style: TextStyle(
-                          color: colors.textMain,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check, color: colors.textMain)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      title: 'base_currency_title'.tr(),
+      enableSearch: true,
+      selected: _selectedCurrencyCode,
+      options: AppCurrency.ordered().map((c) {
+        return AppPickerOption(
+          value: c.code,
+          label: 'currency_names.${c.code}'.tr(),
+          leading: AppPill(text: '${c.code}  ${c.symbol}', color: colors.income),
+          color: colors.income,
+        );
+      }).toList(),
+      onSelected: (code) {
+        setState(() {
+          _selectedCurrencyCode = code;
+          _currencyCtrl.text = 'currency_names.$code'.tr();
+        });
+      },
     );
   }
 
@@ -422,6 +362,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final currentLocaleCode = context.locale.languageCode;
 
+    final authState = ref.watch(authControllerProvider);
+    final isGoogleLoading = authState.isLoading;
+    final isAnyLoading = _isSaving || isGoogleLoading;
+
     final currentLang = _supportedLanguages.firstWhere(
       (lang) => lang['code'] == currentLocaleCode,
       orElse: () => _supportedLanguages.first,
@@ -451,26 +395,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // Логотип
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: colors.cardBg,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    size: 80,
-                    color: colors.textMain,
-                  ),
-                ),
+                // Логотип LiteBalance
+                const Center(child: AppLogo(size: 200, halo: true)),
                 const SizedBox(height: 32),
 
                 // Привітання
@@ -553,8 +479,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
                 const Spacer(),
 
-                // КНОПКА СТАРТУ
-                _buildStartButton(colors),
+                // Кнопка Google
+                _buildGoogleButton(colors, isGoogleLoading, isAnyLoading),
+
+                const SizedBox(height: 12),
+
+                // Кнопка Продовжити локально
+                _buildLocalStartButton(colors, isAnyLoading),
               ],
             ),
           ),
@@ -563,17 +494,71 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Widget _buildStartButton(AppColorsExtension colors) {
+  Widget _buildGoogleButton(
+    AppColorsExtension colors,
+    bool isGoogleLoading,
+    bool isAnyLoading,
+  ) {
+    final globalShape = Theme.of(
+      context,
+    ).elevatedButtonTheme.style?.shape?.resolve({});
+
     return ElevatedButton(
-      onPressed: _isSaving ? null : _finishOnboarding,
+      onPressed: isAnyLoading ? null : _signInWithGoogle,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: colors.cardBg,
+        foregroundColor: colors.textMain,
+        minimumSize: const Size(double.infinity, 56),
+        elevation: 2,
+        shape:
+            globalShape?.copyWith(
+              side: BorderSide(
+                color: colors.textSecondary.withValues(alpha: 0.2),
+              ),
+            ) ??
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(
+                color: colors.textSecondary.withValues(alpha: 0.2),
+              ),
+            ),
+      ),
+      child: isGoogleLoading || _isSaving
+          ? SizedBox(
+              height: 24,
+              width: 24,
+              child: CircularProgressIndicator(
+                color: colors.textMain,
+                strokeWidth: 2,
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/icons/google.png', height: 24, width: 24),
+                const SizedBox(width: 12),
+                Text(
+                  'sign_in_with_google'.tr(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildLocalStartButton(AppColorsExtension colors, bool isAnyLoading) {
+    return ElevatedButton(
+      onPressed: isAnyLoading ? null : _finishOnboarding,
       style: ElevatedButton.styleFrom(
         backgroundColor: colors.textMain,
         foregroundColor: colors.cardBg,
         minimumSize: const Size(double.infinity, 56),
-        elevation: 4,
-        shadowColor: Colors.black.withValues(alpha: 0.2),
+        elevation: 0,
       ),
-      child: _isSaving
+      child: _isSaving && !ref.watch(authControllerProvider).isLoading
           ? SizedBox(
               height: 24,
               width: 24,
@@ -585,8 +570,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           : Text(
               'get_started'.tr(),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
     );
   }

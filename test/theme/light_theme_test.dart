@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/theme/light_theme.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/theme/light_theme.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 
 void main() {
   group('Light Theme Configuration Tests', () {
@@ -23,7 +23,7 @@ void main() {
       expect(colors.bgGradientEnd, const Color(0xFFE9EEF5));
       expect(colors.cardBg, Colors.white);
       expect(colors.textMain, const Color(0xFF1C1C1E));
-      expect(colors.accent, const Color(0xFF4361EE));
+      expect(colors.accent, const Color(0xFF2950A0));
     });
 
     test('3. Тема діалогів та шторок (Strict Radii)', () {

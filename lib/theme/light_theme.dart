@@ -22,7 +22,10 @@ final lightTheme = ThemeData(
       income: Color(0xFF1E8E3E),
       expense: Color(0xFFE53935),
       iconBg: Color(0x0D000000), // Colors.black.withValues(alpha: 0.05)
-      accent: Color(0xFF4361EE),
+      accent: Color(0xFF2950A0),
+      warning: Color(0xFFF59E0B),
+      divider: Color(0x1A000000), // Colors.black.withValues(alpha: 0.1)
+      shadow: Color(0x0D000000), // Colors.black.withValues(alpha: 0.05)
     ),
   ],
 
@@ -68,7 +71,7 @@ final lightTheme = ThemeData(
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(color: Colors.blue, width: 2),
+      borderSide: const BorderSide(color: Color(0xFF2950A0), width: 2),
     ),
   ),
 

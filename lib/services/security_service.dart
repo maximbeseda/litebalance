@@ -7,6 +7,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../utils/app_lock.dart';
+
 class SecurityService {
   static final LocalAuthentication _auth = LocalAuthentication();
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
@@ -31,18 +33,32 @@ class SecurityService {
 
   static Future<bool> authenticateWithBiometrics(String localizedReason) async {
     try {
-      // ТЕПЕР БЕЗ DYNAMIC! Для local_auth ^3.0.0 параметри передаються напряму.
-      return await _auth.authenticate(
-        localizedReason: localizedReason,
-        authMessages: [
-          AndroidAuthMessages(
-            signInTitle: 'security'.tr(),
-            cancelButton: 'cancel'.tr(),
-          ),
-          IOSAuthMessages(cancelButton: 'cancel'.tr()),
-        ],
-        biometricOnly: true,
-        persistAcrossBackgrounding: true,
+      // Підбираємо підказку залежно від доступного типу біометрії
+      // (Face ID — інша фраза, ніж для відбитка).
+      final available = await _auth.getAvailableBiometrics();
+      final bool isFace =
+          available.contains(BiometricType.face) &&
+          !available.contains(BiometricType.fingerprint);
+      final String hint = isFace
+          ? 'biometric_hint_face'.tr()
+          : 'biometric_hint'.tr();
+
+      // Обгортаємо в runTrusted, щоб системний діалог біометрії (який згортає
+      // застосунок у inactive/paused) не вмикав privacy-шторку AppLockGate.
+      return await AppLock.runTrusted(
+        () => _auth.authenticate(
+          localizedReason: localizedReason,
+          authMessages: [
+            AndroidAuthMessages(
+              signInTitle: 'biometric_title'.tr(),
+              signInHint: hint,
+              cancelButton: 'use_pin_code'.tr(),
+            ),
+            IOSAuthMessages(cancelButton: 'use_pin_code'.tr()),
+          ],
+          biometricOnly: true,
+          persistAcrossBackgrounding: true,
+        ),
       );
     } catch (e) {
       debugPrint('Помилка авторизації: $e');

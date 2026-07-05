@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../database/app_database.dart';
+import '../utils/app_lock.dart';
 
 class ExportImportService {
   // ==========================================
@@ -135,13 +136,15 @@ class ExportImportService {
 
       final directory = await getTemporaryDirectory();
       final dateStr = DateFormat('dd_MM_yyyy_HHmm').format(DateTime.now());
-      final path = '${directory.path}/CoinFlow_Export_$dateStr.csv';
+      final path = '${directory.path}/LiteBalance_Export_$dateStr.csv';
 
       final file = File(path);
       await file.writeAsString(buffer.toString());
 
-      final result = await SharePlus.instance.share(
-        ShareParams(files: [XFile(path)], text: 'my_coinflow_backup'.tr()),
+      final result = await AppLock.runTrusted(
+        () => SharePlus.instance.share(
+          ShareParams(files: [XFile(path)], text: 'my_coinflow_backup'.tr()),
+        ),
       );
 
       try {

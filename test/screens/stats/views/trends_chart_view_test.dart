@@ -1,6 +1,6 @@
-import 'package:coin_flow/screens/stats/views/trends_chart_view.dart'; // Переконайся, що шлях правильний
-import 'package:coin_flow/screens/stats/year_summary_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/screens/stats/views/trends_chart_view.dart'; // Переконайся, що шлях правильний
+import 'package:litebalance/screens/stats/year_summary_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -128,7 +128,7 @@ void main() {
       expect(find.text('savings'), findsOneWidget);
 
       // Знаходимо іконку графіків
-      expect(find.byIcon(Icons.insights), findsOneWidget);
+      expect(find.byIcon(Icons.insights_rounded), findsOneWidget);
     });
 
     testWidgets('Дозволяє свайпати між сторінками валют, якщо їх декілька', (
@@ -169,7 +169,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 500));
 
         // Натискаємо на іконку insights, яка лежить всередині GestureDetector
-        await tester.tap(find.byIcon(Icons.insights));
+        await tester.tap(find.byIcon(Icons.insights_rounded));
 
         // Чекаємо на анімацію навігації
         await tester.pump();

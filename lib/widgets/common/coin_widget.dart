@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/icon_helper.dart';
 
 class CoinWidget extends StatefulWidget {
   final Category category;
@@ -33,12 +35,12 @@ class _CoinWidgetState extends State<CoinWidget> {
 
     final Color catBgColor = Color(widget.category.bgColor);
     final Color catIconColor = Color(widget.category.iconColor);
-    final IconData catIconData = IconData(
-      widget.category.icon,
-      fontFamily: 'MaterialIcons',
-    );
+    final IconData catIconData = IconHelper.getIcon(widget.category.icon);
 
-    final String displayAmount = CurrencyFormatter.format(widget.category.amount);
+    final String displayAmount = CurrencyFormatter.format(
+      widget.category.amount,
+      currencyCode: widget.category.currency,
+    );
     final String currencySymbol = AppCurrency.fromCode(
       widget.category.currency,
     ).symbol;
@@ -104,6 +106,9 @@ class _CoinWidgetState extends State<CoinWidget> {
               bottom: 6,
               child: Text(
                 CurrencyFormatter.formatBudget(widget.category.budget!),
+                // Сума бюджету — LTR-контент; у RTL-локалях без цього
+                // цифри/розділювачі/суфікс «M» дзеркаляться.
+                textDirection: TextDirection.ltr,
                 style: TextStyle(
                   fontSize: 8,
                   color: catIconColor.withValues(alpha: 0.7),
@@ -229,9 +234,10 @@ class _CoinWidgetState extends State<CoinWidget> {
                   child: ScaleTransition(scale: animation, child: child),
                 );
               },
-              child: Text(
-                '$displayAmount $currencySymbol',
+              child: AmountText(
                 key: ValueKey<String>('$displayAmount $currencySymbol'),
+                amount: displayAmount,
+                symbol: currencySymbol,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

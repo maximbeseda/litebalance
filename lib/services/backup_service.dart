@@ -10,15 +10,81 @@ import 'package:file_picker/file_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:crypto/crypto.dart';
+import 'package:pointycastle/key_derivators/pbkdf2.dart';
+import 'package:pointycastle/key_derivators/api.dart' show Pbkdf2Parameters;
+import 'package:pointycastle/digests/sha256.dart';
+import 'package:pointycastle/macs/hmac.dart';
 
 import '../database/app_database.dart';
+import '../utils/app_lock.dart';
 import 'storage_service.dart';
 
 class BackupService {
+  /// Тег нового формату бекапу. Рядок файлу:
+  /// `LBK2:<iterations>:<saltB64>:<ivB64>:<cipherB64>`.
+  static const String _v2Tag = 'LBK2';
+  static const int _pbkdf2Iterations = 120000;
+
+  /// Старий вивід ключа (SHA-256 від пароля без солі). Лишаємо ВИКЛЮЧНО для
+  /// розшифрування раніше створених `.cfbak` — нові бекапи його не пишуть.
   static enc.Key _generateKeyFromPassword(String password) {
     final bytes = utf8.encode(password);
     final digest = sha256.convert(bytes);
     return enc.Key(Uint8List.fromList(digest.bytes));
+  }
+
+  /// Вивід ключа через PBKDF2-HMAC-SHA256 (сіль + ітерації) — стійко до підбору.
+  static enc.Key _deriveKey(String password, Uint8List salt, int iterations) {
+    final derivator = PBKDF2KeyDerivator(HMac(SHA256Digest(), 64))
+      ..init(Pbkdf2Parameters(salt, iterations, 32));
+    return enc.Key(derivator.process(Uint8List.fromList(utf8.encode(password))));
+  }
+
+  static String _buildPayloadJson(
+    List<Category> categories,
+    List<Transaction> transactions,
+    List<Subscription> subscriptions,
+  ) {
+    return jsonEncode(<String, dynamic>{
+      'version': 1,
+      'categories': categories.map((c) => c.toJson()).toList(),
+      'transactions': transactions.map((t) => t.toJson()).toList(),
+      'subscriptions': subscriptions.map((s) => s.toJson()).toList(),
+    });
+  }
+
+  /// Шифрує JSON у новий формат [_v2Tag] (PBKDF2 + випадкова сіль + випадковий IV).
+  static String _encryptPayload(String password, String jsonString) {
+    final salt = enc.IV.fromSecureRandom(16).bytes;
+    final key = _deriveKey(password, salt, _pbkdf2Iterations);
+    final encrypter = enc.Encrypter(enc.AES(key));
+    final iv = enc.IV.fromSecureRandom(16);
+    final encrypted = encrypter.encrypt(jsonString, iv: iv);
+    return '$_v2Tag:$_pbkdf2Iterations:${base64.encode(salt)}:${iv.base64}:${encrypted.base64}';
+  }
+
+  /// Розшифровує вміст бекапу, автоматично визначаючи формат:
+  /// новий [_v2Tag] (PBKDF2), старий `iv:cipher` (SHA-256) та legacy (нульовий IV).
+  static String _decryptToJson(String password, String content) {
+    final t = content.trim();
+
+    if (t.startsWith('$_v2Tag:')) {
+      final p = t.split(':'); // LBK2 : iters : salt : iv : cipher
+      final iterations = int.parse(p[1]);
+      final salt = Uint8List.fromList(base64.decode(p[2]));
+      final key = _deriveKey(password, salt, iterations);
+      final encrypter = enc.Encrypter(enc.AES(key));
+      return encrypter.decrypt64(p[4], iv: enc.IV.fromBase64(p[3]));
+    }
+
+    // Старі формати: ключ = SHA-256(пароль).
+    final key = _generateKeyFromPassword(password);
+    final encrypter = enc.Encrypter(enc.AES(key));
+    if (t.contains(':')) {
+      final p = t.split(':');
+      return encrypter.decrypt64(p[1], iv: enc.IV.fromBase64(p[0]));
+    }
+    return encrypter.decrypt64(t, iv: enc.IV.fromLength(16));
   }
 
   static Future<void> exportData(
@@ -29,25 +95,16 @@ class BackupService {
   ) async {
     try {
       debugPrint('📦 Початок експорту даних...');
-      final data = <String, dynamic>{
-        'version': 1,
-        'categories': categories.map((c) => c.toJson()).toList(),
-        'transactions': transactions.map((t) => t.toJson()).toList(),
-        'subscriptions': subscriptions.map((s) => s.toJson()).toList(),
-      };
-
-      final String jsonString = jsonEncode(data);
-      final key = _generateKeyFromPassword(password);
-      final encrypter = enc.Encrypter(enc.AES(key));
-
-      final iv = enc.IV.fromSecureRandom(16);
-      final encrypted = encrypter.encrypt(jsonString, iv: iv);
-
-      final exportString = '${iv.base64}:${encrypted.base64}';
+      final String jsonString = _buildPayloadJson(
+        categories,
+        transactions,
+        subscriptions,
+      );
+      final exportString = _encryptPayload(password, jsonString);
 
       final directory = await getTemporaryDirectory();
       final dateStr = DateFormat('dd_MM_yyyy_HHmm').format(DateTime.now());
-      final file = File('${directory.path}/coinflow_backup_$dateStr.cfbak');
+      final file = File('${directory.path}/litebalance_backup_$dateStr.cfbak');
 
       await file.writeAsString(exportString);
 
@@ -56,15 +113,11 @@ class BackupService {
         files: [XFile(file.path)],
       );
 
-      await SharePlus.instance.share(params);
+      await AppLock.runTrusted(() => SharePlus.instance.share(params));
 
-      try {
-        if (await file.exists()) {
-          await file.delete();
-          debugPrint('✅ Тимчасовий файл бекапу успішно видалено');
-        }
-      } catch (e) {
-        debugPrint('❌ Не вдалося видалити тимчасовий файл бекапу: $e');
+      if (await file.exists()) {
+        await file.delete();
+        debugPrint('✅ Тимчасовий файл бекапу успішно видалено');
       }
     } catch (e) {
       debugPrint('❌ Помилка експорту: $e');
@@ -72,129 +125,107 @@ class BackupService {
     }
   }
 
-  static Future<void> importData(String password, AppDatabase db) async {
+  // 👇 НОВИЙ МЕТОД: Крок 1 — Вибір файлу
+  static Future<File?> pickBackupFile() async {
     try {
       debugPrint('📂 Відкриття вибору файлу...');
-      final result = await FilePicker.platform.pickFiles(type: FileType.any);
+      final result = await AppLock.runTrusted(
+        () => FilePicker.platform.pickFiles(type: FileType.any),
+      );
 
       if (result == null || result.files.isEmpty) {
-        debugPrint('ℹ️ Імпорт скасовано користувачем');
-        return;
+        debugPrint('ℹ️ Вибір файлу скасовано');
+        return null;
       }
 
       final path = result.files.single.path;
-      if (path == null) {
-        throw Exception('file_path_error'.tr());
-      }
+      return path != null ? File(path) : null;
+    } catch (e) {
+      debugPrint('❌ Помилка при виборі файлу: $e');
+      return null;
+    }
+  }
 
-      final file = File(path);
+  // 👇 НОВИЙ МЕТОД: Крок 2 — Імпорт з уже обраного файлу
+  static Future<void> importDataFromFile(
+    File file,
+    String password,
+    AppDatabase db,
+  ) async {
+    try {
       final String fileContent = await file.readAsString();
-      final fileName = result.files.single.name.toLowerCase();
+      final String fileName = file.path.toLowerCase();
       String jsonString;
 
       if (fileName.endsWith('.cfbak')) {
         debugPrint('🔐 Розшифрування файлу .cfbak...');
         try {
-          final key = _generateKeyFromPassword(password);
-          final encrypter = enc.Encrypter(enc.AES(key));
-          final trimmedContent = fileContent.trim();
-
-          if (trimmedContent.contains(':')) {
-            final parts = trimmedContent.split(':');
-            final iv = enc.IV.fromBase64(parts[0]);
-            final encryptedBase64 = parts[1];
-            jsonString = encrypter.decrypt64(encryptedBase64, iv: iv);
-          } else {
-            final legacyIv = enc.IV.fromLength(16);
-            jsonString = encrypter.decrypt64(trimmedContent, iv: legacyIv);
-          }
+          jsonString = _decryptToJson(password, fileContent);
         } catch (e) {
-          debugPrint('❌ Помилка пароля або формату: $e');
           throw Exception('wrong_password_or_corrupted'.tr());
         }
       } else if (fileName.endsWith('.json')) {
-        debugPrint('📄 Читання файлу .json...');
         jsonString = fileContent;
       } else {
         throw Exception('invalid_backup_format'.tr());
       }
 
-      final data = jsonDecode(jsonString);
-      if (data is! Map<String, dynamic>) {
+      final dynamic decoded = jsonDecode(jsonString);
+      if (decoded is! Map<String, dynamic>) {
         throw Exception('corrupted_backup'.tr());
       }
 
-      if (!data.containsKey('categories') ||
-          !data.containsKey('transactions')) {
-        throw Exception('corrupted_backup'.tr());
-      }
+      debugPrint('🛠 Мапінг об\'єктів...');
 
-      debugPrint('🛠 Початок мапінгу об\'єктів...');
+      final List<Category> importedCategories =
+          (decoded['categories'] as List? ?? [])
+              .map(
+                (e) => Category.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList();
 
-      // Мапінг категорій
-      final rawCategories = data['categories'] as List<dynamic>;
-      final List<Category> importedCategories = rawCategories.map((e) {
-        try {
-          return Category.fromJson(Map<String, dynamic>.from(e as Map));
-        } catch (err) {
-          debugPrint('❌ Помилка в категорії: $err Data: $e'); // ВИПРАВЛЕНО
-          rethrow;
-        }
-      }).toList();
+      final List<Transaction> importedTransactions =
+          (decoded['transactions'] as List? ?? [])
+              .map(
+                (e) =>
+                    Transaction.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList();
 
-      // Мапінг транзакцій
-      final rawTransactions = data['transactions'] as List<dynamic>;
-      final List<Transaction> importedTransactions = rawTransactions.map((e) {
-        try {
-          return Transaction.fromJson(Map<String, dynamic>.from(e as Map));
-        } catch (err) {
-          debugPrint('❌ Помилка в транзакції: $err Data: $e'); // ВИПРАВЛЕНО
-          rethrow;
-        }
-      }).toList();
-
-      // Мапінг підписок
-      List<Subscription> importedSubscriptions = [];
-      if (data.containsKey('subscriptions')) {
-        final rawSubs = data['subscriptions'] as List<dynamic>;
-        importedSubscriptions = rawSubs.map((e) {
-          try {
-            return Subscription.fromJson(Map<String, dynamic>.from(e as Map));
-          } catch (err) {
-            debugPrint('❌ Помилка в підписці: $err Data: $e'); // ВИПРАВЛЕНО
-            rethrow;
-          }
-        }).toList();
-      }
+      final List<Subscription> importedSubscriptions =
+          (decoded['subscriptions'] as List? ?? [])
+              .map(
+                (e) =>
+                    Subscription.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList();
 
       debugPrint('💾 Запис у базу даних...');
       await db.transaction(() async {
         await StorageService.wipeEntireDatabase(db);
         await StorageService.saveCategories(db, importedCategories);
         await StorageService.saveHistory(db, importedTransactions);
-        for (var sub in importedSubscriptions) {
+        for (final sub in importedSubscriptions) {
           await StorageService.saveSubscription(db, sub);
         }
       });
 
-      debugPrint('✅ Імпорт завершено успішно');
+      debugPrint('✅ Імпорт завершено');
     } catch (e) {
-      debugPrint('❌ Критична помилка імпорту: $e');
-
-      // Якщо це помилка Null Check, ми тепер побачимо в консолі вище,
-      // який саме об'єкт її викликав завдяки новим debugPrint у map()
-
-      if (e is Exception && e.toString().contains('Exception:')) {
-        rethrow;
-      }
+      debugPrint('❌ Помилка імпорту: $e');
+      if (e.toString().contains('Exception:')) rethrow;
       throw Exception('import_error'.tr());
     } finally {
-      try {
-        await FilePicker.platform.clearTemporaryFiles();
-        debugPrint('🧹 Тимчасові файли очищено');
-      } catch (e) {
-        debugPrint('⚠️ Не вдалося очистити кеш FilePicker: $e');
-      }
+      await FilePicker.platform.clearTemporaryFiles();
+    }
+  }
+
+  // Залишаємо старий метод для зворотної сумісності (якщо десь використовується)
+  // або можеш його видалити, якщо перейшов на нову логіку всюди
+  static Future<void> importData(String password, AppDatabase db) async {
+    final file = await pickBackupFile();
+    if (file != null) {
+      await importDataFromFile(file, password, db);
     }
   }
 
@@ -205,23 +236,10 @@ class BackupService {
     List<Transaction> transactions,
     List<Subscription> subscriptions,
   ) {
-    // Явно кажемо компілятору, що викликаємо .toJson() у конкретних класів
-    final data = <String, dynamic>{
-      'version': 1,
-      'categories': categories.map((Category c) => c.toJson()).toList(),
-      'transactions': transactions.map((Transaction t) => t.toJson()).toList(),
-      'subscriptions': subscriptions
-          .map((Subscription s) => s.toJson())
-          .toList(),
-    };
-
-    final String jsonString = jsonEncode(data);
-    final key = _generateKeyFromPassword(password);
-    final encrypter = enc.Encrypter(enc.AES(key));
-    final iv = enc.IV.fromSecureRandom(16);
-    final encrypted = encrypter.encrypt(jsonString, iv: iv);
-
-    return '${iv.base64}:${encrypted.base64}';
+    return _encryptPayload(
+      password,
+      _buildPayloadJson(categories, transactions, subscriptions),
+    );
   }
 
   @visibleForTesting
@@ -229,23 +247,24 @@ class BackupService {
     String password,
     String fileContent,
   ) {
-    final key = _generateKeyFromPassword(password);
-    final encrypter = enc.Encrypter(enc.AES(key));
-    final trimmedContent = fileContent.trim();
-    String jsonString;
-
-    if (trimmedContent.contains(':')) {
-      final parts = trimmedContent.split(':');
-      final iv = enc.IV.fromBase64(parts[0]);
-      final encryptedBase64 = parts[1];
-      jsonString = encrypter.decrypt64(encryptedBase64, iv: iv);
-    } else {
-      final legacyIv = enc.IV.fromLength(16);
-      jsonString = encrypter.decrypt64(trimmedContent, iv: legacyIv);
-    }
-
-    // 👇 ФІКС: Безпечне приведення типу з dynamic до Map
+    final jsonString = _decryptToJson(password, fileContent);
     final dynamic decoded = jsonDecode(jsonString);
     return Map<String, dynamic>.from(decoded as Map);
+  }
+
+  /// Старе шифрування (SHA-256, без солі) — лише для тестів зворотної сумісності.
+  @visibleForTesting
+  static String legacyEncryptedPayload(
+    String password,
+    List<Category> categories,
+    List<Transaction> transactions,
+    List<Subscription> subscriptions,
+  ) {
+    final jsonString = _buildPayloadJson(categories, transactions, subscriptions);
+    final key = _generateKeyFromPassword(password);
+    final encrypter = enc.Encrypter(enc.AES(key));
+    final iv = enc.IV.fromSecureRandom(16);
+    final encrypted = encrypter.encrypt(jsonString, iv: iv);
+    return '${iv.base64}:${encrypted.base64}';
   }
 }

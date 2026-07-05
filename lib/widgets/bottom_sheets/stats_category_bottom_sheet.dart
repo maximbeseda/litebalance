@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
 import '../../providers/all_providers.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../utils/date_formatter.dart';
+import '../../utils/icon_helper.dart';
+import '../common/app_empty_state.dart';
+import '../common/category_halo_icon.dart';
 
 class StatsCategoryBottomSheet extends ConsumerStatefulWidget {
   final Category category;
@@ -59,12 +63,9 @@ class _StatsCategoryBottomSheetState
     });
   }
 
-  String _fastDateFormat(DateTime d) {
-    final day = d.day.toString().padLeft(2, '0');
-    final month = d.month.toString().padLeft(2, '0');
-    final hour = d.hour.toString().padLeft(2, '0');
-    final minute = d.minute.toString().padLeft(2, '0');
-    return '$day.$month.${d.year} $hour:$minute';
+  String _fastDateFormat(BuildContext context, DateTime d) {
+    final locale = Localizations.maybeLocaleOf(context)?.languageCode ?? 'en';
+    return DateFormatter.formatWithTime(d, locale);
   }
 
   @override
@@ -122,19 +123,13 @@ class _StatsCategoryBottomSheetState
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Color(widget.category.bgColor),
-                      child: Icon(
-                        IconData(
-                          widget.category.icon,
-                          fontFamily: 'MaterialIcons',
-                        ),
-                        color: Color(widget.category.iconColor),
-                        size: 20,
-                      ),
+                    CategoryHaloIcon(
+                      icon: IconHelper.getIcon(widget.category.icon),
+                      bgColor: Color(widget.category.bgColor),
+                      iconColor: Color(widget.category.iconColor),
+                      size: 64,
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,8 +155,11 @@ class _StatsCategoryBottomSheetState
                         ],
                       ),
                     ),
-                    Text(
-                      '${CurrencyFormatter.format(widget.category.amount.abs())} ${widget.baseCurrencySymbol}',
+                    AmountText(
+                      amount: CurrencyFormatter.format(
+                        widget.category.amount.abs(),
+                      ),
+                      symbol: widget.baseCurrencySymbol,
                       style: TextStyle(
                         color: widget.showExpenses
                             ? colors.expense
@@ -186,11 +184,10 @@ class _StatsCategoryBottomSheetState
                         widget.initialTransactions == null)
                     ? const Center(child: CircularProgressIndicator())
                     : filteredTxs.isEmpty
-                    ? Center(
-                        child: Text(
-                          'no_data'.tr(),
-                          style: TextStyle(color: colors.textSecondary),
-                        ),
+                    ? AppEmptyState(
+                        icon: Icons.receipt_long_outlined,
+                        title: 'no_transactions_yet'.tr(),
+                        subtitle: 'no_transactions_hint'.tr(),
                       )
                     : NotificationListener<ScrollNotification>(
                         onNotification: (ScrollNotification scrollInfo) {
@@ -209,9 +206,11 @@ class _StatsCategoryBottomSheetState
                           return false;
                         },
                         child: ListView.builder(
+                          scrollCacheExtent: const ScrollCacheExtent.pixels(
+                            1000,
+                          ),
                           controller: controller,
                           physics: const BouncingScrollPhysics(),
-                          cacheExtent: 1000,
                           itemCount: filteredTxs.length + (showLoader ? 1 : 0),
                           itemBuilder: (context, index) {
                             if (index == filteredTxs.length) {
@@ -282,14 +281,17 @@ class _StatsCategoryBottomSheetState
                               mainCurrency,
                               () => AppCurrency.fromCode(mainCurrency).symbol,
                             );
-                            final String secondarySymbol = currencyCache.putIfAbsent(
-                              secondaryCurrency,
-                              () => AppCurrency.fromCode(
-                                secondaryCurrency,
-                              ).symbol,
-                            );
+                            final String secondarySymbol = currencyCache
+                                .putIfAbsent(
+                                  secondaryCurrency,
+                                  () => AppCurrency.fromCode(
+                                    secondaryCurrency,
+                                  ).symbol,
+                                );
 
-                            final String prefix = widget.showExpenses ? '-' : '+';
+                            final String prefix = widget.showExpenses
+                                ? '-'
+                                : '+';
                             final Color amountColor = widget.showExpenses
                                 ? colors.expense
                                 : colors.income;
@@ -305,10 +307,7 @@ class _StatsCategoryBottomSheetState
                                     : colors.iconBg,
                                 child: Icon(
                                   iconCat != null
-                                      ? IconData(
-                                          iconCat.icon,
-                                          fontFamily: 'MaterialIcons',
-                                        )
+                                      ? IconHelper.getIcon(iconCat.icon)
                                       : Icons.help_outline,
                                   color: iconCat != null
                                       ? Color(iconCat.iconColor)
@@ -360,7 +359,7 @@ class _StatsCategoryBottomSheetState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      _fastDateFormat(tx.date),
+                                      _fastDateFormat(context, tx.date),
                                       style: TextStyle(
                                         color: colors.textSecondary,
                                         fontSize: 12,
@@ -402,8 +401,10 @@ class _StatsCategoryBottomSheetState
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    '$prefix${CurrencyFormatter.format(mainAmount.abs())} $mainSymbol',
+                                  AmountText(
+                                    amount:
+                                        '$prefix${CurrencyFormatter.format(mainAmount.abs(), currencyCode: mainCurrency)}',
+                                    symbol: mainSymbol,
                                     style: TextStyle(
                                       color: amountColor,
                                       fontWeight: FontWeight.bold,
@@ -413,8 +414,10 @@ class _StatsCategoryBottomSheetState
                                   if (isMultiCurrency)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 2.0),
-                                      child: Text(
-                                        '~ ${CurrencyFormatter.format(secondaryAmount.abs())} $secondarySymbol',
+                                      child: AmountText(
+                                        amount:
+                                            '~ ${CurrencyFormatter.format(secondaryAmount.abs(), currencyCode: secondaryCurrency)}',
+                                        symbol: secondarySymbol,
                                         style: TextStyle(
                                           color: colors.textSecondary,
                                           fontSize: 11,

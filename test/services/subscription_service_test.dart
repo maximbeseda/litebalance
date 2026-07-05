@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/native.dart';
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/services/subscription_service.dart';
-import 'package:coin_flow/services/storage_service.dart';
+import 'package:litebalance/database/app_database.dart';
+import 'package:litebalance/services/subscription_service.dart';
+import 'package:litebalance/services/storage_service.dart';
 
 void main() {
   late AppDatabase db;
@@ -102,6 +102,46 @@ void main() {
       // або залишити 28 лютого залежно від реалізації Dart.
       // Ваш код робить: DateTime(nextDate.year + 1, nextDate.month, nextDate.day)
       expect(subs.first.nextPaymentDate.year, 2025);
+    });
+
+    test('Логіка 28-денної підписки додає рівно 28 днів', () async {
+      final sub = baseSub.copyWith(
+        periodicity: 'every_28_days',
+        nextPaymentDate: DateTime(2026, 4, 1),
+      );
+
+      await SubscriptionService.advanceOnePeriod(db, sub);
+
+      final subs = await StorageService.getSubscriptions(db);
+      expect(subs.first.nextPaymentDate, DateTime(2026, 4, 29));
+    });
+
+    test('Логіка 30-денної підписки додає рівно 30 днів', () async {
+      final sub = baseSub.copyWith(
+        periodicity: 'every_30_days',
+        nextPaymentDate: DateTime(2026, 4, 1),
+      );
+
+      await SubscriptionService.advanceOnePeriod(db, sub);
+
+      final subs = await StorageService.getSubscriptions(db);
+      expect(subs.first.nextPaymentDate, DateTime(2026, 5, 1));
+    });
+
+    test('shiftSubscriptionDate для 30 днів наздоганяє кратно 30', () async {
+      final overdue = baseSub.copyWith(
+        periodicity: 'every_30_days',
+        nextPaymentDate: DateTime(2020, 1, 1),
+      );
+
+      await SubscriptionService.shiftSubscriptionDate(db, overdue);
+
+      final subs = await StorageService.getSubscriptions(db);
+      final next = subs.first.nextPaymentDate;
+      final today = DateTime.now();
+      // Має бути в майбутньому і відстояти від старту на ціле число 30-денних кроків.
+      expect(next.isAfter(DateTime(today.year, today.month, today.day)), true);
+      expect(next.difference(DateTime(2020, 1, 1)).inDays % 30, 0);
     });
   });
 }

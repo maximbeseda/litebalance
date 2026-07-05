@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../database/app_database.dart';
 import 'all_providers.dart';
 
 part 'filter_provider.g.dart';
@@ -155,6 +154,11 @@ class FilterNotifier extends _$FilterNotifier {
   }
 
   Future<void> _applyFilters({bool loadMore = false}) async {
+    // 👇 ЗАХИСТ ВІД КРЕШУ (ConnectionClosedException):
+    // Якщо прямо зараз іде процес фонової підміни файлу бази даних — негайно зупиняємось.
+    // Коли підміна завершиться, головні провайдери оновляться і пнуть цей фільтр автоматично.
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
     if (!loadMore) {
       state = state.copyWith(
         isLoading: true,
@@ -164,7 +168,7 @@ class FilterNotifier extends _$FilterNotifier {
       );
     }
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
 
     // 1. ГОТУЄМО СУВОРІ ФІЛЬТРИ ДЛЯ SQL

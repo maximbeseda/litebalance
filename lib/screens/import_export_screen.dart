@@ -5,12 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 
-import 'csv_mapping_screen.dart';
+import 'import_wizard/import_header_selection_screen.dart';
 import '../providers/all_providers.dart';
+import '../utils/app_page_route.dart';
 import '../services/export_import_service.dart';
+import '../utils/app_lock.dart';
 import '../theme/app_colors_extension.dart';
-import '../database/app_database.dart';
 import '../widgets/dialogs/custom_date_range_picker.dart';
+import '../widgets/common/app_snackbar.dart';
+import '../widgets/common/section_header.dart';
+import '../utils/icon_helper.dart';
 
 class ImportExportScreen extends ConsumerStatefulWidget {
   const ImportExportScreen({super.key});
@@ -87,23 +91,10 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
     setState(() => _isExporting = false);
 
     if (mounted) {
-      ScaffoldMessenger.of(context).clearSnackBars();
       if (result == 'success') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('export_success'.tr()),
-            backgroundColor: Colors.green,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        AppSnackbar.success(context, 'export_success'.tr());
       } else if (result == 'error') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('export_error'.tr()),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        AppSnackbar.error(context, 'export_error'.tr());
       }
     }
   }
@@ -114,9 +105,11 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
     FilePickerResult? result;
 
     try {
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['csv'],
+      result = await AppLock.runTrusted(
+        () => FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['csv'],
+        ),
       );
 
       if (result != null && result.files.single.path != null) {
@@ -126,25 +119,16 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
 
         if (mounted) {
           setState(() => _isImporting = false);
-          ScaffoldMessenger.of(context).clearSnackBars();
 
           if (rawRows != null && rawRows.isNotEmpty) {
             unawaited(
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => CsvMappingScreen(rawRows: rawRows),
-                ),
+                appPageRoute(ImportHeaderSelectionScreen(rawRows: rawRows)),
               ),
             );
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('import_format_error'.tr()),
-                backgroundColor: Colors.red,
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
+            AppSnackbar.error(context, 'import_format_error'.tr());
           }
         }
       }
@@ -264,7 +248,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                IconData(cat.icon, fontFamily: 'MaterialIcons'),
+                IconHelper.getIcon(cat.icon),
                 size: 20,
                 color: Color(cat.iconColor),
               ),
@@ -404,7 +388,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
                                   child: Text(
                                     _exportDateRange == null
                                         ? 'filter_all_time'.tr()
-                                        : "${DateFormat('dd.MM.yyyy').format(_exportDateRange!.start)} - ${DateFormat('dd.MM.yyyy').format(_exportDateRange!.end)}",
+                                        : "${DateFormat.yMd(Localizations.maybeLocaleOf(context)?.languageCode ?? 'en').format(_exportDateRange!.start)} - ${DateFormat.yMd(Localizations.maybeLocaleOf(context)?.languageCode ?? 'en').format(_exportDateRange!.end)}",
                                     style: TextStyle(
                                       color: colors.textMain,
                                       fontSize: 16,
@@ -626,8 +610,7 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
     final exportCount = _getFilteredTransactions().length;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
+      backgroundColor: colors.cardBg,
       appBar: AppBar(
         title: Text(
           'data_management'.tr(),
@@ -638,237 +621,153 @@ class _ImportExportScreenState extends ConsumerState<ImportExportScreen> {
           ),
         ),
         iconTheme: IconThemeData(color: colors.textMain),
-        backgroundColor: Colors.transparent,
+        backgroundColor: colors.cardBg,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [colors.bgGradientStart, colors.bgGradientEnd],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: colors.cardBg,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.upload_file_rounded,
-                            color: colors.income,
-                            size: 28,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            'export_csv'.tr(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: colors.textMain,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'export_description'.tr(),
-                        style: TextStyle(
-                          color: colors.textSecondary,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SwitchListTile(
-                        contentPadding: EdgeInsets.zero,
-                        activeThumbColor: colors.income,
-                        activeTrackColor: colors.income.withValues(alpha: 0.5),
-                        title: Text(
-                          'export_only_filtered'.tr(),
-                          style: TextStyle(
-                            color: colors.textMain,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        subtitle: Text(
-                          _exportOnlyFiltered
-                              ? 'exporting_count'.tr(args: ['$exportCount'])
-                              : "${'exporting_count'.tr(args: ['$exportCount'])} (${'exporting_all'.tr()})",
-                          style: TextStyle(
-                            color: colors.textSecondary,
-                            fontSize: 13,
-                          ),
-                        ),
-                        value: _exportOnlyFiltered,
-                        onChanged: (val) {
-                          setState(() {
-                            _exportOnlyFiltered = val;
-                            if (val) _showFilterSheet(colors);
-                          });
-                        },
-                      ),
-                      if (_exportOnlyFiltered)
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.tune_rounded,
-                              color: colors.accent,
-                              size: 20,
-                            ),
-                            label: Text(
-                              'filter_settings'.tr(),
-                              style: TextStyle(
-                                color: colors.accent,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () => _showFilterSheet(colors),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                              backgroundColor: colors.accent.withValues(
-                                alpha: 0.1,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                        ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.income,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                          ),
-                          onPressed: _isExporting ? null : _handleExport,
-                          child: _isExporting
-                              ? const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Text(
-                                  'export_button'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // --- ЕКСПОРТ ---
+              SectionHeader(
+                'export_csv'.tr(),
+                padding: const EdgeInsets.only(bottom: 12),
+              ),
+              Text(
+                'export_description'.tr(),
+                style: TextStyle(color: colors.textSecondary, fontSize: 14),
+              ),
+              const SizedBox(height: 8),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                activeThumbColor: colors.income,
+                activeTrackColor: colors.income.withValues(alpha: 0.5),
+                title: Text(
+                  'export_only_filtered'.tr(),
+                  style: TextStyle(
+                    color: colors.textMain,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 24),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: colors.cardBg,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                subtitle: Text(
+                  _exportOnlyFiltered
+                      ? 'exporting_count'.tr(args: ['$exportCount'])
+                      : "${'exporting_count'.tr(args: ['$exportCount'])} (${'exporting_all'.tr()})",
+                  style: TextStyle(color: colors.textSecondary, fontSize: 13),
+                ),
+                value: _exportOnlyFiltered,
+                onChanged: (val) {
+                  setState(() {
+                    _exportOnlyFiltered = val;
+                    if (val) _showFilterSheet(colors);
+                  });
+                },
+              ),
+              if (_exportOnlyFiltered)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    icon: Icon(
+                      Icons.tune_rounded,
+                      color: colors.accent,
+                      size: 20,
+                    ),
+                    label: Text(
+                      'filter_settings'.tr(),
+                      style: TextStyle(
+                        color: colors.accent,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.download_rounded,
-                            color: colors.accent,
-                            size: 28,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            'import_csv'.tr(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: colors.textMain,
-                            ),
-                          ),
-                        ],
+                    ),
+                    onPressed: () => _showFilterSheet(colors),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
                       ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'import_description'.tr(),
-                        style: TextStyle(
-                          color: colors.textSecondary,
-                          fontSize: 14,
-                        ),
+                      backgroundColor: colors.accent.withValues(alpha: 0.1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      const SizedBox(height: 24),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.accent,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                          ),
-                          onPressed: _isImporting ? null : _handleImport,
-                          child: _isImporting
-                              ? const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Text(
-                                  'import_button'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ],
-            ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colors.income,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  onPressed: _isExporting ? null : _handleExport,
+                  child: _isExporting
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          'export_button'.tr(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
+              ),
+              const SizedBox(height: 28),
+              Divider(height: 1, color: colors.divider),
+              const SizedBox(height: 24),
+              // --- ІМПОРТ ---
+              SectionHeader(
+                'import_csv'.tr(),
+                padding: const EdgeInsets.only(bottom: 12),
+              ),
+              Text(
+                'import_description'.tr(),
+                style: TextStyle(color: colors.textSecondary, fontSize: 14),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colors.accent,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  onPressed: _isImporting ? null : _handleImport,
+                  child: _isImporting
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          'import_button'.tr(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

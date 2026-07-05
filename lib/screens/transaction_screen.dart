@@ -1,15 +1,16 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/all_providers.dart';
-import '../database/app_database.dart';
 import '../models/app_currency.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/custom_numpad.dart';
 import '../utils/calculator_helper.dart';
+import '../utils/icon_helper.dart';
 import '../widgets/common/date_strip_selector.dart';
 import '../widgets/dialogs/premium_date_picker.dart';
 
@@ -84,12 +85,18 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
     _targetCurrency = widget.initialTargetCurrency ?? widget.target.currency;
 
     if (widget.initialAmount != null && widget.initialAmount! > 0) {
-      _sourceAmount = _formatAmount(widget.initialAmount!);
+      _sourceAmount = _formatAmount(
+        widget.initialAmount!,
+        currencyCode: _sourceCurrency,
+      );
       _sourceExpression = _sourceAmount;
     }
 
     if (widget.initialTargetAmount != null && widget.initialTargetAmount! > 0) {
-      _targetAmount = _formatAmount(widget.initialTargetAmount!);
+      _targetAmount = _formatAmount(
+        widget.initialTargetAmount!,
+        currencyCode: _targetCurrency,
+      );
       _targetExpression = _targetAmount;
       _isRateLinked = false;
     }
@@ -181,7 +188,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           _currentExchangeRate = double.parse(rawRate.toStringAsFixed(4));
         } else {
           final double inverted = sourceRate / targetRate;
-          final double invertedRounded = double.parse(inverted.toStringAsFixed(4));
+          final double invertedRounded = double.parse(
+            inverted.toStringAsFixed(4),
+          );
           _currentExchangeRate = 1.0 / invertedRounded;
         }
       }
@@ -198,11 +207,17 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
 
     if (!_isEditingTarget) {
       final double targetVal = currentVal * _currentExchangeRate;
-      _targetAmount = _formatDoubleForInput(targetVal);
+      _targetAmount = _formatDoubleForInput(
+        targetVal,
+        currencyCode: _targetCurrency,
+      );
       _targetExpression = _targetAmount;
     } else {
       final double sourceVal = currentVal / _currentExchangeRate;
-      _sourceAmount = _formatDoubleForInput(sourceVal);
+      _sourceAmount = _formatDoubleForInput(
+        sourceVal,
+        currencyCode: _sourceCurrency,
+      );
       _sourceExpression = _sourceAmount;
     }
   }
@@ -225,13 +240,17 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
     }
   }
 
-  String _formatAmount(int val) {
+  String _formatAmount(int val, {String? currencyCode}) {
     if (val == 0) return '0';
     final double displayVal = val / 100.0;
-    return _formatDoubleForInput(displayVal);
+    return _formatDoubleForInput(displayVal, currencyCode: currencyCode);
   }
 
-  String _formatDoubleForInput(double val) {
+  String _formatDoubleForInput(double val, {String? currencyCode}) {
+    // Безкопійчані валюти (JPY тощо) — округлюємо до цілого, без дробу.
+    if (currencyCode != null && AppCurrency.decimals(currencyCode) == 0) {
+      return val.round().toString();
+    }
     final String formatted = val.toStringAsFixed(2);
     if (formatted.endsWith('.00')) {
       return formatted.substring(0, formatted.length - 3);
@@ -273,7 +292,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
       _lastEdited = _isEditingTarget ? 'target' : 'source';
 
       if (_clearOnNextDigit) {
-        final bool isNumberOrDot = RegExp(r'^[0-9.]$').hasMatch(key) || key == '00';
+        final bool isNumberOrDot =
+            RegExp(r'^[0-9.]$').hasMatch(key) || key == '00';
         if (isNumberOrDot) {
           _activeExpression = '';
         }
@@ -298,7 +318,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           return;
         }
 
-        final String currentNumber = _activeExpression.split(RegExp(r'[+\-×÷]')).last;
+        final String currentNumber = _activeExpression
+            .split(RegExp(r'[+\-×÷]'))
+            .last;
         if (currentNumber.isEmpty) return;
 
         final double percentValue = double.tryParse(currentNumber) ?? 0.0;
@@ -308,7 +330,9 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
         );
 
         if (baseExpression.isNotEmpty) {
-          final String operator = baseExpression.substring(baseExpression.length - 1);
+          final String operator = baseExpression.substring(
+            baseExpression.length - 1,
+          );
           if (operator == '+' || operator == '-') {
             final String exprWithoutOp = baseExpression.substring(
               0,
@@ -349,9 +373,16 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           _activeExpression += key;
         }
       } else {
-        final String currentNumber = _activeExpression.split(RegExp(r'[+\-×÷]')).last;
+        final String currentNumber = _activeExpression
+            .split(RegExp(r'[+\-×÷]'))
+            .last;
 
         if (key == '.') {
+          // Безкопійчані валюти (JPY тощо) — десяткова частина не дозволена.
+          final String activeCode = _isEditingTarget
+              ? _targetCurrency
+              : _sourceCurrency;
+          if (AppCurrency.decimals(activeCode) == 0) return;
           if (currentNumber.contains('.')) return;
           if (currentNumber.isEmpty) {
             _activeExpression += '0.';
@@ -567,7 +598,7 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
   Widget _buildMiniCategory(Category cat, AppColorsExtension colors) {
     final Color catColor = Color(cat.bgColor);
     final Color iconColor = Color(cat.iconColor);
-    final IconData iconData = IconData(cat.icon, fontFamily: 'MaterialIcons');
+    final IconData iconData = IconHelper.getIcon(cat.icon);
 
     return Hero(
       tag: 'category_coin_${cat.id}',
@@ -673,6 +704,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                 ),
                 softWrap: false,
                 overflow: TextOverflow.visible,
+                // Сума+значок — LTR-контент, інакше в RTL bidi переставляє їх.
+                textDirection: ui.TextDirection.ltr,
                 style: TextStyle(
                   fontSize: isActive ? 56 : 42,
                   fontWeight: FontWeight.w800,
@@ -696,6 +729,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                   formatWithSpaces(expression),
                   softWrap: false,
                   overflow: TextOverflow.visible,
+                  // Математичний вираз — LTR-контент.
+                  textDirection: ui.TextDirection.ltr,
                   style: TextStyle(
                     fontSize: 22,
                     color: colors.textSecondary.withValues(
@@ -736,7 +771,7 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
 
     final Color activeColor = _isUsingFallbackRate
         ? colors.expense
-        : Colors.blueAccent;
+        : colors.accent;
     final Color inactiveColor = colors.textSecondary.withValues(alpha: 0.4);
     Color currentColor = _isRateLinked ? activeColor : inactiveColor;
 
@@ -792,6 +827,8 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                       rateText,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      // Формула курсу «1 USD = 36,5 UAH» — LTR-контент.
+                      textDirection: ui.TextDirection.ltr,
                     ),
                   ),
                 ),
@@ -926,6 +963,12 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
   }
 
   Widget _buildKeyboardArea(AppColorsExtension colors) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    const radius = BorderRadius.all(Radius.circular(8));
+    final fillColor = isDark
+        ? Colors.white.withValues(alpha: 0.06)
+        : colors.textSecondary.withValues(alpha: 0.06);
+
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 150),
       child: _isCommentActive
@@ -941,19 +984,44 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
                 autofocus: true,
                 maxLength: 100,
                 textInputAction: TextInputAction.done,
+                cursorColor: colors.accent,
                 onSubmitted: (_) {
                   _commentFocusNode.unfocus();
                   setState(() => _isCommentActive = false);
                 },
                 style: TextStyle(color: colors.textMain, fontSize: 16),
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: fillColor,
+                  isDense: true,
                   hintText: 'add_note'.tr(),
-                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: colors.textSecondary),
                   counterText: '',
+                  prefixIcon: Icon(
+                    Icons.notes_rounded,
+                    color: colors.accent,
+                    size: 22,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  border: const OutlineInputBorder(
+                    borderRadius: radius,
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: radius,
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: radius,
+                    borderSide: BorderSide(color: colors.accent, width: 1.5),
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       Icons.check_circle,
-                      color: colors.textMain,
+                      color: colors.accent,
                       size: 28,
                     ),
                     onPressed: () {
@@ -967,6 +1035,11 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
           : CustomNumpad(
               key: const ValueKey('numpad'),
               onKeyPressed: _onNumpadPressed,
+              // Для активної «безкопійчаної» валюти крапка недоступна.
+              decimalEnabled: AppCurrency.decimals(
+                    _isEditingTarget ? _targetCurrency : _sourceCurrency,
+                  ) !=
+                  0,
             ),
     );
   }

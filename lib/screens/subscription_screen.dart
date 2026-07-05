@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,12 +10,15 @@ import 'package:uuid/uuid.dart';
 
 import '../providers/all_providers.dart';
 
-import '../database/app_database.dart';
 import '../models/app_currency.dart';
 import '../utils/app_constants.dart';
 import '../utils/date_formatter.dart';
+import '../utils/icon_helper.dart';
 import '../widgets/dialogs/premium_date_picker.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_dialog.dart';
+import '../widgets/common/app_picker_sheet.dart';
+import '../widgets/common/app_pill.dart';
 
 class SubscriptionScreen extends ConsumerStatefulWidget {
   final Subscription? subscription;
@@ -169,6 +173,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
       _periodicityCtrl.text = 'period_yearly'.tr();
     } else if (period == 'weekly') {
       _periodicityCtrl.text = 'period_weekly'.tr();
+    } else if (period == 'every_28_days') {
+      _periodicityCtrl.text = 'period_28_days'.tr();
+    } else if (period == 'every_30_days') {
+      _periodicityCtrl.text = 'period_30_days'.tr();
     }
   }
 
@@ -181,169 +189,50 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   }
 
   void _updateDateText(DateTime date) {
-    _dateCtrl.text = DateFormatter.formatFull(date);
+    _dateCtrl.text = DateFormatter.formatFull(
+      date,
+      Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
+    );
   }
 
   // 👇 ОНОВЛЕНО ДЛЯ КОНСИСТЕНТНОСТІ З КАТЕГОРІЯМИ
   Future<void> _openCurrencyPicker() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
+    final baseCurrency = ref.read(settingsProvider).baseCurrency;
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
-    final baseCurrency = ref.read(settingsProvider).baseCurrency;
-    final List<String> availableCurrencies = AppCurrency.supportedCurrencies
-        .map((c) => c.code)
-        .toList();
+    final List<String> codes = AppCurrency.orderedCodes(pin: baseCurrency);
 
-    availableCurrencies.remove(baseCurrency);
-    availableCurrencies.sort();
-    availableCurrencies.insert(0, baseCurrency);
-
-    await showModalBottomSheet(
+    await AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      isScrollControlled: true,
-      builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, controller) => Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'currency'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = availableCurrencies[index];
-                    final curr = AppCurrency.fromCode(code);
-
-                    final bool isSelected = _selectedCurrency == code;
-                    final bool isBase = code == baseCurrency;
-
-                    final Color activeColor = isBase
-                        ? colors.income
-                        : Colors.blueAccent;
-
-                    return ListTile(
-                      onTap: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        setState(() {
-                          _selectedCurrency = code;
-                          _updateCurrencyText(code);
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      leading: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: isSelected
-                            ? activeColor
-                            : (isBase
-                                  ? activeColor.withValues(alpha: 0.15)
-                                  : colors.iconBg),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.center,
-                            child: Text(
-                              curr.symbol.trim(),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                              strutStyle: const StrutStyle(
-                                fontSize: 14,
-                                height: 1.0,
-                                forceStrutHeight: true,
-                              ),
-                              textHeightBehavior: const TextHeightBehavior(
-                                applyHeightToFirstAscent: false,
-                                applyHeightToLastDescent: false,
-                              ),
-                              style: TextStyle(
-                                color: isSelected
-                                    ? Colors.white
-                                    : (isBase ? activeColor : colors.textMain),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Row(
-                        children: [
-                          Text(
-                            curr.code,
-                            style: TextStyle(
-                              color: isSelected ? activeColor : colors.textMain,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                          ),
-                          if (isBase) ...[
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: activeColor.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'base_currency_label'.tr(),
-                                style: TextStyle(
-                                  color: activeColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      trailing: isSelected
-                          ? Icon(Icons.check, color: activeColor)
-                          : null,
-                    );
-                  },
-                ),
-              ),
-            ],
+      title: 'currency'.tr(),
+      enableSearch: true,
+      selected: _selectedCurrency ?? baseCurrency,
+      options: codes.map((code) {
+        final curr = AppCurrency.fromCode(code);
+        final bool isBase = code == baseCurrency;
+        final Color activeColor = isBase ? colors.income : colors.accent;
+        return AppPickerOption(
+          value: code,
+          label: 'currency_names.$code'.tr(),
+          leading: AppPill(
+            text: '${curr.code}  ${curr.symbol}',
+            color: activeColor,
           ),
-        ),
-      ),
+          color: activeColor,
+          badge: isBase ? 'base_currency_label'.tr() : null,
+        );
+      }).toList(),
+      onSelected: (code) {
+        setState(() {
+          _selectedCurrency = code;
+          _updateCurrencyText(code);
+        });
+      },
     );
+
+    if (mounted) FocusManager.instance.primaryFocus?.unfocus();
   }
 
   Future<void> _openCategoryPicker(
@@ -434,7 +323,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
-                          IconData(cat.icon, fontFamily: 'MaterialIcons'),
+                          IconHelper.getIcon(cat.icon),
                           size: 18,
                           color: Color(cat.iconColor),
                         ),
@@ -443,7 +332,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                         cat.name,
                         style: TextStyle(
                           color: isSelected
-                              ? Colors.blueAccent
+                              ? colors.accent
                               : colors.textMain,
                           fontWeight: isSelected
                               ? FontWeight.bold
@@ -452,7 +341,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                         ),
                       ),
                       trailing: isSelected
-                          ? const Icon(Icons.check, color: Colors.blueAccent)
+                          ? Icon(Icons.check, color: colors.accent)
                           : null,
                     );
                   },
@@ -470,66 +359,27 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   Future<void> _openPeriodicityPicker() async {
     FocusManager.instance.primaryFocus?.unfocus();
 
-    final colors = Theme.of(context).extension<AppColorsExtension>()!;
     final options = {
+      'weekly': 'period_weekly'.tr(),
+      'every_28_days': 'period_28_days'.tr(),
+      'every_30_days': 'period_30_days'.tr(),
       'monthly': 'period_monthly'.tr(),
       'yearly': 'period_yearly'.tr(),
-      'weekly': 'period_weekly'.tr(),
     };
 
-    await showModalBottomSheet(
+    await AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colors.textSecondary.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'period'.tr(),
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: colors.textMain,
-              ),
-            ),
-            const SizedBox(height: 10),
-            ...options.entries.map((entry) {
-              final bool isSelected = _selectedPeriodicity == entry.key;
-              return ListTile(
-                onTap: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  setState(() {
-                    _selectedPeriodicity = entry.key;
-                    _updatePeriodicityText(entry.key);
-                  });
-                  Navigator.pop(ctx);
-                },
-                title: Text(
-                  entry.value,
-                  style: TextStyle(
-                    color: isSelected ? Colors.blueAccent : colors.textMain,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                trailing: isSelected
-                    ? const Icon(Icons.check, color: Colors.blueAccent)
-                    : null,
-              );
-            }),
-          ],
-        ),
-      ),
+      title: 'period'.tr(),
+      selected: _selectedPeriodicity,
+      options: options.entries
+          .map((e) => AppPickerOption(value: e.key, label: e.value))
+          .toList(),
+      onSelected: (val) {
+        setState(() {
+          _selectedPeriodicity = val;
+          _updatePeriodicityText(val);
+        });
+      },
     );
 
     if (mounted) FocusManager.instance.primaryFocus?.unfocus();
@@ -593,11 +443,11 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
               ),
               const SizedBox(height: 10),
               ListTile(
-                leading: const Icon(Icons.refresh, color: Colors.blueAccent),
+                leading: Icon(Icons.refresh, color: colors.accent),
                 title: Text(
                   'use_category_icon'.tr(),
-                  style: const TextStyle(
-                    color: Colors.blueAccent,
+                  style: TextStyle(
+                    color: colors.accent,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -648,7 +498,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: isSelected
-                                    ? Colors.blueAccent
+                                    ? colors.accent
                                     : colors.iconBg,
                                 shape: BoxShape.circle,
                               ),
@@ -736,117 +586,37 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     if (widget.subscription == null) return;
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
-    final bool confirmed =
-        await showDialog<bool>(
-          context: context,
-          builder: (ctx) => Dialog(
-            backgroundColor: colors.cardBg,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colors.expense.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.warning_amber_rounded,
-                      color: colors.expense,
-                      size: 36,
-                    ),
+    // Повідомлення з виділеною жирним назвою підписки.
+    final itemName = widget.subscription!.name;
+    final fullText = 'delete_subscription_message'.tr(args: [itemName]);
+    final nameIndex = fullText.indexOf(itemName);
+    final messageWidget = Text.rich(
+      TextSpan(
+        children: nameIndex != -1
+            ? [
+                TextSpan(text: fullText.substring(0, nameIndex)),
+                TextSpan(
+                  text: itemName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: colors.textMain,
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'delete_subscription_title'.tr(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: colors.textMain,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  Builder(
-                    builder: (context) {
-                      final itemName = widget.subscription!.name;
-                      final fullText = 'delete_subscription_message'.tr(
-                        args: [itemName],
-                      );
-                      final nameIndex = fullText.indexOf(itemName);
+                ),
+                TextSpan(
+                  text: fullText.substring(nameIndex + itemName.length),
+                ),
+              ]
+            : [TextSpan(text: fullText)],
+      ),
+      textAlign: TextAlign.center,
+    );
 
-                      return Text.rich(
-                        TextSpan(
-                          children: nameIndex != -1
-                              ? [
-                                  TextSpan(
-                                    text: fullText.substring(0, nameIndex),
-                                  ),
-                                  TextSpan(
-                                    text: itemName,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: colors.textMain,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: fullText.substring(
-                                      nameIndex + itemName.length,
-                                    ),
-                                  ),
-                                ]
-                              : [TextSpan(text: fullText)],
-                        ),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: colors.textSecondary,
-                        ),
-                        textAlign: TextAlign.center,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () => Navigator.pop(ctx, false),
-                          child: Text(
-                            'cancel'.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.expense,
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () => Navigator.pop(ctx, true),
-                          child: Text(
-                            'delete'.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ) ??
-        false;
+    final confirmed = await AppDialog.destructive(
+      context,
+      title: 'delete_subscription_title'.tr(),
+      messageWidget: messageWidget,
+      confirmText: 'delete'.tr(),
+    );
 
     if (!mounted) return;
     if (confirmed) {
@@ -869,7 +639,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     int? maxLength,
   }) {
     final baseColor = isError ? Colors.red : colors.textSecondary;
-    final activeColor = isError ? Colors.red : Colors.blueAccent;
+    final activeColor = isError ? Colors.red : colors.accent;
     final underlineBaseColor = isError
         ? Colors.red
         : colors.textSecondary.withValues(alpha: 0.3);
@@ -877,6 +647,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     return TextField(
       controller: controller,
       maxLength: isNumber ? null : maxLength,
+      // Сума — LTR-контент; у RTL-локалях без цього цифри, розділювачі та
+      // значок валюти (suffix) дзеркаляться й показуються неправильно.
+      textDirection: isNumber ? ui.TextDirection.ltr : null,
       keyboardType: isNumber
           ? const TextInputType.numberWithOptions(decimal: true)
           : TextInputType.text,
@@ -975,7 +748,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     final baseColor = isError ? Colors.red : colors.textSecondary;
     final activeColor = isError
         ? Colors.red
-        : (customActiveColor ?? Colors.blueAccent);
+        : (customActiveColor ?? colors.accent);
     final textColor = customTextColor ?? colors.textMain;
     final underlineBaseColor = isError
         ? Colors.red
@@ -1041,8 +814,8 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                     style: TextStyle(
                       color: textColor,
                       fontSize: 18,
-                      fontWeight:
-                          FontWeight.bold, // Зробили трохи жирнішим для краси
+                      // Однакова вага з полями вводу (тонша).
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -1068,7 +841,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         settingsState.baseCurrency;
     final Color currencyAccentColor = isCurrentBase
         ? colors.income
-        : Colors.blueAccent;
+        : colors.accent;
 
     final currencySymbol = AppCurrency.fromCode(
       _selectedCurrency ?? settingsState.baseCurrency,
@@ -1079,10 +852,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     Color displayIconColor = colors.textSecondary;
 
     if (_customIconCodePoint != null) {
-      displayIcon = IconData(
-        _customIconCodePoint!,
-        fontFamily: 'MaterialIcons',
-      );
+      displayIcon = IconHelper.getIcon(_customIconCodePoint!);
       if (_selectedExpenseId != null) {
         final cat = catState.expenses.firstWhereOrNull(
           (c) => c.id == _selectedExpenseId,
@@ -1097,7 +867,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         (c) => c.id == _selectedExpenseId,
       );
       if (cat != null) {
-        displayIcon = IconData(cat.icon, fontFamily: 'MaterialIcons');
+        displayIcon = IconHelper.getIcon(cat.icon);
         displayColor = Color(cat.bgColor);
         displayIconColor = Color(cat.iconColor);
       }
@@ -1147,9 +917,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                             onPressed: _delete,
                           ),
                         IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.check,
-                            color: Colors.blueAccent,
+                            color: colors.accent,
                             size: 28,
                           ),
                           onPressed: () => unawaited(_save()),
@@ -1203,9 +973,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   ),
                                 ],
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.edit,
-                                color: Colors.blueAccent,
+                                color: colors.accent,
                                 size: 14,
                               ),
                             ),
@@ -1361,7 +1131,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                           ),
                         ),
                         value: _isAutoPay,
-                        activeThumbColor: Colors.blueAccent,
+                        activeThumbColor: colors.accent,
                         onChanged: (val) {
                           FocusManager.instance.primaryFocus?.unfocus();
                           setState(() => _isAutoPay = val);

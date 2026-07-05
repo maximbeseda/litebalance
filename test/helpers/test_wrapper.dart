@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:coin_flow/theme/app_theme.dart'; // Перевірте, чи правильний шлях до вашого файлу
+import 'package:litebalance/theme/app_theme.dart'; // Перевірте, чи правильний шлях до вашого файлу
 
 Widget makeTestableWidget({
   required Widget child,

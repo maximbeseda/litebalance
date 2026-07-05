@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 // Шлях до вашого файлу калькулятора
-import 'package:coin_flow/utils/calculator_helper.dart';
+import 'package:litebalance/utils/calculator_helper.dart';
 
 void main() {
   group('CalculatorHelper Tests', () {

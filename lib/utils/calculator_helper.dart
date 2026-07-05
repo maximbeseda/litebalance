@@ -14,7 +14,7 @@ class CalculatorHelper {
       sanitized = sanitized.replaceAll('×', '*').replaceAll('÷', '/');
 
       // 3. Створюємо парсер і розпізнаємо математичний вираз
-      final GrammarParser p = GrammarParser();
+      final Parser p = Parser();
       final Expression exp = p.parse(sanitized);
 
       // 4. Виконуємо обчислення

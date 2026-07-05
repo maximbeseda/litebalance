@@ -41,7 +41,7 @@ final class FilterNotifierProvider
   }
 }
 
-String _$filterNotifierHash() => r'904b976a2588df44a10e3f28adf6a4935b97a80e';
+String _$filterNotifierHash() => r'3b54193c7ec9835d9f6ed9dd0c8dd3e6deb1b1da';
 
 abstract class _$FilterNotifier extends $Notifier<FilterState> {
   FilterState build();

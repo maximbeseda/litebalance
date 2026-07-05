@@ -8,6 +8,10 @@ import '../providers/all_providers.dart';
 import '../models/app_currency.dart';
 import '../utils/date_formatter.dart';
 import '../theme/app_colors_extension.dart';
+import '../widgets/common/app_empty_state.dart';
+import '../widgets/common/animated_item_list.dart';
+import '../widgets/common/app_pill.dart';
+import '../widgets/common/app_picker_sheet.dart';
 
 // 👇 3. Змінили StatefulWidget на ConsumerStatefulWidget
 class CurrenciesScreen extends ConsumerStatefulWidget {
@@ -39,87 +43,36 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
     // 👇 Отримуємо стан налаштувань через ref.read
     final settingsState = ref.read(settingsProvider);
 
-    final availableCurrencies = AppCurrency.supportedCurrencies
+    final availableCurrencies = AppCurrency.ordered()
         .where((c) => !settingsState.selectedCurrencies.contains(c.code))
         .toList();
 
-    showModalBottomSheet(
+    AppPickerSheet.show<String>(
       context: context,
-      backgroundColor: colors.cardBg,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colors.textSecondary.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
+      title: 'add_currency'.tr(),
+      // Немає «обраного» — це список для додавання валют.
+      selected: '',
+      enableSearch: true,
+      onSelected: (code) =>
+          ref.read(settingsProvider.notifier).toggleSelectedCurrency(code),
+      options: availableCurrencies
+          .map(
+            (currency) => AppPickerOption<String>(
+              value: currency.code,
+              label: 'currency_names.${currency.code}'.tr(),
+              leading: AppPill(
+                text: '${currency.code}  ${currency.symbol}',
+                color: colors.accent,
               ),
             ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'add_currency'.tr(),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: colors.textMain,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            if (availableCurrencies.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'all_currencies_added'.tr(),
-                  style: TextStyle(color: colors.textSecondary),
-                ),
-              )
-            else
-              Expanded(
-                child: ListView.builder(
-                  itemCount: availableCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final currency = availableCurrencies[index];
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: colors.iconBg,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              currency.symbol,
-                              style: TextStyle(
-                                color: colors.textMain,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        currency.code,
-                        style: TextStyle(color: colors.textMain),
-                      ),
-                      onTap: () {
-                        // 👇 Викликаємо метод через Notifier
-                        ref
-                            .read(settingsProvider.notifier)
-                            .toggleSelectedCurrency(currency.code);
-                        Navigator.pop(ctx);
-                      },
-                    );
-                  },
-                ),
-              ),
-          ],
-        ),
+          )
+          .toList(),
+      emptyState: AppEmptyState(
+        icon: Icons.check_circle_outline_rounded,
+        color: colors.income,
+        title: 'all_currencies_added'.tr(),
+        subtitle: 'all_currencies_added_hint'.tr(),
+        illustrationSize: 96,
       ),
     );
   }
@@ -201,7 +154,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
           Icon(Icons.access_time, size: 14, color: colors.textSecondary),
           const SizedBox(width: 8),
           Text(
-            '${'last_update'.tr()}: ${DateFormatter.formatWithTime(settingsState.lastRatesUpdate!)}',
+            '${'last_update'.tr()}: ${DateFormatter.formatWithTime(settingsState.lastRatesUpdate!, Localizations.maybeLocaleOf(context)?.languageCode ?? 'en')}',
             style: TextStyle(fontSize: 12, color: colors.textSecondary),
           ),
         ],
@@ -264,14 +217,14 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
                 color: colors.income,
                 backgroundColor: colors.cardBg,
                 onRefresh: _handleRefresh,
-                child: ListView.builder(
+                child: AnimatedItemList<String>(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
                   padding: const EdgeInsets.all(16),
-                  itemCount: settingsState.selectedCurrencies.length,
-                  itemBuilder: (context, index) {
-                    final code = settingsState.selectedCurrencies[index];
+                  items: settingsState.selectedCurrencies,
+                  keyOf: (code) => code,
+                  itemBuilder: (context, code) {
                     final currency = AppCurrency.fromCode(code);
 
                     if (code == settingsState.baseCurrency) {

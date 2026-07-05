@@ -1,8 +1,7 @@
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/screens/stats/views/monthly_pie_view.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
-import 'package:coin_flow/widgets/bottom_sheets/stats_category_bottom_sheet.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/screens/stats/views/monthly_pie_view.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
+import 'package:litebalance/widgets/bottom_sheets/stats_category_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

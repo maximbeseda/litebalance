@@ -40,7 +40,7 @@ final class StatsProvider extends $NotifierProvider<Stats, void> {
   }
 }
 
-String _$statsHash() => r'e14ae333902f3df66a6c331448d89872873a499a';
+String _$statsHash() => r'b987c1d4780058808efd3916a822b69e03880ffa';
 
 abstract class _$Stats extends $Notifier<void> {
   void build();

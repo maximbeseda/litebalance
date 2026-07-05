@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/database/app_database.dart';
+import 'package:litebalance/providers/all_providers.dart';
 
 // ==========================================
 // 1. SPIES & FAKES

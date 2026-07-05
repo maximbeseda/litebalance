@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:coin_flow/providers/all_providers.dart';
+import 'package:litebalance/providers/all_providers.dart';
 
 void main() {
   Future<ProviderContainer> createContainer({

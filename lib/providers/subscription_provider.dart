@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:uuid/uuid.dart';
 
-import '../database/app_database.dart';
 import '../services/storage_service.dart';
 import '../services/subscription_service.dart';
 import 'all_providers.dart';
@@ -56,16 +55,25 @@ class SubscriptionState {
 
 @Riverpod(keepAlive: true)
 class SubscriptionNotifier extends _$SubscriptionNotifier {
-  // 👇 Зручний геттер для доступу до нестатичного StorageService
+  // Зручний геттер для доступу до нестатичного StorageService
   StorageService get _storage =>
       StorageService(ref.read(sharedPreferencesProvider));
 
   @override
   Future<SubscriptionState> build() async {
-    final db = ref.read(databaseProvider);
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Якщо база у цей момент перезаписується — не чіпаємо її файл
+    if (ref.read(syncControllerProvider).isSyncing) {
+      return SubscriptionState(
+        subscriptions: [],
+        dueSubscriptions: [],
+        deletedSubscriptions: [],
+        ignoredSubIds: {},
+      );
+    }
+
+    final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
-    // 👇 Оновлено: дістаємо ігноровані через екземпляр
     final ignored = _storage.getIgnoredSubscriptions().toSet();
 
     final activeSubs = allSubs.where((s) => s.deletedAt == null).toList();
@@ -75,6 +83,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     final today = DateTime(now.year, now.month, now.day);
     final due = activeSubs.where((sub) {
       if (ignored.contains(sub.id)) return false;
+      // Авто-підписки ніколи не показуємо в діалозі ручного підтвердження —
+      // їх тихо обробляє processAutoPayments(). Інакше через гонку (build викликає
+      // processAutoPayments через unawaited) діалог встигає блимнути до автосписання.
+      if (sub.isAutoPay) return false;
       final pDate = DateTime(
         sub.nextPaymentDate.year,
         sub.nextPaymentDate.month,
@@ -102,10 +114,12 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> loadSubscriptions() async {
-    final db = ref.read(databaseProvider);
+    // 👇 ЗАХИСТ ВІД КРЕШУ: Не ліземо в базу, якщо файл SQLite зараз закривається/копіюється
+    if (ref.read(syncControllerProvider).isSyncing) return;
+
+    final db = ref.read(appDatabaseProvider);
     final allSubs = await StorageService.getSubscriptions(db);
 
-    // 👇 Оновлено: дістаємо ігноровані через екземпляр
     final ignored = _storage.getIgnoredSubscriptions().toSet();
 
     final activeSubs = allSubs.where((s) => s.deletedAt == null).toList();
@@ -115,6 +129,10 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     final today = DateTime(now.year, now.month, now.day);
     final due = activeSubs.where((sub) {
       if (ignored.contains(sub.id)) return false;
+      // Авто-підписки ніколи не показуємо в діалозі ручного підтвердження —
+      // їх тихо обробляє processAutoPayments(). Інакше через гонку (build викликає
+      // processAutoPayments через unawaited) діалог встигає блимнути до автосписання.
+      if (sub.isAutoPay) return false;
       final pDate = DateTime(
         sub.nextPaymentDate.year,
         sub.nextPaymentDate.month,
@@ -142,6 +160,8 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
 
       final due = s.subscriptions.where((sub) {
         if (s.ignoredSubIds.contains(sub.id)) return false;
+        // Авто-підписки не потрапляють у діалог ручного підтвердження.
+        if (sub.isAutoPay) return false;
         final paymentDate = DateTime(
           sub.nextPaymentDate.year,
           sub.nextPaymentDate.month,
@@ -156,7 +176,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> addSubscription(Subscription sub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateState(
       (s) => s.copyWith(
         subscriptions: List<Subscription>.from(s.subscriptions)..add(sub),
@@ -164,12 +184,16 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     );
 
     await StorageService.saveSubscription(db, sub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await processAutoPayments();
     _checkDueSubscriptions();
   }
 
   Future<void> updateSubscription(Subscription updatedSub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     _updateState((s) {
       final newSubs = List<Subscription>.from(s.subscriptions);
       final int index = newSubs.indexWhere((item) => item.id == updatedSub.id);
@@ -180,27 +204,43 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     });
 
     await StorageService.saveSubscription(db, updatedSub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await processAutoPayments();
     _checkDueSubscriptions();
   }
 
   Future<void> moveToTrash(Subscription sub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final deletedSub = sub.copyWith(deletedAt: drift.Value(DateTime.now()));
     await StorageService.saveSubscription(db, deletedSub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
   Future<void> restoreFromTrash(Subscription sub) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final restoredSub = sub.copyWith(deletedAt: const drift.Value(null));
     await StorageService.saveSubscription(db, restoredSub);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
   Future<void> deletePermanently(String id) async {
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     await StorageService.deleteSubscription(db, id);
+
+    // 👇 ДОДАНО: Прапорець бекапу
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
@@ -211,7 +251,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     if (state is! AsyncData) return (false, 'loading'.tr());
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
     final txNotifier = ref.read(transactionProvider.notifier);
     final settingsState = ref.read(settingsProvider);
@@ -277,11 +317,13 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     await txNotifier.addTransactionDirectly(newTx);
     await SubscriptionService.advanceOnePeriod(db, sub);
 
+    // 👇 ДОДАНО: Прапорець бекапу (хоча транзакція його вже ставить, це для надійності)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     final newIgnored = Set<String>.from(currentState.ignoredSubIds)
       ..remove(sub.id);
     _updateState((s) => s.copyWith(ignoredSubIds: newIgnored));
 
-    // 👇 Оновлено: зберігаємо через екземпляр
     await _storage.saveIgnoredSubscriptions(newIgnored.toList());
 
     await loadSubscriptions();
@@ -296,7 +338,6 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     });
 
     if (nextIgnored != null) {
-      // 👇 Оновлено: зберігаємо через екземпляр
       await _storage.saveIgnoredSubscriptions(nextIgnored!.toList());
     }
     _checkDueSubscriptions();
@@ -311,7 +352,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
     final txNotifier = ref.read(transactionProvider.notifier);
     final settingsState = ref.read(settingsProvider);
@@ -405,6 +446,14 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
             currentSub = currentSub.copyWith(
               nextPaymentDate: pDate.add(const Duration(days: 7)),
             );
+          } else if (currentSub.periodicity == 'every_28_days') {
+            currentSub = currentSub.copyWith(
+              nextPaymentDate: pDate.add(const Duration(days: 28)),
+            );
+          } else if (currentSub.periodicity == 'every_30_days') {
+            currentSub = currentSub.copyWith(
+              nextPaymentDate: pDate.add(const Duration(days: 30)),
+            );
           }
 
           subUpdated = true;
@@ -434,8 +483,9 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
         return s.copyWith(subscriptions: newSubs);
       });
 
-      // 👇 ДОДАНО: Перераховуємо прострочені платежі, щоб прибрати звідти ті,
-      // що щойно були успішно оплачені автоматично
+      // 👇 ДОДАНО: Якщо пройшли автосписання, ставимо прапорець бекапу
+      ref.read(dbDirtyProvider.notifier).setDirty(true);
+
       _checkDueSubscriptions();
     }
   }
@@ -448,8 +498,12 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
       ),
     );
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
     await SubscriptionService.advanceOnePeriod(db, sub);
+
+    // 👇 ДОДАНО: Прапорець бекапу (бо дата підписки оновилася в базі)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     await loadSubscriptions();
   }
 
@@ -465,7 +519,7 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
     if (state is! AsyncData) return;
     final currentState = state.value!;
 
-    final db = ref.read(databaseProvider);
+    final db = ref.read(appDatabaseProvider);
 
     for (var sub in [
       ...currentState.subscriptions,
@@ -474,8 +528,11 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
       await StorageService.deleteSubscription(db, sub.id);
     }
 
-    // 👇 Оновлено: зберігаємо через екземпляр
     await _storage.saveIgnoredSubscriptions([]);
+
+    // 👇 ДОДАНО: Прапорець бекапу (видалили все)
+    ref.read(dbDirtyProvider.notifier).setDirty(true);
+
     _updateState(
       (s) => s.copyWith(
         subscriptions: [],

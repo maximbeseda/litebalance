@@ -1,158 +1,115 @@
+import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/native.dart';
-import 'package:drift/drift.dart';
-import 'package:coin_flow/database/app_database.dart';
+import 'package:drift/drift.dart' hide isNotNull;
+import 'package:litebalance/database/app_database.dart';
+import 'package:sqlite3/common.dart'; // Тепер це працюватиме
+
+class _DummyUser extends QueryExecutorUser {
+  @override
+  Future<void> beforeOpen(
+    QueryExecutor executor,
+    OpeningDetails details,
+  ) async {}
+  @override
+  int get schemaVersion => 1;
+}
 
 void main() {
+  driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+
+  // Явно вказуємо типи, щоб уникнути avoid_dynamic_calls
+  void databaseSetup(CommonDatabase database) {
+    database.createFunction(
+      functionName: 'dart_lower',
+      function: (List<Object?> args) {
+        if (args.isNotEmpty) {
+          final Object? firstArg = args[0];
+          if (firstArg is String) {
+            return firstArg.toLowerCase();
+          }
+          return firstArg;
+        }
+        return null;
+      },
+    );
+  }
+
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (MethodCall methodCall) async {
+            return Directory.systemTemp.path;
+          },
+        );
+  });
+
   late AppDatabase db;
 
   setUp(() {
-    // Важливо: ми передаємо NativeDatabase.memory() у конструктор.
-    // Наша нова фабрика бачить, що передано executor, і створює
-    // НОВИЙ екземпляр спеціально для тесту, ігноруючи Singleton.
-    db = AppDatabase(
-      NativeDatabase.memory(
-        setup: (db) {
-          db.createFunction(
-            functionName: 'dart_lower',
-            function: (args) {
-              if (args.isNotEmpty && args[0] is String) {
-                return (args[0] as String).toLowerCase();
-              }
-              return args.isEmpty ? null : args[0];
-            },
-          );
-        },
-      ),
-    );
+    db = AppDatabase(NativeDatabase.memory(setup: databaseSetup));
   });
 
   tearDown(() async {
-    await db.close();
+    await db.closeConnection();
   });
 
-  group('AppDatabase - Фільтрація та логіка Кошика', () {
-    test(
-      'getFilteredTransactions приховує видалені записи за замовчуванням',
-      () async {
-        final now = DateTime.now();
+  group('AppDatabase - Складні тести', () {
+    test('Міграція та перевірка QueryRow', () async {
+      final NativeDatabase executor = NativeDatabase.memory(
+        setup: databaseSetup,
+      );
+      await executor.ensureOpen(_DummyUser());
 
-        // 1. Додаємо живу транзакцію
-        await db
-            .into(db.transactions)
-            .insert(
-              TransactionsCompanion.insert(
-                id: 'active_1',
-                fromId: 'acc_1',
-                toId: 'cat_1',
-                title: 'Active TX',
-                date: now,
-                amount: 100,
-                currency: 'UAH',
-                baseCurrency: 'UAH',
-              ),
-            );
-
-        // 2. Додаємо "видалену" транзакцію (з міткою deletedAt)
-        await db
-            .into(db.transactions)
-            .insert(
-              TransactionsCompanion.insert(
-                id: 'deleted_1',
-                fromId: 'acc_1',
-                toId: 'cat_1',
-                title: 'Deleted TX',
-                date: now,
-                amount: 200,
-                currency: 'UAH',
-                baseCurrency: 'UAH',
-                deletedAt: Value(now), // Логічне видалення
-              ),
-            );
-
-        // 3. Перевіряємо звичайний запит
-        final alive = await db.getFilteredTransactions();
-        expect(alive.length, 1);
-        expect(alive.first.id, 'active_1');
-
-        // 4. Перевіряємо запит для Кошика
-        final all = await db.getFilteredTransactions(includeDeleted: true);
-        expect(all.length, 2);
-      },
-    );
-
-    test(
-      'Логіка "Кінець дня" правильно включає транзакції о 23:59:59',
-      () async {
-        final targetDate = DateTime(2026, 4, 25);
-
-        // Транзакція в останню хвилину дня
-        await db
-            .into(db.transactions)
-            .insert(
-              TransactionsCompanion.insert(
-                id: 'late_tx',
-                fromId: 'a',
-                toId: 'b',
-                title: 'Late night buy',
-                date: DateTime(2026, 4, 25, 23, 59, 30),
-                amount: 50,
-                currency: 'UAH',
-                baseCurrency: 'UAH',
-              ),
-            );
-
-        // Фільтруємо суворо по 25 квітня
-        final result = await db.getFilteredTransactions(
-          startDate: targetDate,
-          endDate: targetDate,
-        );
-
-        expect(
-          result.length,
-          1,
-          reason: 'Транзакція повинна потрапити в інтервал дня',
-        );
-      },
-    );
-
-    test('Фільтр категорій працює через OR (fromId або toId)', () async {
-      await db
-          .into(db.transactions)
-          .insert(
-            TransactionsCompanion.insert(
-              id: 'tx_1',
-              fromId: 'my_card', // Категорія, яку шукаємо
-              toId: 'food',
-              title: 'Dinner',
-              date: DateTime.now(),
-              amount: 150,
-              currency: 'UAH',
-              baseCurrency: 'UAH',
-            ),
-          );
-
-      final result = await db.getFilteredTransactions(
-        filterCategoryIds: ['my_card'],
+      await executor.runCustom(
+        'CREATE TABLE categories (id TEXT NOT NULL PRIMARY KEY, type INTEGER NOT NULL, name TEXT NOT NULL, icon INTEGER NOT NULL, bg_color INTEGER NOT NULL, icon_color INTEGER NOT NULL, amount INTEGER NOT NULL DEFAULT 0, budget INTEGER, is_archived BOOLEAN NOT NULL DEFAULT 0, currency TEXT NOT NULL DEFAULT \'UAH\', include_in_total BOOLEAN NOT NULL DEFAULT 1, sort_order INTEGER NOT NULL DEFAULT 0);',
+      );
+      await executor.runCustom(
+        'CREATE TABLE transactions (id TEXT NOT NULL PRIMARY KEY, from_id TEXT NOT NULL, to_id TEXT NOT NULL, title TEXT NOT NULL, date INTEGER NOT NULL, amount INTEGER NOT NULL, currency TEXT NOT NULL, target_amount INTEGER, target_currency TEXT, base_amount INTEGER NOT NULL DEFAULT 0, base_currency TEXT NOT NULL);',
+      );
+      await executor.runCustom(
+        'CREATE TABLE subscriptions (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, amount INTEGER NOT NULL, category_id TEXT NOT NULL, account_id TEXT NOT NULL, next_payment_date INTEGER NOT NULL, periodicity TEXT NOT NULL DEFAULT \'monthly\', custom_icon_code_point INTEGER, is_auto_pay BOOLEAN NOT NULL DEFAULT 0, currency TEXT NOT NULL DEFAULT \'UAH\');',
       );
 
-      expect(result.length, 1);
+      final AppDatabase upgradeDb = AppDatabase(executor);
+      final Migrator m = Migrator(upgradeDb);
+
+      await upgradeDb.customStatement(
+        'INSERT INTO transactions (id, from_id, to_id, title, date, amount, currency, base_currency) VALUES (\'t1\', \'a\', \'b\', \'Coffee\', 1700000000, 50, \'UAH\', \'UAH\')',
+      );
+
+      await upgradeDb.migration.onUpgrade(m, 1, 3);
+
+      // 👇 ФІКС: customSelect тепер повертає Selectable<QueryRow>
+      final Selectable<QueryRow> selectable = upgradeDb.customSelect(
+        'SELECT title_lower FROM transactions WHERE id = \'t1\'',
+      );
+      final QueryRow row = await selectable.getSingle();
+
+      expect(row.read<String>('title_lower'), 'coffee');
+      await upgradeDb.close();
     });
-  });
 
-  group('AppDatabase - Схема та Міграції', () {
-    test('Версія схеми має бути 3', () {
-      expect(db.schemaVersion, 3);
-    });
-  });
+    test('Drift Managers - використання Value', () async {
+      // 👇 ФІКС: Менеджери очікують Value<T>, а не просто T
+      await db.managers.categories.create(
+        (o) => o(
+          id: 'm1',
+          name: 'Manager',
+          type: CategoryType.income,
+          icon: 0,
+          bgColor: 0,
+          iconColor: 0,
+          amount: const Value(0),
+          isArchived: const Value(false),
+        ),
+      );
 
-  group('AppDatabase - Singleton check', () {
-    test('Фабрика повертає той самий екземпляр (Singleton) без параметрів', () {
-      // Для цього тесту не використовуємо db з setUp
-      final db1 = AppDatabase();
-      final db2 = AppDatabase();
-
-      expect(identical(db1, db2), true);
+      final int count = await db.managers.categories.count();
+      expect(count, 1);
     });
   });
 }

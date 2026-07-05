@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/theme/app_theme.dart';
-import 'package:coin_flow/theme/light_theme.dart';
-import 'package:coin_flow/theme/dark_theme.dart';
+import 'package:litebalance/theme/app_theme.dart';
+import 'package:litebalance/theme/light_theme.dart';
+import 'package:litebalance/theme/dark_theme.dart';
 
 void main() {
   group('AppTheme Tests', () {

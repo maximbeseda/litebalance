@@ -2,16 +2,23 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/services.dart';
 import '../services/security_service.dart';
 import '../theme/app_colors_extension.dart';
+import '../utils/haptic_helper.dart';
+import '../widgets/common/app_logo.dart';
 import 'home_screen.dart';
 
 class LockScreen extends StatefulWidget {
-  final bool
-  isSetupMode; // true - створюємо новий ПІН, false - входимо в додаток
+  final bool isSetupMode;
 
-  const LockScreen({super.key, this.isSetupMode = false});
+  /// Якщо задано — викликається при успішному розблокуванні замість навігації
+  /// (для inline-використання в [AppLockGate]). Якщо `null` — стара поведінка
+  /// (pop / pushReplacement) для пушнутого маршруту.
+  final VoidCallback? onUnlocked;
+
+  const LockScreen({super.key, this.isSetupMode = false, this.onUnlocked});
+
+  static bool isShowing = false;
 
   @override
   State<LockScreen> createState() => _LockScreenState();
@@ -24,11 +31,19 @@ class _LockScreenState extends State<LockScreen>
   bool _isConfirming = false;
   bool _hasError = false;
   bool _canUseBiometrics = false;
+  bool _autoBioTried = false; // авто-біометрія лише раз за час життя екрана
 
   @override
   void initState() {
     super.initState();
+    LockScreen.isShowing = true;
     _checkBiometrics();
+  }
+
+  @override
+  void dispose() {
+    LockScreen.isShowing = false;
+    super.dispose();
   }
 
   Future<void> _checkBiometrics() async {
@@ -38,8 +53,12 @@ class _LockScreenState extends State<LockScreen>
     final canUse = await SecurityService.canUseBiometrics();
 
     if (isEnabledInSettings && canUse) {
-      setState(() => _canUseBiometrics = true);
-      await _triggerBiometrics();
+      if (mounted) setState(() => _canUseBiometrics = true);
+      // Запускаємо системний діалог автоматично лише один раз.
+      if (!_autoBioTried) {
+        _autoBioTried = true;
+        await _triggerBiometrics();
+      }
     }
   }
 
@@ -97,7 +116,7 @@ class _LockScreenState extends State<LockScreen>
   }
 
   void _showError() {
-    HapticFeedback.heavyImpact();
+    HapticHelper.heavy();
     setState(() {
       _hasError = true;
       _pin = '';
@@ -109,6 +128,11 @@ class _LockScreenState extends State<LockScreen>
   }
 
   void _unlockApp() {
+    // Inline-режим (AppLockGate): просто повідомляємо про розблокування.
+    if (widget.onUnlocked != null) {
+      widget.onUnlocked!();
+      return;
+    }
     if (Navigator.canPop(context)) {
       Navigator.pop(context, true);
     } else {
@@ -153,12 +177,19 @@ class _LockScreenState extends State<LockScreen>
                   offset: Offset(offset, 0),
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.lock_outline,
-                        size: 48,
-                        color: _hasError ? colors.expense : colors.textMain,
+                      const AppLogo(size: 56),
+                      const SizedBox(height: 8),
+                      Text(
+                        'LiteBalance',
+                        style: TextStyle(
+                          fontFamily: AppLogo.fontFamily,
+                          fontVariations: const [FontVariation('wght', 700)],
+                          fontSize: 18,
+                          letterSpacing: -0.3,
+                          color: colors.textMain,
+                        ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       Text(
                         title,
                         style: TextStyle(
@@ -248,21 +279,15 @@ class _LockScreenState extends State<LockScreen>
                 child: SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: OutlinedButton(
+                  // Акцентна кнопка як «Готово» у транзакціях:
+                  // чорна на світлій темі, біла на темній (стиль із теми).
+                  child: ElevatedButton(
                     onPressed: () => Navigator.pop(context, false),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                        color: colors.textSecondary.withValues(alpha: 0.3),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
                     child: Text(
                       'cancel'.tr(),
-                      style: TextStyle(
-                        color: colors.textSecondary,
+                      style: const TextStyle(
                         fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -279,7 +304,7 @@ class _LockScreenState extends State<LockScreen>
     final colors = Theme.of(context).extension<AppColorsExtension>()!;
     return InkWell(
       onTap: () {
-        HapticFeedback.lightImpact();
+        HapticHelper.light();
         if (value == 'bio') {
           unawaited(_triggerBiometrics());
         } else {

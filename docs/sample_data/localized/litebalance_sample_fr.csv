@@ -1,0 +1,258 @@
+﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
+01.02.2026 09:00,Expense,Carte bancaire,1200.00,EUR,Loyer,1200.00,EUR,Loyer appartement
+01.02.2026 09:03,Expense,Banque Populaire,23.30,EUR,Café,23.30,EUR,Café
+01.02.2026 10:15,Expense,Banque Populaire,5.30,EUR,Transport,5.30,EUR,
+02.02.2026 13:41,Expense,Espèces,59.60,EUR,Courses,59.60,EUR,Lidl
+02.02.2026 17:08,Expense,Espèces,102.30,EUR,Courses,102.30,EUR,Auchan
+02.02.2026 18:00,Expense,Carte bancaire,245.20,EUR,Vêtements,245.20,EUR,
+02.02.2026 18:36,Expense,Banque Populaire,62.40,EUR,Courses,62.40,EUR,Carrefour
+02.02.2026 20:54,Expense,Banque Populaire,19.10,EUR,Café,19.10,EUR,Café
+03.02.2026 09:30,Expense,Carte bancaire,229.60,EUR,Factures,229.60,EUR,
+04.02.2026 09:00,Expense,Banque Populaire,30.00,EUR,Internet,30.00,EUR,
+04.02.2026 09:05,Expense,Banque Populaire,25.00,EUR,Mobile,25.00,EUR,
+04.02.2026 11:19,Expense,Banque Populaire,232.60,EUR,Essence,232.60,EUR,
+04.02.2026 13:19,Expense,Espèces,4.60,EUR,Transport,4.60,EUR,
+05.02.2026 10:34,Expense,Espèces,13.80,EUR,Transport,13.80,EUR,
+05.02.2026 10:39,Income,Salaire,4406.30,EUR,Banque Populaire,4406.30,EUR,Salaire mensuel
+05.02.2026 21:00,Expense,Banque Populaire,52.40,EUR,Loisirs,52.40,EUR,
+06.02.2026 08:00,Expense,Banque Populaire,60.00,EUR,Abonnements,60.00,EUR,Netflix + Spotify
+06.02.2026 08:18,Expense,Espèces,113.80,EUR,Courses,113.80,EUR,Lidl
+06.02.2026 17:13,Expense,Banque Populaire,85.50,EUR,Courses,85.50,EUR,Leclerc
+07.02.2026 11:00,Transfer,Banque Populaire,981.80,EUR,Compte épargne,981.80,EUR,Épargne mensuelle
+07.02.2026 17:00,Expense,Banque Populaire,346.80,EUR,Santé,346.80,EUR,
+09.02.2026 09:42,Expense,Banque Populaire,10.50,EUR,Café,10.50,EUR,Café
+09.02.2026 16:08,Expense,Banque Populaire,94.40,EUR,Courses,94.40,EUR,Auchan
+09.02.2026 18:00,Expense,Banque Populaire,96.70,EUR,Loisirs,96.70,EUR,
+09.02.2026 21:34,Expense,Banque Populaire,162.90,EUR,Restaurants,162.90,EUR,
+12.02.2026 09:05,Expense,Espèces,113.40,EUR,Courses,113.40,EUR,Auchan
+12.02.2026 11:30,Expense,Banque Populaire,113.20,EUR,Courses,113.20,EUR,Auchan
+12.02.2026 12:00,Income,Dividendes,405.00,EUR,Compte épargne,405.00,EUR,Dividendes trimestriels
+12.02.2026 17:02,Expense,Banque Populaire,17.20,EUR,Café,17.20,EUR,Café
+13.02.2026 09:58,Expense,Banque Populaire,163.30,EUR,Essence,163.30,EUR,
+14.02.2026 09:47,Expense,Banque Populaire,18.60,EUR,Café,18.60,EUR,Café
+14.02.2026 17:00,Transfer,Banque Populaire,288.90,EUR,Espèces,288.90,EUR,Retrait DAB
+14.02.2026 19:31,Expense,Banque Populaire,116.00,EUR,Restaurants,116.00,EUR,
+16.02.2026 15:00,Expense,Banque Populaire,27.20,EUR,Café,27.20,EUR,Café
+17.02.2026 18:44,Expense,Banque Populaire,53.40,EUR,Courses,53.40,EUR,Lidl
+18.02.2026 15:30,Income,Revenu freelance,951.50,EUR,Banque Populaire,951.50,EUR,Projet perso
+19.02.2026 11:00,Expense,Banque Populaire,32.80,EUR,Pharmacie,32.80,EUR,
+22.02.2026 13:00,Expense,Banque Populaire,101.70,EUR,Loisirs,101.70,EUR,
+23.02.2026 16:42,Expense,Banque Populaire,9.00,EUR,Transport,9.00,EUR,
+26.02.2026 12:00,Expense,Espèces,64.40,EUR,Pharmacie,64.40,EUR,
+27.02.2026 20:19,Expense,Espèces,4.70,EUR,Transport,4.70,EUR,
+28.02.2026 16:01,Expense,Banque Populaire,13.20,EUR,Transport,13.20,EUR,
+01.03.2026 09:00,Expense,Carte bancaire,1200.00,EUR,Loyer,1200.00,EUR,Loyer appartement
+01.03.2026 19:24,Expense,Espèces,10.20,EUR,Transport,10.20,EUR,
+02.03.2026 16:00,Expense,Banque Populaire,80.40,EUR,Loisirs,80.40,EUR,
+03.03.2026 08:10,Expense,Espèces,104.80,EUR,Courses,104.80,EUR,Leclerc
+03.03.2026 09:30,Expense,Carte bancaire,239.10,EUR,Factures,239.10,EUR,
+03.03.2026 20:10,Expense,Espèces,5.10,EUR,Transport,5.10,EUR,
+04.03.2026 09:00,Expense,Banque Populaire,30.00,EUR,Internet,30.00,EUR,
+04.03.2026 09:05,Expense,Banque Populaire,25.00,EUR,Mobile,25.00,EUR,
+05.03.2026 10:27,Income,Salaire,4567.20,EUR,Banque Populaire,4567.20,EUR,Salaire mensuel
+05.03.2026 12:31,Expense,Espèces,124.80,EUR,Courses,124.80,EUR,Carrefour
+06.03.2026 08:00,Expense,Banque Populaire,60.00,EUR,Abonnements,60.00,EUR,Netflix + Spotify
+07.03.2026 11:00,Transfer,Banque Populaire,976.50,EUR,Compte épargne,976.50,EUR,Épargne mensuelle
+09.03.2026 11:17,Expense,Banque Populaire,14.90,EUR,Café,14.90,EUR,Café
+09.03.2026 15:00,Transfer,Banque Populaire,281.20,EUR,Espèces,281.20,EUR,Retrait DAB
+10.03.2026 11:12,Expense,Espèces,10.00,EUR,Transport,10.00,EUR,
+10.03.2026 15:42,Expense,Banque Populaire,13.40,EUR,Café,13.40,EUR,Café
+10.03.2026 16:02,Expense,Espèces,8.70,EUR,Transport,8.70,EUR,
+12.03.2026 13:11,Expense,Banque Populaire,236.90,EUR,Essence,236.90,EUR,
+13.03.2026 20:18,Expense,Banque Populaire,188.70,EUR,Restaurants,188.70,EUR,
+15.03.2026 17:00,Expense,Banque Populaire,223.90,EUR,Achats,223.90,EUR,
+15.03.2026 19:34,Expense,Banque Populaire,13.30,EUR,Café,13.30,EUR,Café
+16.03.2026 10:37,Expense,Espèces,103.70,EUR,Courses,103.70,EUR,Lidl
+16.03.2026 11:09,Expense,Banque Populaire,10.00,EUR,Transport,10.00,EUR,
+16.03.2026 13:07,Expense,Espèces,126.70,EUR,Courses,126.70,EUR,Carrefour
+17.03.2026 11:39,Expense,Banque Populaire,4.40,EUR,Transport,4.40,EUR,
+17.03.2026 15:56,Expense,Banque Populaire,70.90,EUR,Restaurants,70.90,EUR,
+18.03.2026 09:24,Expense,Espèces,119.20,EUR,Courses,119.20,EUR,Carrefour
+18.03.2026 18:21,Expense,Banque Populaire,217.60,EUR,Essence,217.60,EUR,
+19.03.2026 11:00,Expense,Banque Populaire,57.80,EUR,Pharmacie,57.80,EUR,
+21.03.2026 11:20,Expense,Espèces,112.30,EUR,Courses,112.30,EUR,Lidl
+21.03.2026 17:58,Expense,Banque Populaire,16.80,EUR,Café,16.80,EUR,Café
+22.03.2026 16:00,Expense,Banque Populaire,61.20,EUR,Pharmacie,61.20,EUR,
+23.03.2026 11:57,Expense,Banque Populaire,3.00,EUR,Transport,3.00,EUR,
+24.03.2026 13:10,Expense,Banque Populaire,29.60,EUR,Café,29.60,EUR,Café
+24.03.2026 15:21,Expense,Banque Populaire,18.90,EUR,Café,18.90,EUR,Café
+24.03.2026 16:11,Expense,Banque Populaire,60.50,EUR,Courses,60.50,EUR,Carrefour
+24.03.2026 20:00,Expense,Banque Populaire,101.70,EUR,Restaurants,101.70,EUR,
+26.03.2026 09:03,Expense,Banque Populaire,13.70,EUR,Café,13.70,EUR,Café
+26.03.2026 20:27,Expense,Espèces,127.20,EUR,Courses,127.20,EUR,Lidl
+27.03.2026 11:55,Expense,Espèces,3.30,EUR,Transport,3.30,EUR,
+27.03.2026 17:00,Expense,Banque Populaire,133.10,EUR,Loisirs,133.10,EUR,
+01.04.2026 09:00,Expense,Carte bancaire,1200.00,EUR,Loyer,1200.00,EUR,Loyer appartement
+02.04.2026 08:38,Expense,Banque Populaire,87.70,EUR,Courses,87.70,EUR,Carrefour
+02.04.2026 09:53,Expense,Espèces,122.70,EUR,Courses,122.70,EUR,Auchan
+02.04.2026 18:26,Expense,Espèces,11.60,EUR,Transport,11.60,EUR,
+02.04.2026 20:20,Expense,Banque Populaire,27.70,EUR,Café,27.70,EUR,Café
+03.04.2026 09:30,Expense,Carte bancaire,170.70,EUR,Factures,170.70,EUR,
+04.04.2026 09:00,Expense,Banque Populaire,30.00,EUR,Internet,30.00,EUR,
+04.04.2026 09:05,Expense,Banque Populaire,25.00,EUR,Mobile,25.00,EUR,
+05.04.2026 10:27,Income,Salaire,4473.50,EUR,Banque Populaire,4473.50,EUR,Salaire mensuel
+05.04.2026 12:07,Expense,Banque Populaire,49.80,EUR,Courses,49.80,EUR,Lidl
+06.04.2026 08:00,Expense,Banque Populaire,60.00,EUR,Abonnements,60.00,EUR,Netflix + Spotify
+07.04.2026 11:00,Transfer,Banque Populaire,992.70,EUR,Compte épargne,992.70,EUR,Épargne mensuelle
+09.04.2026 12:08,Expense,Banque Populaire,4.20,EUR,Transport,4.20,EUR,
+09.04.2026 19:54,Expense,Espèces,13.60,EUR,Transport,13.60,EUR,
+10.04.2026 10:24,Expense,Espèces,12.50,EUR,Transport,12.50,EUR,
+11.04.2026 12:00,Expense,Banque Populaire,48.60,EUR,Pharmacie,48.60,EUR,
+11.04.2026 16:54,Expense,Banque Populaire,29.10,EUR,Café,29.10,EUR,Café
+12.04.2026 10:57,Expense,Banque Populaire,11.90,EUR,Café,11.90,EUR,Café
+12.04.2026 15:07,Expense,Espèces,65.90,EUR,Courses,65.90,EUR,Auchan
+12.04.2026 17:57,Expense,Banque Populaire,159.30,EUR,Restaurants,159.30,EUR,
+13.04.2026 19:46,Expense,Espèces,124.70,EUR,Courses,124.70,EUR,Carrefour
+13.04.2026 21:00,Expense,Banque Populaire,43.30,EUR,Loisirs,43.30,EUR,
+14.04.2026 19:55,Expense,Espèces,58.70,EUR,Courses,58.70,EUR,Carrefour
+15.04.2026 14:00,Expense,Banque Populaire,111.80,EUR,Loisirs,111.80,EUR,
+16.04.2026 12:27,Expense,Banque Populaire,225.30,EUR,Essence,225.30,EUR,
+16.04.2026 17:53,Expense,Espèces,120.00,EUR,Courses,120.00,EUR,Leclerc
+17.04.2026 10:00,Expense,Banque Populaire,84.80,EUR,Pharmacie,84.80,EUR,
+17.04.2026 17:18,Expense,Banque Populaire,11.80,EUR,Café,11.80,EUR,Café
+18.04.2026 15:42,Income,Revenu freelance,1172.60,EUR,Banque Populaire,1172.60,EUR,Projet perso
+19.04.2026 13:00,Transfer,Banque Populaire,308.30,EUR,Espèces,308.30,EUR,Retrait DAB
+19.04.2026 13:45,Expense,Banque Populaire,10.40,EUR,Transport,10.40,EUR,
+19.04.2026 17:00,Expense,Banque Populaire,203.60,EUR,Achats,203.60,EUR,
+20.04.2026 08:13,Expense,Espèces,114.40,EUR,Courses,114.40,EUR,Carrefour
+20.04.2026 09:47,Expense,Espèces,116.30,EUR,Courses,116.30,EUR,Lidl
+20.04.2026 18:00,Income,Cadeaux,114.30,EUR,Espèces,114.30,EUR,Cadeau
+23.04.2026 13:09,Expense,Banque Populaire,125.00,EUR,Restaurants,125.00,EUR,
+23.04.2026 14:00,Expense,Banque Populaire,219.40,EUR,Santé,219.40,EUR,
+27.04.2026 10:51,Expense,Banque Populaire,9.80,EUR,Transport,9.80,EUR,
+27.04.2026 15:57,Expense,Banque Populaire,9.60,EUR,Café,9.60,EUR,Café
+27.04.2026 16:37,Expense,Espèces,85.40,EUR,Courses,85.40,EUR,Leclerc
+28.04.2026 11:15,Expense,Banque Populaire,27.00,EUR,Café,27.00,EUR,Café
+29.04.2026 13:00,Expense,Banque Populaire,65.30,EUR,Loisirs,65.30,EUR,
+29.04.2026 19:48,Expense,Banque Populaire,18.70,EUR,Café,18.70,EUR,Café
+30.04.2026 13:36,Expense,Espèces,3.40,EUR,Transport,3.40,EUR,
+01.05.2026 09:00,Expense,Carte bancaire,1200.00,EUR,Loyer,1200.00,EUR,Loyer appartement
+01.05.2026 12:13,Expense,Espèces,7.90,EUR,Transport,7.90,EUR,
+01.05.2026 15:00,Expense,Banque Populaire,411.20,EUR,Achats,411.20,EUR,
+01.05.2026 18:00,Expense,Banque Populaire,144.10,EUR,Loisirs,144.10,EUR,
+01.05.2026 19:31,Expense,Banque Populaire,9.40,EUR,Transport,9.40,EUR,
+02.05.2026 19:02,Expense,Banque Populaire,91.30,EUR,Courses,91.30,EUR,Auchan
+03.05.2026 09:14,Expense,Banque Populaire,98.30,EUR,Courses,98.30,EUR,Auchan
+03.05.2026 09:30,Expense,Carte bancaire,222.70,EUR,Factures,222.70,EUR,
+03.05.2026 09:58,Expense,Banque Populaire,51.10,EUR,Courses,51.10,EUR,Leclerc
+04.05.2026 09:00,Expense,Banque Populaire,30.00,EUR,Internet,30.00,EUR,
+04.05.2026 09:05,Expense,Banque Populaire,25.00,EUR,Mobile,25.00,EUR,
+04.05.2026 20:50,Expense,Banque Populaire,19.10,EUR,Café,19.10,EUR,Café
+05.05.2026 10:09,Income,Salaire,4601.70,EUR,Banque Populaire,4601.70,EUR,Salaire mensuel
+05.05.2026 12:24,Expense,Espèces,6.40,EUR,Transport,6.40,EUR,
+06.05.2026 08:00,Expense,Banque Populaire,60.00,EUR,Abonnements,60.00,EUR,Netflix + Spotify
+06.05.2026 09:02,Expense,Banque Populaire,14.10,EUR,Café,14.10,EUR,Café
+06.05.2026 10:00,Expense,Espèces,57.60,EUR,Pharmacie,57.60,EUR,
+06.05.2026 14:02,Expense,Banque Populaire,55.50,EUR,Courses,55.50,EUR,Lidl
+07.05.2026 11:00,Transfer,Banque Populaire,551.60,EUR,Compte épargne,551.60,EUR,Épargne mensuelle
+07.05.2026 17:21,Expense,Espèces,43.10,EUR,Courses,43.10,EUR,Leclerc
+11.05.2026 12:10,Expense,Banque Populaire,157.70,EUR,Restaurants,157.70,EUR,
+11.05.2026 13:27,Expense,Banque Populaire,227.10,EUR,Essence,227.10,EUR,
+11.05.2026 14:29,Expense,Banque Populaire,125.20,EUR,Courses,125.20,EUR,Leclerc
+12.05.2026 12:00,Income,Dividendes,430.70,EUR,Compte épargne,430.70,EUR,Dividendes trimestriels
+13.05.2026 09:30,Expense,Espèces,119.60,EUR,Courses,119.60,EUR,Auchan
+13.05.2026 18:28,Expense,Banque Populaire,12.50,EUR,Café,12.50,EUR,Café
+14.05.2026 13:57,Expense,Espèces,5.80,EUR,Transport,5.80,EUR,
+16.05.2026 10:00,Transfer,Banque Populaire,285.60,EUR,Espèces,285.60,EUR,Retrait DAB
+18.05.2026 15:28,Income,Revenu freelance,1272.30,EUR,Banque Populaire,1272.30,EUR,Projet perso
+19.05.2026 19:00,Expense,Espèces,46.10,EUR,Pharmacie,46.10,EUR,
+19.05.2026 21:00,Expense,Banque Populaire,82.30,EUR,Loisirs,82.30,EUR,
+20.05.2026 15:49,Expense,Banque Populaire,3.80,EUR,Transport,3.80,EUR,
+21.05.2026 10:00,Expense,Carte bancaire,1062.50,EUR,Voyages,1062.50,EUR,Week-end
+22.05.2026 15:11,Expense,Espèces,13.50,EUR,Transport,13.50,EUR,
+24.05.2026 12:36,Expense,Banque Populaire,21.70,EUR,Café,21.70,EUR,Café
+24.05.2026 17:23,Expense,Banque Populaire,11.90,EUR,Transport,11.90,EUR,
+26.05.2026 11:52,Expense,Banque Populaire,13.60,EUR,Café,13.60,EUR,Café
+26.05.2026 19:02,Expense,Espèces,121.20,EUR,Courses,121.20,EUR,Carrefour
+27.05.2026 07:02,Expense,Banque Populaire,3.30,EUR,Transport,3.30,EUR,
+27.05.2026 16:05,Expense,Banque Populaire,26.80,EUR,Café,26.80,EUR,Café
+29.05.2026 16:12,Expense,Banque Populaire,118.10,EUR,Restaurants,118.10,EUR,
+01.06.2026 09:00,Expense,Carte bancaire,1200.00,EUR,Loyer,1200.00,EUR,Loyer appartement
+01.06.2026 09:24,Expense,Espèces,43.10,EUR,Courses,43.10,EUR,Auchan
+02.06.2026 13:06,Expense,Espèces,62.20,EUR,Courses,62.20,EUR,Lidl
+02.06.2026 13:48,Expense,Banque Populaire,197.90,EUR,Essence,197.90,EUR,
+02.06.2026 18:07,Expense,Espèces,88.70,EUR,Courses,88.70,EUR,Leclerc
+02.06.2026 18:29,Expense,Banque Populaire,6.40,EUR,Transport,6.40,EUR,
+03.06.2026 09:30,Expense,Carte bancaire,255.10,EUR,Factures,255.10,EUR,
+04.06.2026 09:00,Expense,Banque Populaire,30.00,EUR,Internet,30.00,EUR,
+04.06.2026 09:05,Expense,Banque Populaire,25.00,EUR,Mobile,25.00,EUR,
+05.06.2026 10:53,Income,Salaire,4670.70,EUR,Banque Populaire,4670.70,EUR,Salaire mensuel
+05.06.2026 13:57,Expense,Banque Populaire,133.70,EUR,Restaurants,133.70,EUR,
+05.06.2026 15:00,Expense,Banque Populaire,73.60,EUR,Pharmacie,73.60,EUR,
+05.06.2026 18:39,Expense,Banque Populaire,22.50,EUR,Café,22.50,EUR,Café
+06.06.2026 08:00,Expense,Banque Populaire,60.00,EUR,Abonnements,60.00,EUR,Netflix + Spotify
+06.06.2026 11:35,Expense,Banque Populaire,7.50,EUR,Transport,7.50,EUR,
+08.06.2026 19:29,Expense,Banque Populaire,11.40,EUR,Café,11.40,EUR,Café
+08.06.2026 20:07,Expense,Banque Populaire,155.50,EUR,Restaurants,155.50,EUR,
+10.06.2026 20:21,Expense,Banque Populaire,9.70,EUR,Café,9.70,EUR,Café
+11.06.2026 08:41,Expense,Banque Populaire,12.20,EUR,Transport,12.20,EUR,
+12.06.2026 12:09,Expense,Banque Populaire,9.50,EUR,Transport,9.50,EUR,
+13.06.2026 16:18,Expense,Banque Populaire,40.90,EUR,Courses,40.90,EUR,Auchan
+13.06.2026 20:27,Expense,Banque Populaire,23.60,EUR,Café,23.60,EUR,Café
+14.06.2026 10:20,Expense,Banque Populaire,10.10,EUR,Transport,10.10,EUR,
+15.06.2026 18:26,Expense,Banque Populaire,199.60,EUR,Restaurants,199.60,EUR,
+16.06.2026 15:00,Expense,Banque Populaire,399.60,EUR,Achats,399.60,EUR,
+17.06.2026 10:00,Expense,Carte bancaire,1052.20,EUR,Voyages,1052.20,EUR,Week-end
+18.06.2026 17:05,Expense,Banque Populaire,176.10,EUR,Restaurants,176.10,EUR,
+20.06.2026 11:00,Transfer,Banque Populaire,356.20,EUR,Espèces,356.20,EUR,Retrait DAB
+20.06.2026 18:14,Expense,Banque Populaire,78.20,EUR,Courses,78.20,EUR,Lidl
+21.06.2026 11:16,Expense,Banque Populaire,23.70,EUR,Café,23.70,EUR,Café
+22.06.2026 10:41,Expense,Banque Populaire,16.70,EUR,Café,16.70,EUR,Café
+22.06.2026 18:12,Expense,Banque Populaire,29.50,EUR,Café,29.50,EUR,Café
+23.06.2026 17:58,Expense,Espèces,103.80,EUR,Courses,103.80,EUR,Carrefour
+25.06.2026 17:54,Expense,Espèces,126.00,EUR,Courses,126.00,EUR,Carrefour
+26.06.2026 12:04,Expense,Banque Populaire,5.50,EUR,Transport,5.50,EUR,
+26.06.2026 13:00,Expense,Banque Populaire,125.00,EUR,Loisirs,125.00,EUR,
+26.06.2026 19:00,Expense,Banque Populaire,37.60,EUR,Loisirs,37.60,EUR,
+27.06.2026 20:33,Expense,Banque Populaire,43.70,EUR,Courses,43.70,EUR,Carrefour
+28.06.2026 10:00,Expense,Espèces,49.20,EUR,Pharmacie,49.20,EUR,
+28.06.2026 10:26,Expense,Banque Populaire,59.50,EUR,Courses,59.50,EUR,Carrefour
+30.06.2026 12:21,Expense,Banque Populaire,118.50,EUR,Courses,118.50,EUR,Auchan
+30.06.2026 14:41,Expense,Banque Populaire,5.20,EUR,Transport,5.20,EUR,
+30.06.2026 16:00,Expense,Carte bancaire,413.70,EUR,Vêtements,413.70,EUR,
+01.07.2026 07:51,Expense,Banque Populaire,5.30,EUR,Transport,5.30,EUR,
+01.07.2026 09:00,Expense,Carte bancaire,1200.00,EUR,Loyer,1200.00,EUR,Loyer appartement
+01.07.2026 12:07,Expense,Banque Populaire,30.70,EUR,Café,30.70,EUR,Café
+01.07.2026 13:21,Expense,Espèces,42.40,EUR,Courses,42.40,EUR,Carrefour
+01.07.2026 13:34,Expense,Banque Populaire,81.70,EUR,Courses,81.70,EUR,Auchan
+01.07.2026 17:00,Expense,Banque Populaire,118.40,EUR,Loisirs,118.40,EUR,
+02.07.2026 10:34,Expense,Banque Populaire,120.20,EUR,Courses,120.20,EUR,Carrefour
+02.07.2026 15:00,Expense,Espèces,83.20,EUR,Pharmacie,83.20,EUR,
+02.07.2026 16:13,Expense,Banque Populaire,237.80,EUR,Essence,237.80,EUR,
+02.07.2026 20:45,Expense,Banque Populaire,125.60,EUR,Restaurants,125.60,EUR,
+03.07.2026 07:18,Expense,Espèces,13.20,EUR,Transport,13.20,EUR,
+03.07.2026 09:30,Expense,Carte bancaire,165.70,EUR,Factures,165.70,EUR,
+03.07.2026 17:02,Expense,Banque Populaire,46.20,EUR,Courses,46.20,EUR,Carrefour
+04.07.2026 08:39,Expense,Espèces,85.20,EUR,Courses,85.20,EUR,Carrefour
+04.07.2026 09:00,Expense,Banque Populaire,30.00,EUR,Internet,30.00,EUR,
+04.07.2026 09:05,Expense,Banque Populaire,25.00,EUR,Mobile,25.00,EUR,
+04.07.2026 09:39,Expense,Banque Populaire,206.70,EUR,Essence,206.70,EUR,
+04.07.2026 11:57,Expense,Espèces,5.40,EUR,Transport,5.40,EUR,
+04.07.2026 13:09,Expense,Banque Populaire,193.40,EUR,Restaurants,193.40,EUR,
+04.07.2026 13:33,Expense,Banque Populaire,12.30,EUR,Café,12.30,EUR,Café
+04.07.2026 14:00,Expense,Banque Populaire,107.40,EUR,Loisirs,107.40,EUR,
+04.07.2026 14:47,Expense,Banque Populaire,28.40,EUR,Café,28.40,EUR,Café
+04.07.2026 18:00,Expense,Banque Populaire,285.70,EUR,Achats,285.70,EUR,
+05.07.2026 10:14,Income,Salaire,4593.40,EUR,Banque Populaire,4593.40,EUR,Salaire mensuel
+05.07.2026 18:00,Expense,Carte bancaire,460.60,EUR,Vêtements,460.60,EUR,
+05.07.2026 18:16,Expense,Espèces,46.50,EUR,Courses,46.50,EUR,Lidl
+05.07.2026 18:52,Expense,Banque Populaire,25.20,EUR,Café,25.20,EUR,Café
+05.07.2026 18:53,Expense,Espèces,9.60,EUR,Transport,9.60,EUR,
+05.07.2026 20:32,Expense,Banque Populaire,9.10,EUR,Transport,9.10,EUR,
+05.07.2026 22:00,Expense,Banque Populaire,39.80,EUR,Loisirs,39.80,EUR,
+06.07.2026 08:00,Expense,Banque Populaire,60.00,EUR,Abonnements,60.00,EUR,Netflix + Spotify
+06.07.2026 13:24,Expense,Banque Populaire,16.40,EUR,Café,16.40,EUR,Café
+06.07.2026 13:55,Expense,Banque Populaire,10.40,EUR,Transport,10.40,EUR,
+06.07.2026 13:56,Expense,Banque Populaire,7.30,EUR,Transport,7.30,EUR,
+06.07.2026 16:46,Expense,Banque Populaire,124.50,EUR,Courses,124.50,EUR,Carrefour
+07.07.2026 11:00,Transfer,Banque Populaire,668.10,EUR,Compte épargne,668.10,EUR,Épargne mensuelle
+07.07.2026 11:28,Expense,Banque Populaire,46.30,EUR,Courses,46.30,EUR,Auchan
+07.07.2026 15:11,Expense,Banque Populaire,62.70,EUR,Restaurants,62.70,EUR,
+07.07.2026 15:13,Expense,Espèces,90.20,EUR,Courses,90.20,EUR,Auchan
+07.07.2026 20:36,Expense,Banque Populaire,61.60,EUR,Restaurants,61.60,EUR,
+08.07.2026 10:00,Expense,Banque Populaire,317.40,EUR,Santé,317.40,EUR,
+08.07.2026 11:21,Expense,Espèces,66.40,EUR,Courses,66.40,EUR,Lidl
+08.07.2026 20:45,Expense,Banque Populaire,16.50,EUR,Café,16.50,EUR,Café
+09.07.2026 11:00,Transfer,Banque Populaire,366.60,EUR,Espèces,366.60,EUR,Retrait DAB
+09.07.2026 15:48,Income,Revenu freelance,1299.60,EUR,Banque Populaire,1299.60,EUR,Projet perso
+09.07.2026 18:00,Income,Cadeaux,219.00,EUR,Espèces,219.00,EUR,Cadeau

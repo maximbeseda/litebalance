@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:coin_flow/widgets/common/app_modal_wrapper.dart';
+import 'package:litebalance/widgets/common/app_modal_wrapper.dart';
 import '../../helpers/test_wrapper.dart';
 
 void main() {

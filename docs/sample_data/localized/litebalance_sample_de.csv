@@ -1,0 +1,258 @@
+﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
+01.02.2026 09:00,Expense,Bankkarte,1200.00,EUR,Miete,1200.00,EUR,Wohnungsmiete
+01.02.2026 09:03,Expense,Deutsche Bank,23.30,EUR,Café,23.30,EUR,Kaffee
+01.02.2026 10:15,Expense,Deutsche Bank,5.30,EUR,Transport,5.30,EUR,
+02.02.2026 13:41,Expense,Bargeld,59.60,EUR,Lebensmittel,59.60,EUR,Lidl
+02.02.2026 17:08,Expense,Bargeld,102.30,EUR,Lebensmittel,102.30,EUR,Aldi
+02.02.2026 18:00,Expense,Bankkarte,245.20,EUR,Kleidung,245.20,EUR,
+02.02.2026 18:36,Expense,Deutsche Bank,62.40,EUR,Lebensmittel,62.40,EUR,Rewe
+02.02.2026 20:54,Expense,Deutsche Bank,19.10,EUR,Café,19.10,EUR,Kaffee
+03.02.2026 09:30,Expense,Bankkarte,229.60,EUR,Nebenkosten,229.60,EUR,
+04.02.2026 09:00,Expense,Deutsche Bank,30.00,EUR,Internet,30.00,EUR,
+04.02.2026 09:05,Expense,Deutsche Bank,25.00,EUR,Handy,25.00,EUR,
+04.02.2026 11:19,Expense,Deutsche Bank,232.60,EUR,Tanken,232.60,EUR,
+04.02.2026 13:19,Expense,Bargeld,4.60,EUR,Transport,4.60,EUR,
+05.02.2026 10:34,Expense,Bargeld,13.80,EUR,Transport,13.80,EUR,
+05.02.2026 10:39,Income,Gehalt,4406.30,EUR,Deutsche Bank,4406.30,EUR,Monatsgehalt
+05.02.2026 21:00,Expense,Deutsche Bank,52.40,EUR,Unterhaltung,52.40,EUR,
+06.02.2026 08:00,Expense,Deutsche Bank,60.00,EUR,Abos,60.00,EUR,Netflix + Spotify
+06.02.2026 08:18,Expense,Bargeld,113.80,EUR,Lebensmittel,113.80,EUR,Lidl
+06.02.2026 17:13,Expense,Deutsche Bank,85.50,EUR,Lebensmittel,85.50,EUR,Edeka
+07.02.2026 11:00,Transfer,Deutsche Bank,981.80,EUR,Sparkonto,981.80,EUR,Monatliche Ersparnis
+07.02.2026 17:00,Expense,Deutsche Bank,346.80,EUR,Gesundheit,346.80,EUR,
+09.02.2026 09:42,Expense,Deutsche Bank,10.50,EUR,Café,10.50,EUR,Kaffee
+09.02.2026 16:08,Expense,Deutsche Bank,94.40,EUR,Lebensmittel,94.40,EUR,Aldi
+09.02.2026 18:00,Expense,Deutsche Bank,96.70,EUR,Unterhaltung,96.70,EUR,
+09.02.2026 21:34,Expense,Deutsche Bank,162.90,EUR,Restaurants,162.90,EUR,
+12.02.2026 09:05,Expense,Bargeld,113.40,EUR,Lebensmittel,113.40,EUR,Aldi
+12.02.2026 11:30,Expense,Deutsche Bank,113.20,EUR,Lebensmittel,113.20,EUR,Aldi
+12.02.2026 12:00,Income,Dividenden,405.00,EUR,Sparkonto,405.00,EUR,Quartalsdividende
+12.02.2026 17:02,Expense,Deutsche Bank,17.20,EUR,Café,17.20,EUR,Kaffee
+13.02.2026 09:58,Expense,Deutsche Bank,163.30,EUR,Tanken,163.30,EUR,
+14.02.2026 09:47,Expense,Deutsche Bank,18.60,EUR,Café,18.60,EUR,Kaffee
+14.02.2026 17:00,Transfer,Deutsche Bank,288.90,EUR,Bargeld,288.90,EUR,Bargeldabhebung
+14.02.2026 19:31,Expense,Deutsche Bank,116.00,EUR,Restaurants,116.00,EUR,
+16.02.2026 15:00,Expense,Deutsche Bank,27.20,EUR,Café,27.20,EUR,Kaffee
+17.02.2026 18:44,Expense,Deutsche Bank,53.40,EUR,Lebensmittel,53.40,EUR,Lidl
+18.02.2026 15:30,Income,Freiberuf-Einkommen,951.50,EUR,Deutsche Bank,951.50,EUR,Nebenprojekt
+19.02.2026 11:00,Expense,Deutsche Bank,32.80,EUR,Apotheke,32.80,EUR,
+22.02.2026 13:00,Expense,Deutsche Bank,101.70,EUR,Unterhaltung,101.70,EUR,
+23.02.2026 16:42,Expense,Deutsche Bank,9.00,EUR,Transport,9.00,EUR,
+26.02.2026 12:00,Expense,Bargeld,64.40,EUR,Apotheke,64.40,EUR,
+27.02.2026 20:19,Expense,Bargeld,4.70,EUR,Transport,4.70,EUR,
+28.02.2026 16:01,Expense,Deutsche Bank,13.20,EUR,Transport,13.20,EUR,
+01.03.2026 09:00,Expense,Bankkarte,1200.00,EUR,Miete,1200.00,EUR,Wohnungsmiete
+01.03.2026 19:24,Expense,Bargeld,10.20,EUR,Transport,10.20,EUR,
+02.03.2026 16:00,Expense,Deutsche Bank,80.40,EUR,Unterhaltung,80.40,EUR,
+03.03.2026 08:10,Expense,Bargeld,104.80,EUR,Lebensmittel,104.80,EUR,Edeka
+03.03.2026 09:30,Expense,Bankkarte,239.10,EUR,Nebenkosten,239.10,EUR,
+03.03.2026 20:10,Expense,Bargeld,5.10,EUR,Transport,5.10,EUR,
+04.03.2026 09:00,Expense,Deutsche Bank,30.00,EUR,Internet,30.00,EUR,
+04.03.2026 09:05,Expense,Deutsche Bank,25.00,EUR,Handy,25.00,EUR,
+05.03.2026 10:27,Income,Gehalt,4567.20,EUR,Deutsche Bank,4567.20,EUR,Monatsgehalt
+05.03.2026 12:31,Expense,Bargeld,124.80,EUR,Lebensmittel,124.80,EUR,Rewe
+06.03.2026 08:00,Expense,Deutsche Bank,60.00,EUR,Abos,60.00,EUR,Netflix + Spotify
+07.03.2026 11:00,Transfer,Deutsche Bank,976.50,EUR,Sparkonto,976.50,EUR,Monatliche Ersparnis
+09.03.2026 11:17,Expense,Deutsche Bank,14.90,EUR,Café,14.90,EUR,Kaffee
+09.03.2026 15:00,Transfer,Deutsche Bank,281.20,EUR,Bargeld,281.20,EUR,Bargeldabhebung
+10.03.2026 11:12,Expense,Bargeld,10.00,EUR,Transport,10.00,EUR,
+10.03.2026 15:42,Expense,Deutsche Bank,13.40,EUR,Café,13.40,EUR,Kaffee
+10.03.2026 16:02,Expense,Bargeld,8.70,EUR,Transport,8.70,EUR,
+12.03.2026 13:11,Expense,Deutsche Bank,236.90,EUR,Tanken,236.90,EUR,
+13.03.2026 20:18,Expense,Deutsche Bank,188.70,EUR,Restaurants,188.70,EUR,
+15.03.2026 17:00,Expense,Deutsche Bank,223.90,EUR,Einkaufen,223.90,EUR,
+15.03.2026 19:34,Expense,Deutsche Bank,13.30,EUR,Café,13.30,EUR,Kaffee
+16.03.2026 10:37,Expense,Bargeld,103.70,EUR,Lebensmittel,103.70,EUR,Lidl
+16.03.2026 11:09,Expense,Deutsche Bank,10.00,EUR,Transport,10.00,EUR,
+16.03.2026 13:07,Expense,Bargeld,126.70,EUR,Lebensmittel,126.70,EUR,Rewe
+17.03.2026 11:39,Expense,Deutsche Bank,4.40,EUR,Transport,4.40,EUR,
+17.03.2026 15:56,Expense,Deutsche Bank,70.90,EUR,Restaurants,70.90,EUR,
+18.03.2026 09:24,Expense,Bargeld,119.20,EUR,Lebensmittel,119.20,EUR,Rewe
+18.03.2026 18:21,Expense,Deutsche Bank,217.60,EUR,Tanken,217.60,EUR,
+19.03.2026 11:00,Expense,Deutsche Bank,57.80,EUR,Apotheke,57.80,EUR,
+21.03.2026 11:20,Expense,Bargeld,112.30,EUR,Lebensmittel,112.30,EUR,Lidl
+21.03.2026 17:58,Expense,Deutsche Bank,16.80,EUR,Café,16.80,EUR,Kaffee
+22.03.2026 16:00,Expense,Deutsche Bank,61.20,EUR,Apotheke,61.20,EUR,
+23.03.2026 11:57,Expense,Deutsche Bank,3.00,EUR,Transport,3.00,EUR,
+24.03.2026 13:10,Expense,Deutsche Bank,29.60,EUR,Café,29.60,EUR,Kaffee
+24.03.2026 15:21,Expense,Deutsche Bank,18.90,EUR,Café,18.90,EUR,Kaffee
+24.03.2026 16:11,Expense,Deutsche Bank,60.50,EUR,Lebensmittel,60.50,EUR,Rewe
+24.03.2026 20:00,Expense,Deutsche Bank,101.70,EUR,Restaurants,101.70,EUR,
+26.03.2026 09:03,Expense,Deutsche Bank,13.70,EUR,Café,13.70,EUR,Kaffee
+26.03.2026 20:27,Expense,Bargeld,127.20,EUR,Lebensmittel,127.20,EUR,Lidl
+27.03.2026 11:55,Expense,Bargeld,3.30,EUR,Transport,3.30,EUR,
+27.03.2026 17:00,Expense,Deutsche Bank,133.10,EUR,Unterhaltung,133.10,EUR,
+01.04.2026 09:00,Expense,Bankkarte,1200.00,EUR,Miete,1200.00,EUR,Wohnungsmiete
+02.04.2026 08:38,Expense,Deutsche Bank,87.70,EUR,Lebensmittel,87.70,EUR,Rewe
+02.04.2026 09:53,Expense,Bargeld,122.70,EUR,Lebensmittel,122.70,EUR,Aldi
+02.04.2026 18:26,Expense,Bargeld,11.60,EUR,Transport,11.60,EUR,
+02.04.2026 20:20,Expense,Deutsche Bank,27.70,EUR,Café,27.70,EUR,Kaffee
+03.04.2026 09:30,Expense,Bankkarte,170.70,EUR,Nebenkosten,170.70,EUR,
+04.04.2026 09:00,Expense,Deutsche Bank,30.00,EUR,Internet,30.00,EUR,
+04.04.2026 09:05,Expense,Deutsche Bank,25.00,EUR,Handy,25.00,EUR,
+05.04.2026 10:27,Income,Gehalt,4473.50,EUR,Deutsche Bank,4473.50,EUR,Monatsgehalt
+05.04.2026 12:07,Expense,Deutsche Bank,49.80,EUR,Lebensmittel,49.80,EUR,Lidl
+06.04.2026 08:00,Expense,Deutsche Bank,60.00,EUR,Abos,60.00,EUR,Netflix + Spotify
+07.04.2026 11:00,Transfer,Deutsche Bank,992.70,EUR,Sparkonto,992.70,EUR,Monatliche Ersparnis
+09.04.2026 12:08,Expense,Deutsche Bank,4.20,EUR,Transport,4.20,EUR,
+09.04.2026 19:54,Expense,Bargeld,13.60,EUR,Transport,13.60,EUR,
+10.04.2026 10:24,Expense,Bargeld,12.50,EUR,Transport,12.50,EUR,
+11.04.2026 12:00,Expense,Deutsche Bank,48.60,EUR,Apotheke,48.60,EUR,
+11.04.2026 16:54,Expense,Deutsche Bank,29.10,EUR,Café,29.10,EUR,Kaffee
+12.04.2026 10:57,Expense,Deutsche Bank,11.90,EUR,Café,11.90,EUR,Kaffee
+12.04.2026 15:07,Expense,Bargeld,65.90,EUR,Lebensmittel,65.90,EUR,Aldi
+12.04.2026 17:57,Expense,Deutsche Bank,159.30,EUR,Restaurants,159.30,EUR,
+13.04.2026 19:46,Expense,Bargeld,124.70,EUR,Lebensmittel,124.70,EUR,Rewe
+13.04.2026 21:00,Expense,Deutsche Bank,43.30,EUR,Unterhaltung,43.30,EUR,
+14.04.2026 19:55,Expense,Bargeld,58.70,EUR,Lebensmittel,58.70,EUR,Rewe
+15.04.2026 14:00,Expense,Deutsche Bank,111.80,EUR,Unterhaltung,111.80,EUR,
+16.04.2026 12:27,Expense,Deutsche Bank,225.30,EUR,Tanken,225.30,EUR,
+16.04.2026 17:53,Expense,Bargeld,120.00,EUR,Lebensmittel,120.00,EUR,Edeka
+17.04.2026 10:00,Expense,Deutsche Bank,84.80,EUR,Apotheke,84.80,EUR,
+17.04.2026 17:18,Expense,Deutsche Bank,11.80,EUR,Café,11.80,EUR,Kaffee
+18.04.2026 15:42,Income,Freiberuf-Einkommen,1172.60,EUR,Deutsche Bank,1172.60,EUR,Nebenprojekt
+19.04.2026 13:00,Transfer,Deutsche Bank,308.30,EUR,Bargeld,308.30,EUR,Bargeldabhebung
+19.04.2026 13:45,Expense,Deutsche Bank,10.40,EUR,Transport,10.40,EUR,
+19.04.2026 17:00,Expense,Deutsche Bank,203.60,EUR,Einkaufen,203.60,EUR,
+20.04.2026 08:13,Expense,Bargeld,114.40,EUR,Lebensmittel,114.40,EUR,Rewe
+20.04.2026 09:47,Expense,Bargeld,116.30,EUR,Lebensmittel,116.30,EUR,Lidl
+20.04.2026 18:00,Income,Geschenke,114.30,EUR,Bargeld,114.30,EUR,Geschenk
+23.04.2026 13:09,Expense,Deutsche Bank,125.00,EUR,Restaurants,125.00,EUR,
+23.04.2026 14:00,Expense,Deutsche Bank,219.40,EUR,Gesundheit,219.40,EUR,
+27.04.2026 10:51,Expense,Deutsche Bank,9.80,EUR,Transport,9.80,EUR,
+27.04.2026 15:57,Expense,Deutsche Bank,9.60,EUR,Café,9.60,EUR,Kaffee
+27.04.2026 16:37,Expense,Bargeld,85.40,EUR,Lebensmittel,85.40,EUR,Edeka
+28.04.2026 11:15,Expense,Deutsche Bank,27.00,EUR,Café,27.00,EUR,Kaffee
+29.04.2026 13:00,Expense,Deutsche Bank,65.30,EUR,Unterhaltung,65.30,EUR,
+29.04.2026 19:48,Expense,Deutsche Bank,18.70,EUR,Café,18.70,EUR,Kaffee
+30.04.2026 13:36,Expense,Bargeld,3.40,EUR,Transport,3.40,EUR,
+01.05.2026 09:00,Expense,Bankkarte,1200.00,EUR,Miete,1200.00,EUR,Wohnungsmiete
+01.05.2026 12:13,Expense,Bargeld,7.90,EUR,Transport,7.90,EUR,
+01.05.2026 15:00,Expense,Deutsche Bank,411.20,EUR,Einkaufen,411.20,EUR,
+01.05.2026 18:00,Expense,Deutsche Bank,144.10,EUR,Unterhaltung,144.10,EUR,
+01.05.2026 19:31,Expense,Deutsche Bank,9.40,EUR,Transport,9.40,EUR,
+02.05.2026 19:02,Expense,Deutsche Bank,91.30,EUR,Lebensmittel,91.30,EUR,Aldi
+03.05.2026 09:14,Expense,Deutsche Bank,98.30,EUR,Lebensmittel,98.30,EUR,Aldi
+03.05.2026 09:30,Expense,Bankkarte,222.70,EUR,Nebenkosten,222.70,EUR,
+03.05.2026 09:58,Expense,Deutsche Bank,51.10,EUR,Lebensmittel,51.10,EUR,Edeka
+04.05.2026 09:00,Expense,Deutsche Bank,30.00,EUR,Internet,30.00,EUR,
+04.05.2026 09:05,Expense,Deutsche Bank,25.00,EUR,Handy,25.00,EUR,
+04.05.2026 20:50,Expense,Deutsche Bank,19.10,EUR,Café,19.10,EUR,Kaffee
+05.05.2026 10:09,Income,Gehalt,4601.70,EUR,Deutsche Bank,4601.70,EUR,Monatsgehalt
+05.05.2026 12:24,Expense,Bargeld,6.40,EUR,Transport,6.40,EUR,
+06.05.2026 08:00,Expense,Deutsche Bank,60.00,EUR,Abos,60.00,EUR,Netflix + Spotify
+06.05.2026 09:02,Expense,Deutsche Bank,14.10,EUR,Café,14.10,EUR,Kaffee
+06.05.2026 10:00,Expense,Bargeld,57.60,EUR,Apotheke,57.60,EUR,
+06.05.2026 14:02,Expense,Deutsche Bank,55.50,EUR,Lebensmittel,55.50,EUR,Lidl
+07.05.2026 11:00,Transfer,Deutsche Bank,551.60,EUR,Sparkonto,551.60,EUR,Monatliche Ersparnis
+07.05.2026 17:21,Expense,Bargeld,43.10,EUR,Lebensmittel,43.10,EUR,Edeka
+11.05.2026 12:10,Expense,Deutsche Bank,157.70,EUR,Restaurants,157.70,EUR,
+11.05.2026 13:27,Expense,Deutsche Bank,227.10,EUR,Tanken,227.10,EUR,
+11.05.2026 14:29,Expense,Deutsche Bank,125.20,EUR,Lebensmittel,125.20,EUR,Edeka
+12.05.2026 12:00,Income,Dividenden,430.70,EUR,Sparkonto,430.70,EUR,Quartalsdividende
+13.05.2026 09:30,Expense,Bargeld,119.60,EUR,Lebensmittel,119.60,EUR,Aldi
+13.05.2026 18:28,Expense,Deutsche Bank,12.50,EUR,Café,12.50,EUR,Kaffee
+14.05.2026 13:57,Expense,Bargeld,5.80,EUR,Transport,5.80,EUR,
+16.05.2026 10:00,Transfer,Deutsche Bank,285.60,EUR,Bargeld,285.60,EUR,Bargeldabhebung
+18.05.2026 15:28,Income,Freiberuf-Einkommen,1272.30,EUR,Deutsche Bank,1272.30,EUR,Nebenprojekt
+19.05.2026 19:00,Expense,Bargeld,46.10,EUR,Apotheke,46.10,EUR,
+19.05.2026 21:00,Expense,Deutsche Bank,82.30,EUR,Unterhaltung,82.30,EUR,
+20.05.2026 15:49,Expense,Deutsche Bank,3.80,EUR,Transport,3.80,EUR,
+21.05.2026 10:00,Expense,Bankkarte,1062.50,EUR,Reisen,1062.50,EUR,Wochenendtrip
+22.05.2026 15:11,Expense,Bargeld,13.50,EUR,Transport,13.50,EUR,
+24.05.2026 12:36,Expense,Deutsche Bank,21.70,EUR,Café,21.70,EUR,Kaffee
+24.05.2026 17:23,Expense,Deutsche Bank,11.90,EUR,Transport,11.90,EUR,
+26.05.2026 11:52,Expense,Deutsche Bank,13.60,EUR,Café,13.60,EUR,Kaffee
+26.05.2026 19:02,Expense,Bargeld,121.20,EUR,Lebensmittel,121.20,EUR,Rewe
+27.05.2026 07:02,Expense,Deutsche Bank,3.30,EUR,Transport,3.30,EUR,
+27.05.2026 16:05,Expense,Deutsche Bank,26.80,EUR,Café,26.80,EUR,Kaffee
+29.05.2026 16:12,Expense,Deutsche Bank,118.10,EUR,Restaurants,118.10,EUR,
+01.06.2026 09:00,Expense,Bankkarte,1200.00,EUR,Miete,1200.00,EUR,Wohnungsmiete
+01.06.2026 09:24,Expense,Bargeld,43.10,EUR,Lebensmittel,43.10,EUR,Aldi
+02.06.2026 13:06,Expense,Bargeld,62.20,EUR,Lebensmittel,62.20,EUR,Lidl
+02.06.2026 13:48,Expense,Deutsche Bank,197.90,EUR,Tanken,197.90,EUR,
+02.06.2026 18:07,Expense,Bargeld,88.70,EUR,Lebensmittel,88.70,EUR,Edeka
+02.06.2026 18:29,Expense,Deutsche Bank,6.40,EUR,Transport,6.40,EUR,
+03.06.2026 09:30,Expense,Bankkarte,255.10,EUR,Nebenkosten,255.10,EUR,
+04.06.2026 09:00,Expense,Deutsche Bank,30.00,EUR,Internet,30.00,EUR,
+04.06.2026 09:05,Expense,Deutsche Bank,25.00,EUR,Handy,25.00,EUR,
+05.06.2026 10:53,Income,Gehalt,4670.70,EUR,Deutsche Bank,4670.70,EUR,Monatsgehalt
+05.06.2026 13:57,Expense,Deutsche Bank,133.70,EUR,Restaurants,133.70,EUR,
+05.06.2026 15:00,Expense,Deutsche Bank,73.60,EUR,Apotheke,73.60,EUR,
+05.06.2026 18:39,Expense,Deutsche Bank,22.50,EUR,Café,22.50,EUR,Kaffee
+06.06.2026 08:00,Expense,Deutsche Bank,60.00,EUR,Abos,60.00,EUR,Netflix + Spotify
+06.06.2026 11:35,Expense,Deutsche Bank,7.50,EUR,Transport,7.50,EUR,
+08.06.2026 19:29,Expense,Deutsche Bank,11.40,EUR,Café,11.40,EUR,Kaffee
+08.06.2026 20:07,Expense,Deutsche Bank,155.50,EUR,Restaurants,155.50,EUR,
+10.06.2026 20:21,Expense,Deutsche Bank,9.70,EUR,Café,9.70,EUR,Kaffee
+11.06.2026 08:41,Expense,Deutsche Bank,12.20,EUR,Transport,12.20,EUR,
+12.06.2026 12:09,Expense,Deutsche Bank,9.50,EUR,Transport,9.50,EUR,
+13.06.2026 16:18,Expense,Deutsche Bank,40.90,EUR,Lebensmittel,40.90,EUR,Aldi
+13.06.2026 20:27,Expense,Deutsche Bank,23.60,EUR,Café,23.60,EUR,Kaffee
+14.06.2026 10:20,Expense,Deutsche Bank,10.10,EUR,Transport,10.10,EUR,
+15.06.2026 18:26,Expense,Deutsche Bank,199.60,EUR,Restaurants,199.60,EUR,
+16.06.2026 15:00,Expense,Deutsche Bank,399.60,EUR,Einkaufen,399.60,EUR,
+17.06.2026 10:00,Expense,Bankkarte,1052.20,EUR,Reisen,1052.20,EUR,Wochenendtrip
+18.06.2026 17:05,Expense,Deutsche Bank,176.10,EUR,Restaurants,176.10,EUR,
+20.06.2026 11:00,Transfer,Deutsche Bank,356.20,EUR,Bargeld,356.20,EUR,Bargeldabhebung
+20.06.2026 18:14,Expense,Deutsche Bank,78.20,EUR,Lebensmittel,78.20,EUR,Lidl
+21.06.2026 11:16,Expense,Deutsche Bank,23.70,EUR,Café,23.70,EUR,Kaffee
+22.06.2026 10:41,Expense,Deutsche Bank,16.70,EUR,Café,16.70,EUR,Kaffee
+22.06.2026 18:12,Expense,Deutsche Bank,29.50,EUR,Café,29.50,EUR,Kaffee
+23.06.2026 17:58,Expense,Bargeld,103.80,EUR,Lebensmittel,103.80,EUR,Rewe
+25.06.2026 17:54,Expense,Bargeld,126.00,EUR,Lebensmittel,126.00,EUR,Rewe
+26.06.2026 12:04,Expense,Deutsche Bank,5.50,EUR,Transport,5.50,EUR,
+26.06.2026 13:00,Expense,Deutsche Bank,125.00,EUR,Unterhaltung,125.00,EUR,
+26.06.2026 19:00,Expense,Deutsche Bank,37.60,EUR,Unterhaltung,37.60,EUR,
+27.06.2026 20:33,Expense,Deutsche Bank,43.70,EUR,Lebensmittel,43.70,EUR,Rewe
+28.06.2026 10:00,Expense,Bargeld,49.20,EUR,Apotheke,49.20,EUR,
+28.06.2026 10:26,Expense,Deutsche Bank,59.50,EUR,Lebensmittel,59.50,EUR,Rewe
+30.06.2026 12:21,Expense,Deutsche Bank,118.50,EUR,Lebensmittel,118.50,EUR,Aldi
+30.06.2026 14:41,Expense,Deutsche Bank,5.20,EUR,Transport,5.20,EUR,
+30.06.2026 16:00,Expense,Bankkarte,413.70,EUR,Kleidung,413.70,EUR,
+01.07.2026 07:51,Expense,Deutsche Bank,5.30,EUR,Transport,5.30,EUR,
+01.07.2026 09:00,Expense,Bankkarte,1200.00,EUR,Miete,1200.00,EUR,Wohnungsmiete
+01.07.2026 12:07,Expense,Deutsche Bank,30.70,EUR,Café,30.70,EUR,Kaffee
+01.07.2026 13:21,Expense,Bargeld,42.40,EUR,Lebensmittel,42.40,EUR,Rewe
+01.07.2026 13:34,Expense,Deutsche Bank,81.70,EUR,Lebensmittel,81.70,EUR,Aldi
+01.07.2026 17:00,Expense,Deutsche Bank,118.40,EUR,Unterhaltung,118.40,EUR,
+02.07.2026 10:34,Expense,Deutsche Bank,120.20,EUR,Lebensmittel,120.20,EUR,Rewe
+02.07.2026 15:00,Expense,Bargeld,83.20,EUR,Apotheke,83.20,EUR,
+02.07.2026 16:13,Expense,Deutsche Bank,237.80,EUR,Tanken,237.80,EUR,
+02.07.2026 20:45,Expense,Deutsche Bank,125.60,EUR,Restaurants,125.60,EUR,
+03.07.2026 07:18,Expense,Bargeld,13.20,EUR,Transport,13.20,EUR,
+03.07.2026 09:30,Expense,Bankkarte,165.70,EUR,Nebenkosten,165.70,EUR,
+03.07.2026 17:02,Expense,Deutsche Bank,46.20,EUR,Lebensmittel,46.20,EUR,Rewe
+04.07.2026 08:39,Expense,Bargeld,85.20,EUR,Lebensmittel,85.20,EUR,Rewe
+04.07.2026 09:00,Expense,Deutsche Bank,30.00,EUR,Internet,30.00,EUR,
+04.07.2026 09:05,Expense,Deutsche Bank,25.00,EUR,Handy,25.00,EUR,
+04.07.2026 09:39,Expense,Deutsche Bank,206.70,EUR,Tanken,206.70,EUR,
+04.07.2026 11:57,Expense,Bargeld,5.40,EUR,Transport,5.40,EUR,
+04.07.2026 13:09,Expense,Deutsche Bank,193.40,EUR,Restaurants,193.40,EUR,
+04.07.2026 13:33,Expense,Deutsche Bank,12.30,EUR,Café,12.30,EUR,Kaffee
+04.07.2026 14:00,Expense,Deutsche Bank,107.40,EUR,Unterhaltung,107.40,EUR,
+04.07.2026 14:47,Expense,Deutsche Bank,28.40,EUR,Café,28.40,EUR,Kaffee
+04.07.2026 18:00,Expense,Deutsche Bank,285.70,EUR,Einkaufen,285.70,EUR,
+05.07.2026 10:14,Income,Gehalt,4593.40,EUR,Deutsche Bank,4593.40,EUR,Monatsgehalt
+05.07.2026 18:00,Expense,Bankkarte,460.60,EUR,Kleidung,460.60,EUR,
+05.07.2026 18:16,Expense,Bargeld,46.50,EUR,Lebensmittel,46.50,EUR,Lidl
+05.07.2026 18:52,Expense,Deutsche Bank,25.20,EUR,Café,25.20,EUR,Kaffee
+05.07.2026 18:53,Expense,Bargeld,9.60,EUR,Transport,9.60,EUR,
+05.07.2026 20:32,Expense,Deutsche Bank,9.10,EUR,Transport,9.10,EUR,
+05.07.2026 22:00,Expense,Deutsche Bank,39.80,EUR,Unterhaltung,39.80,EUR,
+06.07.2026 08:00,Expense,Deutsche Bank,60.00,EUR,Abos,60.00,EUR,Netflix + Spotify
+06.07.2026 13:24,Expense,Deutsche Bank,16.40,EUR,Café,16.40,EUR,Kaffee
+06.07.2026 13:55,Expense,Deutsche Bank,10.40,EUR,Transport,10.40,EUR,
+06.07.2026 13:56,Expense,Deutsche Bank,7.30,EUR,Transport,7.30,EUR,
+06.07.2026 16:46,Expense,Deutsche Bank,124.50,EUR,Lebensmittel,124.50,EUR,Rewe
+07.07.2026 11:00,Transfer,Deutsche Bank,668.10,EUR,Sparkonto,668.10,EUR,Monatliche Ersparnis
+07.07.2026 11:28,Expense,Deutsche Bank,46.30,EUR,Lebensmittel,46.30,EUR,Aldi
+07.07.2026 15:11,Expense,Deutsche Bank,62.70,EUR,Restaurants,62.70,EUR,
+07.07.2026 15:13,Expense,Bargeld,90.20,EUR,Lebensmittel,90.20,EUR,Aldi
+07.07.2026 20:36,Expense,Deutsche Bank,61.60,EUR,Restaurants,61.60,EUR,
+08.07.2026 10:00,Expense,Deutsche Bank,317.40,EUR,Gesundheit,317.40,EUR,
+08.07.2026 11:21,Expense,Bargeld,66.40,EUR,Lebensmittel,66.40,EUR,Lidl
+08.07.2026 20:45,Expense,Deutsche Bank,16.50,EUR,Café,16.50,EUR,Kaffee
+09.07.2026 11:00,Transfer,Deutsche Bank,366.60,EUR,Bargeld,366.60,EUR,Bargeldabhebung
+09.07.2026 15:48,Income,Freiberuf-Einkommen,1299.60,EUR,Deutsche Bank,1299.60,EUR,Nebenprojekt
+09.07.2026 18:00,Income,Geschenke,219.00,EUR,Bargeld,219.00,EUR,Geschenk

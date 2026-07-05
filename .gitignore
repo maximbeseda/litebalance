@@ -1,3 +1,8 @@
+# Android signing secrets — NEVER commit these
+/android/key.properties
+*.jks
+*.keystore
+
 # Miscellaneous
 *.class
 *.log
@@ -43,3 +48,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.VSCodeCounter/
+
+# Localized store screenshots — raw marketing captures (~60MB), kept local only.
+# Final captioned frames are generated outside the repo.
+docs/screenshots/localized/

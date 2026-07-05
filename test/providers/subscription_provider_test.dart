@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:drift/native.dart';
 
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/database/app_database.dart';
-import 'package:coin_flow/services/storage_service.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/services/storage_service.dart';
 
 // ==========================================
 // 1. SPIES & FAKES
@@ -92,7 +91,7 @@ void main() {
 
     final container = ProviderContainer(
       overrides: [
-        databaseProvider.overrideWithValue(db),
+        appDatabaseProvider.overrideWithValue(db),
         sharedPreferencesProvider.overrideWithValue(prefs),
         transactionProvider.overrideWith(() => SpyTransactionNotifier()),
         categoryProvider.overrideWith(() => TestCategoryNotifier()),
@@ -158,6 +157,41 @@ void main() {
           txNotifier.addedTransactions.first.amount,
           10000,
         ); // Перевіряємо нову суму
+      },
+    );
+
+    test(
+      'Авто-підписка НІКОЛИ не потрапляє в dueSubscriptions (навіть коли бракує коштів)',
+      () async {
+        // Регресія: вранці, коли настала дата списання, авто-підписка не має
+        // показувати діалог ручного підтвердження. Беремо суму більшу за баланс,
+        // щоб processAutoPayments не зміг її обробити й вона лишилась простроченою —
+        // вона все одно має бути виключена з due, бо isAutoPay = true.
+        final container = await createContainer();
+
+        final yesterday = DateTime.now().subtract(const Duration(days: 1));
+        final autoSub = subBase.copyWith(
+          id: 'sub_auto_broke',
+          nextPaymentDate: yesterday,
+          isAutoPay: true,
+          amount: 999999, // більше за баланс (10 000) -> авто не пройде
+        );
+
+        await StorageService.saveSubscription(db, autoSub);
+
+        final notifier = container.read(subscriptionProvider.notifier);
+        await Future.delayed(Duration.zero);
+        await notifier.loadSubscriptions();
+
+        final state = container.read(subscriptionProvider).value!;
+
+        // Авто-списання не відбулось (бракує коштів), але діалог НЕ має тригеритись.
+        expect(state.dueSubscriptions, isEmpty);
+
+        final txNotifier =
+            container.read(transactionProvider.notifier)
+                as SpyTransactionNotifier;
+        expect(txNotifier.addedTransactions, isEmpty);
       },
     );
 

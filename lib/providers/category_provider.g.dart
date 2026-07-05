@@ -41,7 +41,7 @@ final class CategoryNotifierProvider
   }
 }
 
-String _$categoryNotifierHash() => r'00fdc386f00209a975d273f92bef3de80cedd298';
+String _$categoryNotifierHash() => r'0b826eaafdc2ccd0e35a39c7507108e20e62927e';
 
 abstract class _$CategoryNotifier extends $Notifier<CategoryState> {
   CategoryState build();

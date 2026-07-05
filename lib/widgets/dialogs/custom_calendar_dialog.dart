@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/calendar_utils.dart';
 
 enum CalendarMode { date, month, year }
 
@@ -286,7 +287,11 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog> {
       focusedDay: _focusedDay,
       rowHeight: 46,
       selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-      startingDayOfWeek: StartingDayOfWeek.monday,
+      // Перший день тижня — за локаллю (пн у Європі, нд у США/Азії, сб у
+      // багатьох RTL-локалях). Material: 0=Нд…6=Сб → enum table_calendar:
+      // monday=0…sunday=6, тож зсув (+6)%7.
+      startingDayOfWeek: StartingDayOfWeek
+          .values[(CalendarUtils.firstDayOfWeekIndex(context) + 6) % 7],
       headerVisible: false,
       daysOfWeekStyle: DaysOfWeekStyle(
         weekdayStyle: TextStyle(color: colors.textSecondary, fontSize: 12),

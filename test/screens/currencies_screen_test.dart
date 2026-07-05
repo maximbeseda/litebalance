@@ -1,7 +1,7 @@
-import 'package:coin_flow/models/app_currency.dart';
-import 'package:coin_flow/providers/all_providers.dart';
-import 'package:coin_flow/screens/currencies_screen.dart';
-import 'package:coin_flow/theme/app_colors_extension.dart';
+import 'package:litebalance/models/app_currency.dart';
+import 'package:litebalance/providers/all_providers.dart';
+import 'package:litebalance/screens/currencies_screen.dart';
+import 'package:litebalance/theme/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -165,13 +165,13 @@ void main() {
         expect(find.text('add_currency'), findsOneWidget);
 
         await tester.dragUntilVisible(
-          find.text('UAH'),
+          find.text('UAH  ₴'),
           find.byType(ListView).last,
           const Offset(0, -300),
         );
         await tester.pumpAndSettle();
 
-        await tester.tap(find.text('UAH'));
+        await tester.tap(find.text('UAH  ₴'));
         await tester.pumpAndSettle();
 
         expect(fakeNotifier.toggledCurrencyCode, 'UAH');

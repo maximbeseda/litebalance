@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../providers/all_providers.dart';
-import '../../database/app_database.dart';
 import '../../theme/app_colors_extension.dart';
 
 class HistorySearchBar extends ConsumerStatefulWidget {
@@ -24,6 +23,8 @@ class _HistorySearchBarState extends ConsumerState<HistorySearchBar> {
   @override
   void initState() {
     super.initState();
+    // Перемальовуємо при зміні фокуса (акцентна рамка та іконка).
+    _focusNode.addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final initialQuery = ref.read(filterProvider).searchQuery;
       if (initialQuery.isNotEmpty) {
@@ -55,48 +56,54 @@ class _HistorySearchBarState extends ConsumerState<HistorySearchBar> {
     final colors = theme.extension<AppColorsExtension>()!;
     final isDark = theme.brightness == Brightness.dark;
 
-    // 👇 Дістаємо налаштування полів з глобальної теми
-    final inputTheme = theme.inputDecorationTheme;
+    final bool hasText = _searchController.text.isNotEmpty;
+    final bool isActive = _focusNode.hasFocus || hasText;
 
-    // 👇 Динамічно отримуємо радіус із теми (щоб тінь контейнера ідеально збігалася з рамкою поля)
-    final resolvedRadius =
-        (inputTheme.border as OutlineInputBorder?)?.borderRadius ??
-        BorderRadius.circular(8);
+    const radius = BorderRadius.all(Radius.circular(8));
+    final fillColor = isDark
+        ? Colors.white.withValues(alpha: 0.06)
+        : colors.textSecondary.withValues(alpha: 0.06);
+    final accentColor = isActive ? colors.accent : colors.textSecondary;
 
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       decoration: BoxDecoration(
-        borderRadius: resolvedRadius, // Радіус тягнеться з теми
-        boxShadow: isDark
-            ? null
-            : [
+        borderRadius: radius,
+        boxShadow: (isActive && !isDark)
+            ? [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
+                  color: colors.accent.withValues(alpha: 0.12),
+                  blurRadius: 14,
+                  offset: const Offset(0, 4),
                 ),
-              ],
+              ]
+            : null,
       ),
       child: TextField(
         controller: _searchController,
         focusNode: _focusNode,
         onChanged: _onSearchChanged,
+        cursorColor: colors.accent,
         style: TextStyle(color: colors.textMain, fontSize: 16),
         decoration: InputDecoration(
-          // Рамки (enabledBorder, focusedBorder) сюди НЕ пишемо, вони автоматично підтягнуться з теми!
           filled: true,
-          // Задаємо лише колір фону: напівпрозорий для темної, стандартний для світлої
-          fillColor: isDark ? Colors.white.withValues(alpha: 0.08) : null,
+          fillColor: fillColor,
           isDense: true,
           hintText: 'search_transactions'.tr(),
           hintStyle: TextStyle(color: colors.textSecondary),
-          prefixIcon: Icon(Icons.search, color: colors.textSecondary, size: 20),
-          suffixIcon: _searchController.text.isNotEmpty
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            color: accentColor,
+            size: 22,
+          ),
+          suffixIcon: hasText
               ? IconButton(
                   icon: Icon(
-                    Icons.clear,
+                    Icons.close_rounded,
                     color: colors.textSecondary,
                     size: 18,
                   ),
+                  splashRadius: 18,
                   onPressed: () {
                     _searchController.clear();
                     _onSearchChanged('');
@@ -106,7 +113,19 @@ class _HistorySearchBarState extends ConsumerState<HistorySearchBar> {
               : null,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
-            vertical: 12,
+            vertical: 14,
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: radius,
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderRadius: radius,
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: radius,
+            borderSide: BorderSide(color: colors.accent, width: 1.5),
           ),
         ),
       ),

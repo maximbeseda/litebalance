@@ -1,0 +1,258 @@
+﻿Date,Type,Category (From),Amount (From),Currency (From),Category (To),Amount (To),Currency (To),Comment
+01.02.2026 09:00,Expense,Karta bankowa,2760.00,PLN,Czynsz,2760.00,PLN,Czynsz za mieszkanie
+01.02.2026 09:03,Expense,PKO Bank,53.59,PLN,Kawiarnia,53.59,PLN,Kawa
+01.02.2026 10:15,Expense,PKO Bank,12.19,PLN,Transport,12.19,PLN,
+02.02.2026 13:41,Expense,Gotówka,137.08,PLN,Zakupy spożywcze,137.08,PLN,Auchan
+02.02.2026 17:08,Expense,Gotówka,235.29,PLN,Zakupy spożywcze,235.29,PLN,Lidl
+02.02.2026 18:00,Expense,Karta bankowa,563.96,PLN,Odzież,563.96,PLN,
+02.02.2026 18:36,Expense,PKO Bank,143.52,PLN,Zakupy spożywcze,143.52,PLN,Biedronka
+02.02.2026 20:54,Expense,PKO Bank,43.93,PLN,Kawiarnia,43.93,PLN,Kawa
+03.02.2026 09:30,Expense,Karta bankowa,528.08,PLN,Rachunki,528.08,PLN,
+04.02.2026 09:00,Expense,PKO Bank,69.00,PLN,Internet,69.00,PLN,
+04.02.2026 09:05,Expense,PKO Bank,57.50,PLN,Telefon,57.50,PLN,
+04.02.2026 11:19,Expense,PKO Bank,534.98,PLN,Paliwo,534.98,PLN,
+04.02.2026 13:19,Expense,Gotówka,10.58,PLN,Transport,10.58,PLN,
+05.02.2026 10:34,Expense,Gotówka,31.74,PLN,Transport,31.74,PLN,
+05.02.2026 10:39,Income,Pensja,10134.49,PLN,PKO Bank,10134.49,PLN,Pensja miesięczna
+05.02.2026 21:00,Expense,PKO Bank,120.52,PLN,Rozrywka,120.52,PLN,
+06.02.2026 08:00,Expense,PKO Bank,138.00,PLN,Subskrypcje,138.00,PLN,Netflix + Spotify
+06.02.2026 08:18,Expense,Gotówka,261.74,PLN,Zakupy spożywcze,261.74,PLN,Auchan
+06.02.2026 17:13,Expense,PKO Bank,196.65,PLN,Zakupy spożywcze,196.65,PLN,Żabka
+07.02.2026 11:00,Transfer,PKO Bank,2258.14,PLN,Konto oszczędnościowe,2258.14,PLN,Oszczędności miesięczne
+07.02.2026 17:00,Expense,PKO Bank,797.64,PLN,Zdrowie,797.64,PLN,
+09.02.2026 09:42,Expense,PKO Bank,24.15,PLN,Kawiarnia,24.15,PLN,Kawa
+09.02.2026 16:08,Expense,PKO Bank,217.12,PLN,Zakupy spożywcze,217.12,PLN,Lidl
+09.02.2026 18:00,Expense,PKO Bank,222.41,PLN,Rozrywka,222.41,PLN,
+09.02.2026 21:34,Expense,PKO Bank,374.67,PLN,Restauracje,374.67,PLN,
+12.02.2026 09:05,Expense,Gotówka,260.82,PLN,Zakupy spożywcze,260.82,PLN,Lidl
+12.02.2026 11:30,Expense,PKO Bank,260.36,PLN,Zakupy spożywcze,260.36,PLN,Lidl
+12.02.2026 12:00,Income,Dywidendy,931.50,PLN,Konto oszczędnościowe,931.50,PLN,Dywidendy kwartalne
+12.02.2026 17:02,Expense,PKO Bank,39.56,PLN,Kawiarnia,39.56,PLN,Kawa
+13.02.2026 09:58,Expense,PKO Bank,375.59,PLN,Paliwo,375.59,PLN,
+14.02.2026 09:47,Expense,PKO Bank,42.78,PLN,Kawiarnia,42.78,PLN,Kawa
+14.02.2026 17:00,Transfer,PKO Bank,664.47,PLN,Gotówka,664.47,PLN,Wypłata z bankomatu
+14.02.2026 19:31,Expense,PKO Bank,266.80,PLN,Restauracje,266.80,PLN,
+16.02.2026 15:00,Expense,PKO Bank,62.56,PLN,Kawiarnia,62.56,PLN,Kawa
+17.02.2026 18:44,Expense,PKO Bank,122.82,PLN,Zakupy spożywcze,122.82,PLN,Auchan
+18.02.2026 15:30,Income,Dochód z freelancu,2188.45,PLN,PKO Bank,2188.45,PLN,Projekt dodatkowy
+19.02.2026 11:00,Expense,PKO Bank,75.44,PLN,Apteka,75.44,PLN,
+22.02.2026 13:00,Expense,PKO Bank,233.91,PLN,Rozrywka,233.91,PLN,
+23.02.2026 16:42,Expense,PKO Bank,20.70,PLN,Transport,20.70,PLN,
+26.02.2026 12:00,Expense,Gotówka,148.12,PLN,Apteka,148.12,PLN,
+27.02.2026 20:19,Expense,Gotówka,10.81,PLN,Transport,10.81,PLN,
+28.02.2026 16:01,Expense,PKO Bank,30.36,PLN,Transport,30.36,PLN,
+01.03.2026 09:00,Expense,Karta bankowa,2760.00,PLN,Czynsz,2760.00,PLN,Czynsz za mieszkanie
+01.03.2026 19:24,Expense,Gotówka,23.46,PLN,Transport,23.46,PLN,
+02.03.2026 16:00,Expense,PKO Bank,184.92,PLN,Rozrywka,184.92,PLN,
+03.03.2026 08:10,Expense,Gotówka,241.04,PLN,Zakupy spożywcze,241.04,PLN,Żabka
+03.03.2026 09:30,Expense,Karta bankowa,549.93,PLN,Rachunki,549.93,PLN,
+03.03.2026 20:10,Expense,Gotówka,11.73,PLN,Transport,11.73,PLN,
+04.03.2026 09:00,Expense,PKO Bank,69.00,PLN,Internet,69.00,PLN,
+04.03.2026 09:05,Expense,PKO Bank,57.50,PLN,Telefon,57.50,PLN,
+05.03.2026 10:27,Income,Pensja,10504.56,PLN,PKO Bank,10504.56,PLN,Pensja miesięczna
+05.03.2026 12:31,Expense,Gotówka,287.04,PLN,Zakupy spożywcze,287.04,PLN,Biedronka
+06.03.2026 08:00,Expense,PKO Bank,138.00,PLN,Subskrypcje,138.00,PLN,Netflix + Spotify
+07.03.2026 11:00,Transfer,PKO Bank,2245.95,PLN,Konto oszczędnościowe,2245.95,PLN,Oszczędności miesięczne
+09.03.2026 11:17,Expense,PKO Bank,34.27,PLN,Kawiarnia,34.27,PLN,Kawa
+09.03.2026 15:00,Transfer,PKO Bank,646.76,PLN,Gotówka,646.76,PLN,Wypłata z bankomatu
+10.03.2026 11:12,Expense,Gotówka,23.00,PLN,Transport,23.00,PLN,
+10.03.2026 15:42,Expense,PKO Bank,30.82,PLN,Kawiarnia,30.82,PLN,Kawa
+10.03.2026 16:02,Expense,Gotówka,20.01,PLN,Transport,20.01,PLN,
+12.03.2026 13:11,Expense,PKO Bank,544.87,PLN,Paliwo,544.87,PLN,
+13.03.2026 20:18,Expense,PKO Bank,434.01,PLN,Restauracje,434.01,PLN,
+15.03.2026 17:00,Expense,PKO Bank,514.97,PLN,Zakupy,514.97,PLN,
+15.03.2026 19:34,Expense,PKO Bank,30.59,PLN,Kawiarnia,30.59,PLN,Kawa
+16.03.2026 10:37,Expense,Gotówka,238.51,PLN,Zakupy spożywcze,238.51,PLN,Auchan
+16.03.2026 11:09,Expense,PKO Bank,23.00,PLN,Transport,23.00,PLN,
+16.03.2026 13:07,Expense,Gotówka,291.41,PLN,Zakupy spożywcze,291.41,PLN,Biedronka
+17.03.2026 11:39,Expense,PKO Bank,10.12,PLN,Transport,10.12,PLN,
+17.03.2026 15:56,Expense,PKO Bank,163.07,PLN,Restauracje,163.07,PLN,
+18.03.2026 09:24,Expense,Gotówka,274.16,PLN,Zakupy spożywcze,274.16,PLN,Biedronka
+18.03.2026 18:21,Expense,PKO Bank,500.48,PLN,Paliwo,500.48,PLN,
+19.03.2026 11:00,Expense,PKO Bank,132.94,PLN,Apteka,132.94,PLN,
+21.03.2026 11:20,Expense,Gotówka,258.29,PLN,Zakupy spożywcze,258.29,PLN,Auchan
+21.03.2026 17:58,Expense,PKO Bank,38.64,PLN,Kawiarnia,38.64,PLN,Kawa
+22.03.2026 16:00,Expense,PKO Bank,140.76,PLN,Apteka,140.76,PLN,
+23.03.2026 11:57,Expense,PKO Bank,6.90,PLN,Transport,6.90,PLN,
+24.03.2026 13:10,Expense,PKO Bank,68.08,PLN,Kawiarnia,68.08,PLN,Kawa
+24.03.2026 15:21,Expense,PKO Bank,43.47,PLN,Kawiarnia,43.47,PLN,Kawa
+24.03.2026 16:11,Expense,PKO Bank,139.15,PLN,Zakupy spożywcze,139.15,PLN,Biedronka
+24.03.2026 20:00,Expense,PKO Bank,233.91,PLN,Restauracje,233.91,PLN,
+26.03.2026 09:03,Expense,PKO Bank,31.51,PLN,Kawiarnia,31.51,PLN,Kawa
+26.03.2026 20:27,Expense,Gotówka,292.56,PLN,Zakupy spożywcze,292.56,PLN,Auchan
+27.03.2026 11:55,Expense,Gotówka,7.59,PLN,Transport,7.59,PLN,
+27.03.2026 17:00,Expense,PKO Bank,306.13,PLN,Rozrywka,306.13,PLN,
+01.04.2026 09:00,Expense,Karta bankowa,2760.00,PLN,Czynsz,2760.00,PLN,Czynsz za mieszkanie
+02.04.2026 08:38,Expense,PKO Bank,201.71,PLN,Zakupy spożywcze,201.71,PLN,Biedronka
+02.04.2026 09:53,Expense,Gotówka,282.21,PLN,Zakupy spożywcze,282.21,PLN,Lidl
+02.04.2026 18:26,Expense,Gotówka,26.68,PLN,Transport,26.68,PLN,
+02.04.2026 20:20,Expense,PKO Bank,63.71,PLN,Kawiarnia,63.71,PLN,Kawa
+03.04.2026 09:30,Expense,Karta bankowa,392.61,PLN,Rachunki,392.61,PLN,
+04.04.2026 09:00,Expense,PKO Bank,69.00,PLN,Internet,69.00,PLN,
+04.04.2026 09:05,Expense,PKO Bank,57.50,PLN,Telefon,57.50,PLN,
+05.04.2026 10:27,Income,Pensja,10289.05,PLN,PKO Bank,10289.05,PLN,Pensja miesięczna
+05.04.2026 12:07,Expense,PKO Bank,114.54,PLN,Zakupy spożywcze,114.54,PLN,Auchan
+06.04.2026 08:00,Expense,PKO Bank,138.00,PLN,Subskrypcje,138.00,PLN,Netflix + Spotify
+07.04.2026 11:00,Transfer,PKO Bank,2283.21,PLN,Konto oszczędnościowe,2283.21,PLN,Oszczędności miesięczne
+09.04.2026 12:08,Expense,PKO Bank,9.66,PLN,Transport,9.66,PLN,
+09.04.2026 19:54,Expense,Gotówka,31.28,PLN,Transport,31.28,PLN,
+10.04.2026 10:24,Expense,Gotówka,28.75,PLN,Transport,28.75,PLN,
+11.04.2026 12:00,Expense,PKO Bank,111.78,PLN,Apteka,111.78,PLN,
+11.04.2026 16:54,Expense,PKO Bank,66.93,PLN,Kawiarnia,66.93,PLN,Kawa
+12.04.2026 10:57,Expense,PKO Bank,27.37,PLN,Kawiarnia,27.37,PLN,Kawa
+12.04.2026 15:07,Expense,Gotówka,151.57,PLN,Zakupy spożywcze,151.57,PLN,Lidl
+12.04.2026 17:57,Expense,PKO Bank,366.39,PLN,Restauracje,366.39,PLN,
+13.04.2026 19:46,Expense,Gotówka,286.81,PLN,Zakupy spożywcze,286.81,PLN,Biedronka
+13.04.2026 21:00,Expense,PKO Bank,99.59,PLN,Rozrywka,99.59,PLN,
+14.04.2026 19:55,Expense,Gotówka,135.01,PLN,Zakupy spożywcze,135.01,PLN,Biedronka
+15.04.2026 14:00,Expense,PKO Bank,257.14,PLN,Rozrywka,257.14,PLN,
+16.04.2026 12:27,Expense,PKO Bank,518.19,PLN,Paliwo,518.19,PLN,
+16.04.2026 17:53,Expense,Gotówka,276.00,PLN,Zakupy spożywcze,276.00,PLN,Żabka
+17.04.2026 10:00,Expense,PKO Bank,195.04,PLN,Apteka,195.04,PLN,
+17.04.2026 17:18,Expense,PKO Bank,27.14,PLN,Kawiarnia,27.14,PLN,Kawa
+18.04.2026 15:42,Income,Dochód z freelancu,2696.98,PLN,PKO Bank,2696.98,PLN,Projekt dodatkowy
+19.04.2026 13:00,Transfer,PKO Bank,709.09,PLN,Gotówka,709.09,PLN,Wypłata z bankomatu
+19.04.2026 13:45,Expense,PKO Bank,23.92,PLN,Transport,23.92,PLN,
+19.04.2026 17:00,Expense,PKO Bank,468.28,PLN,Zakupy,468.28,PLN,
+20.04.2026 08:13,Expense,Gotówka,263.12,PLN,Zakupy spożywcze,263.12,PLN,Biedronka
+20.04.2026 09:47,Expense,Gotówka,267.49,PLN,Zakupy spożywcze,267.49,PLN,Auchan
+20.04.2026 18:00,Income,Prezenty,262.89,PLN,Gotówka,262.89,PLN,Prezent
+23.04.2026 13:09,Expense,PKO Bank,287.50,PLN,Restauracje,287.50,PLN,
+23.04.2026 14:00,Expense,PKO Bank,504.62,PLN,Zdrowie,504.62,PLN,
+27.04.2026 10:51,Expense,PKO Bank,22.54,PLN,Transport,22.54,PLN,
+27.04.2026 15:57,Expense,PKO Bank,22.08,PLN,Kawiarnia,22.08,PLN,Kawa
+27.04.2026 16:37,Expense,Gotówka,196.42,PLN,Zakupy spożywcze,196.42,PLN,Żabka
+28.04.2026 11:15,Expense,PKO Bank,62.10,PLN,Kawiarnia,62.10,PLN,Kawa
+29.04.2026 13:00,Expense,PKO Bank,150.19,PLN,Rozrywka,150.19,PLN,
+29.04.2026 19:48,Expense,PKO Bank,43.01,PLN,Kawiarnia,43.01,PLN,Kawa
+30.04.2026 13:36,Expense,Gotówka,7.82,PLN,Transport,7.82,PLN,
+01.05.2026 09:00,Expense,Karta bankowa,2760.00,PLN,Czynsz,2760.00,PLN,Czynsz za mieszkanie
+01.05.2026 12:13,Expense,Gotówka,18.17,PLN,Transport,18.17,PLN,
+01.05.2026 15:00,Expense,PKO Bank,945.76,PLN,Zakupy,945.76,PLN,
+01.05.2026 18:00,Expense,PKO Bank,331.43,PLN,Rozrywka,331.43,PLN,
+01.05.2026 19:31,Expense,PKO Bank,21.62,PLN,Transport,21.62,PLN,
+02.05.2026 19:02,Expense,PKO Bank,209.99,PLN,Zakupy spożywcze,209.99,PLN,Lidl
+03.05.2026 09:14,Expense,PKO Bank,226.09,PLN,Zakupy spożywcze,226.09,PLN,Lidl
+03.05.2026 09:30,Expense,Karta bankowa,512.21,PLN,Rachunki,512.21,PLN,
+03.05.2026 09:58,Expense,PKO Bank,117.53,PLN,Zakupy spożywcze,117.53,PLN,Żabka
+04.05.2026 09:00,Expense,PKO Bank,69.00,PLN,Internet,69.00,PLN,
+04.05.2026 09:05,Expense,PKO Bank,57.50,PLN,Telefon,57.50,PLN,
+04.05.2026 20:50,Expense,PKO Bank,43.93,PLN,Kawiarnia,43.93,PLN,Kawa
+05.05.2026 10:09,Income,Pensja,10583.91,PLN,PKO Bank,10583.91,PLN,Pensja miesięczna
+05.05.2026 12:24,Expense,Gotówka,14.72,PLN,Transport,14.72,PLN,
+06.05.2026 08:00,Expense,PKO Bank,138.00,PLN,Subskrypcje,138.00,PLN,Netflix + Spotify
+06.05.2026 09:02,Expense,PKO Bank,32.43,PLN,Kawiarnia,32.43,PLN,Kawa
+06.05.2026 10:00,Expense,Gotówka,132.48,PLN,Apteka,132.48,PLN,
+06.05.2026 14:02,Expense,PKO Bank,127.65,PLN,Zakupy spożywcze,127.65,PLN,Auchan
+07.05.2026 11:00,Transfer,PKO Bank,1268.68,PLN,Konto oszczędnościowe,1268.68,PLN,Oszczędności miesięczne
+07.05.2026 17:21,Expense,Gotówka,99.13,PLN,Zakupy spożywcze,99.13,PLN,Żabka
+11.05.2026 12:10,Expense,PKO Bank,362.71,PLN,Restauracje,362.71,PLN,
+11.05.2026 13:27,Expense,PKO Bank,522.33,PLN,Paliwo,522.33,PLN,
+11.05.2026 14:29,Expense,PKO Bank,287.96,PLN,Zakupy spożywcze,287.96,PLN,Żabka
+12.05.2026 12:00,Income,Dywidendy,990.61,PLN,Konto oszczędnościowe,990.61,PLN,Dywidendy kwartalne
+13.05.2026 09:30,Expense,Gotówka,275.08,PLN,Zakupy spożywcze,275.08,PLN,Lidl
+13.05.2026 18:28,Expense,PKO Bank,28.75,PLN,Kawiarnia,28.75,PLN,Kawa
+14.05.2026 13:57,Expense,Gotówka,13.34,PLN,Transport,13.34,PLN,
+16.05.2026 10:00,Transfer,PKO Bank,656.88,PLN,Gotówka,656.88,PLN,Wypłata z bankomatu
+18.05.2026 15:28,Income,Dochód z freelancu,2926.29,PLN,PKO Bank,2926.29,PLN,Projekt dodatkowy
+19.05.2026 19:00,Expense,Gotówka,106.03,PLN,Apteka,106.03,PLN,
+19.05.2026 21:00,Expense,PKO Bank,189.29,PLN,Rozrywka,189.29,PLN,
+20.05.2026 15:49,Expense,PKO Bank,8.74,PLN,Transport,8.74,PLN,
+21.05.2026 10:00,Expense,Karta bankowa,2443.75,PLN,Podróże,2443.75,PLN,Wyjazd weekendowy
+22.05.2026 15:11,Expense,Gotówka,31.05,PLN,Transport,31.05,PLN,
+24.05.2026 12:36,Expense,PKO Bank,49.91,PLN,Kawiarnia,49.91,PLN,Kawa
+24.05.2026 17:23,Expense,PKO Bank,27.37,PLN,Transport,27.37,PLN,
+26.05.2026 11:52,Expense,PKO Bank,31.28,PLN,Kawiarnia,31.28,PLN,Kawa
+26.05.2026 19:02,Expense,Gotówka,278.76,PLN,Zakupy spożywcze,278.76,PLN,Biedronka
+27.05.2026 07:02,Expense,PKO Bank,7.59,PLN,Transport,7.59,PLN,
+27.05.2026 16:05,Expense,PKO Bank,61.64,PLN,Kawiarnia,61.64,PLN,Kawa
+29.05.2026 16:12,Expense,PKO Bank,271.63,PLN,Restauracje,271.63,PLN,
+01.06.2026 09:00,Expense,Karta bankowa,2760.00,PLN,Czynsz,2760.00,PLN,Czynsz za mieszkanie
+01.06.2026 09:24,Expense,Gotówka,99.13,PLN,Zakupy spożywcze,99.13,PLN,Lidl
+02.06.2026 13:06,Expense,Gotówka,143.06,PLN,Zakupy spożywcze,143.06,PLN,Auchan
+02.06.2026 13:48,Expense,PKO Bank,455.17,PLN,Paliwo,455.17,PLN,
+02.06.2026 18:07,Expense,Gotówka,204.01,PLN,Zakupy spożywcze,204.01,PLN,Żabka
+02.06.2026 18:29,Expense,PKO Bank,14.72,PLN,Transport,14.72,PLN,
+03.06.2026 09:30,Expense,Karta bankowa,586.73,PLN,Rachunki,586.73,PLN,
+04.06.2026 09:00,Expense,PKO Bank,69.00,PLN,Internet,69.00,PLN,
+04.06.2026 09:05,Expense,PKO Bank,57.50,PLN,Telefon,57.50,PLN,
+05.06.2026 10:53,Income,Pensja,10742.61,PLN,PKO Bank,10742.61,PLN,Pensja miesięczna
+05.06.2026 13:57,Expense,PKO Bank,307.51,PLN,Restauracje,307.51,PLN,
+05.06.2026 15:00,Expense,PKO Bank,169.28,PLN,Apteka,169.28,PLN,
+05.06.2026 18:39,Expense,PKO Bank,51.75,PLN,Kawiarnia,51.75,PLN,Kawa
+06.06.2026 08:00,Expense,PKO Bank,138.00,PLN,Subskrypcje,138.00,PLN,Netflix + Spotify
+06.06.2026 11:35,Expense,PKO Bank,17.25,PLN,Transport,17.25,PLN,
+08.06.2026 19:29,Expense,PKO Bank,26.22,PLN,Kawiarnia,26.22,PLN,Kawa
+08.06.2026 20:07,Expense,PKO Bank,357.65,PLN,Restauracje,357.65,PLN,
+10.06.2026 20:21,Expense,PKO Bank,22.31,PLN,Kawiarnia,22.31,PLN,Kawa
+11.06.2026 08:41,Expense,PKO Bank,28.06,PLN,Transport,28.06,PLN,
+12.06.2026 12:09,Expense,PKO Bank,21.85,PLN,Transport,21.85,PLN,
+13.06.2026 16:18,Expense,PKO Bank,94.07,PLN,Zakupy spożywcze,94.07,PLN,Lidl
+13.06.2026 20:27,Expense,PKO Bank,54.28,PLN,Kawiarnia,54.28,PLN,Kawa
+14.06.2026 10:20,Expense,PKO Bank,23.23,PLN,Transport,23.23,PLN,
+15.06.2026 18:26,Expense,PKO Bank,459.08,PLN,Restauracje,459.08,PLN,
+16.06.2026 15:00,Expense,PKO Bank,919.08,PLN,Zakupy,919.08,PLN,
+17.06.2026 10:00,Expense,Karta bankowa,2420.06,PLN,Podróże,2420.06,PLN,Wyjazd weekendowy
+18.06.2026 17:05,Expense,PKO Bank,405.03,PLN,Restauracje,405.03,PLN,
+20.06.2026 11:00,Transfer,PKO Bank,819.26,PLN,Gotówka,819.26,PLN,Wypłata z bankomatu
+20.06.2026 18:14,Expense,PKO Bank,179.86,PLN,Zakupy spożywcze,179.86,PLN,Auchan
+21.06.2026 11:16,Expense,PKO Bank,54.51,PLN,Kawiarnia,54.51,PLN,Kawa
+22.06.2026 10:41,Expense,PKO Bank,38.41,PLN,Kawiarnia,38.41,PLN,Kawa
+22.06.2026 18:12,Expense,PKO Bank,67.85,PLN,Kawiarnia,67.85,PLN,Kawa
+23.06.2026 17:58,Expense,Gotówka,238.74,PLN,Zakupy spożywcze,238.74,PLN,Biedronka
+25.06.2026 17:54,Expense,Gotówka,289.80,PLN,Zakupy spożywcze,289.80,PLN,Biedronka
+26.06.2026 12:04,Expense,PKO Bank,12.65,PLN,Transport,12.65,PLN,
+26.06.2026 13:00,Expense,PKO Bank,287.50,PLN,Rozrywka,287.50,PLN,
+26.06.2026 19:00,Expense,PKO Bank,86.48,PLN,Rozrywka,86.48,PLN,
+27.06.2026 20:33,Expense,PKO Bank,100.51,PLN,Zakupy spożywcze,100.51,PLN,Biedronka
+28.06.2026 10:00,Expense,Gotówka,113.16,PLN,Apteka,113.16,PLN,
+28.06.2026 10:26,Expense,PKO Bank,136.85,PLN,Zakupy spożywcze,136.85,PLN,Biedronka
+30.06.2026 12:21,Expense,PKO Bank,272.55,PLN,Zakupy spożywcze,272.55,PLN,Lidl
+30.06.2026 14:41,Expense,PKO Bank,11.96,PLN,Transport,11.96,PLN,
+30.06.2026 16:00,Expense,Karta bankowa,951.51,PLN,Odzież,951.51,PLN,
+01.07.2026 07:51,Expense,PKO Bank,12.19,PLN,Transport,12.19,PLN,
+01.07.2026 09:00,Expense,Karta bankowa,2760.00,PLN,Czynsz,2760.00,PLN,Czynsz za mieszkanie
+01.07.2026 12:07,Expense,PKO Bank,70.61,PLN,Kawiarnia,70.61,PLN,Kawa
+01.07.2026 13:21,Expense,Gotówka,97.52,PLN,Zakupy spożywcze,97.52,PLN,Biedronka
+01.07.2026 13:34,Expense,PKO Bank,187.91,PLN,Zakupy spożywcze,187.91,PLN,Lidl
+01.07.2026 17:00,Expense,PKO Bank,272.32,PLN,Rozrywka,272.32,PLN,
+02.07.2026 10:34,Expense,PKO Bank,276.46,PLN,Zakupy spożywcze,276.46,PLN,Biedronka
+02.07.2026 15:00,Expense,Gotówka,191.36,PLN,Apteka,191.36,PLN,
+02.07.2026 16:13,Expense,PKO Bank,546.94,PLN,Paliwo,546.94,PLN,
+02.07.2026 20:45,Expense,PKO Bank,288.88,PLN,Restauracje,288.88,PLN,
+03.07.2026 07:18,Expense,Gotówka,30.36,PLN,Transport,30.36,PLN,
+03.07.2026 09:30,Expense,Karta bankowa,381.11,PLN,Rachunki,381.11,PLN,
+03.07.2026 17:02,Expense,PKO Bank,106.26,PLN,Zakupy spożywcze,106.26,PLN,Biedronka
+04.07.2026 08:39,Expense,Gotówka,195.96,PLN,Zakupy spożywcze,195.96,PLN,Biedronka
+04.07.2026 09:00,Expense,PKO Bank,69.00,PLN,Internet,69.00,PLN,
+04.07.2026 09:05,Expense,PKO Bank,57.50,PLN,Telefon,57.50,PLN,
+04.07.2026 09:39,Expense,PKO Bank,475.41,PLN,Paliwo,475.41,PLN,
+04.07.2026 11:57,Expense,Gotówka,12.42,PLN,Transport,12.42,PLN,
+04.07.2026 13:09,Expense,PKO Bank,444.82,PLN,Restauracje,444.82,PLN,
+04.07.2026 13:33,Expense,PKO Bank,28.29,PLN,Kawiarnia,28.29,PLN,Kawa
+04.07.2026 14:00,Expense,PKO Bank,247.02,PLN,Rozrywka,247.02,PLN,
+04.07.2026 14:47,Expense,PKO Bank,65.32,PLN,Kawiarnia,65.32,PLN,Kawa
+04.07.2026 18:00,Expense,PKO Bank,657.11,PLN,Zakupy,657.11,PLN,
+05.07.2026 10:14,Income,Pensja,10564.82,PLN,PKO Bank,10564.82,PLN,Pensja miesięczna
+05.07.2026 18:00,Expense,Karta bankowa,1059.38,PLN,Odzież,1059.38,PLN,
+05.07.2026 18:16,Expense,Gotówka,106.95,PLN,Zakupy spożywcze,106.95,PLN,Auchan
+05.07.2026 18:52,Expense,PKO Bank,57.96,PLN,Kawiarnia,57.96,PLN,Kawa
+05.07.2026 18:53,Expense,Gotówka,22.08,PLN,Transport,22.08,PLN,
+05.07.2026 20:32,Expense,PKO Bank,20.93,PLN,Transport,20.93,PLN,
+05.07.2026 22:00,Expense,PKO Bank,91.54,PLN,Rozrywka,91.54,PLN,
+06.07.2026 08:00,Expense,PKO Bank,138.00,PLN,Subskrypcje,138.00,PLN,Netflix + Spotify
+06.07.2026 13:24,Expense,PKO Bank,37.72,PLN,Kawiarnia,37.72,PLN,Kawa
+06.07.2026 13:55,Expense,PKO Bank,23.92,PLN,Transport,23.92,PLN,
+06.07.2026 13:56,Expense,PKO Bank,16.79,PLN,Transport,16.79,PLN,
+06.07.2026 16:46,Expense,PKO Bank,286.35,PLN,Zakupy spożywcze,286.35,PLN,Biedronka
+07.07.2026 11:00,Transfer,PKO Bank,1536.63,PLN,Konto oszczędnościowe,1536.63,PLN,Oszczędności miesięczne
+07.07.2026 11:28,Expense,PKO Bank,106.49,PLN,Zakupy spożywcze,106.49,PLN,Lidl
+07.07.2026 15:11,Expense,PKO Bank,144.21,PLN,Restauracje,144.21,PLN,
+07.07.2026 15:13,Expense,Gotówka,207.46,PLN,Zakupy spożywcze,207.46,PLN,Lidl
+07.07.2026 20:36,Expense,PKO Bank,141.68,PLN,Restauracje,141.68,PLN,
+08.07.2026 10:00,Expense,PKO Bank,730.02,PLN,Zdrowie,730.02,PLN,
+08.07.2026 11:21,Expense,Gotówka,152.72,PLN,Zakupy spożywcze,152.72,PLN,Auchan
+08.07.2026 20:45,Expense,PKO Bank,37.95,PLN,Kawiarnia,37.95,PLN,Kawa
+09.07.2026 11:00,Transfer,PKO Bank,843.18,PLN,Gotówka,843.18,PLN,Wypłata z bankomatu
+09.07.2026 15:48,Income,Dochód z freelancu,2989.08,PLN,PKO Bank,2989.08,PLN,Projekt dodatkowy
+09.07.2026 18:00,Income,Prezenty,503.70,PLN,Gotówka,503.70,PLN,Prezent

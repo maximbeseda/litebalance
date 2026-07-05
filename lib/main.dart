@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:ui';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// 👇 ДОДАНО: імпорт SharedPreferences
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'providers/all_providers.dart';
 import 'screens/onboarding_screen.dart';
-import 'screens/lock_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
+import 'utils/currency_formatter.dart';
+import 'widgets/common/sync_lifecycle_observer.dart' show SyncLifecycleObserver;
+import 'widgets/common/app_lock_gate.dart'
+    show AppLockGate, resolveLockTimeoutMs, kLockBgTimeKey;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,50 +28,112 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  // 👇 1. Ініціалізуємо SharedPreferences ДО запуску UI
+  // 1. Ініціалізуємо SharedPreferences ДО запуску UI
   final prefs = await SharedPreferences.getInstance();
 
-  // 👇 ДОДАНО: Отримуємо інформацію про версію
+  // Отримуємо інформацію про версію
   final packageInfo = await PackageInfo.fromPlatform();
 
-  // 👇 2. Створюємо контейнер Riverpod і ПЕРЕДАЄМО туди prefs
+  // 2. Створюємо контейнер Riverpod і ПЕРЕДАЄМО туди prefs
   final container = ProviderContainer(
     overrides: [
       sharedPreferencesProvider.overrideWithValue(prefs),
-      // 👇 ДОДАНО: Передаємо версію в провайдер
       packageInfoProvider.overrideWithValue(packageInfo),
     ],
   );
 
-  await initializeDateFormatting('uk_UA', null);
-  const bool showPreview = false;
+  // Ініціалізуємо дані формату дат для ВСІХ локалей, щоб назви місяців/днів
+  // відображалися мовою інтерфейсу (а не лише українською).
+  await initializeDateFormatting();
 
-  // 👇 3. Отримуємо статус онбордингу напряму з SharedPreferences
+  // 3. Отримуємо статус онбордингу напряму з SharedPreferences
   final bool hasCompletedOnboarding =
       prefs.getBool('has_completed_onboarding') ?? false;
   final bool isPinSet = await SecurityService.isPinSet();
+  // Кеш для синхронної перевірки в SyncLifecycleObserver (без await)
+  await prefs.setBool('pin_set_cache', isPinSet);
+
+  // Показуємо LockScreen тільки якщо PIN встановлений І минув таймаут
+  bool requirePin = false;
+  if (isPinSet) {
+    final bgTime = prefs.getInt(kLockBgTimeKey);
+    if (bgTime == null) {
+      requirePin = true;
+    } else {
+      final elapsed = DateTime.now().millisecondsSinceEpoch - bgTime;
+      requirePin = elapsed >= resolveLockTimeoutMs(prefs);
+    }
+  }
 
   runApp(
     // Використовуємо UncontrolledProviderScope, щоб передати вже створений контейнер
     UncontrolledProviderScope(
       container: container,
       child: EasyLocalization(
-        supportedLocales: const [Locale('uk'), Locale('en'), Locale('de')],
+        supportedLocales: const [
+          Locale('uk'),
+          Locale('en'),
+          Locale('de'),
+          Locale('pl'),
+          Locale('es'),
+          Locale('fr'),
+          Locale('it'),
+          Locale('pt'),
+          Locale('nl'),
+          Locale('tr'),
+          Locale('cs'),
+          Locale('ro'),
+          Locale('hu'),
+          Locale('sk'),
+          Locale('el'),
+          Locale('bg'),
+          Locale('sv'),
+          Locale('da'),
+          Locale('fi'),
+          Locale('hr'),
+          Locale('zh'),
+          Locale('id'),
+          Locale('ms'),
+          Locale('vi'),
+          Locale('fil'),
+          Locale('hi'),
+          Locale('bn'),
+          Locale('th'),
+          Locale('ja'),
+          Locale('ko'),
+          Locale('sw'),
+          Locale('az'),
+          Locale('sq'),
+          Locale('bs'),
+          Locale('sr'),
+          Locale('mk'),
+          Locale('kk'),
+          Locale('mn'),
+          Locale('hy'),
+          Locale('ka'),
+          Locale('ne'),
+          Locale('am'),
+          Locale('si'),
+          Locale('my'),
+          Locale('km'),
+          Locale('lo'),
+          Locale('ar'),
+          Locale('fa'),
+          Locale('ur'),
+          Locale('he'),
+        ],
         path: 'assets/translations',
         fallbackLocale: const Locale('uk'),
-        child: DevicePreview(
-          enabled: !kReleaseMode && showPreview,
-          builder: (context) => MyApp(
-            showOnboarding: !hasCompletedOnboarding,
-            requirePin: isPinSet,
-          ),
+        child: MyApp(
+          showOnboarding: !hasCompletedOnboarding,
+          requirePin: requirePin,
         ),
       ),
     ),
   );
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   final bool showOnboarding;
   final bool requirePin;
 
@@ -82,10 +144,24 @@ class MyApp extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Реактивно стежимо за темою через Riverpod
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  Widget build(BuildContext context) {
     final themeId = ref.watch(themeProvider);
     final currentTheme = AppTheme.getTheme(themeId);
+
+    // Тримаємо форматування чисел/дат і скорочення мільйонів у синхроні з мовою.
+    Intl.defaultLocale = context.locale.toString();
+    CurrencyFormatter.millionSuffix = 'million_suffix'.tr();
+    // Базова валюта визначає знаки після коми для сум без явного коду.
+    CurrencyFormatter.defaultCurrencyCode = ref.watch(
+      settingsProvider.select((s) => s.baseCurrency),
+    );
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -98,7 +174,8 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'CoinFlow',
+      navigatorKey: _navigatorKey,
+      title: 'LiteBalance',
       localizationsDelegates: [
         ...context.localizationDelegates,
         GlobalCupertinoLocalizations.delegate,
@@ -106,17 +183,23 @@ class MyApp extends ConsumerWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: currentTheme,
+
       builder: (context, child) {
-        final Widget currentChild = DevicePreview.appBuilder(context, child);
+        final Widget currentChild = child ?? const SizedBox.shrink();
         final mediaQueryData = MediaQuery.of(context);
         final double baseScale = mediaQueryData.textScaler.scale(10) / 10;
         final double safeScale = baseScale.clamp(1.0, 1.15);
 
-        return MediaQuery(
-          data: mediaQueryData.copyWith(
-            textScaler: TextScaler.linear(safeScale),
+        return AppLockGate(
+          initiallyLocked: widget.requirePin,
+          child: SyncLifecycleObserver(
+            child: MediaQuery(
+              data: mediaQueryData.copyWith(
+                textScaler: TextScaler.linear(safeScale),
+              ),
+              child: currentChild,
+            ),
           ),
-          child: currentChild,
         );
       },
       scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -127,9 +210,9 @@ class MyApp extends ConsumerWidget {
           PointerDeviceKind.stylus,
         },
       ),
-      home: showOnboarding
+      home: widget.showOnboarding
           ? const OnboardingScreen()
-          : (requirePin ? const LockScreen() : const HomeScreen()),
+          : const HomeScreen(),
     );
   }
 }

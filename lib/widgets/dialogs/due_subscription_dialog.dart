@@ -6,10 +6,11 @@ import 'package:easy_localization/easy_localization.dart';
 // 👇 2. Імпортуємо наш хаб провайдерів
 import '../../providers/all_providers.dart';
 
-import '../../database/app_database.dart';
 import '../../models/app_currency.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
+import '../common/app_snackbar.dart';
 
 // 👇 3. Змінили StatelessWidget на ConsumerWidget
 class DueSubscriptionDialog extends ConsumerWidget {
@@ -163,8 +164,12 @@ class DueSubscriptionDialog extends ConsumerWidget {
                   // 5. СУМА
                   FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text(
-                      '${CurrencyFormatter.format(subscription.amount)} $currencySymbol',
+                    child: AmountText(
+                      amount: CurrencyFormatter.format(
+                        subscription.amount,
+                        currencyCode: subscription.currency,
+                      ),
+                      symbol: currencySymbol,
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -261,49 +266,19 @@ class DueSubscriptionDialog extends ConsumerWidget {
                                 );
 
                             // Показуємо Snackbar на головному екрані
-                            scaffoldMessenger.clearSnackBars();
-                            scaffoldMessenger.showSnackBar(
-                              SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                backgroundColor: colors.cardBg,
-                                elevation: 4,
-                                margin: const EdgeInsets.all(20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  side: BorderSide(
-                                    color: success
-                                        ? colors.income
-                                        : colors.expense,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                content: Row(
-                                  children: [
-                                    Icon(
-                                      success
-                                          ? Icons.check_circle_outline
-                                          : Icons.error_outline,
-                                      color: success
-                                          ? colors.income
-                                          : colors.expense,
-                                      size: 20,
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Text(
-                                        message,
-                                        style: TextStyle(
-                                          color: colors.textMain,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+                            // (контекст ScaffoldMessenger лишається валідним
+                            // після закриття діалогу)
+                            if (success) {
+                              AppSnackbar.success(
+                                scaffoldMessenger.context,
+                                message,
+                              );
+                            } else {
+                              AppSnackbar.error(
+                                scaffoldMessenger.context,
+                                message,
+                              );
+                            }
                           },
                           child: FittedBox(
                             fit: BoxFit.scaleDown,

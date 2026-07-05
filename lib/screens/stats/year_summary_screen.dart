@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../theme/app_colors_extension.dart';
+import '../../utils/amount_text.dart';
 import '../../utils/currency_formatter.dart';
 import '../../models/app_currency.dart';
 
@@ -82,6 +83,8 @@ class YearSummaryScreen extends StatelessWidget {
                       grandNet,
                       grandSavingsRate,
                       symbol,
+                      grandTotalInc,
+                      grandTotalExp,
                     ),
                     const SizedBox(height: 32),
 
@@ -140,6 +143,8 @@ class YearSummaryScreen extends StatelessWidget {
     int net,
     double rate,
     String symbol,
+    int totalInc,
+    int totalExp,
   ) {
     final Color baseColor = net >= 0 ? colors.income : colors.expense;
 
@@ -171,13 +176,40 @@ class YearSummaryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            "${net > 0 ? '+' : ''}${CurrencyFormatter.format(net)} $symbol",
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 32,
-              fontWeight: FontWeight.w900,
+          // Повна сума без копійок; FittedBox гарантує, що навіть великі
+          // числа вмістяться на вузьких екранах.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: AmountText(
+              amount: "${net > 0 ? '+' : ''}${CurrencyFormatter.formatFull(net)}",
+              symbol: symbol,
+              maxLines: 1,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 32,
+                fontWeight: FontWeight.w900,
+              ),
             ),
+          ),
+          const SizedBox(height: 12),
+          // Розбивка доходи / витрати під чистим результатом.
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _grandBreakdown(
+                Icons.arrow_downward_rounded,
+                'income'.tr(),
+                totalInc,
+                symbol,
+              ),
+              const SizedBox(width: 16),
+              _grandBreakdown(
+                Icons.arrow_upward_rounded,
+                'stats_expenses'.tr(),
+                totalExp,
+                symbol,
+              ),
+            ],
           ),
           const SizedBox(height: 16),
           Container(
@@ -193,6 +225,55 @@ class YearSummaryScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _grandBreakdown(
+    IconData icon,
+    String label,
+    int value,
+    String symbol,
+  ) {
+    return Flexible(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: Colors.white70, size: 18),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: AmountText(
+                    amount: CurrencyFormatter.formatFull(value),
+                    symbol: symbol,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -284,22 +365,33 @@ class YearSummaryScreen extends StatelessWidget {
                   color: colors.textMain,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "${netProfit > 0 ? '+' : ''}${CurrencyFormatter.format(netProfit)} $symbol",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: netColor,
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: AmountText(
+                        amount:
+                            "${netProfit > 0 ? '+' : ''}${CurrencyFormatter.formatFull(netProfit)}",
+                        symbol: symbol,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: netColor,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    "${'savings'.tr()}: ${savingsRate.round()}%",
-                    style: TextStyle(fontSize: 11, color: colors.textSecondary),
-                  ),
-                ],
+                    Text(
+                      "${'savings'.tr()}: ${savingsRate.round()}%",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -429,12 +521,18 @@ class YearSummaryScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-          Text(
-            '${CurrencyFormatter.format(value)} $symbol',
-            style: TextStyle(
-              color: colors.textMain,
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: AmountText(
+              amount: CurrencyFormatter.formatFull(value),
+              symbol: symbol,
+              maxLines: 1,
+              style: TextStyle(
+                color: colors.textMain,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
             ),
           ),
           const SizedBox(height: 4),
