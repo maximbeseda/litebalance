@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../providers/all_providers.dart';
 
@@ -31,6 +33,33 @@ class ProfileScreen extends ConsumerStatefulWidget {
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool _isLoggingOut = false;
+
+  /// Адреса для зворотного зв'язку. Пізніше поряд можна додати Telegram-канал
+  /// / чат (див. [_buildLinkRow] у секції «Підтримка»).
+  static const String _supportEmail = 'support@litebalance.app';
+
+  /// Відкриває поштовий клієнт із попередньо заповненою темою. Якщо на пристрої
+  /// немає доступного клієнта — копіює адресу в буфер і показує підказку.
+  Future<void> _launchSupportEmail() async {
+    final String version = ref.read(packageInfoProvider).version;
+    final uri = Uri(
+      scheme: 'mailto',
+      path: _supportEmail,
+      query: 'subject=${Uri.encodeComponent('LiteBalance — Feedback (v$version)')}',
+    );
+
+    bool launched = false;
+    try {
+      launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      launched = false;
+    }
+
+    if (launched || !mounted) return;
+
+    await Clipboard.setData(const ClipboardData(text: _supportEmail));
+    if (mounted) AppSnackbar.info(context, 'email_copied'.tr());
+  }
 
   Future<void> _showClearDataDialog(BuildContext context) async {
     // Якщо ввімкнено синхронізацію з Google Drive — попереджаємо, що хмарну
@@ -217,6 +246,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
             // --- БЕЗПЕКА ---
             const SecuritySettingsSection(),
+
+            _divider(colors),
+
+            // --- ПІДТРИМКА / ЗВОРОТНИЙ ЗВ'ЯЗОК ---
+            SectionHeader('support'.tr()),
+            _buildLinkRow(
+              colors: colors,
+              icon: Icons.mail_outline_rounded,
+              title: 'contact_us'.tr(),
+              subtitle: _supportEmail,
+              onTap: _launchSupportEmail,
+            ),
 
             _divider(colors),
 
@@ -492,6 +533,65 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 Icons.keyboard_arrow_down_rounded,
                 color: colors.textSecondary,
                 size: 20,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Рядок-посилання (пошта, згодом — Telegram-канал/чат). На відміну від
+  /// [_buildPickerRow], показує другорядний підпис (адресу) та іконку переходу.
+  Widget _buildLinkRow({
+    required AppColorsExtension colors,
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: Row(
+            children: [
+              Icon(icon, color: colors.accent, size: 24),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: colors.textMain,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: colors.textSecondary,
+                        fontSize: 13,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                Icons.open_in_new_rounded,
+                color: colors.textSecondary,
+                size: 18,
               ),
             ],
           ),
