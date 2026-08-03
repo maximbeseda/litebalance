@@ -70,6 +70,7 @@ dependencies:
   connectivity_plus: ^7.1.1
   cached_network_image: ^3.4.1
   flutter_animate: ^4.5.2
+  tutorial_coach_mark: ^1.2.11
   
 
 dev_dependencies:

@@ -22,6 +22,7 @@ import '../providers/all_providers.dart';
 
 // 👇 НОВИЙ ІМПОРТ НАШОЇ СЕКЦІЇ
 import '../widgets/home/category_section.dart';
+import '../widgets/home/home_tutorial.dart';
 
 String formatCurrency(int amount) => CurrencyFormatter.format(amount);
 
@@ -36,6 +37,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isShowingDueDialog = false;
+
+  // Ключі-цілі для покрокової підказки (coach marks) при першому запуску.
+  final GlobalKey _tutHeaderKey = GlobalKey();
+  final GlobalKey _tutIncomeKey = GlobalKey();
+  final GlobalKey _tutAccountKey = GlobalKey();
+  final GlobalKey _tutMenuKey = GlobalKey();
+  bool _tutorialScheduled = false;
+  Timer? _tutorialTimer;
 
   @override
   void initState() {
@@ -86,8 +95,41 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   @override
   void dispose() {
+    _tutorialTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  /// Одноразово (за перший вхід на головний екран) запускає покрокову підказку.
+  /// Викликається з build() лише коли реальний контент уже готовий рендеритись,
+  /// тож ключі-цілі гарантовано мають розмір.
+  void _maybeScheduleTutorial() {
+    if (_tutorialScheduled) return;
+    _tutorialScheduled = true;
+
+    try {
+      final prefs = ref.read(sharedPreferencesProvider);
+      if (prefs.getBool('has_seen_home_tutorial') ?? false) return;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        // Невелика пауза, щоб анімації входу відпрацювали й layout устоявся.
+        // Таймер скасовується в dispose(), щоб не «висів» після виходу з екрана.
+        _tutorialTimer = Timer(const Duration(milliseconds: 550), () {
+          if (!mounted || _isShowingDueDialog) return;
+          HomeTutorial.build(
+            context: context,
+            headerKey: _tutHeaderKey,
+            incomeKey: _tutIncomeKey,
+            accountKey: _tutAccountKey,
+            menuKey: _tutMenuKey,
+            onDone: () => prefs.setBool('has_seen_home_tutorial', true),
+          ).show(context: context);
+        });
+      });
+    } catch (_) {
+      // Напр. у тестах без override sharedPreferencesProvider — тур пропускаємо.
+    }
   }
 
   Future<void> _handleTransfer(Category source, Category target) async {
@@ -434,6 +476,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       );
     }).toList();
 
+    // Реальний контент готовий — можна показати покрокову підказку (одноразово).
+    _maybeScheduleTutorial();
+
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: const SettingsDrawer(),
@@ -461,6 +506,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             child: Column(
               children: [
                 SummaryHeader(
+                  key: _tutHeaderKey,
+                  settingsKey: _tutMenuKey,
                   totalBalance: totalBalance,
                   totalIncomes: totalIncomes,
                   totalExpenses: totalExpenses,
@@ -508,6 +555,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 ),
 
                 CategorySection(
+                  key: _tutIncomeKey,
                   categories: displayIncomes,
                   type: CategoryType.income,
                   onTransfer: _handleTransfer,
@@ -518,6 +566,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 ),
 
                 CategorySection(
+                  key: _tutAccountKey,
                   categories: catState.accounts,
                   type: CategoryType.account,
                   isTarget: true,
