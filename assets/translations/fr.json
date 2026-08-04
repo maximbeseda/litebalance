@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Dépenses",
   "tutorial_expenses_desc": "Les catégories dans lesquelles vous dépensez.",
   "tutorial_add_title": "Nouvelle catégorie",
-  "tutorial_add_desc": "Touchez le plus pour ajouter une nouvelle catégorie.",
+  "tutorial_add_desc": "Ajoutez de nouvelles catégories avec le bouton +.",
   "tutorial_transfer_title": "Créer une transaction",
   "tutorial_transfer_desc": "Faites glisser la pièce d’une catégorie sur une autre pour enregistrer une transaction.",
   "tutorial_history_title": "Historique de la catégorie",

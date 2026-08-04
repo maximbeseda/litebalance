@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "支出",
   "tutorial_expenses_desc": "お金を使うカテゴリーです。",
   "tutorial_add_title": "新しいカテゴリー",
-  "tutorial_add_desc": "プラスをタップして新しいカテゴリーを追加します。",
+  "tutorial_add_desc": "＋ボタンで新しいカテゴリーを追加します。",
   "tutorial_transfer_title": "取引を作成",
   "tutorial_transfer_desc": "あるカテゴリーのコインを別のカテゴリーにドラッグして取引を記録します。",
   "tutorial_history_title": "カテゴリーの履歴",

@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Výdaje",
   "tutorial_expenses_desc": "Kategorie, za které utrácíte peníze.",
   "tutorial_add_title": "Nová kategorie",
-  "tutorial_add_desc": "Klepnutím na plus přidáte novou kategorii.",
+  "tutorial_add_desc": "Přidávejte nové kategorie tlačítkem +.",
   "tutorial_transfer_title": "Vytvořit transakci",
   "tutorial_transfer_desc": "Přetáhněte minci jedné kategorie na jinou a zaznamenejte transakci.",
   "tutorial_history_title": "Historie kategorie",

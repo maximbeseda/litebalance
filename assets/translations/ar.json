@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "المصروفات",
   "tutorial_expenses_desc": "الفئات التي تنفق عليها أموالك.",
   "tutorial_add_title": "فئة جديدة",
-  "tutorial_add_desc": "اضغط على علامة الزائد لإضافة فئة جديدة.",
+  "tutorial_add_desc": "أضف فئات جديدة باستخدام زر +.",
   "tutorial_transfer_title": "إنشاء معاملة",
   "tutorial_transfer_desc": "اسحب عملة فئة إلى فئة أخرى لتسجيل معاملة.",
   "tutorial_history_title": "سجل الفئة",

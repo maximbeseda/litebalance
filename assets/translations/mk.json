@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Трошоци",
   "tutorial_expenses_desc": "Категориите на кои трошите пари.",
   "tutorial_add_title": "Нова категорија",
-  "tutorial_add_desc": "Допрете на плусот за да додадете нова категорија.",
+  "tutorial_add_desc": "Додавајте нови категории со копчето +.",
   "tutorial_transfer_title": "Создади трансакција",
   "tutorial_transfer_desc": "Повлечете ја монетата на една категорија врз друга за да запишете трансакција.",
   "tutorial_history_title": "Историја на категоријата",

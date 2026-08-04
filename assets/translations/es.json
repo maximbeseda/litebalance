@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Gastos",
   "tutorial_expenses_desc": "Las categorías en las que gastas dinero.",
   "tutorial_add_title": "Nueva categoría",
-  "tutorial_add_desc": "Toca el más para añadir una nueva categoría.",
+  "tutorial_add_desc": "Añade nuevas categorías con el botón +.",
   "tutorial_transfer_title": "Crear una transacción",
   "tutorial_transfer_desc": "Arrastra la moneda de una categoría sobre otra para registrar una transacción.",
   "tutorial_history_title": "Historial de la categoría",

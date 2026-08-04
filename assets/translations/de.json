@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Ausgaben",
   "tutorial_expenses_desc": "Die Kategorien, für die du Geld ausgibst.",
   "tutorial_add_title": "Neue Kategorie",
-  "tutorial_add_desc": "Tippe auf das Plus, um eine neue Kategorie hinzuzufügen.",
+  "tutorial_add_desc": "Füge neue Kategorien mit der +-Schaltfläche hinzu.",
   "tutorial_transfer_title": "Transaktion erstellen",
   "tutorial_transfer_desc": "Ziehe die Münze einer Kategorie auf eine andere, um eine Transaktion zu erfassen.",
   "tutorial_history_title": "Kategorieverlauf",

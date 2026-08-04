@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Shpenzimet",
   "tutorial_expenses_desc": "Kategoritë ku shpenzoni para.",
   "tutorial_add_title": "Kategori e re",
-  "tutorial_add_desc": "Prekni pluset për të shtuar një kategori të re.",
+  "tutorial_add_desc": "Shto kategori të reja me butonin +.",
   "tutorial_transfer_title": "Krijo një transaksion",
   "tutorial_transfer_desc": "Tërhiqni monedhën e një kategorie mbi një tjetër për të regjistruar një transaksion.",
   "tutorial_history_title": "Historiku i kategorisë",

@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Udgifter",
   "tutorial_expenses_desc": "Kategorierne du bruger penge på.",
   "tutorial_add_title": "Ny kategori",
-  "tutorial_add_desc": "Tryk på plus for at tilføje en ny kategori.",
+  "tutorial_add_desc": "Tilføj nye kategorier med +-knappen.",
   "tutorial_transfer_title": "Opret en transaktion",
   "tutorial_transfer_desc": "Træk en kategoris mønt over på en anden for at registrere en transaktion.",
   "tutorial_history_title": "Kategoriens historik",

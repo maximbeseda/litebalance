@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Витрати",
   "tutorial_expenses_desc": "Категорії, на які ви витрачаєте гроші.",
   "tutorial_add_title": "Нова категорія",
-  "tutorial_add_desc": "Торкніться плюса, щоб додати нову категорію.",
+  "tutorial_add_desc": "Додавайте нові категорії за допомогою кнопки +.",
   "tutorial_transfer_title": "Створити транзакцію",
   "tutorial_transfer_desc": "Перетягніть монетку однієї категорії на іншу, щоб створити транзакцію.",
   "tutorial_history_title": "Історія категорії",

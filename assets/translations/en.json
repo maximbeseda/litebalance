@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Expenses",
   "tutorial_expenses_desc": "The categories you spend money on.",
   "tutorial_add_title": "New category",
-  "tutorial_add_desc": "Tap the plus to add a new category.",
+  "tutorial_add_desc": "Add new categories with the + button.",
   "tutorial_transfer_title": "Make a transaction",
   "tutorial_transfer_desc": "Drag one category's coin onto another to record a transaction.",
   "tutorial_history_title": "Category history",

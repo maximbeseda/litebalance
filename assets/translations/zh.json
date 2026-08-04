@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "支出",
   "tutorial_expenses_desc": "你花钱的类别。",
   "tutorial_add_title": "新建类别",
-  "tutorial_add_desc": "点击加号添加新类别。",
+  "tutorial_add_desc": "用 + 按钮添加新类别。",
   "tutorial_transfer_title": "创建一笔交易",
   "tutorial_transfer_desc": "将一个类别的硬币拖到另一个上，即可记录一笔交易。",
   "tutorial_history_title": "类别历史",

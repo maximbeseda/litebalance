@@ -47,6 +47,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   final GlobalKey _tutMenuKey = GlobalKey();
   final GlobalKey _tutAddKey = GlobalKey();
   final GlobalKey _tutTileKey = GlobalKey();
+  // Перші монетки рахунків/витрат — джерело й ціль демо-анімації транзакції.
+  final GlobalKey _tutAccountTileKey = GlobalKey();
+  final GlobalKey _tutExpenseTileKey = GlobalKey();
   bool _tutorialScheduled = false;
   Timer? _tutorialTimer;
 
@@ -141,6 +144,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             menuKey: _tutMenuKey,
             addKey: _tutAddKey,
             tileKey: _tutTileKey,
+            demoSourceKey: _tutAccountTileKey,
+            demoTargetKey: _tutExpenseTileKey,
             demoSource: demoSource,
             demoTarget: demoTarget,
             onDone: () => prefs.setBool('has_seen_home_tutorial', true),
@@ -599,6 +604,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   cardKey: _tutAccountKey,
                   // Кнопка «+» рахунків — ціль кроку «додати категорію».
                   addButtonKey: _tutAddKey,
+                  // Перша монетка рахунку — джерело демо-анімації транзакції.
+                  firstItemKey: _tutAccountTileKey,
                   categories: catState.accounts,
                   type: CategoryType.account,
                   isTarget: true,
@@ -612,6 +619,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 Expanded(
                   child: CategorySection(
                     cardKey: _tutExpenseKey,
+                    // Перша монетка витрати — ціль демо-анімації транзакції.
+                    firstItemKey: _tutExpenseTileKey,
                     categories: displayExpenses,
                     type: CategoryType.expense,
                     isTarget: true,

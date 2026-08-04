@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Spese",
   "tutorial_expenses_desc": "Le categorie in cui spendi denaro.",
   "tutorial_add_title": "Nuova categoria",
-  "tutorial_add_desc": "Tocca il più per aggiungere una nuova categoria.",
+  "tutorial_add_desc": "Aggiungi nuove categorie con il pulsante +.",
   "tutorial_transfer_title": "Crea una transazione",
   "tutorial_transfer_desc": "Trascina la moneta di una categoria su un’altra per registrare una transazione.",
   "tutorial_history_title": "Cronologia della categoria",

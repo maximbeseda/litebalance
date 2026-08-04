@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "รายจ่าย",
   "tutorial_expenses_desc": "หมวดหมู่ที่คุณใช้จ่ายเงิน",
   "tutorial_add_title": "หมวดหมู่ใหม่",
-  "tutorial_add_desc": "แตะเครื่องหมายบวกเพื่อเพิ่มหมวดหมู่ใหม่",
+  "tutorial_add_desc": "เพิ่มหมวดหมู่ใหม่ด้วยปุ่ม +",
   "tutorial_transfer_title": "สร้างรายการ",
   "tutorial_transfer_desc": "ลากเหรียญของหมวดหมู่หนึ่งไปยังอีกหมวดหมู่เพื่อบันทึกรายการ",
   "tutorial_history_title": "ประวัติหมวดหมู่",

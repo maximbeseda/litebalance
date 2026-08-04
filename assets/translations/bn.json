@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "খরচ",
   "tutorial_expenses_desc": "যেসব শ্রেণিতে আপনি টাকা খরচ করেন।",
   "tutorial_add_title": "নতুন শ্রেণি",
-  "tutorial_add_desc": "নতুন শ্রেণি যোগ করতে প্লাসে ট্যাপ করুন।",
+  "tutorial_add_desc": "+ বোতাম দিয়ে নতুন শ্রেণি যোগ করুন।",
   "tutorial_transfer_title": "লেনদেন তৈরি করুন",
   "tutorial_transfer_desc": "লেনদেন রেকর্ড করতে একটি শ্রেণির কয়েন অন্যটির উপর টেনে আনুন।",
   "tutorial_history_title": "শ্রেণির ইতিহাস",

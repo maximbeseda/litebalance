@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "Troškovi",
   "tutorial_expenses_desc": "Kategorije na koje trošite novac.",
   "tutorial_add_title": "Nova kategorija",
-  "tutorial_add_desc": "Dodirnite plus za dodavanje nove kategorije.",
+  "tutorial_add_desc": "Dodavajte nove kategorije gumbom +.",
   "tutorial_transfer_title": "Stvori transakciju",
   "tutorial_transfer_desc": "Povucite novčić jedne kategorije na drugu da zabilježite transakciju.",
   "tutorial_history_title": "Povijest kategorije",

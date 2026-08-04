@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,14 +21,18 @@ class DemoCategory {
   });
 }
 
-/// Один крок туру: підсвічуємо ціль за [key] (або показуємо демо по центру,
-/// якщо [demo] == true) і пояснюємо текстом.
+/// Один крок туру.
 class _Step {
-  final GlobalKey? key;
+  final GlobalKey? key; // ціль (звичайний крок)
   final String title;
   final String body;
   final bool circle;
+  final double insetH; // горизонтальний підріз для широких цілей (шапка)
+
+  // Демо-крок «як створити транзакцію»:
   final bool demo;
+  final GlobalKey? sourceKey; // реальна монетка-джерело на екрані
+  final GlobalKey? targetKey; // реальна монетка-ціль на екрані
   final DemoCategory? demoSource;
   final DemoCategory? demoTarget;
 
@@ -36,16 +41,25 @@ class _Step {
     required this.body,
     this.key,
     this.circle = false,
+    this.insetH = 0,
     this.demo = false,
+    this.sourceKey,
+    this.targetKey,
     this.demoSource,
     this.demoTarget,
   });
 }
 
+class _HoleSpec {
+  final Rect rect;
+  final bool circle;
+  const _HoleSpec(this.rect, this.circle);
+}
+
 /// Покрокова підказка («coach marks») поверх реального головного екрана —
-/// власна реалізація (не пакет), щоб мати повний контроль над стилем:
-/// фірмове затемнення, м'яка пульсуюча біла рамка, що чітко обводить контур
-/// цілі, та картка в стилі застосунку. Показуємо один раз, при першому вході.
+/// власна реалізація з фірмовим стилем: затемнення, м'яка пульсуюча біла рамка
+/// точно по контуру цілі, а демо транзакції програється прямо на екрані між
+/// реальними монетками користувача. Показуємо один раз, при першому вході.
 class HomeTutorial {
   HomeTutorial._();
 
@@ -60,6 +74,8 @@ class HomeTutorial {
     required GlobalKey menuKey,
     required GlobalKey addKey,
     required GlobalKey tileKey,
+    required GlobalKey demoSourceKey,
+    required GlobalKey demoTargetKey,
     DemoCategory? demoSource,
     DemoCategory? demoTarget,
     VoidCallback? onDone,
@@ -87,6 +103,7 @@ class HomeTutorial {
         key: summaryKey,
         title: 'tutorial_overview_title'.tr(),
         body: 'tutorial_overview_desc'.tr(),
+        insetH: 14, // шапка на всю ширину — підрізаємо, щоб було видно грані
       ),
       _Step(
         key: menuKey,
@@ -104,6 +121,8 @@ class HomeTutorial {
         title: 'tutorial_transfer_title'.tr(),
         body: 'tutorial_transfer_desc'.tr(),
         demo: true,
+        sourceKey: demoSourceKey,
+        targetKey: demoTargetKey,
         demoSource: demoSource,
         demoTarget: demoTarget,
       ),
@@ -157,6 +176,11 @@ class _CoachOverlayState extends State<_CoachOverlay>
     duration: const Duration(milliseconds: 1400),
   )..repeat(reverse: true);
 
+  late final AnimationController _flight = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2200),
+  )..repeat();
+
   late final AnimationController _fade = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 260),
@@ -166,6 +190,7 @@ class _CoachOverlayState extends State<_CoachOverlay>
   @override
   void dispose() {
     _pulse.dispose();
+    _flight.dispose();
     _fade.dispose();
     super.dispose();
   }
@@ -182,14 +207,16 @@ class _CoachOverlayState extends State<_CoachOverlay>
     });
   }
 
-  /// Прямокутник видимої цілі в глобальних координатах (= координати
-  /// повноекранного оверлея). null — демо-крок або ціль ще не видно.
-  Rect? _targetRect(_Step step) {
-    final ctx = step.key?.currentContext;
+  Rect? _rectFor(GlobalKey? key, {double insetH = 0}) {
+    final ctx = key?.currentContext;
     if (ctx == null) return null;
     final box = ctx.findRenderObject() as RenderBox?;
     if (box == null || !box.attached || !box.hasSize) return null;
-    return box.localToGlobal(Offset.zero) & box.size;
+    var r = box.localToGlobal(Offset.zero) & box.size;
+    if (insetH > 0) {
+      r = Rect.fromLTRB(r.left + insetH, r.top, r.right - insetH, r.bottom);
+    }
+    return r;
   }
 
   @override
@@ -198,23 +225,39 @@ class _CoachOverlayState extends State<_CoachOverlay>
     final media = MediaQuery.of(context);
     final screen = media.size;
     final safe = media.padding;
-
-    final base = step.demo ? null : _targetRect(step);
     final bool isLast = _index == widget.steps.length - 1;
+
+    // Визначаємо отвори та (для демо) координати монеток на екрані.
+    List<_HoleSpec> holes = [];
+    Rect? srcRect, tgtRect;
+    bool demoOnScreen = false;
+
+    if (step.demo) {
+      srcRect = _rectFor(step.sourceKey);
+      tgtRect = _rectFor(step.targetKey);
+      if (srcRect != null && tgtRect != null) {
+        demoOnScreen = true;
+        holes = [_HoleSpec(srcRect, true), _HoleSpec(tgtRect, true)];
+      }
+    } else {
+      final r = _rectFor(step.key, insetH: step.insetH);
+      if (r != null) holes = [_HoleSpec(r, step.circle)];
+    }
+
+    // Демо в картці лише як запасний варіант, коли реальних монеток немає.
+    final bool inlineDemo = step.demo && !demoOnScreen;
 
     return Material(
       type: MaterialType.transparency,
       child: Stack(
         children: [
-          // 1. Затемнення з отвором + пульсуюча рамка (отвір рухається разом
-          //    із рамкою, тож фон не «прозирає» всередину під час пульсу).
+          // Затемнення + пульсуючі рамки (отвір рухається разом із рамкою).
           Positioned.fill(
             child: AnimatedBuilder(
               animation: _pulse,
               builder: (_, _) => CustomPaint(
                 painter: _ScrimPainter(
-                  base: base,
-                  circle: step.circle,
+                  holes: holes,
                   scrim: widget.scrim,
                   pulse: Curves.easeInOut.transform(_pulse.value),
                 ),
@@ -222,7 +265,7 @@ class _CoachOverlayState extends State<_CoachOverlay>
             ),
           ),
 
-          // 2. Поглинач тапів по затемненню.
+          // Поглинач тапів.
           Positioned.fill(
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -230,34 +273,67 @@ class _CoachOverlayState extends State<_CoachOverlay>
             ),
           ),
 
-          // 3. Мінімалістичне «Пропустити» — плаваючий напис угорі праворуч.
-          if (!isLast)
-            Positioned(
-              top: safe.top + 8,
-              right: 8,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: widget.onClose,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'skip'.tr().toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.0,
+          // Демо просто на екрані: монетка джерела дугою летить у ціль.
+          if (demoOnScreen)
+            Positioned.fill(
+              child: IgnorePointer(
+                child: AnimatedBuilder(
+                  animation: _flight,
+                  builder: (_, _) => CustomPaint(
+                    painter: _FlyingCoinPainter(
+                      from: srcRect!.center,
+                      to: tgtRect!.center,
+                      t: _flight.value,
+                      cat:
+                          step.demoSource ??
+                          const DemoCategory(
+                            icon: Icons.account_balance_wallet_rounded,
+                            bg: Color(0xFF4B6CB7),
+                            fg: Colors.white,
+                            name: '',
+                          ),
                     ),
                   ),
                 ),
               ),
             ),
 
-          // 4. Картка з поясненням.
+          // «Пропустити» — унизу екрана.
+          if (!isLast)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: safe.bottom + 18,
+              child: Center(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: widget.onClose,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: Text(
+                      'skip'.tr().toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.7),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+          // Картка з поясненням.
           _positionedCard(
             screen,
             safe,
-            base,
+            holes,
+            step.demo,
+            demoOnScreen,
             FadeTransition(
               opacity: _fade,
               child: _Card(
@@ -265,6 +341,7 @@ class _CoachOverlayState extends State<_CoachOverlay>
                 index: _index,
                 total: widget.steps.length,
                 colors: widget.colors,
+                inlineDemo: inlineDemo,
                 onNext: _next,
               ),
             ),
@@ -274,7 +351,14 @@ class _CoachOverlayState extends State<_CoachOverlay>
     );
   }
 
-  Widget _positionedCard(Size screen, EdgeInsets safe, Rect? base, Widget card) {
+  Widget _positionedCard(
+    Size screen,
+    EdgeInsets safe,
+    List<_HoleSpec> holes,
+    bool demo,
+    bool demoOnScreen,
+    Widget card,
+  ) {
     final wrapped = Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 400),
@@ -282,7 +366,13 @@ class _CoachOverlayState extends State<_CoachOverlay>
       ),
     );
 
-    if (base == null) {
+    // Демо на екрані — картку вгору (шлях монетки в центрі/низу).
+    if (demoOnScreen) {
+      return Positioned(left: 20, right: 20, top: safe.top + 16, child: wrapped);
+    }
+
+    // Запасне демо в картці або відсутня ціль — по центру.
+    if (holes.isEmpty) {
       return Positioned.fill(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -291,89 +381,170 @@ class _CoachOverlayState extends State<_CoachOverlay>
       );
     }
 
-    // Ціль у верхній половині — картку знизу; унизу — у верхню (затемнену) зону.
-    final placeBelow = base.center.dy < screen.height * 0.5;
+    final hole = holes.first.rect;
+    final placeBelow = hole.center.dy < screen.height * 0.5;
     if (placeBelow) {
       return Positioned(
         left: 20,
         right: 20,
-        top: base.bottom + 26,
+        top: hole.bottom + 26,
         child: wrapped,
       );
     }
-    return Positioned(
-      left: 20,
-      right: 20,
-      top: safe.top + 54,
-      child: wrapped,
-    );
+    return Positioned(left: 20, right: 20, top: safe.top + 16, child: wrapped);
   }
 }
 
-/// Малює затемнення з «діркою» під ціллю та м'яку пульсуючу білу рамку.
-/// Отвір і рамка — це один і той самий прямокутник, тож при пульсі між блоком
-/// і рамкою ніколи не проступає тло.
+/// Затемнення з отворами під цілями + м'яка пульсуюча біла рамка. Отвір і рамка
+/// — один прямокутник, тож при пульсі тло не проступає всередину.
 class _ScrimPainter extends CustomPainter {
-  final Rect? base;
-  final bool circle;
+  final List<_HoleSpec> holes;
   final Color scrim;
   final double pulse; // 0..1
 
   _ScrimPainter({
-    required this.base,
-    required this.circle,
+    required this.holes,
     required this.scrim,
     required this.pulse,
   });
+
+  RRect _rr(_HoleSpec h, double grow) {
+    final r = h.rect.inflate((h.circle ? 5.0 : 6.0) + grow);
+    return RRect.fromRectAndRadius(
+      r,
+      Radius.circular(h.circle ? r.shortestSide / 2 : 26),
+    );
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
     final full = Offset.zero & size;
     final scrimPaint = Paint()..color = scrim.withValues(alpha: 0.90);
+    final grow = 2.0 * pulse;
 
-    if (base == null) {
+    if (holes.isEmpty) {
       canvas.drawRect(full, scrimPaint);
       return;
     }
 
-    // Рамка трохи більша за блок і «дихає» на кілька пікселів.
-    final pad = (circle ? 5.0 : 6.0) + 2.0 * pulse;
-    final r = base!.inflate(pad);
-    final rr = RRect.fromRectAndRadius(
-      r,
-      Radius.circular(circle ? r.shortestSide / 2 : 26),
-    );
+    final cut = Path()..addRect(full);
+    for (final h in holes) {
+      cut.addRRect(_rr(h, grow));
+    }
+    cut.fillType = PathFillType.evenOdd;
+    canvas.drawPath(cut, scrimPaint);
 
-    // Отвір збігається з рамкою → тло не проступає всередину.
-    final path = Path()
-      ..addRect(full)
-      ..addRRect(rr)
-      ..fillType = PathFillType.evenOdd;
-    canvas.drawPath(path, scrimPaint);
-
-    // М'яке зовнішнє світіння.
-    canvas.drawRRect(
-      rr,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 6
-        ..color = Colors.white.withValues(alpha: 0.05 + 0.07 * pulse)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-    );
-
-    // Основна тонка біла рамка.
-    canvas.drawRRect(
-      rr,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.6
-        ..color = Colors.white.withValues(alpha: 0.6 + 0.3 * pulse),
-    );
+    for (final h in holes) {
+      final rr = _rr(h, grow);
+      canvas.drawRRect(
+        rr,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 6
+          ..color = Colors.white.withValues(alpha: 0.05 + 0.07 * pulse)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+      );
+      canvas.drawRRect(
+        rr,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.6
+          ..color = Colors.white.withValues(alpha: 0.6 + 0.3 * pulse),
+      );
+    }
   }
 
   @override
   bool shouldRepaint(_ScrimPainter old) =>
-      old.base != base || old.pulse != pulse || old.circle != circle;
+      old.pulse != pulse || old.holes != holes;
+}
+
+/// Малює монетку, що дугою летить від [from] до [to] (зациклено), плюс палець.
+class _FlyingCoinPainter extends CustomPainter {
+  final Offset from;
+  final Offset to;
+  final double t; // 0..1
+  final DemoCategory cat;
+
+  _FlyingCoinPainter({
+    required this.from,
+    required this.to,
+    required this.t,
+    required this.cat,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final flight = (t / 0.72).clamp(0.0, 1.0);
+    final e = Curves.easeInOut.transform(flight);
+    final pos = Offset.lerp(from, to, e)!;
+    final arc = -34 * math.sin(e * math.pi);
+    final c = Offset(pos.dx, pos.dy + arc);
+
+    final opacity = flight < 0.06
+        ? flight / 0.06
+        : (flight > 0.9 ? (1 - (flight - 0.9) / 0.1) : 1.0);
+    if (opacity <= 0) return;
+
+    const double radius = 21;
+
+    // Тінь.
+    canvas.drawCircle(
+      c.translate(0, 3),
+      radius,
+      Paint()
+        ..color = Colors.black.withValues(alpha: 0.25 * opacity)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5),
+    );
+    // Тіло монетки — у кольорі категорії-джерела.
+    canvas.drawCircle(
+      c,
+      radius,
+      Paint()..color = cat.bg.withValues(alpha: opacity),
+    );
+    canvas.drawCircle(
+      c,
+      radius,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.5
+        ..color = Colors.white.withValues(alpha: 0.7 * opacity),
+    );
+
+    // Іконка категорії всередині.
+    final tp = TextPainter(
+      text: TextSpan(
+        text: String.fromCharCode(cat.icon.codePoint),
+        style: TextStyle(
+          fontSize: radius,
+          fontFamily: cat.icon.fontFamily,
+          package: cat.icon.fontPackage,
+          color: cat.fg.withValues(alpha: opacity),
+        ),
+      ),
+      textDirection: ui.TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, c - Offset(tp.width / 2, tp.height / 2));
+
+    // Палець-вказівник трохи нижче-праворуч.
+    final finger = TextPainter(
+      text: TextSpan(
+        text: String.fromCharCode(Icons.touch_app_rounded.codePoint),
+        style: TextStyle(
+          fontSize: 26,
+          fontFamily: Icons.touch_app_rounded.fontFamily,
+          package: Icons.touch_app_rounded.fontPackage,
+          color: Colors.white.withValues(alpha: 0.9 * opacity),
+        ),
+      ),
+      textDirection: ui.TextDirection.ltr,
+    )..layout();
+    finger.paint(canvas, c + const Offset(6, 8));
+  }
+
+  @override
+  bool shouldRepaint(_FlyingCoinPainter old) =>
+      old.t != t || old.from != from || old.to != to;
 }
 
 class _Card extends StatelessWidget {
@@ -381,6 +552,7 @@ class _Card extends StatelessWidget {
   final int index;
   final int total;
   final AppColorsExtension colors;
+  final bool inlineDemo;
   final VoidCallback onNext;
 
   const _Card({
@@ -388,6 +560,7 @@ class _Card extends StatelessWidget {
     required this.index,
     required this.total,
     required this.colors,
+    required this.inlineDemo,
     required this.onNext,
   });
 
@@ -399,8 +572,11 @@ class _Card extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (step.demo) ...[
-          _TransferDemo(source: step.demoSource, target: step.demoTarget),
+        if (inlineDemo) ...[
+          _InlineTransferDemo(
+            source: step.demoSource,
+            target: step.demoTarget,
+          ),
           const SizedBox(height: 22),
         ],
         Row(
@@ -515,20 +691,19 @@ class _NextButton extends StatelessWidget {
   }
 }
 
-/// Зациклена демка головного жесту на РЕАЛЬНИХ категоріях користувача: монетка
-/// категорії-джерела (рахунок) перелітає дугою на категорію-ціль (витрату) —
-/// «перетягніть, щоб створити транзакцію». Якщо категорій немає — запасні іконки.
-class _TransferDemo extends StatefulWidget {
+/// Запасна демка в картці (коли на екрані немає монеток): дві категорії-кола й
+/// монетка, що перелітає між ними. Використовує реальні або дефолтні категорії.
+class _InlineTransferDemo extends StatefulWidget {
   final DemoCategory? source;
   final DemoCategory? target;
 
-  const _TransferDemo({this.source, this.target});
+  const _InlineTransferDemo({this.source, this.target});
 
   @override
-  State<_TransferDemo> createState() => _TransferDemoState();
+  State<_InlineTransferDemo> createState() => _InlineTransferDemoState();
 }
 
-class _TransferDemoState extends State<_TransferDemo>
+class _InlineTransferDemoState extends State<_InlineTransferDemo>
     with SingleTickerProviderStateMixin {
   late final AnimationController _c = AnimationController(
     vsync: this,
@@ -574,14 +749,11 @@ class _TransferDemoState extends State<_TransferDemo>
           return AnimatedBuilder(
             animation: _c,
             builder: (context, _) {
-              final v = _c.value;
-              final flight = (v / 0.66).clamp(0.0, 1.0);
+              final flight = (_c.value / 0.66).clamp(0.0, 1.0);
               final t = Curves.easeInOut.transform(flight);
-
               final pos = Offset.lerp(leftCenter, rightCenter, t)!;
               final arc = -30 * math.sin(t * math.pi);
               final coinCenter = Offset(pos.dx, pos.dy + arc);
-
               final coinOpacity = flight < 0.06
                   ? flight / 0.06
                   : (flight > 0.9 ? (1 - (flight - 0.9) / 0.1) : 1.0);
@@ -594,25 +766,12 @@ class _TransferDemoState extends State<_TransferDemo>
                 children: [
                   _node(leftCenter, node, _src, 1),
                   _node(rightCenter, node, _tgt, 1 + 0.12 * landPulse),
-                  // Летюча монетка (виглядає як монетка джерела).
                   Positioned(
                     left: coinCenter.dx - 17,
                     top: coinCenter.dy - 17,
                     child: Opacity(
                       opacity: coinOpacity.clamp(0.0, 1.0),
                       child: _coin(_src, 34),
-                    ),
-                  ),
-                  Positioned(
-                    left: coinCenter.dx + 6,
-                    top: coinCenter.dy + 12,
-                    child: Opacity(
-                      opacity: coinOpacity.clamp(0.0, 1.0) * 0.9,
-                      child: const Icon(
-                        Icons.touch_app_rounded,
-                        size: 22,
-                        color: Colors.white,
-                      ),
                     ),
                   ),
                 ],

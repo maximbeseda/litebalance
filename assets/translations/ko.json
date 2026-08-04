@@ -17,7 +17,7 @@
   "tutorial_expenses_title": "지출",
   "tutorial_expenses_desc": "돈을 쓰는 카테고리입니다.",
   "tutorial_add_title": "새 카테고리",
-  "tutorial_add_desc": "더하기를 눌러 새 카테고리를 추가하세요.",
+  "tutorial_add_desc": "+ 버튼으로 새 카테고리를 추가하세요.",
   "tutorial_transfer_title": "거래 만들기",
   "tutorial_transfer_desc": "한 카테고리의 코인을 다른 카테고리로 끌어 거래를 기록하세요.",
   "tutorial_history_title": "카테고리 기록",
