@@ -19,6 +19,7 @@ import '../widgets/dialogs/due_subscription_dialog.dart';
 import '../utils/currency_formatter.dart';
 import '../theme/app_colors_extension.dart';
 import '../providers/all_providers.dart';
+import '../utils/icon_helper.dart';
 
 // 👇 НОВИЙ ІМПОРТ НАШОЇ СЕКЦІЇ
 import '../widgets/home/category_section.dart';
@@ -110,16 +111,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     if (_tutorialScheduled) return;
     _tutorialScheduled = true;
 
-    try {
-      final prefs = ref.read(sharedPreferencesProvider);
-      if (prefs.getBool('has_seen_home_tutorial') ?? false) return;
+    // Читаємо провайдери ПІСЛЯ кадру (не під час build): якщо провайдер не
+    // перевизначений (напр. у тестах), помилка не «протікає» крізь build, а
+    // тихо ловиться тут — тур просто пропускається.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      try {
+        final prefs = ref.read(sharedPreferencesProvider);
+        if (prefs.getBool('has_seen_home_tutorial') ?? false) return;
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
         // Невелика пауза, щоб анімації входу відпрацювали й layout устоявся.
         // Таймер скасовується в dispose(), щоб не «висів» після виходу з екрана.
         _tutorialTimer = Timer(const Duration(milliseconds: 550), () {
           if (!mounted || _isShowingDueDialog) return;
+          // Реальні категорії для демо перетягування (рахунок → витрата).
+          final cat = ref.read(categoryProvider);
+          final demoSource = cat.accounts.isNotEmpty
+              ? _demoCategory(cat.accounts.first)
+              : null;
+          final demoTarget = cat.expenses.isNotEmpty
+              ? _demoCategory(cat.expenses.first)
+              : null;
           HomeTutorial.start(
             context,
             incomeKey: _tutIncomeKey,
@@ -129,14 +141,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             menuKey: _tutMenuKey,
             addKey: _tutAddKey,
             tileKey: _tutTileKey,
+            demoSource: demoSource,
+            demoTarget: demoTarget,
             onDone: () => prefs.setBool('has_seen_home_tutorial', true),
           );
         });
-      });
-    } catch (_) {
-      // Напр. у тестах без override sharedPreferencesProvider — тур пропускаємо.
-    }
+      } catch (_) {
+        // Провайдери недоступні (тести без override) — тур пропускаємо.
+      }
+    });
   }
+
+  /// Перетворює реальну категорію на дані для демо-анімації туру.
+  DemoCategory _demoCategory(Category c) => DemoCategory(
+    icon: IconHelper.getIcon(c.icon),
+    bg: Color(c.bgColor),
+    fg: Color(c.iconColor),
+    name: c.name,
+  );
 
   Future<void> _handleTransfer(Category source, Category target) async {
     final result = await Navigator.push<Map<String, dynamic>>(
@@ -561,7 +583,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 ),
 
                 CategorySection(
-                  key: _tutIncomeKey,
+                  cardKey: _tutIncomeKey,
                   // Перша монетка доходів — ціль кроку «історія категорії».
                   firstItemKey: _tutTileKey,
                   categories: displayIncomes,
@@ -574,7 +596,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 ),
 
                 CategorySection(
-                  key: _tutAccountKey,
+                  cardKey: _tutAccountKey,
                   // Кнопка «+» рахунків — ціль кроку «додати категорію».
                   addButtonKey: _tutAddKey,
                   categories: catState.accounts,
@@ -589,7 +611,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
                 Expanded(
                   child: CategorySection(
-                    key: _tutExpenseKey,
+                    cardKey: _tutExpenseKey,
                     categories: displayExpenses,
                     type: CategoryType.expense,
                     isTarget: true,

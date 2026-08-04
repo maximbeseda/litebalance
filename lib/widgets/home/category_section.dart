@@ -32,9 +32,11 @@ class CategorySection extends ConsumerStatefulWidget {
   final Future<dynamic> Function(Category category) onEditTap;
   final void Function() onAddTap;
 
-  /// Ключі для навчального туру: підсвічування кнопки «+» та першої категорії.
+  /// Ключі для навчального туру: підсвічування кнопки «+», першої категорії та
+  /// самої видимої картки блоку (щоб рамка чітко обводила контур без полів).
   final Key? addButtonKey;
   final Key? firstItemKey;
+  final Key? cardKey;
 
   const CategorySection({
     super.key,
@@ -48,6 +50,7 @@ class CategorySection extends ConsumerStatefulWidget {
     this.isGrid = false,
     this.addButtonKey,
     this.firstItemKey,
+    this.cardKey,
   });
 
   @override
@@ -370,22 +373,26 @@ class _CategorySectionState extends ConsumerState<CategorySection>
       }
     });
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: colors.cardBg,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            spreadRadius: 1,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: LayoutBuilder(
+    return Padding(
+      // Поле винесено в зовнішній Padding, щоб [cardKey] вимірював саме видиму
+      // картку (без полів) — рамка туру обводить точний контур блоку.
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: Container(
+        key: widget.cardKey,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colors.cardBg,
+          borderRadius: BorderRadius.circular(28),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: LayoutBuilder(
         builder: (context, constraints) {
           final int crossAxisCount = (constraints.maxWidth / 80).floor().clamp(
             4,
@@ -516,6 +523,7 @@ class _CategorySectionState extends ConsumerState<CategorySection>
             ],
           );
         },
+        ),
       ),
     );
   }
