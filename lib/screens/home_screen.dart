@@ -157,14 +157,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
       // Додавання транзакції — «позитивний» момент: за виконання всіх умов
       // просимо оцінити додаток (In-App Review сам вирішує, чи показувати).
-      final int txCount =
-          ref.read(transactionProvider).value?.history.length ?? 0;
-      unawaited(
-        ReviewService.maybeRequestReview(
-          prefs: ref.read(sharedPreferencesProvider),
-          transactionCount: txCount,
-        ),
-      );
+      // Обгортаємо в try/catch, щоб прохання оцінити ніколи не ламало основний
+      // сценарій (напр. у тестах без override sharedPreferencesProvider).
+      try {
+        final int txCount =
+            ref.read(transactionProvider).value?.history.length ?? 0;
+        unawaited(
+          ReviewService.maybeRequestReview(
+            prefs: ref.read(sharedPreferencesProvider),
+            transactionCount: txCount,
+          ),
+        );
+      } catch (_) {}
     }
   }
 
