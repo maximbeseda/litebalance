@@ -32,6 +32,10 @@ class CategorySection extends ConsumerStatefulWidget {
   final Future<dynamic> Function(Category category) onEditTap;
   final void Function() onAddTap;
 
+  /// Ключі для навчального туру: підсвічування кнопки «+» та першої категорії.
+  final Key? addButtonKey;
+  final Key? firstItemKey;
+
   const CategorySection({
     super.key,
     required this.categories,
@@ -42,6 +46,8 @@ class CategorySection extends ConsumerStatefulWidget {
     required this.onAddTap,
     this.isTarget = false,
     this.isGrid = false,
+    this.addButtonKey,
+    this.firstItemKey,
   });
 
   @override
@@ -315,6 +321,7 @@ class _CategorySectionState extends ConsumerState<CategorySection>
 
   Widget _buildAddBtn(HomeScreenState homeState, AppColorsExtension colors) {
     return GestureDetector(
+      key: widget.addButtonKey,
       onTap: () {
         if (homeState.isEditMode) {
           ref.read(homeScreenControllerProvider.notifier).toggleEditMode();
@@ -384,12 +391,20 @@ class _CategorySectionState extends ConsumerState<CategorySection>
             4,
             8,
           );
-          final items = [
-            ...widget.categories.map(
-              (c) => _buildCoin(c, homeState, colors, draggedCategoryId),
-            ),
-            _buildAddBtn(homeState, colors),
-          ];
+          final coinWidgets = <Widget>[];
+          for (int i = 0; i < widget.categories.length; i++) {
+            Widget coin = _buildCoin(
+              widget.categories[i],
+              homeState,
+              colors,
+              draggedCategoryId,
+            );
+            if (i == 0 && widget.firstItemKey != null) {
+              coin = KeyedSubtree(key: widget.firstItemKey!, child: coin);
+            }
+            coinWidgets.add(coin);
+          }
+          final items = [...coinWidgets, _buildAddBtn(homeState, colors)];
 
           Widget pageView;
           if (!widget.isGrid) {

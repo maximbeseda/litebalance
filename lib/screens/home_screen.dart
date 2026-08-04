@@ -42,7 +42,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   final GlobalKey _tutHeaderKey = GlobalKey();
   final GlobalKey _tutIncomeKey = GlobalKey();
   final GlobalKey _tutAccountKey = GlobalKey();
+  final GlobalKey _tutExpenseKey = GlobalKey();
   final GlobalKey _tutMenuKey = GlobalKey();
+  final GlobalKey _tutAddKey = GlobalKey();
+  final GlobalKey _tutTileKey = GlobalKey();
   bool _tutorialScheduled = false;
   Timer? _tutorialTimer;
 
@@ -117,14 +120,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
         // Таймер скасовується в dispose(), щоб не «висів» після виходу з екрана.
         _tutorialTimer = Timer(const Duration(milliseconds: 550), () {
           if (!mounted || _isShowingDueDialog) return;
-          HomeTutorial.build(
-            context: context,
-            headerKey: _tutHeaderKey,
+          HomeTutorial.start(
+            context,
             incomeKey: _tutIncomeKey,
             accountKey: _tutAccountKey,
+            expenseKey: _tutExpenseKey,
+            summaryKey: _tutHeaderKey,
             menuKey: _tutMenuKey,
+            addKey: _tutAddKey,
+            tileKey: _tutTileKey,
             onDone: () => prefs.setBool('has_seen_home_tutorial', true),
-          ).show(context: context);
+          );
         });
       });
     } catch (_) {
@@ -556,6 +562,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
                 CategorySection(
                   key: _tutIncomeKey,
+                  // Перша монетка доходів — ціль кроку «історія категорії».
+                  firstItemKey: _tutTileKey,
                   categories: displayIncomes,
                   type: CategoryType.income,
                   onTransfer: _handleTransfer,
@@ -567,6 +575,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
                 CategorySection(
                   key: _tutAccountKey,
+                  // Кнопка «+» рахунків — ціль кроку «додати категорію».
+                  addButtonKey: _tutAddKey,
                   categories: catState.accounts,
                   type: CategoryType.account,
                   isTarget: true,
@@ -579,6 +589,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
                 Expanded(
                   child: CategorySection(
+                    key: _tutExpenseKey,
                     categories: displayExpenses,
                     type: CategoryType.expense,
                     isTarget: true,
