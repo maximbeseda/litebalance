@@ -180,5 +180,63 @@ void main() {
         );
       });
     });
+
+    group('4. Робастна класифікація колонок (classifyColumn)', () {
+      test('Заголовки згенерованого семпла класифікуються точно', () {
+        const headers = [
+          'Date',
+          'Type',
+          'Category (From)',
+          'Amount (From)',
+          'Currency (From)',
+          'Category (To)',
+          'Amount (To)',
+          'Currency (To)',
+          'Comment',
+        ];
+        final roles = headers.map(ImportRecognizer.classifyColumn).toList();
+        expect(roles[0], ImportColumnRole.date);
+        expect(roles[1], ImportColumnRole.none); // Type — модель його не використовує
+        expect(roles[2], ImportColumnRole.from);
+        expect(roles[3], ImportColumnRole.amountFrom); // 👈 ключовий фікс
+        expect(roles[4], ImportColumnRole.currencyFrom);
+        expect(roles[5], ImportColumnRole.to);
+        expect(roles[6], ImportColumnRole.amountTo);
+        expect(roles[7], ImportColumnRole.currencyTo);
+        expect(roles[8], ImportColumnRole.note);
+      });
+
+      // Регресія: раніше "Amount (From)" ставав категорією «Куди» через ключ 'a'
+      // у isTo, зсуваючи всі колонки.
+      test('Регресія: "Amount (From)" — це сума, а не категорія', () {
+        expect(ImportRecognizer.classifyColumn('Amount (From)'),
+            ImportColumnRole.amountFrom);
+        expect(ImportRecognizer.classifyColumn('Category (From)'),
+            ImportColumnRole.from);
+        expect(ImportRecognizer.classifyColumn('Category (To)'),
+            ImportColumnRole.to);
+      });
+
+      test('Банківські заголовки (укр/рос)', () {
+        expect(ImportRecognizer.classifyColumn('Дата'), ImportColumnRole.date);
+        expect(ImportRecognizer.classifyColumn('Счет списания'),
+            ImportColumnRole.from);
+        expect(ImportRecognizer.classifyColumn('Счет зачисления'),
+            ImportColumnRole.to);
+        expect(ImportRecognizer.classifyColumn('Сумма'),
+            ImportColumnRole.amountFrom);
+        expect(ImportRecognizer.classifyColumn('Валюта'),
+            ImportColumnRole.currencyFrom);
+        expect(ImportRecognizer.classifyColumn('Примітка'),
+            ImportColumnRole.note);
+      });
+
+      test('Прості заголовки: Category → ціль, Account → джерело', () {
+        expect(ImportRecognizer.classifyColumn('Category'), ImportColumnRole.to);
+        expect(
+            ImportRecognizer.classifyColumn('Account'), ImportColumnRole.from);
+        expect(ImportRecognizer.classifyColumn('Type'), ImportColumnRole.none);
+      });
+    });
   });
 }
