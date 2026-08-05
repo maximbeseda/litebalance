@@ -118,5 +118,58 @@ void main() {
       // Перевіряємо, що віджет реально зник з екрана
       expect(find.text('Supermarket'), findsNothing);
     });
+
+    // Регресія: у нової/порожньої категорії фолбек показував УСЮ історію
+    // (чужі транзакції). Тепер він відфільтрований по id категорії.
+    testWidgets('Порожня категорія не показує чужих транзакцій', (
+      WidgetTester tester,
+    ) async {
+      final emptyCategory = Category(
+        id: 'cat_empty',
+        name: 'Fresh Category',
+        type: CategoryType.expense,
+        icon: Icons.star.codePoint,
+        bgColor: 0xFF000000,
+        iconColor: 0xFFFFFFFF,
+        sortOrder: 5,
+        includeInTotal: true,
+        currency: 'USD',
+        amount: 0,
+        isArchived: false,
+      );
+
+      await tester.pumpWidget(
+        ProviderScope(
+          child: makeTestableWidget(
+            child: Scaffold(
+              body: HistoryBottomSheet(
+                category: emptyCategory,
+                // Ці транзакції належать cat_main, а не cat_empty.
+                transactions: testTransactions,
+                allCategories: [testCategory, emptyCategory],
+                onDelete: (_) {},
+                onEdit: (_) {},
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      // Порожній стан (AppEmptyState) у тісному тест-лейауті дає нешкідливий
+      // ~8px overflow — поглинаємо саме overflow-винятки. Якби фікс зламався і
+      // показувалась чужа транзакція, списку вистачило б місця (без overflow),
+      // а перевірка нижче все одно спіймала б регресію.
+      Object? caught;
+      while ((caught = tester.takeException()) != null) {
+        if (!caught.toString().toLowerCase().contains('overflow')) {
+          fail('Неочікуваний виняток у тесті: $caught');
+        }
+      }
+
+      expect(find.text('Supermarket'), findsNothing);
+    });
   });
 }

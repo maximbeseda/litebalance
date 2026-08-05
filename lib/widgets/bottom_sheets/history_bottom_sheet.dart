@@ -78,10 +78,19 @@ class _HistoryBottomSheetState extends ConsumerState<HistoryBottomSheet> {
     final catState = ref.watch(categoryProvider);
     final filterState = ref.watch(filterProvider);
 
-    // Пріоритет: результати провайдера, якщо вони є. Якщо немає (початок завантаження) — дані з конструктора.
+    // Пріоритет: результати провайдера, якщо вони є. Якщо їх ще немає (перший
+    // кадр до ініціалізації фільтра) — показуємо дані з конструктора, але
+    // ОБОВ'ЯЗКОВО відфільтровані по цій категорії. Інакше для нової/порожньої
+    // категорії фолбек показував би геть усю історію.
     final categoryHistory =
         (filterState.results.isEmpty && filterState.searchQuery.isEmpty)
         ? widget.transactions
+              .where(
+                (t) =>
+                    t.fromId == widget.category.id ||
+                    t.toId == widget.category.id,
+              )
+              .toList()
         : filterState.results;
 
     final allCategories = catState.allCategoriesList;
