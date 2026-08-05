@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../database/app_database.dart';
 
+/// Роль колонки при імпорті, визначена авто-розпізнаванням заголовка.
+enum ImportColumnRole {
+  none,
+  date,
+  from,
+  to,
+  amountFrom,
+  amountTo,
+  currencyFrom,
+  currencyTo,
+  note,
+}
+
 class ImportRecognizer {
   // ==========================================
   // 1. СЛОВНИКИ ДЛЯ РОЗПІЗНАВАННЯ ІКОНОК
@@ -462,7 +475,6 @@ class ImportRecognizer {
     'гаманець',
     'von',
     'quelle',
-    'de',
     'desde',
     'origen',
     'счет',
@@ -485,7 +497,6 @@ class ImportRecognizer {
     'à',
     'vers',
     'catégorie',
-    'a',
     'hacia',
     'categoría',
     'destination',
@@ -586,6 +597,104 @@ class ImportRecognizer {
     'tags',
     'теги',
   ]);
+
+  // ==========================================
+  // 3b. РОБАСТНЕ АВТО-РОЗПІЗНАВАННЯ РОЛІ КОЛОНКИ
+  // ==========================================
+  // Класифікує заголовок у рівно одну роль. Порядок перевірки критичний:
+  // спершу валюта → дата → сума (найспецифічніші), тоді нотатка, і лише потім
+  // категорія/рахунок. Інакше "Amount (From)" помилково стає категорією через
+  // слово "from" / літеру. Напрямок (from/to) визначається окремими
+  // модифікаторами ((from)/(to), звідки/куди, списання/зарахування тощо).
+
+  static const List<String> _amountWords = [
+    'amount', 'сума', 'сумма', 'montant', 'somme', 'betrag', 'summe',
+    'importe', 'cantidad', 'valor', 'quantia', 'kwota', 'tutar', 'miktar',
+    'jumlah', 'nominal', 'value', 'total', 'всього', 'итого', 'sum',
+    '金額', '金额', 'राशि', 'مبلغ', 'المبلغ',
+  ];
+
+  static const List<String> _currencyWords = [
+    'currency', 'валюта', 'währung', 'devise', 'moneda', 'moeda', 'waluta',
+    'valuta', 'para birimi', 'mata uang', '通貨', '货币', 'عملة', 'मुद्रा',
+  ];
+
+  static const List<String> _accountWords = [
+    'account', 'рахунок', 'счет', 'wallet', 'гаманець', 'кошел', 'konto',
+    'conto', 'cuenta', 'compte', 'conta', 'rekening', 'hesap', 'karta',
+    'картка', 'карта', 'card',
+  ];
+
+  static const List<String> _categoryWords = [
+    'category', 'категор', 'payee', 'одержувач', 'получатель', 'kategorie',
+    'catégorie', 'categoría', 'categoria', 'kategori',
+  ];
+
+  static bool _hasFromMod(String h) =>
+      h.contains('(from)') ||
+      h.contains('звідки') ||
+      h.contains('списан') ||
+      h.contains('source') ||
+      h.contains('origin') ||
+      h.contains('origem') ||
+      h.contains('origen') ||
+      h.contains('herkunft') ||
+      h.contains('quelle') ||
+      h.contains('withdraw') ||
+      h.contains('outflow') ||
+      h.contains('debit') ||
+      h.contains('дебет') ||
+      h.contains('витрачен') ||
+      h.contains('sender') ||
+      RegExp(r'\bfrom\b').hasMatch(h);
+
+  static bool _hasToMod(String h) =>
+      h.contains('(to)') ||
+      h.contains('куди') ||
+      h.contains('зарах') ||
+      h.contains('зачисл') ||
+      h.contains('destin') ||
+      h.contains('target') ||
+      h.contains('empfäng') ||
+      h.contains('ziel') ||
+      h.contains('inflow') ||
+      h.contains('deposit') ||
+      h.contains('credit') ||
+      h.contains('кредит') ||
+      h.contains('отримано') ||
+      h.contains('recebido') ||
+      h.contains('recibido') ||
+      RegExp(r'\bto\b').hasMatch(h);
+
+  /// Класифікує колонку за її заголовком у рівно одну роль.
+  static ImportColumnRole classifyColumn(String header) {
+    final h = header.toLowerCase().trim();
+    if (h.isEmpty) return ImportColumnRole.none;
+
+    final toMod = _hasToMod(h);
+    final fromMod = _hasFromMod(h);
+
+    if (_containsAny(h, _currencyWords)) {
+      return toMod ? ImportColumnRole.currencyTo : ImportColumnRole.currencyFrom;
+    }
+    if (isDate(h)) return ImportColumnRole.date;
+    if (_containsAny(h, _amountWords)) {
+      return toMod ? ImportColumnRole.amountTo : ImportColumnRole.amountFrom;
+    }
+    if (isNote(h)) return ImportColumnRole.note;
+
+    final isAccount = _containsAny(h, _accountWords);
+    final isCategory = _containsAny(h, _categoryWords);
+    if (isAccount || isCategory || fromMod || toMod) {
+      if (fromMod && !toMod) return ImportColumnRole.from;
+      if (toMod && !fromMod) return ImportColumnRole.to;
+      // Без явного модифікатора: рахунок/гаманець → джерело, категорія → ціль.
+      if (isAccount && !isCategory) return ImportColumnRole.from;
+      if (isCategory) return ImportColumnRole.to;
+      return ImportColumnRole.none;
+    }
+    return ImportColumnRole.none;
+  }
 
   // ==========================================
   // 4. ПАРСИНГ ДАНИХ (СУМИ, ДАТИ, ВАЛЮТИ)

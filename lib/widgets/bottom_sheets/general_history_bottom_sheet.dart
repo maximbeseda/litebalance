@@ -90,14 +90,28 @@ class _GeneralHistoryBottomSheetState
     final filterState = ref.watch(filterProvider);
 
     final allCategories = catState.allCategoriesList;
+    final categoryMap = {for (var c in allCategories) c.id: c};
+
+    // Фолбек до ініціалізації фільтра — дані з конструктора, але відфільтровані
+    // по типу цього перегляду (як і SQL-запит), інакше для типу без транзакцій
+    // показалася б уся історія. Беремо список категорій із конструктора — саме
+    // він авторитетний для переданих транзакцій.
+    final typeCategoryIds = {
+      for (final c in widget.allCategories)
+        if (c.type == widget.filterType) c.id,
+    };
     final filteredHistory =
         (filterState.results.isEmpty && filterState.searchQuery.isEmpty)
         ? widget.transactions
+              .where(
+                (t) =>
+                    typeCategoryIds.contains(t.fromId) ||
+                    typeCategoryIds.contains(t.toId),
+              )
+              .toList()
         : filterState.results;
 
     final showLoader = filterState.hasMore && filterState.searchQuery.isEmpty;
-
-    final categoryMap = {for (var c in allCategories) c.id: c};
 
     final trUnknown = 'unknown'.tr();
     final trOutgoing = 'outgoing_transfer'.tr();
