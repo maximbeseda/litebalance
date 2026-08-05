@@ -72,7 +72,7 @@ dependencies:
   connectivity_plus: ^7.1.1
   cached_network_image: ^3.4.1
   flutter_animate: ^4.5.2
-  
+
 
 dev_dependencies:
   flutter_test:
