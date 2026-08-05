@@ -14,6 +14,7 @@ import 'providers/all_providers.dart';
 import 'screens/onboarding_screen.dart';
 import 'theme/app_theme.dart';
 import 'services/security_service.dart';
+import 'services/review_service.dart';
 import 'utils/currency_formatter.dart';
 import 'widgets/common/sync_lifecycle_observer.dart' show SyncLifecycleObserver;
 import 'widgets/common/app_lock_gate.dart'
@@ -30,6 +31,9 @@ void main() async {
 
   // 1. Ініціалізуємо SharedPreferences ДО запуску UI
   final prefs = await SharedPreferences.getInstance();
+
+  // Лічильник запусків + дата встановлення для «розумного» прохання оцінити.
+  await ReviewService.recordAppOpen(prefs);
 
   // Отримуємо інформацію про версію
   final packageInfo = await PackageInfo.fromPlatform();

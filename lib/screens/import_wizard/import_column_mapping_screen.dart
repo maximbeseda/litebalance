@@ -42,29 +42,38 @@ class _ImportColumnMappingScreenState extends State<ImportColumnMappingScreen> {
   }
 
   void _autoGuessColumns() {
+    // Класифікуємо кожну колонку в рівно одну роль (у порядку появи —
+    // перша колонка для кожної ролі перемагає). Класифікатор ставить у
+    // пріоритет валюту/дату/суму, тож "Amount (From)" більше не потрапляє
+    // помилково в категорію.
     for (int i = 0; i < _headers.length; i++) {
-      final h = _headers[i].toLowerCase();
-      if (h.isEmpty) {
-        continue;
-      }
-
-      if (_dateCol == null && ImportRecognizer.isDate(h)) {
-        _dateCol = i;
-      } else if (_fromCol == null && ImportRecognizer.isFrom(h)) {
-        _fromCol = i;
-      } else if (_toCol == null && ImportRecognizer.isTo(h)) {
-        _toCol = i;
-      } else if (_amountFromCol == null && ImportRecognizer.isAmountFrom(h)) {
-        _amountFromCol = i;
-      } else if (_currencyFromCol == null &&
-          ImportRecognizer.isCurrencyFrom(h)) {
-        _currencyFromCol = i;
-      } else if (_amountToCol == null && ImportRecognizer.isAmountTo(h)) {
-        _amountToCol = i;
-      } else if (_currencyToCol == null && ImportRecognizer.isCurrencyTo(h)) {
-        _currencyToCol = i;
-      } else if (_noteCol == null && ImportRecognizer.isNote(h)) {
-        _noteCol = i;
+      switch (ImportRecognizer.classifyColumn(_headers[i])) {
+        case ImportColumnRole.date:
+          _dateCol ??= i;
+          break;
+        case ImportColumnRole.from:
+          _fromCol ??= i;
+          break;
+        case ImportColumnRole.to:
+          _toCol ??= i;
+          break;
+        case ImportColumnRole.amountFrom:
+          _amountFromCol ??= i;
+          break;
+        case ImportColumnRole.amountTo:
+          _amountToCol ??= i;
+          break;
+        case ImportColumnRole.currencyFrom:
+          _currencyFromCol ??= i;
+          break;
+        case ImportColumnRole.currencyTo:
+          _currencyToCol ??= i;
+          break;
+        case ImportColumnRole.note:
+          _noteCol ??= i;
+          break;
+        case ImportColumnRole.none:
+          break;
       }
     }
 

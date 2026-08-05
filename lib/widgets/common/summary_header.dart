@@ -18,6 +18,10 @@ class SummaryHeader extends ConsumerWidget {
   final VoidCallback onSettingsTap;
   final bool isMigrating;
 
+  /// Ключ на кнопці налаштувань — використовується підказкою-туром для
+  /// підсвічування меню при першому запуску.
+  final Key? settingsKey;
+
   const SummaryHeader({
     super.key,
     required this.totalBalance,
@@ -28,6 +32,7 @@ class SummaryHeader extends ConsumerWidget {
     required this.onExpensesTap,
     required this.onSettingsTap,
     this.isMigrating = false,
+    this.settingsKey,
   });
 
   @override
@@ -75,6 +80,7 @@ class SummaryHeader extends ConsumerWidget {
             ),
 
             GestureDetector(
+              key: settingsKey,
               onTap: onSettingsTap,
               behavior: HitTestBehavior.opaque,
               child: Container(
