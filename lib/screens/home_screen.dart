@@ -20,6 +20,7 @@ import '../utils/currency_formatter.dart';
 import '../theme/app_colors_extension.dart';
 import '../providers/all_providers.dart';
 import '../utils/icon_helper.dart';
+import '../services/review_service.dart';
 
 // 👇 НОВИЙ ІМПОРТ НАШОЇ СЕКЦІЇ
 import '../widgets/home/category_section.dart';
@@ -228,6 +229,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       );
 
       await txNotifier.addTransactionDirectly(newTx);
+
+      // Додавання транзакції — «позитивний» момент: за виконання всіх умов
+      // просимо оцінити додаток (In-App Review сам вирішує, чи показувати).
+      // Обгортаємо в try/catch, щоб прохання оцінити ніколи не ламало основний
+      // сценарій (напр. у тестах без override sharedPreferencesProvider).
+      try {
+        final int txCount =
+            ref.read(transactionProvider).value?.history.length ?? 0;
+        unawaited(
+          ReviewService.maybeRequestReview(
+            prefs: ref.read(sharedPreferencesProvider),
+            transactionCount: txCount,
+          ),
+        );
+      } catch (_) {}
     }
   }
 
