@@ -288,6 +288,46 @@ void main() {
         expect(txNotifier.addedTransactions.last.title, 'Gym (Manual)');
       },
     );
+
+    test(
+      'refreshOnAppResume списує прострочену авто-підписку (фікс гонки на відновленні)',
+      () async {
+        final container = await createContainer();
+
+        final yesterday = DateTime.now().subtract(const Duration(days: 1));
+        final autoSub = subBase.copyWith(
+          id: 'sub_auto_resume',
+          name: 'Cloud (Auto)',
+          nextPaymentDate: yesterday,
+          isAutoPay: true,
+          amount: 150,
+        );
+        await StorageService.saveSubscription(db, autoSub);
+
+        // Читаємо провайдер, але НЕ викликаємо loadSubscriptions вручну —
+        // саме refreshOnAppResume має надійно обробити автосписання.
+        container.read(subscriptionProvider.notifier);
+
+        await container
+            .read(subscriptionProvider.notifier)
+            .refreshOnAppResume();
+
+        final txNotifier =
+            container.read(transactionProvider.notifier)
+                as SpyTransactionNotifier;
+        expect(txNotifier.addedTransactions.length, 1);
+        expect(txNotifier.addedTransactions.first.amount, 150);
+
+        final state = container.read(subscriptionProvider).value!;
+        // Дата посунулась у майбутнє -> платіж більше не прострочений.
+        expect(
+          state.subscriptions.first.nextPaymentDate.isAfter(yesterday),
+          true,
+        );
+        // І авто-підписка не потрапила в діалог ручного підтвердження.
+        expect(state.dueSubscriptions, isEmpty);
+      },
+    );
   });
 
   group('SubscriptionNotifier - User Actions (Skip & Ignore)', () {

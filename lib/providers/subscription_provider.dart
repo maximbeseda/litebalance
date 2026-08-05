@@ -59,6 +59,9 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   StorageService get _storage =>
       StorageService(ref.read(sharedPreferencesProvider));
 
+  // Захист від конкурентних запусків автосписання (щоб не списати двічі).
+  bool _isProcessingAuto = false;
+
   @override
   Future<SubscriptionState> build() async {
     // 👇 ЗАХИСТ ВІД КРЕШУ: Якщо база у цей момент перезаписується — не чіпаємо її файл
@@ -344,13 +347,33 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
   }
 
   Future<void> refreshOnAppResume() async {
+    // Якщо саме йде синхронізація (підміна файлу БД) — почекати її завершення,
+    // інакше build віддає порожній стан і автосписання не спрацює.
+    for (var i = 0;
+        i < 50 && ref.read(syncControllerProvider).isSyncing;
+        i++) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+    // Дочекатись, поки провайдер стане готовим (AsyncData). Раніше метод одразу
+    // викликав processAutoPayments, і той міг тихо вийти на запобіжнику
+    // `state is! AsyncData`, якщо провайдер саме перебудовувався на відновленні
+    // з фону — тоді автосписання відкладалось до наступного відкриття додатка.
+    try {
+      await future;
+    } catch (_) {
+      return;
+    }
     await processAutoPayments();
     _checkDueSubscriptions();
   }
 
   Future<void> processAutoPayments() async {
     if (state is! AsyncData) return;
-    final currentState = state.value!;
+    // Не даємо двом конкурентним викликам списати те саме двічі.
+    if (_isProcessingAuto) return;
+    _isProcessingAuto = true;
+    try {
+      final currentState = state.value!;
 
     final db = ref.read(appDatabaseProvider);
     final catState = ref.read(categoryProvider);
@@ -487,6 +510,9 @@ class SubscriptionNotifier extends _$SubscriptionNotifier {
       ref.read(dbDirtyProvider.notifier).setDirty(true);
 
       _checkDueSubscriptions();
+    }
+    } finally {
+      _isProcessingAuto = false;
     }
   }
 
