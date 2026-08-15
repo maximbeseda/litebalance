@@ -21,6 +21,7 @@ import '../theme/app_colors_extension.dart';
 import '../providers/all_providers.dart';
 import '../utils/icon_helper.dart';
 import '../services/review_service.dart';
+import '../services/trash_cleanup.dart';
 
 // 👇 НОВИЙ ІМПОРТ НАШОЇ СЕКЦІЇ
 import '../widgets/home/category_section.dart';
@@ -71,6 +72,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
         // Якщо додаток провисів у фоні через межу місяця — оновлюємо місяць,
         // щоб суми доходів/витрат обнулилися без повного перезапуску.
         ref.read(transactionProvider.notifier).syncSelectedMonthToCurrent();
+        // Проактивно чистимо прострочені елементи кошика (>30 днів), щоб
+        // лічильник у меню оновлювався без відкриття самого кошика.
+        TrashCleanup.runFor(ref);
       }
     }
   }
@@ -599,6 +603,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                       homeNotifier.toggleEditMode();
                       return;
                     }
+                    // Чистимо прострочений кошик, щоб лічильник у меню був
+                    // актуальним уже в момент відкриття.
+                    TrashCleanup.runFor(ref);
                     _scaffoldKey.currentState?.openEndDrawer();
                   },
                 ),
