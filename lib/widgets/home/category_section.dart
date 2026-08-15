@@ -32,6 +32,12 @@ class CategorySection extends ConsumerStatefulWidget {
   final Future<dynamic> Function(Category category) onEditTap;
   final void Function() onAddTap;
 
+  /// Ключі для навчального туру: підсвічування кнопки «+», першої категорії та
+  /// самої видимої картки блоку (щоб рамка чітко обводила контур без полів).
+  final Key? addButtonKey;
+  final Key? firstItemKey;
+  final Key? cardKey;
+
   const CategorySection({
     super.key,
     required this.categories,
@@ -42,6 +48,9 @@ class CategorySection extends ConsumerStatefulWidget {
     required this.onAddTap,
     this.isTarget = false,
     this.isGrid = false,
+    this.addButtonKey,
+    this.firstItemKey,
+    this.cardKey,
   });
 
   @override
@@ -315,6 +324,7 @@ class _CategorySectionState extends ConsumerState<CategorySection>
 
   Widget _buildAddBtn(HomeScreenState homeState, AppColorsExtension colors) {
     return GestureDetector(
+      key: widget.addButtonKey,
       onTap: () {
         if (homeState.isEditMode) {
           ref.read(homeScreenControllerProvider.notifier).toggleEditMode();
@@ -363,33 +373,45 @@ class _CategorySectionState extends ConsumerState<CategorySection>
       }
     });
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: colors.cardBg,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            spreadRadius: 1,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: LayoutBuilder(
+    return Padding(
+      // Поле винесено в зовнішній Padding, щоб [cardKey] вимірював саме видиму
+      // картку (без полів) — рамка туру обводить точний контур блоку.
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: Container(
+        key: widget.cardKey,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colors.cardBg,
+          borderRadius: BorderRadius.circular(28),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: LayoutBuilder(
         builder: (context, constraints) {
           final int crossAxisCount = (constraints.maxWidth / 80).floor().clamp(
             4,
             8,
           );
-          final items = [
-            ...widget.categories.map(
-              (c) => _buildCoin(c, homeState, colors, draggedCategoryId),
-            ),
-            _buildAddBtn(homeState, colors),
-          ];
+          final coinWidgets = <Widget>[];
+          for (int i = 0; i < widget.categories.length; i++) {
+            Widget coin = _buildCoin(
+              widget.categories[i],
+              homeState,
+              colors,
+              draggedCategoryId,
+            );
+            if (i == 0 && widget.firstItemKey != null) {
+              coin = KeyedSubtree(key: widget.firstItemKey!, child: coin);
+            }
+            coinWidgets.add(coin);
+          }
+          final items = [...coinWidgets, _buildAddBtn(homeState, colors)];
 
           Widget pageView;
           if (!widget.isGrid) {
@@ -501,6 +523,7 @@ class _CategorySectionState extends ConsumerState<CategorySection>
             ],
           );
         },
+        ),
       ),
     );
   }

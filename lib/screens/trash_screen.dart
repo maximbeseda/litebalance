@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../providers/all_providers.dart';
+import '../services/trash_cleanup.dart';
 import '../theme/app_colors_extension.dart';
 import '../widgets/common/app_dialog.dart';
 import '../widgets/common/app_snackbar.dart';
@@ -62,47 +63,10 @@ class _TrashScreenState extends ConsumerState<TrashScreen> {
   }
 
   Future<void> _runAutoCleanup() async {
-    final catState = ref.read(categoryProvider);
-    final txAsync = ref.read(transactionProvider);
-    final txState = txAsync.value;
-
-    // 👇 ВИПРАВЛЕНО: дістаємо значення з AsyncValue
-    final subAsync = ref.read(subscriptionProvider);
-    final subState = subAsync.value;
-
-    final now = DateTime.now();
-    bool needsRefresh = false;
-
-    for (var cat in catState.deletedCategories) {
-      if (cat.deletedAt != null &&
-          now.difference(cat.deletedAt!).inDays >= 30) {
-        await ref.read(categoryProvider.notifier).emptyTrashOrArchive(cat);
-        needsRefresh = true;
-      }
-    }
-
-    if (txState != null) {
-      for (var tx in txState.deletedHistory) {
-        if (tx.deletedAt != null &&
-            now.difference(tx.deletedAt!).inDays >= 30) {
-          await ref.read(transactionProvider.notifier).deletePermanently(tx);
-          needsRefresh = true;
-        }
-      }
-    }
-
-    if (subState != null) {
-      for (var sub in subState.deletedSubscriptions) {
-        if (sub.deletedAt != null &&
-            now.difference(sub.deletedAt!).inDays >= 30) {
-          await ref
-              .read(subscriptionProvider.notifier)
-              .deletePermanently(sub.id);
-          needsRefresh = true;
-        }
-      }
-    }
-
+    // Логіку 30-денної чистки винесено у [TrashCleanup], щоб її можна було
+    // запускати й проактивно (на поверненні з фону / при відкритті меню), а не
+    // лише при відкритті цього екрана.
+    final needsRefresh = await TrashCleanup.runFor(ref);
     if (needsRefresh && mounted) {
       setState(() {});
     }
